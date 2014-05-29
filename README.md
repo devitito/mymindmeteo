@@ -1,0 +1,4 @@
+mymindmeteo
+===========
+
+Your virtual friend
