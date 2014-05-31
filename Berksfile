@@ -1,8 +1,9 @@
-site :opscode
+source "https://api.berkshelf.com"
 
 cookbook 'apt'
-cookbook 'apache'
-cookbook 'zend-server'
+cookbook 'build-essential'
+cookbook 'networking_basic'
+cookbook 'apache2'
 cookbook 'mysql'
-cookbook 'conf'
-cookbook 'postfix'
+cookbook 'zend-server'
+cookbook 'apache' , path: 'resources/cookbooks/apache'
