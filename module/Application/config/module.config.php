@@ -50,6 +50,16 @@ return array(
                     ),
                 ),
             ),
+            'join' => array(
+            		'type' => 'Zend\Mvc\Router\Http\Literal',
+            		'options' => array(
+            				'route'    => '/join',
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Index',
+            						'action'     => 'join',
+            				),
+            		),
+            ),
         ),
     ),
     'service_manager' => array(
