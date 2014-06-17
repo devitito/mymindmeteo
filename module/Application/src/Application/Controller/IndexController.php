@@ -33,6 +33,7 @@ class IndexController extends AbstractActionController
     		 
     		if($form->isValid())
     		{
+    			//@todo http://www.slideshare.net/maraspin/error-handling-in-zf2-form-messages-custom-error-pages-logging
     			// Validate the form
    				return new ViewModel(array('params' => $form->getData()));
    			} 

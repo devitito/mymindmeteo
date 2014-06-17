@@ -32,7 +32,7 @@
   			<p><?php echo sprintf($this->translate('More coming soon!!!')) ?></p>
         </div>
         <div class="col-md-4">
-          <form role="form" action="/join" method="post">
+          <form id="quickRegistrationForm" role="form" action="/join" method="post">
   			<div class="form-group">
     			<input type="text" class="form-control input-lg" name="mindname" placeholder="Your mind">
   			</div>
@@ -48,3 +48,35 @@
       </div>
 	</div>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('#quickRegistrationForm').bootstrapValidator({
+    	feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            mindname: {
+                message: 'The mind name is not valid',
+                validators: {
+                    // The validator will create an Ajax request
+                    // sending { username: 'its value' } to the back-end
+                    remote: {
+                        message: 'The mindname is not available',
+                        url: '/api/validate-mind-name'
+                    },
+        			notEmpty: {
+            			message: 'The mind name is required'
+        			},
+        			stringLength: {
+                        max: 10,
+                        message: 'The mind name must be less than 10 characters'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
