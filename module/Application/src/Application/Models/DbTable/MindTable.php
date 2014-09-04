@@ -66,7 +66,7 @@ class MindTable
 	 * @param array $option
 	 * @return boolean
 	 */
-	public function existMind(array $option)
+	public function existMind(array $options)
 	{
 		$exist = false;
 		

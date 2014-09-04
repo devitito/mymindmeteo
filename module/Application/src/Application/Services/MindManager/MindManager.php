@@ -32,8 +32,7 @@ class MindManager implements ServiceManagerAwareInterface
 	
 	public function isAvailable($options)
 	{
-		return true;
-		/*if (empty($options)) 
+		if (empty($options)) 
 			throw new Exception\InvalidArgumentException('The options parameter must not be empty');
 		else 
 		{
@@ -45,17 +44,17 @@ class MindManager implements ServiceManagerAwareInterface
 			foreach ($options as $key => $value) {
 				switch (strtolower($key)) {
 					case 'id':
-						return $this->getMindTable()->existMind(['id' => $value]);
+						return !$this->getMindTable()->existMind(['id' => $value]);
 						break;
 					case 'name':
-						return $this->getMindTable()->existMind(['name' => $value]);
+						return !$this->getMindTable()->existMind(['name' => $value]);
 						break;
 					case 'email':
-						return $this->getMindTable()->existMind(['email' => $value]);
+						return !$this->getMindTable()->existMind(['email' => $value]);
 						break;
 				}
 			}
-		}*/
+		}
 	}
 	
 	protected function getMindTable()
