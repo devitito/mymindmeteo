@@ -4,6 +4,7 @@ driver:
   network:
   - ["forwarded_port", {guest: 80, host: 8080}]
   - ["forwarded_port", {guest: 10081, host: 8081}]
+  - ["forwarded_port", {guest: 3306, host: 8006}]
   synced_folders:
   - [".", "/vagrant"]
 
@@ -20,14 +21,9 @@ suites:
     - recipe[apt]
     - recipe[build-essential]
     - recipe[networking_basic]
-    - recipe[apache2]
-    - recipe[apache]
-    - recipe[apache2::mod_php5]
-    - recipe[apache2::mod_rewrite]
-    - recipe[apache2::mod_deflate]
-    - recipe[apache2::mod_headers]
     - recipe[zend-server]
+    - recipe[apache]
+    - recipe[mymeteodb]
     attributes: 
-     php: 5.4
-
-      
+     zend-server:
+       php_version: 5.4
