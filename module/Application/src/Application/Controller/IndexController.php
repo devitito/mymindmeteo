@@ -11,6 +11,8 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Entity\Mind;
+use Application\Services\MindManager;
 
 class IndexController extends AbstractActionController
 {
@@ -26,7 +28,14 @@ class IndexController extends AbstractActionController
     	if($request->isPost())
     	{
     		$form = new \Application\Forms\RegistrationForm();
-    		$mind = new \Application\Entity\Mind();
+    		
+    		$data = [ 
+				'name' => $_POST['mindname'],
+				'email' => $_POST['mindmail'],
+				'password' => $_POST['mindpass'],
+				'id' => null ];
+		
+			$mind = new Mind($data);
     		
     		$form->setInputFilter($mind->getInputFilter());
     		$form->setData($request->getPost());
@@ -35,7 +44,11 @@ class IndexController extends AbstractActionController
     		{
     			//@todo http://www.slideshare.net/maraspin/error-handling-in-zf2-form-messages-custom-error-pages-logging
     			// Validate the form
+    			//todo handle save exception
+    			$mindManager = $this->getServiceLocator()->get('mind-manager');  		
+    			$mindManager->save($mind);	
    				return new ViewModel(array('params' => $form->getData()));
+   				
    			} 
    			else 
    			{

@@ -20,6 +20,16 @@ return array(
             				),
             		),
             ),
+        	'validate-mind-email' => array(
+        			'type' => 'Zend\Mvc\Router\Http\Literal',
+        			'options' => array(
+        					'route'    => '/api/validate-mind-email',
+        					'defaults' => array(
+        							'controller' => 'api\validate',
+        							'action'     => 'mindEmail',
+        					),
+        			),
+        	),
         ),
     ),
     'service_manager' => array(),

@@ -70,6 +70,9 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'invokables' => array(
+        	'mind-manager' => 'Application\Services\MindManager\MindManager',
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',

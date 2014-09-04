@@ -75,7 +75,39 @@ $(document).ready(function() {
                         message: 'The mind name must be less than 10 characters'
                     }
                 }
-            }
+            },
+	        mindmail: {
+	            message: 'The mind email is not valid',
+	            validators: {
+	                // The validator will create an Ajax request
+	                // sending { username: 'its value' } to the back-end
+	                remote: {
+	                    message: 'The mind email is already used by another mind',
+	                    url: '/api/validate-mind-email'
+	                },
+	                emailAddress: {
+                        message: 'The value is not a valid email address'
+	                },
+	    			notEmpty: {
+	        			message: 'The mind email is required'
+	    			}
+	            }
+	        },
+	        mindpass: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required and cannot be empty'
+                    },
+                    different: {
+                        field: 'mindname',
+                        message: 'The password cannot be the same as mindname'
+                    },
+                    stringLength: {
+                        min: 8,
+                        message: 'The password must have at least 8 characters'
+                    }
+                }
+            },
         }
     });
 });

@@ -11,6 +11,11 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Application\Models\Mind;
+use Application\Models\DbTable\MindTable;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+
 
 class Module
 {
@@ -36,4 +41,24 @@ class Module
             ),
         );
     }
+    
+    public function getServiceConfig()
+    {
+    	return array(
+    		'factories' => array(
+    			'Application\Models\DbTable\MindTable' =>  function($sm) {
+    				$tableGateway = $sm->get('MindTableGateway');
+    				$table = new MindTable($tableGateway);
+    				return $table;
+    			},
+    			'MindTableGateway' => function ($sm) {
+    				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+    				$resultSetPrototype = new ResultSet();
+    				$resultSetPrototype->setArrayObjectPrototype(new Mind());
+    				return new TableGateway('minds', $dbAdapter, null, $resultSetPrototype);
+    			},
+    		),
+    	);
+    }
+    
 }
