@@ -1,0 +1,10 @@
+name             'mymeteodb'
+maintainer       'devitito'
+maintainer_email 'devitito@github.com'
+license          'All rights reserved'
+description      'Installs/Configures mymeteodb'
+long_description 'Installs/Configures mymeteodb'
+version          '0.1.0'
+
+depends 'mysql' , '~> 5.4.4'
+depends 'database', '~> 2.3.0'
