@@ -60,6 +60,26 @@ return array(
             				),
             		),
             ),
+            'login' => array(
+            		'type' => 'Zend\Mvc\Router\Http\Literal',
+            		'options' => array(
+            				'route'    => '/login',
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Index',
+            						'action'     => 'login',
+            				),
+            		),
+            ),
+            'dashboard' => array(
+            		'type' => 'Zend\Mvc\Router\Http\Literal',
+            		'options' => array(
+            				'route'    => '/dashboard',
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Index',
+            						'action'     => 'dashboard',
+            				),
+            		),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -72,6 +92,7 @@ return array(
         ),
         'invokables' => array(
         	'mind-manager' => 'Application\Services\MindManager\MindManager',
+        	'entity.mind'  => 'Application\Entity\Mind'
         ),
     ),
     'translator' => array(

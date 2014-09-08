@@ -35,7 +35,7 @@ class MindTable
 	public function saveMind(Mind $mind)
 	{
 		$bcrypt = new Bcrypt();
-		
+
 		$data = array(
 			'name' => $mind->name,
 			'email'  => $mind->email,

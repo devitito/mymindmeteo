@@ -7,6 +7,7 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Application\Entity\Mind;
 use Application\Models\DbTable\MindTable;
 
+
 class MindManager implements ServiceManagerAwareInterface
 {
 	/**
@@ -26,20 +27,20 @@ class MindManager implements ServiceManagerAwareInterface
 	{
 		$mindModel = new \Application\Models\Mind;
 		$mindModel->exchangeArray($mind->toArray());
-		
+
 		$this->getMindTable()->saveMind($mindModel);
 	}
 	
 	public function isAvailable($options)
 	{
 		if (empty($options)) 
-			throw new Exception\InvalidArgumentException('The options parameter must not be empty');
+			throw new \InvalidArgumentException('The options parameter must not be empty');
 		else 
 		{
 			if ($options instanceof Traversable) {
 				$options = ArrayUtils::iteratorToArray($options);
 			} elseif (!is_array($options)) {
-				throw new Exception\InvalidArgumentException('The options parameter must be an array or a Traversable');
+				throw new \InvalidArgumentException('The options parameter must be an array or a Traversable');
 			}
 			foreach ($options as $key => $value) {
 				switch (strtolower($key)) {

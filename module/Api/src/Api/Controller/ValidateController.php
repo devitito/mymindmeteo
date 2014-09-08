@@ -4,26 +4,37 @@ namespace Api\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
+use Zend\View\Model\ViewModel;
 use Application\Entity\Mind;
 
 class ValidateController extends AbstractActionController
 {
 	public function mindNameAction()
 	{
-		$mindManager = $this->getServiceLocator()->get('mind-manager');
-		$isAvailable = $mindManager->isAvailable(['name' => $_POST['mindname']]);
+		try {
+			$mindManager = $this->getServiceLocator()->get('mind-manager');
+			$isAvailable = $mindManager->isAvailable(['name' => $_POST['mindname']]);
+			$variables = array( 'valid' => $isAvailable);
+		}
+		catch (\Exception $e) {
+			$variables = array( 'valid' => 'false', 'message' => 'Sorry, we can\'t check the avaibility of your mind name right now. Try again later.');
+		}
 		
-		$variables = array( 'valid' => $isAvailable);
 		$json = new JsonModel( $variables );
 		return $json;
 	}
 	
 	public function mindEmailAction()
 	{
-		$mindManager = $this->getServiceLocator()->get('mind-manager');
-		$isAvailable = $mindManager->isAvailable(['email' => $_POST['mindmail']]);
-	
-		$variables = array( 'valid' => $isAvailable);
+		try {
+			$mindManager = $this->getServiceLocator()->get('mind-manager');
+			$isAvailable = $mindManager->isAvailable(['email' => $_POST['mindmail']]);
+			$variables = array( 'valid' => $isAvailable);
+		}
+		catch (\Exception $e) {
+			$variables = array( 'valid' => 'false', 'message' => 'Sorry, we can\'t check the avaibility of your email right now. Try again later.');
+		}
+		
 		$json = new JsonModel( $variables );
 		return $json;
 	}

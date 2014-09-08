@@ -13,6 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Entity\Mind;
 use Application\Services\MindManager;
+use Application\Exception;
 
 class IndexController extends AbstractActionController
 {
@@ -43,26 +44,69 @@ class IndexController extends AbstractActionController
     		if($form->isValid())
     		{
     			//@todo http://www.slideshare.net/maraspin/error-handling-in-zf2-form-messages-custom-error-pages-logging
-    			// Validate the form
-    			//todo handle save exception
-    			$mindManager = $this->getServiceLocator()->get('mind-manager');  		
-    			$mindManager->save($mind);	
+   				$mindManager = $this->getServiceLocator()->get('mind-manager');  		
+   				$mindManager->save($mind);	
    				return new ViewModel(array('params' => $form->getData()));
-   				
    			} 
    			else 
    			{
    				$messages = implode(",", $form->getMessages());
-   				$viewModel = new ViewModel(['message' => $messages]);
-   				$viewModel->setTemplate('error/index');
-   				return $viewModel;
+   				throw new Exception($messages);
     		}
     	}
     	else
     	{ 
-    		$viewModel = new ViewModel(['message' => 'internal error']);
-    		$viewModel->setTemplate('error/index');
-    		return $viewModel;
+    		throw new Exception('internal error');
     	}	
+    }
+    
+    public function loginAction()
+    {
+    	$formManager = $this->getServiceLocator()->get('FormElementManager');
+    	$form = $formManager->get('login');
+    	
+    	$data = $this->prg();
+    	
+    	if ($data instanceof Response) {
+    		return $data;
+    	}
+    	
+    	$error = false;
+    	
+    	if ($data !== false) {
+    		// handle form
+    		$mind = $this->getServiceLocator()->get('entity.mind');
+    		$form->bind($mind);
+    		
+    		/* @var $form \Zend\Form\Form */	
+    		try {
+    			$form->setData($data);
+    		
+    			if ($form->isValid()) {
+    		
+    				// attempt user authentication
+    				return $this->redirect()->toRoute('dashboard');
+    				//$this->flashMessenger()->addInfoMessage('You attempted to login as ' . $form->getElements()['login']->getValue());
+    				//var_dump($form->getData());
+    			}
+    		
+    		} catch (\Exception $e) {
+    			// TODO add error to form errors
+    			$this->flashMessenger()->addErrorMessage($e->getMessage());
+    			$error = $e->getMessage();
+    			// return $this->redirect()->toRoute('application/login');
+    			
+    		}
+    		
+    	}
+    	return array(
+    			'error' => $error,
+    			'form' => $form
+    	);
+    }
+    
+    public function dashboardAction()
+    {
+    	return new ViewModel();
     }
 }
