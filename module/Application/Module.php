@@ -15,17 +15,27 @@ use Application\Models\Mind;
 use Application\Models\DbTable\MindTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\ModuleManager\Feature;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 
-class Module
+class Module implements Feature\FormElementProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        
+        $sm  = $e->getApplication()->getServiceManager();
+        $config = $sm->get('Config');
+        if (!$config['exceptions']['show'])
+        {
+        	$exceptionstrategy = $sm->get('ViewManager')->getExceptionStrategy();
+        	$exceptionstrategy->setExceptionTemplate('error/prod');
+        }
     }
-
+    
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
@@ -59,6 +69,27 @@ class Module
     			},
     		),
     	);
+    } 
+
+    /**
+     * Expected to return \Zend\ServiceManager\Config object or array to
+     * seed such an object.
+     *
+     * @return array|\Zend\ServiceManager\Config
+     */
+    public function getFormElementConfig()
+    {
+    	return
+    	array(
+    		'factories' =>
+    			array (
+    				'login' => function($sm) {
+    					$form = new \Application\Forms\Login;
+    					$form->setInputFilter(new \Application\InputFilters\Login);
+    					$form->setHydrator(new ClassMethods());
+    					return $form;
+    				}
+    		)
+    	);
     }
-    
 }

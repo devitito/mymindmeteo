@@ -14,6 +14,7 @@ use Zend\View\Model\ViewModel;
 use Application\Entity\Mind;
 use Application\Services\MindManager;
 use Application\Exception;
+use Zend\Http\PhpEnvironment\Response;
 
 class IndexController extends AbstractActionController
 {
@@ -28,8 +29,6 @@ class IndexController extends AbstractActionController
 
     	if($request->isPost())
     	{
-    		$form = new \Application\Forms\RegistrationForm();
-    		
     		$data = [ 
 				'name' => $_POST['mindname'],
 				'email' => $_POST['mindmail'],
@@ -37,22 +36,10 @@ class IndexController extends AbstractActionController
 				'id' => null ];
 		
 			$mind = new Mind($data);
-    		
-    		$form->setInputFilter($mind->getInputFilter());
-    		$form->setData($request->getPost());
-    		 
-    		if($form->isValid())
-    		{
-    			//@todo http://www.slideshare.net/maraspin/error-handling-in-zf2-form-messages-custom-error-pages-logging
-   				$mindManager = $this->getServiceLocator()->get('mind-manager');  		
-   				$mindManager->save($mind);	
-   				return new ViewModel(array('params' => $form->getData()));
-   			} 
-   			else 
-   			{
-   				$messages = implode(",", $form->getMessages());
-   				throw new Exception($messages);
-    		}
+			//TODO registration form validation
+			$mindManager = $this->getServiceLocator()->get('mind-manager');  		
+			$mindManager->save($mind);	
+			return new ViewModel(array('params' => $data));
     	}
     	else
     	{ 
@@ -83,25 +70,18 @@ class IndexController extends AbstractActionController
     			$form->setData($data);
     		
     			if ($form->isValid()) {
-    		
-    				// attempt user authentication
+    				//@todo attempt user authentication
     				return $this->redirect()->toRoute('dashboard');
-    				//$this->flashMessenger()->addInfoMessage('You attempted to login as ' . $form->getElements()['login']->getValue());
-    				//var_dump($form->getData());
     			}
-    		
     		} catch (\Exception $e) {
-    			// TODO add error to form errors
     			$this->flashMessenger()->addErrorMessage($e->getMessage());
     			$error = $e->getMessage();
-    			// return $this->redirect()->toRoute('application/login');
-    			
     		}
-    		
     	}
+    	
     	return array(
-    			'error' => $error,
-    			'form' => $form
+   			'error' => $error,
+   			'form' => $form
     	);
     }
     

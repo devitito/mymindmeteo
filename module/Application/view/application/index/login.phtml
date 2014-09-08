@@ -1,0 +1,33 @@
+<h1><?php echo $this->escapeHtml('Sign in') ?></h1>
+<div class="jumbotron">
+    
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+      	<div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <form id="loginForm" role="form" action="/login" method="post">
+<?php
+
+$this->formElementErrors()
+	->setMessageOpenFormat('<div class="alert">')
+	->setMessageSeparatorString('')
+	->setMessageCloseString('</div>');
+
+foreach ($form as $element) {
+    if ($element->getOption('label')) echo $this->formLabel($element);
+    echo '<div class="form-group">';
+	echo $this->formElement($element);
+	echo '</div>';
+    echo $this->formElementErrors($element);
+}
+
+echo $this->form()->closeTag(); // </form>
+
+?>
+<div class="col-md-4"></div>
+</div>
+</div>
+</div>
+</div>
