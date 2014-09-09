@@ -26,6 +26,37 @@ class IndexController extends AbstractActionController
     
     public function joinAction()
     {
+    /*	TODO partial view
+     * $formManager = $this->getServiceLocator()->get('FormElementManager');
+    	$form = $formManager->get('quickRegistration');
+    	
+    	$data = $this->prg();
+    	 
+    	if ($data instanceof Response) {
+    		return $data;
+    	}
+    	 
+    	$error = false;
+    	if ($data !== false) {
+    		// handle form
+    		$mind = $this->getServiceLocator()->get('entity.mind');
+    		$form->bind($mind);
+    		$form->setData($data);
+    	
+    	//	if ($form->isValid()) {
+    			//attempt user authentication
+    			$mindManager = $this->getServiceLocator()->get('mind-manager');  
+    			$mind = new Mind($data);
+				$mindManager->save($mind);	
+				return $this->redirect()->toRoute('dashboard');
+    	//	}
+    	}
+    	 
+    	return array(
+    			'error' => $error,
+    			'form' => $form
+    	);*/
+    	
     	$request = $this->getRequest();
 
     	if($request->isPost())
@@ -40,7 +71,7 @@ class IndexController extends AbstractActionController
 			//TODO registration form validation
 			$mindManager = $this->getServiceLocator()->get('mind-manager');  		
 			$mindManager->save($mind);	
-			return new ViewModel(array('params' => $data));
+			return $this->redirect()->toRoute('dashboard');
     	}
     	else
     	{ 
@@ -60,8 +91,6 @@ class IndexController extends AbstractActionController
     		return $data;
     	}
     	
-    	$error = false;
-    	
     	if ($data !== false) {
     		// handle form
     		$mind = $this->getServiceLocator()->get('entity.mind');
@@ -75,15 +104,20 @@ class IndexController extends AbstractActionController
    					return $this->redirect()->toRoute('dashboard');
    				}
    				else {
-   					$error = 'Invalid mind or password';
+   					$this->flashMessenger()->addErrorMessage('Invalid mind or password');
+   				}
+   			}
+   			else {
+   				foreach ($form as $elements) {
+   					$messages = $elements->getMessages();
+   					foreach ($messages as $message) {
+   						$this->flashMessenger()->addErrorMessage('<b>'.$elements->getLabel() . '</b> : ' .$message);
+   					}
    				}
    			}
     	}
     	
-    	return array(
-   			'error' => $error,
-   			'form' => $form
-    	);
+    	return ['form' => $form];
     }
     
     public function dashboardAction()

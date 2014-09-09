@@ -2,16 +2,27 @@
 <div class="jumbotron">
     
     <div class="container">
-      <!-- Example row of columns -->
+<?php 
+  if ($this->flashmessenger()->hasCurrentErrorMessages()) {
+	$messages = $this->flashmessenger()->getCurrentErrorMessages();
+  	foreach ($messages as $message)
+  	{
+  		echo  '<div class="alert alert-danger" role="alert">';
+		echo $message;
+    	echo '</div>';
+  	}
+  	$this->flashmessenger()->clearCurrentMessages();
+  }
+?>      
       <div class="row">
       	<div class="col-md-4">
         </div>
         <div class="col-md-4">
-          <form id="loginForm" role="form" action="/login" method="post">
 <?php
 
+echo $this->form()->openTag($form);
 $this->formElementErrors()
-	->setMessageOpenFormat('<div class="alert">')
+	->setMessageOpenFormat('<div class="alert alert-danger">')
 	->setMessageSeparatorString('')
 	->setMessageCloseString('</div>');
 
@@ -20,7 +31,7 @@ foreach ($form as $element) {
     echo '<div class="form-group">';
 	echo $this->formElement($element);
 	echo '</div>';
-    echo $this->formElementErrors($element);
+    //echo $this->formElementErrors($element);
 }
 
 echo $this->form()->closeTag(); // </form>

@@ -9,6 +9,8 @@ class Login extends Form
     public function init()
     {
     	$this->setAttribute('method', 'post');
+    	$this->setAttribute('accept-charset', 'UTF-8');
+    	$this->setAttribute('action', 'login');
     	
         $this->add(
             array(

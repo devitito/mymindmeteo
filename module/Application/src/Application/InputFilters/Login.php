@@ -19,17 +19,35 @@ class Login extends InputFilter
         				'options' => array(
         					'min' => 1,
         					'max' => 32,
+        					'encoding' => 'UTF-8'
         			)
         		)
-        	)
+        	),
+        	'filters'  => array(
+        		array('name' => 'StripTags'),
+        		array('name' => 'StringTrim'),
+        	),
         ));
         
         $this->add(
             array(
                 'name' => 'password',
-                'required' => true
-                )
-            );
+                'required' => true,
+            	/*'validators' => array(
+        			array(
+        				'name' => 'StringLength',
+        				'options' => array(
+        					'min' => 8,
+        					'max' => 32,
+        					'encoding' => 'UTF-8'
+        				)
+                	)
+            	),*/
+            	'filters'  => array(
+            		array('name' => 'StripTags'),
+            		array('name' => 'StringTrim'),
+            	),
+            ));
     }
 
 }
