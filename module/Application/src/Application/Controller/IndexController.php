@@ -13,6 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Entity\Mind;
 use Application\Services\MindManager;
+use Application\Services\LoginManager;
 use Application\Exception;
 use Zend\Http\PhpEnvironment\Response;
 
@@ -50,6 +51,7 @@ class IndexController extends AbstractActionController
     public function loginAction()
     {
     	$formManager = $this->getServiceLocator()->get('FormElementManager');
+    	/* @var $form \Zend\Form\Form */
     	$form = $formManager->get('login');
     	
     	$data = $this->prg();
@@ -64,19 +66,18 @@ class IndexController extends AbstractActionController
     		// handle form
     		$mind = $this->getServiceLocator()->get('entity.mind');
     		$form->bind($mind);
+   			$form->setData($data);
     		
-    		/* @var $form \Zend\Form\Form */	
-    		try {
-    			$form->setData($data);
-    		
-    			if ($form->isValid()) {
-    				//@todo attempt user authentication
-    				return $this->redirect()->toRoute('dashboard');
-    			}
-    		} catch (\Exception $e) {
-    			$this->flashMessenger()->addErrorMessage($e->getMessage());
-    			$error = $e->getMessage();
-    		}
+   			if ($form->isValid()) {
+   				//attempt user authentication
+   				$loginManager = $this->getServiceLocator()->get('login-manager');
+   				if ($loginManager->checkCredentials($data)) {
+   					return $this->redirect()->toRoute('dashboard');
+   				}
+   				else {
+   					$error = 'Invalid mind or password';
+   				}
+   			}
     	}
     	
     	return array(

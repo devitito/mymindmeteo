@@ -5,6 +5,7 @@ namespace Application\Models\DbTable;
 use Zend\Db\TableGateway\TableGateway;
 use Application\Models\Mind;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Db\Sql\Where;
 
 class MindTable
 {
@@ -29,6 +30,20 @@ class MindTable
 		if (!$row) {
 			throw new \Exception("Could not find row $id");
 		}
+		return $row;
+	}
+	
+	public function getMindByNameoremail($nameoremail)
+	{
+		$nameoremail  = (string) $nameoremail;
+		
+		$where = new Where();
+		$where->equalTo('name', $nameoremail)
+			->or
+			->equalTo('email', $nameoremail);
+		
+		$rowset = $this->tableGateway->select($where);
+		$row = $rowset->current();
 		return $row;
 	}
 

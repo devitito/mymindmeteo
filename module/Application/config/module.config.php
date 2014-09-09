@@ -92,6 +92,7 @@ return array(
         ),
         'invokables' => array(
         	'mind-manager' => 'Application\Services\MindManager\MindManager',
+        	'login-manager' => 'Application\Services\LoginManager\LoginManager',
         	'entity.mind'  => 'Application\Entity\Mind'
         ),
     ),

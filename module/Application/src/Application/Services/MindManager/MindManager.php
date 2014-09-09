@@ -58,7 +58,7 @@ class MindManager implements ServiceManagerAwareInterface
 		}
 	}
 	
-	protected function getMindTable()
+	public function getMindTable()
 	{
 		if (! $this->mindTable) {
 			$this->mindTable = $this->getServiceManager()->get( 'Application\Models\DbTable\MindTable' );
