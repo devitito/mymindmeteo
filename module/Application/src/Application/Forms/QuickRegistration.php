@@ -4,26 +4,41 @@ namespace Application\Forms;
 
 use Zend\Form\Form;
 
-class Login extends Form
+class QuickRegistration extends Form
 {
     public function init()
     {
     	$this->setAttribute('method', 'post');
     	$this->setAttribute('accept-charset', 'UTF-8');
-    	$this->setAttribute('action', 'login');
+    	$this->setAttribute('action', 'join');
+    	$this->setAttribute('id', 'quickRegistrationForm');
     	
         $this->add(
             array(
-                'name' => 'nameoremail',
+                'name' => 'name',
                 'attributes' => array(
                     'type' => 'text',
                     'class' => 'form-control input-lg',
-                 //   'placeholder' => 'Enter your login or email address'
+                    'placeholder' => 'Your mind'
                 ),
                 'options' => array(
-                    'label' => 'Mind or email address'
+                    'label' => 'Mind name'
                 )
             )
+        );
+        
+        $this->add(
+        	array(
+        		'name' => 'email',
+        		'attributes' => array(
+        			'type' => 'email',
+        			'class' => 'form-control input-lg',
+        			'placeholder' => 'Your email'
+        		),
+        		'options' => array(
+        			'label' => 'Email'
+        		)
+        	)
         );
 
         $this->add(
@@ -32,7 +47,7 @@ class Login extends Form
                 'attributes' => array(
                     'type' => 'password',
                     'class' => 'form-control input-lg',
-                   // 'placeholder' => 'Enter your password'
+                    'placeholder' => 'Password'
                 ),
                 'options' => array(
                     'label' => 'Password'
@@ -42,11 +57,14 @@ class Login extends Form
 
         $this->add(
             array(
-                'name' => 'submitlogin',
+                'name' => 'submiquickreg',
+            	'type' => 'Button',
+            	'options' => array(
+            		'label'   => 'Register your mind',
+            	),
                 'attributes' => array(
                 	'class' => 'btn btn-success btn-lg btn-block',
                     'type' => 'submit',
-                    'value' => 'Sign In'
                 )
             )
         );

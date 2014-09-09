@@ -20,14 +20,15 @@ class Login extends InputFilter
         					'min' => 1,
         					'max' => 32,
         					'encoding' => 'UTF-8'
+        				)
         			)
-        		)
-        	),
-        	'filters'  => array(
-        		array('name' => 'StripTags'),
-        		array('name' => 'StringTrim'),
-        	),
-        ));
+        		),
+        		'filters'  => array(
+        			array('name' => 'StripTags'),
+        			array('name' => 'StringTrim'),
+        		),
+        	)
+        );
         
         $this->add(
             array(

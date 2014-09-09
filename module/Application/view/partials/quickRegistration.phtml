@@ -1,0 +1,11 @@
+<?php 
+echo $this->form()->openTag($this->form);
+
+foreach ($form as $element) {
+    echo '<div class="form-group">
+    		' . $this->formElement($element) . '
+    	 </div>';
+    //echo $this->formElementErrors($element);
+}
+
+echo $this->form()->closeTag();

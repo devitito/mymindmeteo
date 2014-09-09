@@ -88,6 +88,12 @@ class Module implements Feature\FormElementProviderInterface
     					$form->setInputFilter(new \Application\InputFilters\Login);
     					$form->setHydrator(new ClassMethods());
     					return $form;
+    				},
+    				'quickRegistration' => function($sm) {
+    					$form = new \Application\Forms\QuickRegistration;
+    					$form->setInputFilter(new \Application\InputFilters\QuickRegistration);
+    					$form->setHydrator(new ClassMethods());
+    					return $form;
     				}
     		)
     	);

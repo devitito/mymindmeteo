@@ -21,13 +21,15 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+    	$formManager = $this->getServiceLocator()->get('FormElementManager');
+    	$form = $formManager->get('quickRegistration');
+    	
+        return ['form' => $form];
     }
     
     public function joinAction()
     {
-    /*	TODO partial view
-     * $formManager = $this->getServiceLocator()->get('FormElementManager');
+     	$formManager = $this->getServiceLocator()->get('FormElementManager');
     	$form = $formManager->get('quickRegistration');
     	
     	$data = $this->prg();
@@ -36,47 +38,21 @@ class IndexController extends AbstractActionController
     		return $data;
     	}
     	 
-    	$error = false;
     	if ($data !== false) {
     		// handle form
     		$mind = $this->getServiceLocator()->get('entity.mind');
     		$form->bind($mind);
     		$form->setData($data);
     	
+    		//TODO quickreg form validation
     	//	if ($form->isValid()) {
-    			//attempt user authentication
+    			//register new mind
     			$mindManager = $this->getServiceLocator()->get('mind-manager');  
     			$mind = new Mind($data);
 				$mindManager->save($mind);	
 				return $this->redirect()->toRoute('dashboard');
     	//	}
     	}
-    	 
-    	return array(
-    			'error' => $error,
-    			'form' => $form
-    	);*/
-    	
-    	$request = $this->getRequest();
-
-    	if($request->isPost())
-    	{
-    		$data = [ 
-				'name' => $_POST['mindname'],
-				'email' => $_POST['mindmail'],
-				'password' => $_POST['mindpass'],
-				'id' => null ];
-		
-			$mind = new Mind($data);
-			//TODO registration form validation
-			$mindManager = $this->getServiceLocator()->get('mind-manager');  		
-			$mindManager->save($mind);	
-			return $this->redirect()->toRoute('dashboard');
-    	}
-    	else
-    	{ 
-    		throw new Exception('internal error');
-    	}	
     }
     
     public function loginAction()

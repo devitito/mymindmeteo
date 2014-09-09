@@ -9,7 +9,7 @@
           </button>
         </div>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" action="/login" method="post">
+          <form class="navbar-form navbar-right" action="/login" method="post" accept-charset="UTF-8">
             <div class="form-group">
               <input type="text" placeholder="Mind or Email" class="form-control" name="nameoremail">
             </div>
@@ -32,18 +32,7 @@
   			<p><?php echo sprintf($this->translate('More coming soon!!!')) ?></p>
         </div>
         <div class="col-md-4">
-          <form id="quickRegistrationForm" action="/join" method="post">
-  			<div class="form-group">
-    			<input type="text" class="form-control input-lg" name="mindname" placeholder="Your mind">
-  			</div>
-  			<div class="form-group">
-    			<input type="email" class="form-control input-lg" name="mindmail" placeholder="Your email">
-  			</div>
-  			<div class="form-group">
-    			<input type="password" class="form-control input-lg" name="mindpass" placeholder="Password">
-  			</div>
-        	<button type="submit" class="btn btn-success btn-lg btn-block">Register your mind</button>
-        </form>	
+        <?php echo $this->partial('partials/quickRegistration', ['form' => $form]); ?>
         </div>
       </div>
 	</div>
@@ -58,7 +47,7 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            mindname: {
+            name: {
                 message: 'The mind name is not valid',
                 validators: {
                     // The validator will create an Ajax request
@@ -73,10 +62,14 @@ $(document).ready(function() {
         			stringLength: {
                         max: 10,
                         message: 'The mind name must be less than 10 characters'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9-]+$/i,
+                        message: 'The mind name can consist of alphanumerical characters and dash only'
                     }
                 }
             },
-	        mindmail: {
+	        email: {
 	            message: 'The mind email is not valid',
 	            validators: {
 	                // The validator will create an Ajax request
@@ -93,13 +86,13 @@ $(document).ready(function() {
 	    			}
 	            }
 	        },
-	        mindpass: {
+	        password: {
                 validators: {
                     notEmpty: {
                         message: 'The password is required and cannot be empty'
                     },
                     different: {
-                        field: 'mindname',
+                        field: 'name',
                         message: 'The password cannot be the same as mindname'
                     },
                     stringLength: {
