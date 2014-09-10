@@ -1,3 +1,14 @@
+<!-- Le styles -->
+ <?php echo $this->headLink()
+ 				->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
+ ?>
+
+<!-- Scripts -->
+<?php echo $this->headScript()
+        		->prependFile($this->basePath() . '/btvalidator/dist/js/bootstrapValidator.min.js')
+        		->prependFile($this->basePath() . '/js/formsValidator.js');
+?>
+
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -83,7 +94,11 @@ $(document).ready(function() {
 	                },
 	    			notEmpty: {
 	        			message: 'The mind email is required'
-	    			}
+	    			},	
+	                stringLength: {
+                        max: 32,
+                        message: 'The email address cannot be more than 32 characters'
+                    }
 	            }
 	        },
 	        password: {
@@ -97,7 +112,8 @@ $(document).ready(function() {
                     },
                     stringLength: {
                         min: 8,
-                        message: 'The password must have at least 8 characters'
+                        max: 12,
+                        message: 'The password must have at least 8 characters and max 12 characters'
                     }
                 }
             },

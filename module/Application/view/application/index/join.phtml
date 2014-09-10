@@ -1,1 +1,50 @@
-welcome <?php echo $this->escapeHtml($params['name']);?> 
+<!-- Le styles -->
+ <?php echo $this->headLink()
+ 				->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
+ ?>
+
+<!-- Scripts -->
+<?php echo $this->headScript()
+        		->prependFile($this->basePath() . '/btvalidator/dist/js/bootstrapValidator.min.js')
+        		->prependFile($this->basePath() . '/js/formsValidator.js')
+?>
+
+<h1><?php echo $this->escapeHtml('Join in') ?></h1>
+<div class="jumbotron">
+    
+    <div class="container">
+<?php 
+  if ($this->flashmessenger()->hasCurrentErrorMessages()) {
+	$messages = $this->flashmessenger()->getCurrentErrorMessages();
+  	foreach ($messages as $message)
+  	{
+  		echo  '<div class="alert alert-danger" role="alert">';
+		echo $message;
+    	echo '</div>';
+  	}
+  	$this->flashmessenger()->clearCurrentMessages();
+  }
+?>      
+      <div class="row">
+      	<div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+<?php
+
+echo $this->form()->openTag($form);
+
+foreach ($form as $element) {
+    if (($element->getOption('label')) && ($element->getName() != 'submiquickreg')) echo $this->formLabel($element);
+    echo '<div class="form-group">';
+	echo $this->formElement($element);
+	echo '</div>';
+}
+
+echo $this->form()->closeTag();
+
+?>
+<div class="col-md-4"></div>
+</div>
+</div>
+</div>
+</div>

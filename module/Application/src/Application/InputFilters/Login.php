@@ -14,12 +14,18 @@ class Login extends InputFilter
         		'name' => 'nameoremail',
         		'required' => true,
         		'validators' => array(
-        			array(
+        			/*array(
         				'name' => 'StringLength',
         				'options' => array(
         					'min' => 1,
         					'max' => 32,
         					'encoding' => 'UTF-8'
+        				)
+        			),*/
+        			array(
+        				'name' => 'NotEmpty',
+        				'options' => array(
+        					'type' => \Zend\Validator\NotEmpty::STRING
         				)
         			)
         		),
@@ -34,16 +40,14 @@ class Login extends InputFilter
             array(
                 'name' => 'password',
                 'required' => true,
-            	/*'validators' => array(
+            	'validators' => array(
         			array(
-        				'name' => 'StringLength',
+        				'name' => 'NotEmpty',
         				'options' => array(
-        					'min' => 8,
-        					'max' => 32,
-        					'encoding' => 'UTF-8'
+        					'type' => \Zend\Validator\NotEmpty::STRING
         				)
                 	)
-            	),*/
+            	),
             	'filters'  => array(
             		array('name' => 'StripTags'),
             		array('name' => 'StringTrim'),

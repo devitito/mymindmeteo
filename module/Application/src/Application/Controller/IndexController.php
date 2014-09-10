@@ -44,15 +44,24 @@ class IndexController extends AbstractActionController
     		$form->bind($mind);
     		$form->setData($data);
     	
-    		//TODO quickreg form validation
-    	//	if ($form->isValid()) {
+    		if ($form->isValid()) {
     			//register new mind
     			$mindManager = $this->getServiceLocator()->get('mind-manager');  
     			$mind = new Mind($data);
 				$mindManager->save($mind);	
 				return $this->redirect()->toRoute('dashboard');
-    	//	}
+    		}
+    		else {
+    			foreach ($form as $elements) {
+    				$messages = $elements->getMessages();
+    				foreach ($messages as $message) {
+    					$this->flashMessenger()->addErrorMessage('<b>'.$elements->getLabel() . '</b> : ' .$message);
+    				}
+    			}
+    		}
     	}
+    	
+    	return ['form' => $form];
     }
     
     public function loginAction()

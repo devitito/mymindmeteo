@@ -1,3 +1,14 @@
+<!-- Le styles -->
+ <?php echo $this->headLink()
+ 				->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
+ ?>
+
+<!-- Scripts -->
+<?php echo $this->headScript()
+        		->prependFile($this->basePath() . '/btvalidator/dist/js/bootstrapValidator.min.js')
+        		->prependFile($this->basePath() . '/js/formsValidator.js')
+?>
+
 <h1><?php echo $this->escapeHtml('Sign in') ?></h1>
 <div class="jumbotron">
     

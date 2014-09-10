@@ -91,7 +91,8 @@ class Module implements Feature\FormElementProviderInterface
     				},
     				'quickRegistration' => function($sm) {
     					$form = new \Application\Forms\QuickRegistration;
-    					$form->setInputFilter(new \Application\InputFilters\QuickRegistration);
+    					$dbAdapter = $sm->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+    					$form->setInputFilter(new \Application\InputFilters\QuickRegistration($dbAdapter));
     					$form->setHydrator(new ClassMethods());
     					return $form;
     				}
