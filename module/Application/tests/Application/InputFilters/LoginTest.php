@@ -59,4 +59,21 @@ class LoginTest extends TestCase
 		$this->assertSame($messages, $this->instance->getMessages());
 	}
 	
+	public function testNameoremailFieldTrim()
+	{
+		$data = array('nameoremail' => ' anameoremail ', 'password' => 'apassword');
+		$this->instance->setData($data);
+	
+		$this->assertTrue($this->instance->isValid());
+		$this->assertSame('anameoremail', $this->instance->getValue('nameoremail'));
+	}
+	
+	public function testPasswordFieldTrim()
+	{
+		$data = array('nameoremail' => 'anameoremail', 'password' => '  apassword  ');
+		$this->instance->setData($data);
+	
+		$this->assertTrue($this->instance->isValid());
+		$this->assertSame('apassword', $this->instance->getValue('password'));
+	}
 }

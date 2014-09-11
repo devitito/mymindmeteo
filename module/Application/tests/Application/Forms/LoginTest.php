@@ -3,6 +3,7 @@
 namespace Application\Forms;
 
 use Application\TestCase;
+use Application\Entity\Mind;
 
 class LoginTest extends TestCase
 {
@@ -14,9 +15,9 @@ class LoginTest extends TestCase
 		$this->instance = $formManager->get('login');
 	}
 	
-	public function testNameoremailFieldTrim()
+	public function testBindingWithMind()
 	{
-		$data = array('nameoremail' => ' anameoremail ', 'password' => 'apassword');
+		$data = array('nameoremail' => 'anameoremail', 'password' => 'apassword');
 		
 		$mind = self::getApplication()->getServiceManager()->get('entity.mind');
 		$this->instance->bind($mind);
@@ -25,5 +26,9 @@ class LoginTest extends TestCase
 		$this->assertTrue($this->instance->isValid());
 		$mind->exchangeArray($this->instance->getData());
 		$this->assertSame('anameoremail', $mind->getNameoremail());
+		$this->assertSame('apassword', $mind->getPassword());
+		$this->assertSame(null, $mind->getId());
+		$this->assertSame(null, $mind->getName());
+		$this->assertSame(null, $mind->getEmail());
 	}
 }

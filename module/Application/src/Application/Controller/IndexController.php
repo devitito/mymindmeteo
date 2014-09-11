@@ -16,6 +16,7 @@ use Application\Services\MindManager;
 use Application\Services\LoginManager;
 use Application\Exception;
 use Zend\Http\PhpEnvironment\Response;
+use Zend\Form\FormInterface;
 
 class IndexController extends AbstractActionController
 {
@@ -84,9 +85,8 @@ class IndexController extends AbstractActionController
     		
    			if ($form->isValid()) {
    				//attempt user authentication on filtered input
-   				$mind->exchangeArray($form->getData());
    				$loginManager = $this->getServiceLocator()->get('login-manager');
-   				if ($loginManager->checkCredentials($mind)) {
+   				if ($loginManager->checkCredentials($form->getData(FormInterface::VALUES_AS_ARRAY))) {
    					return $this->redirect()->toRoute('dashboard');
    				}
    				else {

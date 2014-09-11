@@ -13,11 +13,11 @@ class Mind extends \ArrayObject implements \ArrayAccess
 {
 	use EntitiesArrayAccessTrait;
 	
-	public $id;
-	public $name;
-	public $email;
-	public $password;
-	public $nameoremail;
+	protected $id;
+	protected $name;
+	protected $email;
+	protected $nameoremail;
+	protected $password;
 	
 	public function getId()
 	{
