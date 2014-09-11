@@ -45,9 +45,9 @@ class IndexController extends AbstractActionController
     		$form->setData($data);
     	
     		if ($form->isValid()) {
-    			//register new mind
+    			//register new mind with filtered input
+    			$mind->exchangeArray($form->getData());
     			$mindManager = $this->getServiceLocator()->get('mind-manager');  
-    			$mind = new Mind($data);
 				$mindManager->save($mind);	
 				return $this->redirect()->toRoute('dashboard');
     		}
@@ -83,9 +83,10 @@ class IndexController extends AbstractActionController
    			$form->setData($data);
     		
    			if ($form->isValid()) {
-   				//attempt user authentication
+   				//attempt user authentication on filtered input
+   				$mind->exchangeArray($form->getData());
    				$loginManager = $this->getServiceLocator()->get('login-manager');
-   				if ($loginManager->checkCredentials($data)) {
+   				if ($loginManager->checkCredentials($mind)) {
    					return $this->redirect()->toRoute('dashboard');
    				}
    				else {

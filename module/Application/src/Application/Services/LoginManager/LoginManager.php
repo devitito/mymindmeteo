@@ -5,6 +5,7 @@ namespace Application\Services\LoginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Application\Services\MindManager;
+use Application\Entity\Mind;
 use Zend\Crypt\Password\Bcrypt;
 use Application\Exception;
 
@@ -16,9 +17,11 @@ class LoginManager implements ServiceManagerAwareInterface
 	 */
 	protected $serviceManager;
 	
-	public function checkCredentials(array $login)
+	public function checkCredentials($login)
 	{
-		if (!array_key_exists('nameoremail', $login))
+		if (!$login instanceof Mind && !is_array($login)) {
+			throw Exception::factory(Exception::LOGIN_FAILED);
+		} elseif (!array_key_exists('nameoremail', $login))
 			throw Exception::factory(Exception::LOGIN_FAILED);
 		
 		$mindManager = $this->getServiceManager()->get('mind-manager');

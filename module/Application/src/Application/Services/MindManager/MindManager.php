@@ -26,7 +26,7 @@ class MindManager implements ServiceManagerAwareInterface
 	public function save(Mind $mind)
 	{
 		$mindModel = new \Application\Models\Mind;
-		$mindModel->exchangeArray($mind->toArray());
+		$mindModel->exchangeArray($mind);
 
 		$this->getMindTable()->saveMind($mindModel);
 	}

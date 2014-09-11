@@ -9,63 +9,15 @@ namespace Application\Entity;
 
 use Zend\Crypt\Password\Bcrypt;
 
-class Mind  extends \ArrayObject 
+class Mind extends \ArrayObject implements \ArrayAccess
 {
-	protected $id;
-	protected $name;
-	protected $email;
-	protected $password;
-	protected $nameoremail;
-		
-	/**
-	 * 
-	 * @param array|Traversable $options
-	 * @throws Exception\InvalidArgumentException
-	 */
-	public function __construct($options = array())
-	{
-		if (!empty($options)) {
-			if ($options instanceof Traversable) {
-				$options = ArrayUtils::iteratorToArray($options);
-			} elseif (!is_array($options)) {
-				throw new Exception\InvalidArgumentException('The options parameter must be an array or a Traversable');
-			}
-			foreach ($options as $key => $value) {
-				switch (strtolower($key)) {
-					case 'id':
-						$this->setId($value);
-						break;
-					case 'name':
-						$this->setName($value);
-						break;
-					case 'email':
-						$this->setEmail($value);
-						break;
-					case 'nameoremail':
-						$this->setNameoremail($value);
-						break;
-					case 'password':
-						$this->setPassword($value);
-						break;
-				}
-			}
-		}
-	}
+	use EntitiesArrayAccessTrait;
 	
-	/**
-	 * 
-	 * @return array
-	 */
-	public function toArray()
-	{
-		return [
-			'id' => $this->getId(),
-			'name' => $this->getName(),
-			'email' => $this->getEmail(),
-			'nameoremail' => $this->getNameoremail(),
-			'password' => $this->getPassword()
-		];
-	}
+	public $id;
+	public $name;
+	public $email;
+	public $password;
+	public $nameoremail;
 	
 	public function getId()
 	{
