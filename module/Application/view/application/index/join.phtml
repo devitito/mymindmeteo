@@ -29,20 +29,7 @@
       	<div class="col-md-4">
         </div>
         <div class="col-md-4">
-<?php
-
-echo $this->form()->openTag($form);
-
-foreach ($form as $element) {
-    if (($element->getOption('label')) && ($element->getName() != 'submiquickreg')) echo $this->formLabel($element);
-    echo '<div class="form-group">';
-	echo $this->formElement($element);
-	echo '</div>';
-}
-
-echo $this->form()->closeTag();
-
-?>
+        <?php echo $this->partial('partials/quickRegistration', ['form' => $form]); ?>
 <div class="col-md-4"></div>
 </div>
 </div>
