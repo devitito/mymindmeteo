@@ -3,3 +3,7 @@
 composer
 zendframework
 autoload.php
+ocramius
+phpunit
+sebastian
+symfony

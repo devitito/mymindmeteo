@@ -13,19 +13,14 @@ class Login extends InputFilter
         	array(
         		'name' => 'nameoremail',
         		'required' => true,
+        		//'continue_if_empty' => true,
         		'validators' => array(
-        			/*array(
-        				'name' => 'StringLength',
-        				'options' => array(
-        					'min' => 1,
-        					'max' => 32,
-        					'encoding' => 'UTF-8'
-        				)
-        			),*/
         			array(
         				'name' => 'NotEmpty',
         				'options' => array(
-        					'type' => \Zend\Validator\NotEmpty::STRING
+        					'type' => array(\Zend\Validator\NotEmpty::STRING, \Zend\Validator\NotEmpty::NULL),
+        					'messages' => [\Zend\Validator\NotEmpty::IS_EMPTY => 'A name or an email is required',
+        									\Zend\Validator\NotEmpty::INVALID => 'A name or an email is required']
         				)
         			)
         		),
@@ -44,7 +39,9 @@ class Login extends InputFilter
         			array(
         				'name' => 'NotEmpty',
         				'options' => array(
-        					'type' => \Zend\Validator\NotEmpty::STRING
+        					'type' => array(\Zend\Validator\NotEmpty::STRING, \Zend\Validator\NotEmpty::NULL),
+        					'messages' => [\Zend\Validator\NotEmpty::IS_EMPTY => 'A password is required',
+        									\Zend\Validator\NotEmpty::INVALID => 'A password is required']
         				)
                 	)
             	),

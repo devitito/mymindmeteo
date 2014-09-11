@@ -18,7 +18,6 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
-
 class Module implements Feature\FormElementProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
@@ -26,14 +25,14 @@ class Module implements Feature\FormElementProviderInterface
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        
+      /*  
         $sm  = $e->getApplication()->getServiceManager();
         $config = $sm->get('Config');
         if (!$config['exceptions']['show'])
         {
         	$exceptionstrategy = $sm->get('ViewManager')->getExceptionStrategy();
         	$exceptionstrategy->setExceptionTemplate('error/prod');
-        }
+        }*/
     }
     
     public function getConfig()
