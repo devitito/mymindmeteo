@@ -14,6 +14,7 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+  - name: ubuntu-14.04
     
 suites:
   - name: default
@@ -22,8 +23,19 @@ suites:
     - recipe[build-essential]
     - recipe[networking_basic]
     - recipe[zend-server]
+    - recipe[zend-server::xdebug]
     - recipe[apache]
     - recipe[mymeteodb]
     attributes: 
      zend-server:
        php_version: 5.4
+       
+  - name: zs7
+    run_list: 
+    - recipe[apt]
+    - recipe[build-essential]
+    - recipe[networking_basic]
+    - recipe[zendphp]
+    - recipe[apache]
+    - recipe[mymeteodb]
+    attributes: 

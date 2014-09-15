@@ -6,10 +6,15 @@ provisioner:
   name: chef_solo
 
 platforms:
+  - name: ubuntu-14.04
   - name: ubuntu-12.04
   - name: centos-6.4
 
 suites:
   - name: default
+    run_list:
+    attributes:
+ 
+  - name: zs7
     run_list:
     attributes:
