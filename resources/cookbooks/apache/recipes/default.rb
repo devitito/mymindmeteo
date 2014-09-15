@@ -6,16 +6,16 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-template "/etc/apache2/sites-available/vagrant" do
+template "/etc/apache2/sites-available/vagrant.conf" do
   source "vhost.erb"
 end
 
-file "/etc/apache2/sites-enabled/000-default" do
+file "/etc/apache2/sites-enabled/000-default.conf" do
   action :delete
 end
 
-link "/etc/apache2/sites-enabled/000-vagrant" do
-  to "/etc/apache2/sites-available/vagrant"
+link "/etc/apache2/sites-enabled/000-vagrant.conf" do
+  to "/etc/apache2/sites-available/vagrant.conf"
   action :create
 end
 
