@@ -53,8 +53,10 @@ class QuickRegistration extends InputFilter
     			array(
     				'name' => 'NotEmpty',
     				'options' => array(
-    					'type' => \Zend\Validator\NotEmpty::STRING
-    				)
+        					'type' => array(\Zend\Validator\NotEmpty::STRING, \Zend\Validator\NotEmpty::NULL),
+        					'messages' => [\Zend\Validator\NotEmpty::IS_EMPTY => 'A mind name is required',
+        									\Zend\Validator\NotEmpty::INVALID => 'A mind name is required']
+        				)
     			)
     		),
     		'filters'  => array(

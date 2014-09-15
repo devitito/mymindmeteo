@@ -95,6 +95,9 @@ return array(
         	'login-manager' => 'Application\Services\LoginManager\LoginManager',
         	'entity.mind'  => 'Application\Entity\Mind'
         ),
+        'shared' => array(
+        	'entity.mind' => false,
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
