@@ -58,13 +58,10 @@ class QuickRegistration extends Form
         $this->add(
             array(
                 'name' => 'submiquickreg',
-            	'type' => 'Button',
-            	'options' => array(
-            		'label'   => 'Register your mind',
-            	),
                 'attributes' => array(
                 	'class' => 'btn btn-success btn-lg btn-block',
                     'type' => 'submit',
+                	'value' => 'Register your mind',
                 )
             )
         );

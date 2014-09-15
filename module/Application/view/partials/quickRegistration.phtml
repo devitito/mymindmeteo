@@ -2,7 +2,10 @@
 echo $this->form()->openTag($this->form);
 
 foreach ($form as $element) {
-    echo '<div class="form-group">
+    if ($this->labels) {
+    	if ($element->getOption('label')) echo $this->formLabel($element);
+    }
+	echo '<div class="form-group">
     		' . $this->formElement($element) . '
     	 </div>';
     //echo $this->formElementErrors($element);

@@ -32,10 +32,6 @@
 <?php
 
 echo $this->form()->openTag($form);
-$this->formElementErrors()
-	->setMessageOpenFormat('<div class="alert alert-danger">')
-	->setMessageSeparatorString('')
-	->setMessageCloseString('</div>');
 
 foreach ($form as $element) {
     if ($element->getOption('label')) echo $this->formLabel($element);
