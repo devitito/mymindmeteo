@@ -6,6 +6,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Application\Entity\Mind;
 use Application\Models\DbTable\MindTable;
+use Application\Exception;
 
 
 class MindManager implements ServiceManagerAwareInterface
@@ -56,6 +57,23 @@ class MindManager implements ServiceManagerAwareInterface
 				}
 			}
 		}
+	}
+	
+	public function getMind($mind)
+	{
+		if (!$mind instanceof Mind && !is_array($mind)) {
+			throw Exception::factory(Exception::UNKNOWN_MIND);
+		} elseif ((!array_key_exists('nameoremail', $mind)) && (!array_key_exists('name', $mind)) && (!array_key_exists('email', $mind)) && (!array_key_exists('id', $mind)))
+			throw Exception::factory(Exception::UNKNOWN_MIND);
+		
+		if (array_key_exists('nameoremail', $mind))
+			return $this->getMindTable()->getMindByNameoremail($mind['nameoremail']);
+		else if (array_key_exists('name', $mind))
+			return $this->getMindTable()->getMindByNameoremail($mind['name']);
+		else if (array_key_exists('email', $mind))
+			return $this->getMindTable()->getMindByNameoremail($mind['email']);
+		else if (array_key_exists('id', $mind))
+			return $this->getMindTable()->getMindById($mind['id']);
 	}
 	
 	public function getMindTable()

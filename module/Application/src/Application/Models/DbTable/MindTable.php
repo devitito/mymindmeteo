@@ -22,7 +22,7 @@ class MindTable
 		return $resultSet;
 	}
 
-	public function getMind($id)
+	public function getMindById($id)
 	{
 		$id  = (int) $id;
 		$rowset = $this->tableGateway->select(array('id' => $id));

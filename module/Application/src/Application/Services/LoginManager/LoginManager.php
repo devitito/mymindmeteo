@@ -21,11 +21,11 @@ class LoginManager implements ServiceManagerAwareInterface
 	{
 		if (!$login instanceof Mind && !is_array($login)) {
 			throw Exception::factory(Exception::LOGIN_FAILED);
-		} elseif (!array_key_exists('nameoremail', $login))
+		} elseif ((!array_key_exists('nameoremail', $login)) || (!array_key_exists('password', $login)))
 			throw Exception::factory(Exception::LOGIN_FAILED);
 		
 		$mindManager = $this->getServiceManager()->get('mind-manager');
-		$row = $mindManager->getMindTable()->getMindByNameoremail($login['nameoremail']);
+		$row = $mindManager->getMind($login);
 		if (!$row)
 			return false;
 		else {
