@@ -7,6 +7,8 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Application\Entity\Mind;
 use Application\Models\DbTable\MindTable;
 use Application\Exception;
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 
 
 class MindManager implements ServiceManagerAwareInterface
@@ -24,8 +26,11 @@ class MindManager implements ServiceManagerAwareInterface
 	protected $mindTable;	
 	
 	
-	public function save(Mind $mind)
+	public function save($mind)
 	{
+		if (!$mind instanceof Mind) {
+			throw Exception::factory(Exception::OPERATION_FAILED);
+		}
 		$mindModel = new \Application\Models\Mind;
 		$mindModel->exchangeArray($mind);
 
@@ -56,24 +61,27 @@ class MindManager implements ServiceManagerAwareInterface
 						break;
 				}
 			}
+			throw Exception::factory(Exception::UNKNOWN_MIND);
 		}
 	}
 	
 	public function getMind($mind)
 	{
-		if (!$mind instanceof Mind && !is_array($mind)) {
+		if (!is_array($mind)) {
 			throw Exception::factory(Exception::UNKNOWN_MIND);
-		} elseif ((!array_key_exists('nameoremail', $mind)) && (!array_key_exists('name', $mind)) && (!array_key_exists('email', $mind)) && (!array_key_exists('id', $mind)))
-			throw Exception::factory(Exception::UNKNOWN_MIND);
+		} 
 		
+		if (array_key_exists('id', $mind))
+			return $this->getMindTable()->getMindById($mind['id']);
 		if (array_key_exists('nameoremail', $mind))
 			return $this->getMindTable()->getMindByNameoremail($mind['nameoremail']);
-		else if (array_key_exists('name', $mind))
+		if (array_key_exists('name', $mind))
 			return $this->getMindTable()->getMindByNameoremail($mind['name']);
-		else if (array_key_exists('email', $mind))
+		if (array_key_exists('email', $mind))
 			return $this->getMindTable()->getMindByNameoremail($mind['email']);
-		else if (array_key_exists('id', $mind))
-			return $this->getMindTable()->getMindById($mind['id']);
+		
+		//Throw exception if nothing could allow to identificate the mind
+		throw Exception::factory(Exception::UNKNOWN_MIND);
 	}
 	
 	public function getMindTable()
@@ -82,6 +90,12 @@ class MindManager implements ServiceManagerAwareInterface
 			$this->mindTable = $this->getServiceManager()->get( 'Application\Models\DbTable\MindTable' );
 		}
 		return $this->mindTable;
+	}
+	
+	public function setMindTable($mindTable)
+	{
+		$this->mindTable = $mindTable;
+		return $this;
 	}
 	
 	/**
