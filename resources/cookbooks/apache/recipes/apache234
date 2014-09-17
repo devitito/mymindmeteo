@@ -8,10 +8,10 @@
 #
 
 template "/etc/apache2/sites-available/vagrant.conf" do
-  source "vhost.erb"
+  source "vhost234.erb"
 end
 
-file "/etc/apache2/sites-enabled/000-default.conf" do
+file "/etc/apache2/sites-enabled/000-default" do
   action :delete
 end
 

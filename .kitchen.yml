@@ -24,7 +24,7 @@ suites:
     - recipe[networking_basic]
     - recipe[zend-server]
     - recipe[zend-server::xdebug]
-    - recipe[apache]
+    - recipe[apache::apache234]
     - recipe[mymeteodb]
     attributes: 
      zend-server:

@@ -1,0 +1,19 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+
+	DocumentRoot /vagrant/public
+
+	Alias /phpunit "/vagrant/tests/build/coverage"
+	Alias /phpdoc "/vagrant/build/php-doc/html"
+
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /vagrant>
+		Options FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+</VirtualHost>
