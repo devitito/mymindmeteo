@@ -208,7 +208,7 @@ class MindManagerTest extends TestCase
 		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
 		$this->instance->setMindTable($mindtable);
 		
-		$this->assertSame($mindResult, $this->instance->getMind($options));
+		$this->assertEquals($mindResult, $this->instance->getMind($options));
 	}
 	
 	public function testgetMindSearchByNameorEmailSecond()
@@ -226,7 +226,7 @@ class MindManagerTest extends TestCase
 				'name'     		=> 'aname',
 				'email'  		=> 'anemail@something.com',
 				'password'		=> $bcrypt->create('apassword')));
-	
+		
 		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
 						->disableOriginalConstructor()
 						->getMock();
@@ -239,7 +239,7 @@ class MindManagerTest extends TestCase
 		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
 		$this->instance->setMindTable($mindtable);
 	
-		$this->assertSame($mindResult, $this->instance->getMind($options));
+		$this->assertEquals($mindResult, $this->instance->getMind($options));
 	}
 	
 	public function testgetMindSearchByNameThird()
@@ -269,7 +269,7 @@ class MindManagerTest extends TestCase
 		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
 		$this->instance->setMindTable($mindtable);
 	
-		$this->assertSame($mindResult, $this->instance->getMind($options));
+		$this->assertEquals($mindResult, $this->instance->getMind($options));
 	}
 	
 	public function testgetMindSearchByEmailLast()
@@ -297,6 +297,6 @@ class MindManagerTest extends TestCase
 		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
 		$this->instance->setMindTable($mindtable);
 	
-		$this->assertSame($mindResult, $this->instance->getMind($mind));
+		$this->assertEquals($mindResult, $this->instance->getMind($mind));
 	}
 }

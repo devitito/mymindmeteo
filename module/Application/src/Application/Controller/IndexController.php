@@ -86,8 +86,9 @@ class IndexController extends AbstractActionController
    			if ($form->isValid()) {
    				//attempt user authentication on filtered input
    				$loginManager = $this->getServiceLocator()->get('login-manager');
-   				if ($loginManager->checkCredentials($form->getData(FormInterface::VALUES_AS_ARRAY))) {
-   					return $this->redirect()->toRoute('dashboard');
+   				$mind = $loginManager->checkCredentials($form->getData(FormInterface::VALUES_AS_ARRAY));
+   				if (isset($mind)) {
+   					return $this->redirect()->toUrl('/'.$mind->getName());
    				}
    				else {
    					$this->flashMessenger()->addErrorMessage('Invalid mind or password');

@@ -27,13 +27,19 @@ class LoginManager implements ServiceManagerAwareInterface
 		$mindManager = $this->getServiceManager()->get('mind-manager');
 		$row = $mindManager->getMind($login);
 		if (!$row)
-			return false;
+			return null;
 		else {
 			$bcrypt = new Bcrypt();
-			if ($bcrypt->verify($login['password'], $row->password))
-				return true;
+			if ($bcrypt->verify($login['password'], $row->password)) {
+				$mind = $this->getServiceManager()->get('entity.mind');
+				$mind->setName($row->name);
+				$mind->setPassword($row->password);
+				$mind->setEmail($row->email);
+				$mind->setId($row->id);
+				return $mind;
+			}
 			else
-				return false;
+				return null;
 		}
 			
 	}

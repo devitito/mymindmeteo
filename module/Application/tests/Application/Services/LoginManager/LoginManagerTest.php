@@ -72,7 +72,7 @@ class LoginManagerTest extends TestCase
 					->will($this->returnValue(null));
 		
 		self::getApplication()->getServiceManager()->setService('mind-manager', $mindmanager);
-		$this->assertFalse($this->instance->checkCredentials($mind));
+		$this->assertNUll($this->instance->checkCredentials($mind));
 	}
 	
 	public function testCheckCredentialsAgainstKnownNameorEmailWithWrongPassword()
@@ -94,28 +94,32 @@ class LoginManagerTest extends TestCase
 					->will($this->returnValue($mindResult));
 	
 		self::getApplication()->getServiceManager()->setService('mind-manager', $mindmanager);
-		$this->assertFalse($this->instance->checkCredentials($mind));
+		$this->assertNull($this->instance->checkCredentials($mind));
 	}
 	
 	public function testCheckCredentialsAgainstKnownNameorEmailWithCorrectPassword()
 	{
-		$mind = ['nameoremail' => 'anameoremail', 'password' => 'apassword'];
 		$bcrypt = new Bcrypt();
-	
-		$mindResult = new \Application\Models\Mind();
-		$mindResult->exchangeArray(array(
+		$data = ['nameoremail' => 'anameoremail', 'password' => 'apassword'];
+		$dataout = array(
 				'id' 			=> '54',
 				'name'     		=> 'aname',
 				'email'  		=> 'anemail',
-				'password'		=> $bcrypt->create('apassword')));
+				'password'		=> $bcrypt->create('apassword'));
 	
+		$mindResult = new \Application\Models\Mind();
+		$mindResult->exchangeArray($dataout);
+		
 		$mindmanager = $this->getMock('Application\Services\MindManager\MindManager');
 		$mindmanager->expects($this->once())
 					->method('getMind')
-					->with($mind)
+					->with($data)
 					->will($this->returnValue($mindResult));
 	
+		$mind = self::getApplication()->getServiceManager()->get('entity.mind');
+		$mind->exchangeArray($dataout);
+		
 		self::getApplication()->getServiceManager()->setService('mind-manager', $mindmanager);
-		$this->assertTrue($this->instance->checkCredentials($mind));
+		$this->assertEquals($mind, $this->instance->checkCredentials($data));
 	}
 }

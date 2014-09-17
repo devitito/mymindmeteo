@@ -19,6 +19,22 @@ return array(
                         'action'     => 'index',
                     ),
                 ),
+            	'may_terminate' => true,
+            	'child_routes' => array(
+            		'default' => array(
+            			'type'    => 'Segment',
+            			'options' => array(
+            				'route'    => '[:mindname]',
+            				'constraints' => array(
+            					'mindname'     => '[a-zA-Z][a-zA-Z0-9-]*',
+            					),
+            				'defaults' => array(
+            					'controller' => 'Application\Controller\Mind',
+            					'action' => 'dashboard',
+            				),
+            			),
+            		),
+            	),
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -111,7 +127,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Mind' => 'Application\Controller\MindController'
         ),
     ),
     'view_manager' => array(
