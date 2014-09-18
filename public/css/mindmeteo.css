@@ -1,0 +1,45 @@
+.btn-meteo { 
+  color: #FFFFFF; 
+  background-color: #00ADEF; 
+  border-color: #00ADEF; 
+} 
+ 
+.btn-meteo:hover, 
+.btn-meteo:focus, 
+.btn-meteo:active, 
+.btn-meteo.active, 
+.open .dropdown-toggle.btn-meteo { 
+  color: #FFFFFF; 
+  background-color: #009bd6; 
+  border-color: #00ADEF; 
+} 
+ 
+.btn-meteo:active, 
+.btn-meteo.active, 
+.open .dropdown-toggle.btn-meteo { 
+  background-image: none; 
+} 
+ 
+.btn-meteo.disabled, 
+.btn-meteo[disabled], 
+fieldset[disabled] .btn-meteo, 
+.btn-meteo.disabled:hover, 
+.btn-meteo[disabled]:hover, 
+fieldset[disabled] .btn-meteo:hover, 
+.btn-meteo.disabled:focus, 
+.btn-meteo[disabled]:focus, 
+fieldset[disabled] .btn-meteo:focus, 
+.btn-meteo.disabled:active, 
+.btn-meteo[disabled]:active, 
+fieldset[disabled] .btn-meteo:active, 
+.btn-meteo.disabled.active, 
+.btn-meteo[disabled].active, 
+fieldset[disabled] .btn-meteo.active { 
+  background-color: #00ADEF; 
+  border-color: #00ADEF; 
+} 
+ 
+.btn-meteo .badge { 
+  color: #00ADEF; 
+  background-color: #FFFFFF; 
+}

@@ -59,9 +59,9 @@ class QuickRegistration extends Form
             array(
                 'name' => 'submiquickreg',
                 'attributes' => array(
-                	'class' => 'btn btn-success btn-lg btn-block',
+                	'class' => 'btn btn-meteo',
                     'type' => 'submit',
-                	'value' => 'Register your mind',
+                	'value' => 'Register',
                 )
             )
         );

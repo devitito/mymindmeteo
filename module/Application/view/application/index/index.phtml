@@ -9,45 +9,117 @@
         		->prependFile($this->basePath() . '/js/formsValidator.js');
 ?>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" action="/login" method="post" accept-charset="UTF-8">
-            <div class="form-group">
-              <input type="text" placeholder="Mind or Email" class="form-control" name="nameoremail">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control" name="password">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
+<?php echo $this->partial('partials/navbar-logged-out'); ?>
 
 <div class="jumbotron">
        
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-8">
-			<h1><?php echo sprintf($this->translate('Welcome to the meteo of your mind'), '<span class="zf-green">', '</span>') ?></h1>
-  			<p><?php echo sprintf($this->translate('More coming soon!!!')) ?></p>
-        </div>
-        <div class="col-md-4">
-        <?php echo $this->partial('partials/quickRegistration', ['form' => $form]); ?>
-        </div>
-      </div>
+      	<div class="col-md-3">
+	       	<img src="/img/icons/logo.png">
+	    </div>
+	    <div class="col-md-9">
+		   	<h1><?php echo sprintf($this->translate('Welcome to the meteo of your mind'), '<span class="zf-green">', '</span>') ?></h1>
+		   	<div class="row">
+      			<div class="col-md-9">
+					<p><?php echo sprintf($this->translate('Do you mind?')) ?><br><?php echo sprintf($this->translate('Do you mind meteo?')) ?></p>
+				</div>
+				 <div class="col-md-3">
+					<a class="btn btn-meteo btn-lg" href="/demo" role="button">Take a tour now!</a>
+       				<?php //echo $this->partial('partials/quickRegistration', ['form' => $form]); ?>
+       			</div>
+       		</div>
+		</div>
+	  </div>	
 	</div>
 </div>
+
+<hr class="featurette-divider">
+
+<div class="jumbotron" style="background-image: url(<?php echo $this->basePath() . '/img/icons/anti-cyclon.png' ?>); background-size: cover;">
+   <div class="container">
+   		<h2>The anti-cyclones</h2>
+   </div>
+</div>
+
+<div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4 text-center">
+          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
+          <h2>Yoga serinity</h2>
+          <p>I do yoga every morning this is my secret. hihihi. namaste!</p>
+          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 text-center">
+          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
+          <h2>Old fart</h2>
+		  <p>I'm so old I don't care</p>
+          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 text-center">
+          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
+          <h2>Blondie stone</h2>
+          <p>I'm stone from dawn until twilight</p>
+          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+      <hr class="featurette-divider">
+      
+      <div class="jumbotron" style="background-image: url(<?php echo $this->basePath() . '/img/icons/cyclone.jpg' ?>); background-size: cover;">
+		   <div class="container">
+		   		<h2>The Cyclones</h2>
+		   </div>
+		</div>
+		
+      <div class="row">
+        <div class="col-lg-4 text-center">
+          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
+          <h2>Kurt cobain</h2>
+          <p>I'm a stain</p>
+          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 text-center">
+          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
+          <h2>Robbie William</h2>
+		  <p>I don't wanna wake up</p>
+          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 text-center">
+          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
+          <h2>Charles Bukowski</h2>
+          <p>Where is the hore that took my wallet last night?</p>
+          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+</div>
+      
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Tokyo Ritz <span class="text-muted">I love Mind Meteo!</span></h2>
+          <p class="lead">I noticed that I felt better after shopping thant to Mind Meteo!!</p>
+        </div>
+        <div class="col-md-5">
+          <img src="/img/icons/placeholder.png" class="featurette-image img-responsive" data-src="holder.js/300x300/auto" alt="300x300">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+        	<img src="/img/icons/placeholder.png" class="featurette-image img-responsive" data-src="holder.js/300x300/auto" alt="300x300">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">George M Buisson. <span class="text-muted">oh Yeah?!.</span></h2>
+           <p class="lead">I feel bad every saturday morning after my drinking night. It is confirmed by MM. It works!! Believe me!</p>
+        </div>
+      </div>
 
 <script>
 $(document).ready(validateQuickRegistration($));

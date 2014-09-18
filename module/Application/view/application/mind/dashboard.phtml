@@ -10,56 +10,52 @@
 				->prependFile('http://cdn.oesmith.co.uk/morris-0.5.1.min.js');
 ?>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active">
-        	<img href="#" src="/img/icons/bluebubble-regular.png" class="img-responsive" alt="Responsive image"></img></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="<?php echo $this->mind->name . '/record' ?>" class="glyphicon glyphicon-map-marker" data-toggle="tooltip" data-placement="left" title="Record meteo data"></a>
-        </li>
-        <li>
-          <a href="<?php echo $this->mind->name . '/publish' ?>" class="glyphicon glyphicon-envelope" data-toggle="tooltip" data-placement="left" title="Generate a message for a friend"></a>
-        </li>
-        <li>
-          <a href="/logout" class="glyphicon glyphicon-log-out"></a>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+<div class="navbar-wrapper">
+	<div class="container">
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		  <div class="container">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="brand" href="/"></a>
+		    </div>
+		
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <form class="navbar-form navbar-left" role="search">
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="Search">
+		        </div>
+		        <button type="submit" class="btn btn-meteo">Submit</button>
+		      </form>
+		      <ul class="nav navbar-nav navbar-right">
+		      <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contribute <span class="caret"></span></a>
+		          <ul class="dropdown-menu" role="menu">
+		            <li><a href="#">Send us a new sensor</a></li>
+		            <li><a href="#">Send us a new weather analyse</a></li>
+		          </ul>
+		        </li>
+		        <li>
+		          <a href="<?php echo $this->mind->name . '/record' ?>" class="glyphicon glyphicon-map-marker tooltip-link" data-toggle="tooltip" data-placement="left" title="Record meteo data of your mind"></a>
+		        </li>
+		        <li>
+		          <a href="<?php echo $this->mind->name . '/publish' ?>" class="glyphicon glyphicon-envelope tooltip-link" data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
+		        </li>
+		        <li>
+		          <a href="/logout" class="glyphicon glyphicon-log-out"></a>
+		        </li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</div>
+	</div>
+</div>
 
 <div class="container">
 	<div class="row">
@@ -101,18 +97,18 @@
 	    
 	    <div class="col-md-9">
 		     <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
-		      <li class="active"><a href="#dashboard" role="tab" data-toggle="tab">Dashboard</a></li>
-		      <li class=""><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+		      <li class="active"><a href="#climat" role="tab" data-toggle="tab">Climat</a></li>
+		      <li class=""><a href="#reports" role="tab" data-toggle="tab">Reports</a></li>
 		      <li class=""><a href="#data" role="tab" data-toggle="tab">Meteo raw data</a></li>
 		      <li class=""><a href="#alerts" role="tab" data-toggle="tab">Alerts</a></li>
 		      <li class=""><a href="#friends" role="tab" data-toggle="tab">Similar minds</a></li>
 		    </ul>
 		    <div id="myTabContent" class="tab-content">
-		      <div class="tab-pane fade active in" id="dashboard">
+		      <div class="tab-pane fade active in" id="climat">
 					<div id="myfirstchart" style="height: 400px;"></div>
 		      </div>
-		      <div class="tab-pane fade" id="messages">
-				<p>List of messages generated and sent or not sent (continue editing, etc...)</p>
+		      <div class="tab-pane fade" id="reports">
+				<p>Weather forcast sent or not sent (continue editing, etc...)</p>
 		      </div>
 		      <div class="tab-pane fade" id="data">
 		      	<p>questions already answered (with answer and date)</p>
@@ -150,6 +146,7 @@ new Morris.Line({
 	  // chart.
 	  labels: ['Love', 'Health', 'Money']
 	});
+	
 </script>
  
   

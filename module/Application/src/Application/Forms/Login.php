@@ -44,7 +44,7 @@ class Login extends Form
             array(
                 'name' => 'submitlogin',
                 'attributes' => array(
-                	'class' => 'btn btn-success btn-lg btn-block',
+                	'class' => 'btn btn-meteo',
                     'type' => 'submit',
                     'value' => 'Sign In'
                 )
