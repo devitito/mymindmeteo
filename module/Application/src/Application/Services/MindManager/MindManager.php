@@ -48,12 +48,18 @@ class MindManager implements ServiceManagerAwareInterface
 			} elseif (!is_array($options)) {
 				throw new \InvalidArgumentException('The options parameter must be an array or a Traversable');
 			}
+			
+			//reserved mind name
+			$reserved = ['admin', 'Admin', 'demo', 'Demo'];
+			
 			foreach ($options as $key => $value) {
 				switch (strtolower($key)) {
 					case 'id':
 						return !$this->getMindTable()->existMind(['id' => $value]);
 						break;
 					case 'name':
+						if (in_array($value, $reserved))
+							return false;
 						return !$this->getMindTable()->existMind(['name' => $value]);
 						break;
 					case 'email':
