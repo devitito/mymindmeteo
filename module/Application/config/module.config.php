@@ -144,6 +144,7 @@ return array(
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             'partials/quickRegistration'             => __DIR__ . '/../view/partials/quickRegistration.phtml',
             'partials/navbar-logged-out'             => __DIR__ . '/../view/partials/navbar-logged-out.phtml',
+            'partials/reports-list'             => __DIR__ . '/../view/partials/reports-list.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

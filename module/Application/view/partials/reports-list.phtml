@@ -1,0 +1,67 @@
+<h1>Weather reports</h1>
+
+<table class="table table-border table-hover" style="border-collapse:collapse;">
+    <thead>
+    </thead>
+    <tbody>
+        <tr data-toggle="collapse" data-target="#msg1" class="accordion-toggle">
+           <td>Mama</td>
+		    <td>It's all right ma, I'm only bleeding</td>
+		    <td>12 June 2014</td>
+             <td>An independant meteologist</td>
+             <td><span class="chevron_toggleable glyphicon glyphicon-chevron-down"></span></td>
+        </tr>
+        <tr>
+            <td colspan="6" class="hiddenRow" style="padding: 0;">
+            	<div class="accordian-body collapse" id="msg1">
+					<br>
+                	Mimimi, mimii miii mii mimii ...
+                </div>
+             </td>
+        </tr>
+        <tr data-toggle="collapse" data-target="#msg2" class="accordion-toggle">
+           <td>a friend</td>
+		    <td>Dude you'll never guess who exciting is my life</td>
+		    <td>12 June 2014</td>
+		    <td>MindMeteo</td>
+		    <td><span class="chevron_toggleable glyphicon glyphicon-chevron-down"></span></td>
+        </tr>
+        <tr >
+            <td colspan="6" class="hiddenRow" style="padding: 0;">
+            	<div class="accordian-body collapse" id="msg2">
+                	<br>
+                	Mimimi, mimii miii mii mimii Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii ...<br>
+                	Mimimi, mimii miii mii mimii ....
+                </div>
+             </td>
+        </tr>
+        <tr data-toggle="collapse" data-target="#msg3" class="accordion-toggle">
+           <td>Mama</td>
+		    <td>More news for you. I'm a great son isn't it?</td>
+		    <td>12 June 2014</td>
+             <td>Mad Meteo</td>
+             <td><span class="chevron_toggleable glyphicon glyphicon-chevron-down"></span></td>
+        </tr>
+        <tr >
+            <td colspan="6" class="hiddenRow" style="padding: 0;">
+            	<div class="accordian-body collapse" id="msg3">
+                	<br>
+                	Mimimi, mimii miii mii mimii ...
+                </div>
+             </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function(){
+	$('.accordion-toggle').on('click', function() {
+		$('.chevron_toggleable').toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+	});
+});
+ </script>
+
+
+
+
+		

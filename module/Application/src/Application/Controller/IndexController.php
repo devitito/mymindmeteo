@@ -22,10 +22,6 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-    	$formManager = $this->getServiceLocator()->get('FormElementManager');
-    	$form = $formManager->get('quickRegistration');
-    	
-        return ['form' => $form];
     }
     
     public function joinAction()

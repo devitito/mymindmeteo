@@ -1,126 +1,70 @@
 <!-- Le styles -->
  <?php echo $this->headLink()
- 				->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
+ 				->prependStylesheet('http://fonts.googleapis.com/css?family=Gloria+Hallelujah')
+ 				->prependStylesheet($this->basePath() . '/css/cover.css')
  ?>
-
-<!-- Scripts -->
-<?php echo $this->headScript()
-        		->prependFile($this->basePath() . '/btvalidator/dist/js/bootstrapValidator.min.js')
-        		->prependFile($this->basePath() . '/js/formsValidator.js');
-?>
 
 <?php echo $this->partial('partials/navbar-logged-out'); ?>
 
-<div class="jumbotron">
-       
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-      	<div class="col-md-3">
-	       	<img src="/img/icons/logo.png">
-	    </div>
-	    <div class="col-md-9">
-		   	<h1><?php echo sprintf($this->translate('Welcome to the meteo of your mind'), '<span class="zf-green">', '</span>') ?></h1>
-		   	<div class="row">
-      			<div class="col-md-9">
-					<p><?php echo sprintf($this->translate('Do you mind?')) ?><br><?php echo sprintf($this->translate('Do you mind meteo?')) ?></p>
-				</div>
-				 <div class="col-md-3">
-					<a class="btn btn-meteo btn-lg" href="/demo" role="button">Take a tour now!</a>
-       				<?php //echo $this->partial('partials/quickRegistration', ['form' => $form]); ?>
-       			</div>
-       		</div>
-		</div>
-	  </div>	
+<br>
+
+<div class="site-wrapper">
+	<div class="container text-center">
+		
+	   <p style="font-family: 'Gloria Hallelujah', cursive; font-size:40px;">
+	   	Spend more time enjoying yourself and less time trying to make your life interesting.<br> We do it for you!
+	   </p>
+	   <p style="font-family: 'Gloria Hallelujah', cursive; font-size:55px;">
+	   	Based on a true story: your life!
+	   	</p>
+	    <img src="/img/icons/logo.png">
+	    <br> <br>
+	    <p style="font-family: 'Gloria Hallelujah', cursive; font-size:20px;">
+	    	Our fully qualified meteorologsits will issue reports for you, you just have to address them to whoever you want:<br>your lover,<br>your mama,<br> your friends,<br>your boss....
+	    </p>
+	   <br>
+		<a class="btn btn-meteo btn-lg" href="/demo" role="button">Take a tour now!</a>
+		<hr class="featurette-divider">
+	   <div class="row featurette">
+         <div class="col-md-8">
+          <h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">1. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Let our sensor mesure the meteo inside your mind</span></h2>
+          <p class="lead">Answer a couple of our offbeat questions with our application. It is really easy to use. Soon it's sense of humour will make it your best friend!
+          <br>And hey! We are so cool that we let you use our questions during your dinner in town: success garantee and free of royalties.
+          <br>Thanks who?!</p>
+        </div>
+         <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <img src="/img/icons/placeholder.png" class="featurette-image">
+        </div>
+      </div>
+      
+       <div class="row featurette">
+        <div class="col-md-3">
+        	<img src="/img/icons/placeholder.png" class="featurette-image img-responsive" data-src="holder.js/300x300/auto" alt="300x300">
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+           <h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">2. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Our meteologists will cook a weather report for whoever you want</span></h2>
+           <p class="lead">Our team of dedicated meteo specialists will analyse your data and show your life in a new light. 
+           <br>You think nothing happens in your life? Trust our scientifics, they are scientifics, they'll extract a gold mine of informations from irrelevant facts. 
+           <br>You think this is the job of your life? You can join them!
+          <br>Thanks who?!</p>
+        </div>
+      </div>
+      
+        <div class="row featurette">
+         <div class="col-md-8">
+          <h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">3. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Relax!!</span></h2>
+          <p class="lead">Everybody wants to be your friend, everybody wants to hangout with a guy that have a thousand adventure a day.
+          <br>Your mama is happy, girls love you, you are popular and it didn't cost you a penny and it took the time to click on a button. What a ROI for answering a couple of questions a day!
+          <br>Thanks who?!</p>
+        </div>
+         <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <img src="/img/icons/placeholder.png" class="featurette-image">
+        </div>
+      </div>
+      
 	</div>
 </div>
 
-<hr class="featurette-divider">
-
-<div class="jumbotron" style="background-image: url(<?php echo $this->basePath() . '/img/icons/anti-cyclon.png' ?>); background-size: cover;">
-   <div class="container">
-   		<h2>The anti-cyclones</h2>
-   </div>
-</div>
-
-<div class="container marketing">
-
-      <!-- Three columns of text below the carousel -->
-      <div class="row">
-        <div class="col-lg-4 text-center">
-          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
-          <h2>Yoga serinity</h2>
-          <p>I do yoga every morning this is my secret. hihihi. namaste!</p>
-          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4 text-center">
-          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
-          <h2>Old fart</h2>
-		  <p>I'm so old I don't care</p>
-          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4 text-center">
-          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
-          <h2>Blondie stone</h2>
-          <p>I'm stone from dawn until twilight</p>
-          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
-
-      <hr class="featurette-divider">
-      
-      <div class="jumbotron" style="background-image: url(<?php echo $this->basePath() . '/img/icons/cyclone.jpg' ?>); background-size: cover;">
-		   <div class="container">
-		   		<h2>The Cyclones</h2>
-		   </div>
-		</div>
-		
-      <div class="row">
-        <div class="col-lg-4 text-center">
-          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
-          <h2>Kurt cobain</h2>
-          <p>I'm a stain</p>
-          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4 text-center">
-          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
-          <h2>Robbie William</h2>
-		  <p>I don't wanna wake up</p>
-          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4 text-center">
-          <img class="img-circle" src="/img/icons/placeholder.png" style="width: 140px; height: 140px;">
-          <h2>Charles Bukowski</h2>
-          <p>Where is the hore that took my wallet last night?</p>
-          <p><a class="btn btn-meteo" href="#" role="button">Discover the climat</a></p>
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
-</div>
-      
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Tokyo Ritz <span class="text-muted">I love Mind Meteo!</span></h2>
-          <p class="lead">I noticed that I felt better after shopping thant to Mind Meteo!!</p>
-        </div>
-        <div class="col-md-5">
-          <img src="/img/icons/placeholder.png" class="featurette-image img-responsive" data-src="holder.js/300x300/auto" alt="300x300">
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-5">
-        	<img src="/img/icons/placeholder.png" class="featurette-image img-responsive" data-src="holder.js/300x300/auto" alt="300x300">
-        </div>
-        <div class="col-md-7">
-          <h2 class="featurette-heading">George M Buisson. <span class="text-muted">oh Yeah?!.</span></h2>
-           <p class="lead">I feel bad every saturday morning after my drinking night. It is confirmed by MM. It works!! Believe me!</p>
-        </div>
-      </div>
-
-<script>
-$(document).ready(validateQuickRegistration($));
-</script>

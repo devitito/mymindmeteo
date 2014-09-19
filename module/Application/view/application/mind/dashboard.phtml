@@ -99,7 +99,7 @@
 		     <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
 		      <li class="active"><a href="#climat" role="tab" data-toggle="tab">Climat</a></li>
 		      <li class=""><a href="#reports" role="tab" data-toggle="tab">Reports</a></li>
-		      <li class=""><a href="#data" role="tab" data-toggle="tab">Meteo raw data</a></li>
+		      <li class=""><a href="#data" role="tab" data-toggle="tab">Measurements</a></li>
 		      <li class=""><a href="#alerts" role="tab" data-toggle="tab">Alerts</a></li>
 		      <li class=""><a href="#friends" role="tab" data-toggle="tab">Similar minds</a></li>
 		    </ul>
@@ -108,10 +108,10 @@
 					<div id="myfirstchart" style="height: 400px;"></div>
 		      </div>
 		      <div class="tab-pane fade" id="reports">
-				<p>Weather forcast sent or not sent (continue editing, etc...)</p>
+				<?php echo $this->partial('partials/reports-list'); ?>
 		      </div>
 		      <div class="tab-pane fade" id="data">
-		      	<p>questions already answered (with answer and date)</p>
+		      	<p>meteo raw data questions already answered (with answer and date)</p>
 		      </div>
 		       <div class="tab-pane fade" id="alerts">
 		      	<p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
