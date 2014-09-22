@@ -93,27 +93,21 @@
 
 <script>
 $(document).ready(function() {
-	$('.accordion-toggle').on('click', function() {
+	$( ".jscroll-inner" ).on( "click", ".accordion-toggle", function() {
 		$(this).find("span").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
 	});
 
-/*	$( "div" ).delegate( ".item", "mouseover", function() {
+	$( ".jscroll-inner" ).on( "mouseover", ".item", function() {
 		$(this).css("background-color","#f2f1f0");
-	}
-	*/	
-	$('.item').on('mouseover', function() {
-		 $(this).css("background-color","#f2f1f0");
 	});
 
-	/*$('.item').mouseover(function(){
-	    $(this).css("background-color","#f2f1f0");
-	  });*/
-	$('.item').mouseout(function(){
-	    $(this).css("background-color","white");
-	  });
+	$( ".jscroll-inner" ).on( "mouseout", ".item", function() {
+		$(this).css("background-color","white");
+	});
 
 	$('[data-ui="jscroll-default"]').jscroll({
 		autoTrigger: false,
+		debug: true,
 		});
 });
  </script>
