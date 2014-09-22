@@ -1,11 +1,5 @@
-<script type="text/javascript" src="/js/jscroll/jquery.jscroll.min.js"></script>
-
-<h1>Weather reports</h1>
-
-<div class="scroll" data-ui="jscroll-default">
-	<div class="jscroll-inner">
-			<div class="item" style="padding-left: 5px;">
-				<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg1">
+<div class="item" style="padding-left: 5px;">
+				<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg4">
 					<div class="col-md-2">
 						Mama
 					</div>
@@ -24,14 +18,14 @@
 					<br>
 				</div>
 				<div class="row" style="padding-left: 20px; padding-right: 20px;">
-					<div class="accordian-body collapse" id="msg1">
+					<div class="accordian-body collapse" id="msg4">
 						<br>Mimimi, mimii miii mii mimii ...
 						<hr>
 			        </div>
 	    		</div>
     		</div>
     		<div class="item" style="padding-left: 5px;">
-	    		<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg2">
+	    		<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg5">
 					<div class="col-md-2">
 						A friend
 					</div>
@@ -49,7 +43,7 @@
 					</div>
 				</div>
 				<div class="row" style="padding-left: 20px; padding-right: 20px;">
-					<div class="accordian-body collapse" id="msg2">
+					<div class="accordian-body collapse" id="msg5">
 						<br>Mimimi, mimii miii mii mimii Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii ...<br>
 			                	Mimimi, mimii miii mii mimii ....
 			            <hr>
@@ -57,7 +51,7 @@
 	    		</div>
     		</div>
     		<div class="item" style="padding-left: 5px;">
-	    		<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg3">
+	    		<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg6">
 					<div class="col-md-2">
 						Mama
 					</div>
@@ -75,50 +69,11 @@
 					</div>
 				</div>
 				<div class="row" style="padding-left: 20px; padding-right: 20px;">
-					<div class="accordian-body collapse" id="msg3">
+					<div class="accordian-body collapse" id="msg6">
 						<br>Mimimi, mimii miii mii mimii Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii ...<br>
 			                	Mimimi, mimii miii mii mimii ....
 			            <hr>
 			        </div>
 	    		</div>
     		</div>
-	    	<div class="next text-center"><a href="/page2.html">next</a></div>
-	</div>
-</div>
-
-
-
-
-
-
-<script>
-$(document).ready(function() {
-	$('.accordion-toggle').on('click', function() {
-		$(this).find("span").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
-	});
-
-/*	$( "div" ).delegate( ".item", "mouseover", function() {
-		$(this).css("background-color","#f2f1f0");
-	}
-	*/	
-	$('.item').on('mouseover', function() {
-		 $(this).css("background-color","#f2f1f0");
-	});
-
-	/*$('.item').mouseover(function(){
-	    $(this).css("background-color","#f2f1f0");
-	  });*/
-	$('.item').mouseout(function(){
-	    $(this).css("background-color","white");
-	  });
-
-	$('[data-ui="jscroll-default"]').jscroll({
-		autoTrigger: false,
-		});
-});
- </script>
-
-
-
-
-		
+<div class="next text-center"><a href="/page3.html">next</a></div>
