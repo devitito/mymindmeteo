@@ -86,6 +86,16 @@ return array(
             				),
             		),
             ),
+            'logout' => array(
+            		'type' => 'Zend\Mvc\Router\Http\Literal',
+            		'options' => array(
+            				'route'    => '/logout',
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Index',
+            						'action'     => 'logout',
+            				),
+            		),
+            ),
             'dashboard' => array(
             		'type' => 'Zend\Mvc\Router\Http\Literal',
             		'options' => array(
@@ -105,10 +115,10 @@ return array(
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
+            'Zend\Authentication\AuthenticationService' => 'AuthService',
         ),
         'invokables' => array(
         	'mind-manager' => 'Application\Services\MindManager\MindManager',
-        	'login-manager' => 'Application\Services\LoginManager\LoginManager',
         	'entity.mind'  => 'Application\Entity\Mind'
         ),
         'shared' => array(

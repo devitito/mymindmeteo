@@ -17,6 +17,7 @@ use Application\Services\LoginManager;
 use Application\Exception;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Form\FormInterface;
+use Zend\Authentication\AuthenticationService;
 
 class IndexController extends AbstractActionController
 {
@@ -46,7 +47,9 @@ class IndexController extends AbstractActionController
     			$mind->exchangeArray($form->getData());
     			$mindManager = $this->getServiceLocator()->get('mind-manager');  
 				$mindManager->save($mind);	
-				return $this->redirect()->toRoute('dashboard');
+				$authService = $this->getServiceLocator()->get('AuthService');
+				$authService->getStorage()->write($mind->getName());
+				return $this->redirect()->toUrl('/'.$mind->getName());
     		}
     		else {
     			foreach ($form as $elements) {
@@ -63,6 +66,10 @@ class IndexController extends AbstractActionController
     
     public function loginAction()
     {
+    	if ($identity = $this->identity()) {
+    		return $this->redirect()->toUrl('/'.$identity);
+    	}
+    	
     	$formManager = $this->getServiceLocator()->get('FormElementManager');
     	/* @var $form \Zend\Form\Form */
     	$form = $formManager->get('login');
@@ -81,14 +88,22 @@ class IndexController extends AbstractActionController
     		
    			if ($form->isValid()) {
    				//attempt user authentication on filtered input
-   				$loginManager = $this->getServiceLocator()->get('login-manager');
-   				$mind = $loginManager->checkCredentials($form->getData(FormInterface::VALUES_AS_ARRAY));
-   				if (isset($mind)) {
-   					return $this->redirect()->toUrl('/'.$mind->getName());
-   				}
+   				$authService = $this->getServiceLocator()->get('AuthService');
+   				$authService->getAdapter()
+   							->setIdentity($mind->getNameoremail())
+   							->setCredential($mind->getPassword());
+   				$authResult = $authService->authenticate();   
+				if ($authResult->isValid()) {				
+					$identity = $authResult->getIdentity();
+					$authService->getStorage()->write($identity);
+   					return $this->redirect()->toUrl('/'.$identity);
+				}
    				else {
-   					$this->flashMessenger()->addErrorMessage('Invalid mind or password');
+   					foreach ($authResult->getMessages() as $message) {
+   						$this->flashMessenger()->addErrorMessage($message);
+   					}
    				}
+   				
    			}
    			else {
    				foreach ($form as $elements) {
@@ -101,6 +116,18 @@ class IndexController extends AbstractActionController
     	}
     	
     	return ['form' => $form];
+    }
+    
+    public function logoutAction()
+    {
+    	$auth = $this->getServiceLocator()->get('AuthService');
+    	if ($auth->hasIdentity()) {
+    		$auth->clearIdentity();
+    		//$sessionManager = new SessionManager();
+    		//$sessionManager->forgetMe();
+    	}
+    
+    	return $this->redirect()->toRoute('home');
     }
     
     public function dashboardAction()

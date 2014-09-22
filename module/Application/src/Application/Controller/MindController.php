@@ -21,6 +21,11 @@ class MindController extends AbstractActionController
 			return $viewModel;
 		}
 		
-		return ['mind' => $mind];
+		if ($identity = $this->identity()) {
+    		return ['mind' => $mind];
+    	}
+		else {
+			return $this->redirect()->toUrl('/login');
+		}
 	}
 }
