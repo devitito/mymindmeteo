@@ -1,5 +1,3 @@
-<script type="text/javascript" src="/js/jscroll/jquery.jscroll.min.js"></script>
-
 <h1>Weather reports</h1>
 
 <div class="scroll" data-ui="jscroll-default">
@@ -85,34 +83,3 @@
 	    	<div class="next text-center"><a href="/page2.html">next</a></div>
 	</div>
 </div>
-
-
-
-
-
-
-<script>
-$(document).ready(function() {
-	$( ".jscroll-inner" ).on( "click", ".accordion-toggle", function() {
-		$(this).find("span").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
-	});
-
-	$( ".jscroll-inner" ).on( "mouseover", ".item", function() {
-		$(this).css("background-color","#f2f1f0");
-	});
-
-	$( ".jscroll-inner" ).on( "mouseout", ".item", function() {
-		$(this).css("background-color","white");
-	});
-
-	$('[data-ui="jscroll-default"]').jscroll({
-		autoTrigger: false,
-		debug: true,
-		});
-});
- </script>
-
-
-
-
-		
