@@ -19,6 +19,12 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	protected $nameoremail;
 	protected $password;
 	
+	public function __construct($options = null)
+	{
+		if (!empty($options))
+			$this->exchangeArray($options);
+	}
+	
 	public function exchangeArray($data)
 	{
 		$this->id     = (isset($data['id'])) ? $data['id'] : null;

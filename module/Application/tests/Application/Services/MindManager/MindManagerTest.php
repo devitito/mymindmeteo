@@ -49,8 +49,7 @@ class MindManagerTest extends TestCase
 	public function testSaveForwardExceptionIfInsertTableFails()
 	{
 		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
-		$mind = self::getApplication()->getServiceManager()->get('entity.mind');
-		$mind->exchangeArray($data);
+		$mind = new Mind($data);
 		
 		$mindModel = new \Application\Models\Mind;
 		$mindModel->exchangeArray($data);
@@ -72,8 +71,7 @@ class MindManagerTest extends TestCase
 	public function testSaveCallSaveMind()
 	{
 		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
-		$mind = self::getApplication()->getServiceManager()->get('entity.mind');
-		$mind->exchangeArray($data);
+		$mind = new Mind($data);
 		
 		$mindModel = new \Application\Models\Mind;
 		$mindModel->exchangeArray($data);

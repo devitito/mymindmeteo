@@ -19,7 +19,7 @@ class QuickRegistrationTest extends TestCase
 	{
 		$data = array('name' => 'aname', 'email' => 'anemail@something.com', 'password' => 'apassword');
 		
-		$mind = self::getApplication()->getServiceManager()->get('entity.mind');
+		$mind = new Mind();
 		$this->instance->bind($mind);
 		$this->instance->setData($data);
 		

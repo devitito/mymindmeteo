@@ -109,10 +109,9 @@ return array(
         ),
         'invokables' => array(
         	'mind-manager' => 'Application\Services\MindManager\MindManager',
-        	'entity.mind'  => 'Application\Entity\Mind'
         ),
         'shared' => array(
-        	'entity.mind' => false,
+        	//'entity.mind' => false,
         ),
     ),
     'translator' => array(

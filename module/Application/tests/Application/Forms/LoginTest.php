@@ -19,7 +19,7 @@ class LoginTest extends TestCase
 	{
 		$data = array('nameoremail' => 'anameoremail', 'password' => 'apassword');
 		
-		$mind = self::getApplication()->getServiceManager()->get('entity.mind');
+		$mind = new Mind();
 		$this->instance->bind($mind);
 		$this->instance->setData($data);
 		

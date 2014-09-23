@@ -37,7 +37,7 @@ class IndexController extends AbstractActionController
     	 
     	if ($data !== false) {
     		// handle form
-    		$mind = $this->getServiceLocator()->get('entity.mind');
+    		$mind = new Mind();
     		$form->bind($mind);
     		$form->setData($data);
     	
@@ -81,7 +81,7 @@ class IndexController extends AbstractActionController
     	
     	if ($data !== false) {
     		// handle form
-    		$mind = $this->getServiceLocator()->get('entity.mind');
+    		$mind = new Mind();
     		$form->bind($mind);
    			$form->setData($data);
     		
