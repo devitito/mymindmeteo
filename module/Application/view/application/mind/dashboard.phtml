@@ -1,14 +1,13 @@
 <!-- Le styles -->
  <?php echo $this->headLink()
- 				->prependStylesheet('http://cdn.oesmith.co.uk/morris-0.5.1.css')
+ 				->prependStylesheet('/css/morris.css')
  ?>
 
 <!-- Scripts -->
 <?php echo $this->headScript()
 				->prependFile('/js/jscroll/jquery.jscroll.min.js')
-        		->prependFile('//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
-        		->prependFile('//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js')
-				->prependFile('http://cdn.oesmith.co.uk/morris-0.5.1.min.js');
+        		->prependFile('/js/raphael-min.js')
+				->prependFile('/js/morris.min.js');
 ?>
 
 <div class="navbar-wrapper">
@@ -142,7 +141,7 @@ $(document).ready(function() {
 
 	$('[data-ui="jscroll-default"]').jscroll({
 		autoTrigger: false,
-		debug: true,
+		debug: false,
 		});
 
 	new Morris.Line({
