@@ -13,7 +13,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Entity\Mind;
 use Application\Services\MindManager;
-use Application\Services\LoginManager;
 use Application\Exception;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Form\FormInterface;
@@ -128,10 +127,5 @@ class IndexController extends AbstractActionController
     	}
     
     	return $this->redirect()->toRoute('home');
-    }
-    
-    public function dashboardAction()
-    {
-    	return new ViewModel();
     }
 }
