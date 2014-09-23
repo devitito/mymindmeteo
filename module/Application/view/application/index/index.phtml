@@ -23,7 +23,11 @@
 	    	Our fully qualified meteorologsits will issue reports for you, you just have to address them to whoever you want:<br>your lover,<br>your mama,<br> your friends,<br>your boss....
 	    </p>
 	   <br>
-		<a class="btn btn-meteo btn-lg" href="/demo" role="button">Take a tour now!</a>
+	   	<form id="demo-login" method="post" action="/login">
+			<input type="hidden" name="nameoremail" value="demo" />
+			<input type="hidden" name="password" value="demodemo" />
+			<input type="submit" name="submitlogin" value="Take a tour now!" class="btn btn-meteo btn-lg" />
+		</form>
 		<hr class="featurette-divider">
 	   <div class="row featurette">
          <div class="col-md-8">
