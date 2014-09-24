@@ -156,4 +156,23 @@ return array(
             ),
         ),
     ),
+    'session' => array(
+    	'config' => array(
+    		'remember_me_seconds'  => 180,
+    		'use_cookies'          => true,
+    		'cookie_httponly'      => true,
+    	),
+    ),
+    'asset_manager' => array(
+    	'resolver_configs' => array(
+    		'paths' => array(
+    			'Application' => __DIR__ . '/../public',
+    		),
+    	),
+    	'caching' => array(
+    		'default' => array(
+    			'cache'     => 'Assetic\\Cache\\ApcCache',
+    		),
+    	),
+    ),
 );
