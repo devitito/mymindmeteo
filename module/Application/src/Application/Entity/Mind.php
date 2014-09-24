@@ -8,10 +8,13 @@
 namespace Application\Entity;
 
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Session\Container;
 
 class Mind extends \ArrayObject implements \ArrayAccess
 {
 	use EntitiesArrayAccessTrait;
+	
+	//protected $eventIdentifier = array('entities', 'entity.mind');
 	
 	protected $id;
 	protected $name;
@@ -33,7 +36,6 @@ class Mind extends \ArrayObject implements \ArrayAccess
 		$this->password  = (isset($data['password'])) ? $data['password'] : null;
 		$this->nameoremail  = (isset($data['nameoremail'])) ? $data['nameoremail'] : null;
 	}
-	
 	
 	public function getId()
 	{
@@ -89,4 +91,9 @@ class Mind extends \ArrayObject implements \ArrayAccess
 		$this->password = $value;
 		return $this;
 	}
+	
+	/*public function remove()
+	{
+		$this->getEventManager()->trigger('remove.pre', $this);
+	}*/
 }
