@@ -25,6 +25,16 @@ execute "Allowing apache to access vagrant files" do
   action :run
 end
 
+execute "Enable expire module" do
+  command "a2enmod expires"
+  action :run
+end
+
+execute "Enable header module" do
+  command "a2enmod headers"
+  action :run
+end
+
 service "apache2" do
   action :restart
 end
