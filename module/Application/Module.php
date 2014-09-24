@@ -20,6 +20,9 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter as AuthAdapter;
 use Zend\Authentication\AuthenticationService;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Session\SessionManager;
+use Zend\Session\Config\SessionConfig;
+use Zend\Session\Container;
 
 class Module implements Feature\FormElementProviderInterface
 {
@@ -36,6 +39,15 @@ class Module implements Feature\FormElementProviderInterface
         	$exceptionstrategy = $sm->get('ViewManager')->getExceptionStrategy();
         	$exceptionstrategy->setExceptionTemplate('error/prod');
         }*/
+        
+        $this->initSession($e);
+        
+        /**
+         * @var $sharedEventManager \Zend\EventManager\SharedEventManager
+         */
+        /*$sharedEventManager->attach('entities', 'remove.pre', function (EventInterface $e) {
+        	// check acl
+        });*/
     }
     
     public function getConfig()
@@ -79,6 +91,47 @@ class Module implements Feature\FormElementProviderInterface
     				$authService->setAdapter($dbTableAuthAdapter);
     				return $authService;
     			},
+    			'Zend\Session\SessionManager' => function ($sm) {
+    				$config = $sm->get('config');
+    				if (isset($config['session'])) {
+    					$session = $config['session'];
+    			
+    					$sessionConfig = null;
+    					if (isset($session['config'])) {
+    						$class = isset($session['config']['class'])  ? $session['config']['class'] : 'Zend\Session\Config\SessionConfig';
+    						$options = isset($session['config']['options']) ? $session['config']['options'] : array();
+    						$sessionConfig = new $class();
+    						$sessionConfig->setOptions($options);
+    					}
+    			
+    					$sessionStorage = null;
+    					if (isset($session['storage'])) {
+    						$class = $session['storage'];
+    						$sessionStorage = new $class();
+    					}
+    			
+    					$sessionSaveHandler = null;
+    					if (isset($session['save_handler'])) {
+    						// class should be fetched from service manager since it will require constructor arguments
+    						$sessionSaveHandler = $sm->get($session['save_handler']);
+    					}
+    			
+    					$sessionManager = new SessionManager($sessionConfig, $sessionStorage, $sessionSaveHandler);
+    			
+    					if (isset($session['validator'])) {
+    						$chain = $sessionManager->getValidatorChain();
+    						foreach ($session['validator'] as $validator) {
+    							$validator = new $validator();
+    							$chain->attach('session.validate', array($validator, 'isValid'));
+    			
+    						}
+    					}
+    				} else {
+    					$sessionManager = new SessionManager();
+    				}
+    				Container::setDefaultManager($sessionManager);
+    				return $sessionManager;
+    			},
     		),
     	);
     } 
@@ -110,5 +163,13 @@ class Module implements Feature\FormElementProviderInterface
     				}
     		)
     	);
+    }
+    
+    public function initSession($e)
+    {
+    	$sessionManager = $e->getApplication()
+                     		 ->getServiceManager()
+                     		 ->get('Zend\Session\SessionManager');
+        $sessionManager->start();
     }
 }

@@ -48,6 +48,7 @@ class IndexController extends AbstractActionController
 				$mindManager->save($mind);	
 				$authService = $this->getServiceLocator()->get('AuthService');
 				$authService->getStorage()->write($mind->getName());
+				
 				return $this->redirect()->toUrl('/'.$mind->getName());
     		}
     		else {
@@ -87,6 +88,7 @@ class IndexController extends AbstractActionController
     		
    			if ($form->isValid()) {
    				//attempt user authentication on filtered input
+   				$mind->exchangeArray($form->getData(FormInterface::VALUES_AS_ARRAY));
    				$authService = $this->getServiceLocator()->get('AuthService');
    				$authService->getAdapter()
    							->setIdentity($mind->getNameoremail())
@@ -95,6 +97,10 @@ class IndexController extends AbstractActionController
 				if ($authResult->isValid()) {				
 					$identity = $authResult->getIdentity();
 					$authService->getStorage()->write($identity);
+					
+					$sessionManager = $this->getServiceLocator()->get('Zend\Session\SessionManager');
+					$sessionManager->regenerateId(true);
+					
    					return $this->redirect()->toUrl('/'.$identity);
 				}
    				else {
@@ -122,6 +128,8 @@ class IndexController extends AbstractActionController
     	$auth = $this->getServiceLocator()->get('AuthService');
     	if ($auth->hasIdentity()) {
     		$auth->clearIdentity();
+    		$sessionManager = $this->getServiceLocator()->get('Zend\Session\SessionManager');
+    		$sessionManager->destroy();
     		//$sessionManager = new SessionManager();
     		//$sessionManager->forgetMe();
     	}
