@@ -103,6 +103,9 @@ return array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
         ),
+        'factories' => array(
+        	'AuthService' => 'Application\Services\Factory\AuthenticationFactory',
+        ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
             'Zend\Authentication\AuthenticationService' => 'AuthService',

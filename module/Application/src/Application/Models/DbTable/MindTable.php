@@ -68,6 +68,7 @@ class MindTable
 				throw new \Exception('Mind id does not exist');
 			}
 		}
+		return $data;
 	}
 
 	public function deleteMind($id)

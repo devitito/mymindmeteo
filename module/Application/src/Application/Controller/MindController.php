@@ -25,7 +25,7 @@ class MindController extends AbstractActionController
 		if (!$identity)
 			//someone unidentified tries to access a mind's public page: he has to login first
 			return $this->redirect()->toUrl('/login');
-		else if ($identity == $requestedMind) {
+		else if ($identity->name == $requestedMind) {
 			//the mind identified in this session wants to access his dashboard
 			return ['mind' => $mind];
     	}

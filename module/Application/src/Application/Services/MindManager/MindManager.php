@@ -8,6 +8,7 @@ use Application\Entity\Mind;
 use Application\Models\DbTable\MindTable;
 use Application\Exception;
 use Traversable;
+use stdClass;
 use Zend\Stdlib\ArrayUtils;
 
 
@@ -34,7 +35,13 @@ class MindManager implements ServiceManagerAwareInterface
 		$mindModel = new \Application\Models\Mind;
 		$mindModel->exchangeArray($mind);
 
-		$this->getMindTable()->saveMind($mindModel);
+		$rowset = $this->getMindTable()->saveMind($mindModel);
+		
+		$returnObject = new stdClass();
+		foreach ($rowset as $resultColumn => $resultValue) {
+			$returnObject->{$resultColumn} = $resultValue;
+		}
+		return $returnObject;
 	}
 	
 	public function isAvailable($options)

@@ -45,11 +45,10 @@ class IndexController extends AbstractActionController
     			//register new mind with filtered input
     			$mind->exchangeArray($form->getData());
     			$mindManager = $this->getServiceLocator()->get('mind-manager');  
-				$mindManager->save($mind);	
+				$identity = $mindManager->save($mind);	
 				$authService = $this->getServiceLocator()->get('AuthService');
-				$authService->getStorage()->write($mind->getName());
-				
-				return $this->redirect()->toUrl('/'.$mind->getName());
+				$authService->getStorage()->write($identity);
+				return $this->redirect()->toUrl('/'.$identity->name);
     		}
     		else {
     			foreach ($form as $elements) {
@@ -67,7 +66,7 @@ class IndexController extends AbstractActionController
     public function loginAction()
     {
     	if ($identity = $this->identity()) {
-    		return $this->redirect()->toUrl('/'.$identity);
+    		return $this->redirect()->toUrl('/'.$identity->name);
     	}
     	
     	$formManager = $this->getServiceLocator()->get('FormElementManager');
@@ -95,13 +94,13 @@ class IndexController extends AbstractActionController
    							->setCredential($mind->getPassword());
    				$authResult = $authService->authenticate();   
 				if ($authResult->isValid()) {				
-					$identity = $authResult->getIdentity();
+					$identity = $authService->getAdapter()->getResultRowObject(array('name','id'/*,registration date*/));
 					$authService->getStorage()->write($identity);
 					
 					$sessionManager = $this->getServiceLocator()->get('Zend\Session\SessionManager');
 					$sessionManager->regenerateId(true);
 					
-   					return $this->redirect()->toUrl('/'.$identity);
+   					return $this->redirect()->toUrl('/'.$identity->name);
 				}
    				else {
    					foreach ($authResult->getMessages() as $message) {
