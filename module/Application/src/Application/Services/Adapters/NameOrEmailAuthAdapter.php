@@ -11,14 +11,6 @@ use Zend\Db\Sql\Predicate;
 
 class NameOrEmailAuthAdapter extends CallbackCheckAdapter
 {
-	/**
-	 * $credentialValidationCallback - This overrides the Treatment usage to provide a callback
-	 * that allows for validation to happen in code
-	 *
-	 * @var callable
-	 */
-	//protected $credentialValidationCallback = null;
-	
 	protected $identityColumns = [];
 	
 	/**
@@ -120,52 +112,5 @@ class NameOrEmailAuthAdapter extends CallbackCheckAdapter
             
         return $dbSelect;
     }
-    
-    /**
-     * _authenticateValidateResult() - This method attempts to validate that
-     * the record in the resultset is indeed a record that matched the
-     * identity provided to this adapter.
-     *
-     * @param  array $resultIdentity
-     * @return AuthenticationResult
-     */
-  /*  protected function authenticateValidateResult($resultIdentity)
-    {
-    	try {
-    		$callbackResult = call_user_func($this->credentialValidationCallback, $resultIdentity[$this->credentialColumn], $this->credential);
-    	} catch (\Exception $e) {
-    		$this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_UNCATEGORIZED;
-    		$this->authenticateResultInfo['messages'][] = $e->getMessage();
-    		return $this->authenticateCreateAuthResult();
-    	}
-    	if ($callbackResult !== true) {
-    		$this->authenticateResultInfo['code']       = AuthenticationResult::FAILURE_CREDENTIAL_INVALID;
-    		$this->authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
-    		return $this->authenticateCreateAuthResult();
-    	}
-    
-    	$this->resultRow = $resultIdentity;
-    
-    	$this->authenticateResultInfo['code']       = AuthenticationResult::SUCCESS;
-    	$this->authenticateResultInfo['messages'][] = 'Authentication successful.';
-    	return $this->authenticateCreateAuthResult();
-    }*/
-    
-    /**
-     * setCredentialValidationCallback() - allows the developer to use a callback as a way of checking the
-     * credential.
-     *
-     * @param callable $validationCallback
-     * @return self
-     * @throws Exception\InvalidArgumentException
-     */
- /*   public function setCredentialValidationCallback($validationCallback)
-    {
-    	if (!is_callable($validationCallback)) {
-    		throw new Exception\InvalidArgumentException('Invalid callback provided');
-    	}
-    	$this->credentialValidationCallback = $validationCallback;
-    	return $this;
-    }*/
 }
 
