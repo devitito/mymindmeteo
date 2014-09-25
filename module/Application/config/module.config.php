@@ -178,4 +178,28 @@ return array(
     		),
     	),
     ),
+    'doctrine' => array(
+	    'authentication' => array(
+	    	'orm_default' => array(
+	    		'object_manager' => 'Doctrine\ORM\EntityManager',
+	    			'identity_class' => 'Application\Entity\Mind',
+	    			'identity_property' => 'name',
+	    			'credential_property' => 'password',
+	    			'credential_callable' => 'Application\Services\MindManager\MindManager::verifyHashedPassword',
+	    	),
+	    ),
+    	'driver' => array(
+    		'application_entities' => array(
+    			'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+    			'cache' => 'array',
+    			'paths' => array(__DIR__ . '/../src/Application/Entity')
+    		),
+    		'orm_default' => array(
+    			'drivers' => array(
+    				'Application\Entity' => 'application_entities'
+    			)
+    		),
+    		
+    	)
+    ),
 );

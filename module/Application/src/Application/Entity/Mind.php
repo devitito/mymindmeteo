@@ -7,20 +7,45 @@
 
 namespace Application\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Session\Container;
 
+/** 
+ * 
+ * @ORM\Entity(repositoryClass="Application\Entity\Repository\MindRepository") 
+ * @ORM\Table(name="`minds`")
+ * 
+ */
 class Mind extends \ArrayObject implements \ArrayAccess
 {
 	use EntitiesArrayAccessTrait;
 	
 	//protected $eventIdentifier = array('entities', 'entity.mind');
 	
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(name="id", type="string", length=32, nullable=false, unique=true)
+	 * @ORM\GeneratedValue(strategy="NONE")
+	 */
 	protected $id;
+	
+	/**
+	 * @ORM\Column(name="name", type="string", length=64, nullable=true, unique=true)
+	 */
 	protected $name;
+	
+	/**
+	 * @ORM\Column(name="email", type="string", length=128, nullable=true, unique=true)
+	 */
 	protected $email;
-	protected $nameoremail;
+	
+	/**
+	 * @ORM\Column(name="password", type="string", length=128, nullable=true, unique=false)
+	 */
 	protected $password;
+	
+	protected $nameoremail;
 	
 	public function __construct($options = null)
 	{

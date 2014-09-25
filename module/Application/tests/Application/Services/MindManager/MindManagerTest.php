@@ -7,22 +7,43 @@ use Application\Entity\Mind;
 use Application\Exception;
 use Zend\Config\Config;
 use Zend\Crypt\Password\Bcrypt;
+use ReflectionClass;
 
 class MindManagerTest extends TestCase
 {
 	protected $instance;
-	protected $mindtable;
+	protected $em;
 
+	static public function setUpBeforeClass()
+	{
+		self::getApplication()->getServiceManager()
+							->setInvokableClass('test.mind-manager', '\Application\Services\MindManager\MindManager')
+							->setShared('test.mind-manager', false);
+	}
+	
 	public function setUp()
 	{
-		$this->instance = self::getApplication()->getServiceManager()->get('mind-manager');
-		$this->mindtable = self::getApplication()->getServiceManager()->get('Application\Models\DbTable\MindTable');
-		self::getApplication()->getServiceManager()->setAllowOverride(true);
+		$this->instance = $this->instance = $this->getApplication()->getServiceManager()->get('test.mind-manager');
+		$this->em = self::getApplication()->getServiceManager()->get('doctrine.entitymanager.orm_default');
 	}
 
 	public function tearDown()
 	{
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $this->mindtable);
+		self::getApplication()->getServiceManager()->setAllowOverride(true);
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $this->em);
+	}
+	
+	protected static function uniqid()
+	{
+		return 'uniqid';
+	}
+	
+	protected static function getMethod($name) 
+	{
+		$class = new ReflectionClass('Application\Services\MindManager\MindManager');
+		$method = $class->getMethod($name);
+		$method->setAccessible(true);
+		return $method;
 	}
 	
 	public function testSmAccessor()
@@ -34,58 +55,65 @@ class MindManagerTest extends TestCase
 		$this->assertSame($expected, $actual);
 	}
 	
-	public function testIfMindTableIsNullWillRequestItFromServiceManager()
+	public function testIfEntityManagerIsNullWillRequestItFromServiceManager()
 	{
-		$this->instance->setMindTable(null);
-		$this->assertSame($this->mindtable, $this->instance->getMindTable());
+		$foo = self::getMethod('getEntityManager');
+		
+		$this->assertSame($foo->invokeArgs($this->instance, []), self::getApplication()->getServiceManager()->get('doctrine.entitymanager.orm_default'));
 	}
 	
-	public function testSaveThrowExceptionIfInputIsNotAnArrayNorAMindClass()
+	public function testSaveThrowExceptionIfInputIsNotAMindClass()
 	{
 		$this->setExpectedException('Exception', Exception::getCustomMessage(Exception::OPERATION_FAILED));
 		$this->instance->save('');
+		$this->setExpectedException('Exception', Exception::getCustomMessage(Exception::OPERATION_FAILED));
+		$this->instance->save(['key' => 'value']);
 	}
 	
-	public function testSaveForwardExceptionIfInsertTableFails()
+	public function testSaveCallEntityManagerPersistAndFlush()
 	{
-		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
+		$data = ['id' => 'uniqid', 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
 		$mind = new Mind($data);
+	
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+		   ->method('persist')
+		   ->with($mind)
+		   ->will($this->returnSelf());
+		$em->expects($this->once())
+			->method('flush')
+			->will($this->returnSelf());
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+
+		$foo = self::getMethod('setEntityManager');
+		$foo->invokeArgs($this->instance, [null]);
 		
-		$mindModel = new \Application\Models\Mind;
-		$mindModel->exchangeArray($data);
-		
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-						  ->disableOriginalConstructor()
-						  ->getMock();
-		$mindtable->expects($this->once())
-				  ->method('saveMind')
-				  ->with($mindModel)
-				  ->will($this->throwException(new \Exception()));
-		
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
-		$this->setExpectedException('\Exception');
 		$this->instance->save($mind);
 	}
 	
-	public function testSaveCallSaveMind()
+	public function testSaveForwardExceptionIfFlushFails()
 	{
 		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
 		$mind = new Mind($data);
 		
-		$mindModel = new \Application\Models\Mind;
-		$mindModel->exchangeArray($data);
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+			->method('persist')
+			->with($mind)
+			->will($this->returnSelf());
+		$em->expects($this->once())
+		   ->method('flush')
+		   ->will($this->throwException(new Exception()));
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
 		
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-						  ->disableOriginalConstructor()
-						  ->getMock();
-		$mindtable->expects($this->once())
-				  ->method('saveMind')
-		          ->with($mindModel)
-		          ->will($this->returnSelf());
+		$foo = self::getMethod('setEntityManager');
+		$foo->invokeArgs($this->instance, [null]);
 		
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
+		$this->setExpectedException('Exception');
 		$this->instance->save($mind);
 	}
 	
@@ -103,15 +131,26 @@ class MindManagerTest extends TestCase
 			);
 		$config  = new Config($options);
 		
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-						  ->disableOriginalConstructor()
-		 				  ->getMock();
-		$mindtable->expects($this->once())
-				  ->method('existMind')
-				  ->with(['name' => 'aname'])
-				  ->will($this->returnValue(false));
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
+		$rep = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
+					->disableOriginalConstructor()
+					->getMock();
+		$rep->expects($this->once())
+			->method('findBy')
+			->with($options)
+			->will($this->returnValue([]));
+		
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+				  ->disableOriginalConstructor()
+		 		  ->getMock();
+		$em->expects($this->once())
+				  ->method('getRepository')
+				  ->with('Application\Entity\Mind')
+				  ->will($this->returnValue($rep));
+		
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+		
+		$foo = self::getMethod('setEntityManager');
+		$foo->invokeArgs($this->instance, [null]);
 		
 		$this->assertTrue($this->instance->isAvailable($config));
 	}
@@ -128,173 +167,14 @@ class MindManagerTest extends TestCase
 		$this->instance->isAvailable(['data' => 'adata']);
 	}
 	
-	public function testIsAvailableById()
-	{
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-						  ->disableOriginalConstructor()
-						  ->getMock();
-		$mindtable->expects($this->once())
-		           ->method('existMind')
-				   ->with(['id' => 'anid'])
-				   ->will($this->returnValue(false));
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
-		
-		$this->assertTrue($this->instance->isAvailable(['id' => 'anid', 'name' => 'aname', 'email' => 'anemail@something.com']));
-	}
-	
-	public function testIsAvailableByEmail()
-	{
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-						  ->disableOriginalConstructor()
-						  ->getMock();
-		$mindtable->expects($this->once())
-				  ->method('existMind')
-				  ->with(['email' => 'anemail@something.com'])
-				  ->will($this->returnValue(false));
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
-	
-		$this->assertTrue($this->instance->isAvailable(['email' => 'anemail@something.com']));
-	}
-	
-	public function testgetMindThrowExceptionWithWrongInputClass()
-	{
-		$options = array(
-				'name'       => 'aname',
-				'email'       => 'anemail@something.com'
-		);
-		$config  = new Config($options);
-		
-		$this->setExpectedException('Exception', Exception::getCustomMessage(Exception::UNKNOWN_MIND));
-		$this->instance->getMind($config);
-	}
-	
-	public function testgetMindThrowExceptionIfInputDoesntContainNeededKeys()
-	{
-		$options = array();
-		$this->setExpectedException('Exception', Exception::getCustomMessage(Exception::UNKNOWN_MIND));
-		$this->instance->getMind($options);
-	}
-	
-	public function testgetMindSearchByIdFirst()
+	public function testVerifyHashedPassword()
 	{
 		$bcrypt = new Bcrypt();
-		$options = array(
-				'nameoremail' => 'anameoremail',
-				'name'       => 'aname',
-				'email'       => 'anemail@something.com',
-				'id'		=> 'anid'
-		);
+		$data = ['id' => null, 'name' => 'aname', 'email' => 'anemail', 'nameoremail' => null];
+		$mind = new Mind($data);
+		$mind->setPassword($bcrypt->create('apassword'));
 		
-		$mindResult = new \Application\Models\Mind();
-		$mindResult->exchangeArray(array(
-				'id' 			=> 'anid',
-				'name'     		=> 'aname',
-				'email'  		=> 'anemail@something.com',
-				'password'		=> $bcrypt->create('apassword')));
-		
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-							->disableOriginalConstructor()
-							->getMock();
-		$mindtable->expects($this->once())
-				->method('getMindById')
-				->with('anid')
-				->will($this->returnValue($mindResult));
-		$mindtable->expects($this->never())
-				  ->method('getMindByNameoremail');
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
-		
-		$this->assertEquals($mindResult, $this->instance->getMind($options));
-	}
-	
-	public function testgetMindSearchByNameorEmailSecond()
-	{
-		$bcrypt = new Bcrypt();
-		$options = array(
-				'name'       => 'aname',
-				'nameoremail' => 'aname',
-				'email'       => 'anemail@something.com'
-		);
-	
-		$mindResult = new \Application\Models\Mind();
-		$mindResult->exchangeArray(array(
-				'id' 			=> 'anid',
-				'name'     		=> 'aname',
-				'email'  		=> 'anemail@something.com',
-				'password'		=> $bcrypt->create('apassword')));
-		
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-						->disableOriginalConstructor()
-						->getMock();
-		$mindtable->expects($this->once())
-				->method('getMindByNameoremail')
-				->with('aname')
-				->will($this->returnValue($mindResult));
-		$mindtable->expects($this->never())
-				->method('getMindById');
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
-	
-		$this->assertEquals($mindResult, $this->instance->getMind($options));
-	}
-	
-	public function testgetMindSearchByNameThird()
-	{
-		$bcrypt = new Bcrypt();
-		$options = array(
-				'email'       => 'anemail@something.com',
-				'name'       => 'aname'
-		);
-	
-		$mindResult = new \Application\Models\Mind();
-		$mindResult->exchangeArray(array(
-				'id' 			=> 'anid',
-				'name'     		=> 'aname',
-				'email'  		=> 'anemail@something.com',
-				'password'		=> $bcrypt->create('apassword')));
-	
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-						->disableOriginalConstructor()
-						->getMock();
-		$mindtable->expects($this->once())
-					->method('getMindByNameoremail')
-					->with('aname')
-					->will($this->returnValue($mindResult));
-		$mindtable->expects($this->never())
-					->method('getMindById');
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
-	
-		$this->assertEquals($mindResult, $this->instance->getMind($options));
-	}
-	
-	public function testgetMindSearchByEmailLast()
-	{
-		$bcrypt = new Bcrypt();
-		$mind = ['email' => 'anemail@something.com'];
-	
-		$mindResult = new \Application\Models\Mind();
-		$mindResult->exchangeArray(array(
-				'id' 			=> 'anid',
-				'name'     		=> 'aname',
-				'email'  		=> 'anemail@something.com',
-				'password'		=> $bcrypt->create('apassword')));
-	
-		$mindtable = $this->getMockBuilder('Application\Models\DbTable\MindTable')
-							->disableOriginalConstructor()
-							->getMock();
-		$mindtable->expects($this->once())
-					->method('getMindByNameoremail')
-					->with('anemail@something.com')
-					->will($this->returnValue($mindResult));
-		$mindtable->expects($this->never())
-					->method('getMindById');
-		
-		self::getApplication()->getServiceManager()->setService('Application\Models\DbTable\MindTable', $mindtable);
-		$this->instance->setMindTable($mindtable);
-	
-		$this->assertEquals($mindResult, $this->instance->getMind($mind));
+		$this->assertTrue($this->instance->verifyHashedPassword($mind, 'apassword'));
+		$this->assertFalse($this->instance->verifyHashedPassword($mind, 'anotherpassword'));
 	}
 }

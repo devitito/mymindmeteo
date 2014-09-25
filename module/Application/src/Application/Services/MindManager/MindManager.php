@@ -5,11 +5,12 @@ namespace Application\Services\MindManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Application\Entity\Mind;
-use Application\Models\DbTable\MindTable;
+//use Application\Models\DbTable\MindTable;
 use Application\Exception;
 use Traversable;
-use stdClass;
+//use stdClass;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Crypt\Password\Bcrypt;
 
 
 class MindManager implements ServiceManagerAwareInterface
@@ -21,27 +22,27 @@ class MindManager implements ServiceManagerAwareInterface
 	protected $serviceManager;
 
 	/**
-	 *
-	 * @var Application\Models\DbTable\MindTable
+	 * @var Doctrine\ORM\EntityManager
 	 */
-	protected $mindTable;	
-	
+	protected $entityManager;
 	
 	public function save($mind)
 	{
 		if (!$mind instanceof Mind) {
 			throw Exception::factory(Exception::OPERATION_FAILED);
 		}
-		$mindModel = new \Application\Models\Mind;
-		$mindModel->exchangeArray($mind);
 
-		$rowset = $this->getMindTable()->saveMind($mindModel);
-		
-		$returnObject = new stdClass();
-		foreach ($rowset as $resultColumn => $resultValue) {
-			$returnObject->{$resultColumn} = $resultValue;
+		$bcrypt = new Bcrypt();
+		//Set the id and encrypt password
+		if (!$mind->getId()) {
+			$mind->setId(uniqid());
+			$mind->setPassword($bcrypt->create($mind->getPassword()));
 		}
-		return $returnObject;
+		
+		$this->getEntityManager()->persist($mind);
+		$this->getEntityManager()->flush();
+		
+		return $mind;
 	}
 	
 	public function isAvailable($options)
@@ -58,57 +59,31 @@ class MindManager implements ServiceManagerAwareInterface
 			
 			//reserved mind name
 			$reserved = ['admin', 'Admin', 'demo', 'Demo'];
-			
-			foreach ($options as $key => $value) {
-				switch (strtolower($key)) {
-					case 'id':
-						return !$this->getMindTable()->existMind(['id' => $value]);
-						break;
-					case 'name':
-						if (in_array($value, $reserved))
-							return false;
-						return !$this->getMindTable()->existMind(['name' => $value]);
-						break;
-					case 'email':
-						return !$this->getMindTable()->existMind(['email' => $value]);
-						break;
-				}
+			if (array_key_exists('name', $options)) {
+				if (in_array($options['name'], $reserved))
+					return false;
 			}
-			throw Exception::factory(Exception::UNKNOWN_MIND);
+			
+			try {
+				return (empty($this->getEntityManager()->getRepository('Application\Entity\Mind')->findBy($options)));
+			}
+			catch (\Exception $e) {
+				throw Exception::factory(Exception::UNKNOWN_MIND);
+			}
+			
 		}
 	}
 	
-	public function getMind($mind)
+	/**
+	 * Static function for checking hashed password (as required by Doctrine)
+	 *
+	 * @param Application\Entity\Mind $mind The identity object
+	 * @param string $passwordGiven Password provided to be verified
+	 * @return boolean true if the password was correct, else, returns false
+	 */
+	public static function verifyHashedPassword(Mind $mind, $passwordGiven)
 	{
-		if (!is_array($mind)) {
-			throw Exception::factory(Exception::UNKNOWN_MIND);
-		} 
-		
-		if (array_key_exists('id', $mind))
-			return $this->getMindTable()->getMindById($mind['id']);
-		if (array_key_exists('nameoremail', $mind))
-			return $this->getMindTable()->getMindByNameoremail($mind['nameoremail']);
-		if (array_key_exists('name', $mind))
-			return $this->getMindTable()->getMindByNameoremail($mind['name']);
-		if (array_key_exists('email', $mind))
-			return $this->getMindTable()->getMindByNameoremail($mind['email']);
-		
-		//Throw exception if nothing could allow to identificate the mind
-		throw Exception::factory(Exception::UNKNOWN_MIND);
-	}
-	
-	public function getMindTable()
-	{
-		if (! $this->mindTable) {
-			$this->mindTable = $this->getServiceManager()->get( 'Application\Models\DbTable\MindTable' );
-		}
-		return $this->mindTable;
-	}
-	
-	public function setMindTable($mindTable)
-	{
-		$this->mindTable = $mindTable;
-		return $this;
+		return (new Bcrypt())->verify($passwordGiven, $mind->getPassword());
 	}
 	
 	/**
@@ -128,5 +103,30 @@ class MindManager implements ServiceManagerAwareInterface
 	public function getServiceManager()
 	{
 		return $this->serviceManager;
+	}
+	
+	/**
+	 * get entityManager
+	 *
+	 * @return EntityManager
+	 */
+	private function getEntityManager()
+	{
+		if (null === $this->entityManager) {
+			$this->entityManager = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
+		}
+	
+		return $this->entityManager;
+	}
+	
+	/**
+	 * get entityManager
+	 *
+	 * @return EntityManager
+	 */
+	private function setEntityManager($em)
+	{
+		$this->entityManager = $em;
+		return $this;
 	}
 }
