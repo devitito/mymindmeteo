@@ -17,9 +17,6 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature;
 use Zend\Stdlib\Hydrator\ClassMethods;
-//use Application\Services\Adapters\NameOrEmailAuthAdapter as AuthAdapter;
-//use Zend\Authentication\AuthenticationService;
-//use Zend\Crypt\Password\Bcrypt;
 use Zend\Session\SessionManager;
 use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
@@ -81,16 +78,6 @@ class Module implements Feature\FormElementProviderInterface
     				$resultSetPrototype->setArrayObjectPrototype(new Mind());
     				return new TableGateway('minds', $dbAdapter, null, $resultSetPrototype);
     			},
-    		/*	'AuthService' => function($sm) {
-    				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-			    	$credentialValidationCallback = function($dbCredential, $requestCredential) {
-			    		return (new Bcrypt())->verify($requestCredential, $dbCredential);
-			    	};
-			    	$dbTableAuthAdapter  = new AuthAdapter($dbAdapter, 'minds', ['name', 'email'],'password', $credentialValidationCallback);
-			    	$authService = new AuthenticationService();
-			    	$authService->setAdapter($dbTableAuthAdapter);
-			    	return $authService;
-    			},*/
     			'Zend\Session\SessionManager' => function ($sm) {
     				$config = $sm->get('config');
     				if (isset($config['session'])) {
