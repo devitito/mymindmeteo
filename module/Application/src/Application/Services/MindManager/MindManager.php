@@ -39,8 +39,12 @@ class MindManager implements ServiceManagerAwareInterface
 			$mind->setPassword($bcrypt->create($mind->getPassword()));
 		}
 		
-		$this->getEntityManager()->persist($mind);
-		$this->getEntityManager()->flush();
+		try {
+			$this->getEntityManager()->persist($mind);
+			$this->getEntityManager()->flush();
+		} catch (\Exception $e) {
+			throw Exception::factory(Exception::OPERATION_FAILED);
+		}
 		
 		return $mind;
 	}
@@ -117,16 +121,5 @@ class MindManager implements ServiceManagerAwareInterface
 		}
 	
 		return $this->entityManager;
-	}
-	
-	/**
-	 * get entityManager
-	 *
-	 * @return EntityManager
-	 */
-	private function setEntityManager($em)
-	{
-		$this->entityManager = $em;
-		return $this;
 	}
 }

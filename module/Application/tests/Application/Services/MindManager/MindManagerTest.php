@@ -9,6 +9,16 @@ use Zend\Config\Config;
 use Zend\Crypt\Password\Bcrypt;
 use ReflectionClass;
 
+/**
+ * Override uniqid() in current namespace for testing
+ *
+ * @return string
+ */
+function uniqid()
+{
+	return 'uniqid';
+}
+
 class MindManagerTest extends TestCase
 {
 	protected $instance;
@@ -31,11 +41,6 @@ class MindManagerTest extends TestCase
 	{
 		self::getApplication()->getServiceManager()->setAllowOverride(true);
 		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $this->em);
-	}
-	
-	protected static function uniqid()
-	{
-		return 'uniqid';
 	}
 	
 	protected static function getMethod($name) 
@@ -87,13 +92,84 @@ class MindManagerTest extends TestCase
 			->will($this->returnSelf());
 		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
 
-		$foo = self::getMethod('setEntityManager');
-		$foo->invokeArgs($this->instance, [null]);
+		//$foo = self::getMethod('setEntityManager');
+		//$foo->invokeArgs($this->instance, [null]);
 		
 		$this->instance->save($mind);
 	}
 	
-	public function testSaveForwardExceptionIfFlushFails()
+	public function testSaveGenerateId()
+	{
+		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
+		$mind = new Mind($data);
+		
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+			->method('persist')
+			->with($mind)
+			->will($this->returnSelf());
+		$em->expects($this->once())
+			->method('flush')
+			->will($this->returnSelf());
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+		
+		//$foo = self::getMethod('setEntityManager');
+		//$foo->invokeArgs($this->instance, [null]);
+		
+		$this->instance->save($mind);
+		$this->assertEquals($mind['id'], uniqid());
+	}
+	
+	public function testSaveEncryptPassword()
+	{
+		$data = ['id' => null, 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null];
+		$mind = new Mind($data);
+		
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+			->method('persist')
+			->with($mind)
+			->will($this->returnSelf());
+		$em->expects($this->once())
+			->method('flush')
+			->will($this->returnSelf());
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+		
+		$this->instance->save($mind);
+		$this->assertTrue($this->instance->verifyHashedPassword($mind, 'aapassword'));
+	}
+	
+	public function testSaveDontOverRideIdAndPassword()
+	{
+		$data = ['id' => 'someid', 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null];
+		$mind = new Mind($data);
+		
+		$bcrypt = new Bcrypt();
+		$mind['password'] = $bcrypt->create($mind['password']);
+		
+		
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+			->method('persist')
+			->with($mind)
+			->will($this->returnSelf());
+		$em->expects($this->once())
+			->method('flush')
+			->will($this->returnSelf());
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+		
+		$this->instance->save($mind);
+		$this->assertEquals('someid', $mind['id']);
+		$this->assertTrue($this->instance->verifyHashedPassword($mind, 'aapassword'));
+	}
+	
+	public function testSaveCatchException()
 	{
 		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
 		$mind = new Mind($data);
@@ -110,10 +186,10 @@ class MindManagerTest extends TestCase
 		   ->will($this->throwException(new Exception()));
 		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
 		
-		$foo = self::getMethod('setEntityManager');
-		$foo->invokeArgs($this->instance, [null]);
+		//$foo = self::getMethod('setEntityManager');
+		//$foo->invokeArgs($this->instance, [null]);
 		
-		$this->setExpectedException('Exception');
+		$this->setExpectedException('Exception', Exception::getCustomMessage(Exception::OPERATION_FAILED));
 		$this->instance->save($mind);
 	}
 	
@@ -149,8 +225,8 @@ class MindManagerTest extends TestCase
 		
 		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
 		
-		$foo = self::getMethod('setEntityManager');
-		$foo->invokeArgs($this->instance, [null]);
+		//$foo = self::getMethod('setEntityManager');
+		//$foo->invokeArgs($this->instance, [null]);
 		
 		$this->assertTrue($this->instance->isAvailable($config));
 	}
