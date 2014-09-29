@@ -11,7 +11,7 @@ use Traversable;
 //use stdClass;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Crypt\Password\Bcrypt;
-
+use DateTime;
 
 class MindManager implements ServiceManagerAwareInterface
 {
@@ -33,10 +33,11 @@ class MindManager implements ServiceManagerAwareInterface
 		}
 
 		$bcrypt = new Bcrypt();
-		//Set the id and encrypt password
+		//Set the id, encrypt password and add join date
 		if (!$mind->getId()) {
 			$mind->setId(uniqid());
 			$mind->setPassword($bcrypt->create($mind->getPassword()));
+			$mind->setJoindate(new DateTime("now"));
 		}
 		
 		try {

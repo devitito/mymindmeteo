@@ -197,9 +197,15 @@ return array(
     		'orm_default' => array(
     			'drivers' => array(
     				'Application\Entity' => 'application_entities'
-    			)
+    			),
     		),
-    		
+    	),
+    	'configuration' => array(
+    			'orm_default' => array(
+    					'types' => array(
+    							'utcdatetime' => 'Application\Types\UTCDateTimeType',
+    					),
+    			),
     	)
     ),
 );

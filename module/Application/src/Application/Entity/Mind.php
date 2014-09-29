@@ -9,7 +9,6 @@ namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\Session\Container;
 
 /** 
  * 
@@ -31,12 +30,12 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	protected $id;
 	
 	/**
-	 * @ORM\Column(name="name", type="string", length=64, nullable=true, unique=true)
+	 * @ORM\Column(name="name", type="string", length=64, nullable=false, unique=true)
 	 */
 	protected $name;
 	
 	/**
-	 * @ORM\Column(name="email", type="string", length=128, nullable=true, unique=true)
+	 * @ORM\Column(name="email", type="string", length=128, nullable=false, unique=true)
 	 */
 	protected $email;
 	
@@ -44,6 +43,16 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	 * @ORM\Column(name="password", type="string", length=128, nullable=true, unique=false)
 	 */
 	protected $password;
+	
+	/**
+	 * @ORM\Column(name="joindate", type="utcdatetime", nullable=false, unique=false)
+	 */
+	protected $joindate;
+	
+	/**
+	 * @ORM\Column(name="timezone", type="string", length=64, nullable=false, unique=false)
+	 */
+	protected $timezone;
 	
 	protected $nameoremail;
 	
@@ -59,7 +68,9 @@ class Mind extends \ArrayObject implements \ArrayAccess
 		$this->name = (isset($data['name'])) ? $data['name'] : null;
 		$this->email  = (isset($data['email'])) ? $data['email'] : null;
 		$this->password  = (isset($data['password'])) ? $data['password'] : null;
+		$this->joindate  = (isset($data['joindate'])) ? $data['joindate'] : null;
 		$this->nameoremail  = (isset($data['nameoremail'])) ? $data['nameoremail'] : null;
+		$this->timezone  = (isset($data['timezone'])) ? $data['timezone'] : null;
 	}
 	
 	public function getId()
@@ -114,6 +125,34 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	public function setPassword($value)
 	{
 		$this->password = $value;
+		return $this;
+	}
+	
+	public function getJoindate()
+	{
+		if ($this->joindate) {
+			$this->joindate->setTimezone(new \DateTimeZone($this->getTimezone()));
+		}
+		return $this->joindate;
+	}
+	
+	public function setJoindate($value)
+	{
+		$this->joindate = $value;
+		return $this;
+	}
+	
+	public function getTimezone()
+	{
+		if (!$this->timezone)
+			$this->timezone = date_default_timezone_get();
+		
+		return $this->timezone;
+	}
+	
+	public function setTimezone($value)
+	{
+		$this->timezone = $value;
 		return $this;
 	}
 	

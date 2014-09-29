@@ -19,6 +19,16 @@ function uniqid()
 	return 'uniqid';
 }
 
+/**
+ * Override DateTime(now) in current namespace for testing
+ *
+ * @return string
+ */
+function DateTime($string)
+{
+	return new \DateTime('2010-04-25 02:24:16');
+}
+
 class MindManagerTest extends TestCase
 {
 	protected $instance;
@@ -77,7 +87,7 @@ class MindManagerTest extends TestCase
 	
 	public function testSaveCallEntityManagerPersistAndFlush()
 	{
-		$data = ['id' => 'uniqid', 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
+		$data = ['id' => 'uniqid', 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => null];
 		$mind = new Mind($data);
 	
 		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -100,7 +110,7 @@ class MindManagerTest extends TestCase
 	
 	public function testSaveGenerateId()
 	{
-		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null];
+		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => null];
 		$mind = new Mind($data);
 		
 		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -124,7 +134,7 @@ class MindManagerTest extends TestCase
 	
 	public function testSaveEncryptPassword()
 	{
-		$data = ['id' => null, 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null];
+		$data = ['id' => null, 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => null];
 		$mind = new Mind($data);
 		
 		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -141,6 +151,32 @@ class MindManagerTest extends TestCase
 		
 		$this->instance->save($mind);
 		$this->assertTrue($this->instance->verifyHashedPassword($mind, 'aapassword'));
+	}
+	
+	public function testSaveSetJoindate()
+	{
+		$data = ['id' => null, 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => null];
+		$mind = new Mind($data);
+	
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+			->method('persist')
+			->with($mind)
+			->will($this->returnSelf());
+		$em->expects($this->once())
+			->method('flush')
+			->will($this->returnSelf());
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+	
+		$this->instance->save($mind);
+		//$this->assertNotNull($mind->getJoindate());
+		$created = new \DateTime(date('Y-m-d H:i:s', strtotime("-2 minutes")));
+
+		$this->assertAttributeLessThanOrEqual(new \DateTime("now"), 'joindate', $mind);// assertEquals(DateTime("2010-04-25 02:24:16"), $mind->getJoindate());
+		$this->assertAttributeGreaterThan($created, 'joindate', $mind);// assertEquals(DateTime("2010-04-25 02:24:16"), $mind->getJoindate());
+		$this->assertEquals(date_default_timezone_get(),$mind->getTimezone());
 	}
 	
 	public function testSaveDontOverRideIdAndPassword()
