@@ -16,7 +16,6 @@ use Application\Services\MindManager;
 use Application\Exception;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Form\FormInterface;
-//use Zend\Authentication\AuthenticationService;
 
 class IndexController extends AbstractActionController
 {

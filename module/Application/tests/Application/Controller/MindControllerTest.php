@@ -87,7 +87,6 @@ class MindControllerTest extends TestCase
 		$response = $this->instance->getResponse();
 	
 		$this->assertEquals(200, $response->getStatusCode());
-		//$this->assertEquals('/amindname', $this->_event->getResponse()->getHeaders()->get('Location')->getUri());
 	}
 	
 	public function testDashboardActionRedirectToLoginIfUnidentifiedWantsToAccessAMindPublicPage()
@@ -152,6 +151,5 @@ class MindControllerTest extends TestCase
 		$response = $this->instance->getResponse();
 	
 		$this->assertEquals(404, $response->getStatusCode());
-		//$this->assertEquals('/amindname/public', $response->getHeaders()->get('Location')->getUri());
 	}
 }

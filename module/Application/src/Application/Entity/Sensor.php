@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  *
  * @ORM\Entity(repositoryClass="Application\Entity\Repository\SensorRepository")
- * @ORM\Table(name="`sensors`")
+ * @ORM\Table(name="sensors")
  *
  */
 class Sensor implements \ArrayAccess
@@ -27,7 +27,7 @@ class Sensor implements \ArrayAccess
 	protected $label;
 	
 	/**
-	 * @ORM\Column(name="img", type="string", length=128, nullable=false, unique=false)
+	 * @ORM\Column(name="img", type="string", length=128, nullable=true, unique=false)
 	 */
 	protected $img;
 	

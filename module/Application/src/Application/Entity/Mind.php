@@ -13,7 +13,7 @@ use Zend\Crypt\Password\Bcrypt;
 /** 
  * 
  * @ORM\Entity(repositoryClass="Application\Entity\Repository\MindRepository") 
- * @ORM\Table(name="`minds`")
+ * @ORM\Table(name="minds")
  * 
  */
 class Mind extends \ArrayObject implements \ArrayAccess
