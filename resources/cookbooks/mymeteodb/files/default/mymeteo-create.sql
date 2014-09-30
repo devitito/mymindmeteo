@@ -16,14 +16,13 @@ CREATE TABLE mymeteo.minds(
  timezone VARCHAR(64) NOT NULL
 );
 
-CREATE TABLE `sensors` (
-  `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `label` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `img` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `topic` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `meteologist` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_D0D3FA90EA750E8` (`label`),
+CREATE TABLE mymeteo.sensors (
+  id varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  label varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  img varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  topic varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  meteologist varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
