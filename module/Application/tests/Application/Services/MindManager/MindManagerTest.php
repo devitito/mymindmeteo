@@ -43,7 +43,7 @@ class MindManagerTest extends TestCase
 	
 	public function setUp()
 	{
-		$this->instance = $this->instance = $this->getApplication()->getServiceManager()->get('test.mind-manager');
+		$this->instance = self::getApplication()->getServiceManager()->get('test.mind-manager');
 		$this->em = self::getApplication()->getServiceManager()->get('doctrine.entitymanager.orm_default');
 	}
 
@@ -171,17 +171,18 @@ class MindManagerTest extends TestCase
 		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
 	
 		$this->instance->save($mind);
-		//$this->assertNotNull($mind->getJoindate());
+		$this->assertNotNull($mind->getJoindate());
 		$created = new \DateTime(date('Y-m-d H:i:s', strtotime("-2 minutes")));
 
-		$this->assertAttributeLessThanOrEqual(new \DateTime("now"), 'joindate', $mind);// assertEquals(DateTime("2010-04-25 02:24:16"), $mind->getJoindate());
-		$this->assertAttributeGreaterThan($created, 'joindate', $mind);// assertEquals(DateTime("2010-04-25 02:24:16"), $mind->getJoindate());
-		$this->assertEquals(date_default_timezone_get(),$mind->getTimezone());
+		$this->assertAttributeLessThanOrEqual(new \DateTime("now"), 'joindate', $mind);
+		$this->assertAttributeGreaterThan($created, 'joindate', $mind);
+		//$this->assertEquals(date_default_timezone_get(),$mind->getTimezone());
 	}
 	
-	public function testSaveDontOverRideIdAndPassword()
+	public function testSaveDontOverRideIdAndPasswordAndJoindate()
 	{
-		$data = ['id' => 'someid', 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null];
+		$date = new \DateTime("now");
+		$data = ['id' => 'someid', 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => $date];
 		$mind = new Mind($data);
 		
 		$bcrypt = new Bcrypt();
@@ -202,6 +203,7 @@ class MindManagerTest extends TestCase
 		
 		$this->instance->save($mind);
 		$this->assertEquals('someid', $mind['id']);
+		$this->assertEquals($date, $mind['joindate']);
 		$this->assertTrue($this->instance->verifyHashedPassword($mind, 'aapassword'));
 	}
 	
