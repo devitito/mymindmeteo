@@ -17,10 +17,11 @@ class MindController extends AbstractActionController
 		$requestedMind = $this->getEvent()->getRouteMatch()->getParam('mindname');
 		//Someone wants to access the page of a mind.
 		//check if the requested mind exist
-		$mind = $this->getEntityManager()->getRepository('Application\Entity\Mind')->findOneBy(['name' => $requestedMind]);//$mindManager->getMind(['name' => $requestedMind]);
+		$mind = $this->getEntityManager()->getRepository('Application\Entity\Mind')->findOneBy(['name' => $requestedMind]);
 		if (!$mind) {
 			$viewModel = new ViewModel();
 			$viewModel->setTemplate('error/404');
+			$this->getResponse()->setStatusCode(404);
 			return $viewModel;
 		}
 		
@@ -34,7 +35,7 @@ class MindController extends AbstractActionController
     	}
 		else {
 			//@todo the mind identified in this session tries to access the public page of another mind
-			return $this->redirect()->toUrl('/');
+			return $this->redirect()->toUrl('/'.$requestedMind.'/public');
 		}
 	}
 	
