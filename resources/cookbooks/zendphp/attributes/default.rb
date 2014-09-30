@@ -1,0 +1,1 @@
+default['zendphp']['timezone'] = 'Europe/Paris'

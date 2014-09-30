@@ -27,6 +27,12 @@ link "/usr/bin/php" do
   action :create
 end
 
+conf_plain_file '/usr/local/zend/etc/php.ini' do
+  pattern   /;date.timezone/
+  new_line  "date.timezone = #{node['zendphp']['timezone']}"
+  action :insert_after_match
+end
+
 service "apache2" do
   action :restart
 end
