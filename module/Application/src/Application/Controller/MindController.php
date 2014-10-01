@@ -3,7 +3,10 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Http\PhpEnvironment\Response;
 use Zend\View\Model\ViewModel;
+use Application\Entity\Sensor;
+use Application\Entity\Sample;
 
 class MindController extends AbstractActionController
 {
@@ -37,6 +40,88 @@ class MindController extends AbstractActionController
 			//@todo the mind identified in this session tries to access the public page of another mind
 			return $this->redirect()->toUrl('/'.$requestedMind.'/public');
 		}
+	}
+	
+	public function addSensorAndSamplesAction()
+	{
+		//can't contribute if not loged in
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+			
+		$formManager = $this->getServiceLocator()->get('FormElementManager');
+		$sensorform = $formManager->get('sensor');
+			
+		$data = $this->prg();
+	
+		if ($data instanceof Response) {
+			return $data;
+		}
+	
+		if ($data !== false) {
+			// handle form
+			//$sensor = new Sensor();
+			//$sensorform->bind($sensor);
+			$sensorform->setData($data);
+	
+			if ($sensorform->isValid()) {
+			//register new mind with filtered input
+				
+			/*	$sensor = new Sensor();
+				$sensor->setId(uniqid());
+				$sensor->setLabel($sensorform->get('label')->getValue());
+				$sensor->setTopic($sensorform->get('topic')->getValue());
+				$sensor->setMeteologist($identity->getName());
+				
+				$answerPositive = new Sample();
+				$answerPositive->setSensor($sensor);
+				$answerPositive->setId(uniqid());
+				$answerPositive->setLabel($sensorform->get('answerPositive')->getValue());
+				$answerPositive->setTopic($sensorform->get('topic')->getValue());
+				//Very bad day!
+				$answerPositive->setValue(-10);
+				
+				$answerNegative = new Sample();
+				$answerNegative->setSensor($sensor);
+				$answerNegative->setId(uniqid());
+				$answerNegative->setLabel($sensorform->get('answerNegative')->getValue());
+				$answerNegative->setTopic($sensorform->get('topic')->getValue());
+				//normal!
+				$answerNegative->setValue(1);
+				
+				$this->getEntityManager()->persist($sensor);
+				$this->getEntityManager()->persist($answerPositive);
+				$this->getEntityManager()->persist($answerNegative);
+				
+				$this->getEntityManager()->flush();
+				*/
+				$viewModel = new ViewModel();
+				$viewModel->setVariables(['message' => "Thanks for your contribution, we'll review it and let you know soon!",])
+							->setTerminal(true);
+				return $viewModel;
+	
+			}
+			else {
+				foreach ($sensorform as $elements) {
+					$messages = $elements->getMessages();
+					foreach ($messages as $message) {
+						$this->flashMessenger()->addErrorMessage($message);
+					}
+				}
+				
+				$viewModel = new ViewModel();
+				$viewModel->setTemplate('contribution/sensor/error');
+				$this->getResponse()->setStatusCode(400);
+				$viewModel->setTerminal(true);
+				return $viewModel;
+			}
+		}
+			
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(['sensorform' => $sensorform])
+					->setTerminal(true);
+		return $viewModel;
 	}
 	
 	/**

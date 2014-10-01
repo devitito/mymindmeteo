@@ -1,0 +1,13 @@
+<?php 
+if ($this->flashmessenger()->hasCurrentErrorMessages()) {
+	$messages = $this->flashmessenger()->getCurrentErrorMessages();
+	  	foreach ($messages as $message)
+	  	{
+	  		echo  '<div>';
+			echo $message;
+	    	echo '</div>';
+	  	}
+	  	$this->flashmessenger()->clearCurrentMessages();
+	  	$this->flashmessenger()->clearCurrentMessagesFromContainer();
+	  }
+?>

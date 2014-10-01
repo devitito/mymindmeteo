@@ -10,6 +10,16 @@
 				->prependFile('/js/morris.min.js');
 ?>
 
+<!-- Modal -->
+<div style="display: none;" id="sensormodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="sensorModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+      <div class="modal-content">
+
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div id="thanks"></div>
+
 <div class="navbar-wrapper">
 	<div class="container">
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -37,7 +47,7 @@
 		      <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contribute <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
-		            <li><a href="#">Send us a new sensor</a></li>
+		            <li><a href="<?php echo $this->mind->getName() . '/add-sensor-and-samples' ?>" data-toggle="modal" data-target="#sensormodal" id="sensor-contribution-button">Send us a new sensor</a></li>
 		            <li><a href="#">Send us a new weather analyse</a></li>
 		          </ul>
 		        </li>
@@ -51,6 +61,9 @@
 		          <a href="/logout" class="glyphicon glyphicon-log-out"></a>
 		        </li>
 		      </ul>
+		      
+		      	
+		      
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</div>
@@ -66,7 +79,7 @@
 			<br><br>
 			<table class="table">
 				<tr>
-					<h4><?php echo $this->mind->getName() ?>	</h4>
+					<h4 id="mindname"><?php echo $this->mind->getName() ?>	</h4>
 				</tr>
 				<tr>
 					<td>
@@ -164,6 +177,28 @@ $(document).ready(function() {
 		  // chart.
 		  labels: ['Love', 'Health', 'Money']
 		});
+
+	//Destroy modal content after hiding
+	$('body').on('hidden.bs.modal', '.modal', function () {
+	    $(this).removeData('bs.modal').find(".modal-content").empty();
+	});
+
+	$( ".modal" ).on( "click", ".btn-meteo", function() {
+        $.ajax({
+            type: "POST",
+            url: $("#mindname").text()+"/add-sensor-and-samples", 
+            cache: false,
+            data: $('form.sensor').serialize(),
+            success: function(msg){
+            	$("#sensormodal").find('.modal-content').html(msg);
+            },
+            error: function(xhr, status, error) {
+            	 $("#sensormodal").find('.modal-body')
+            	 .prepend('<div class="alert alert-danger">'+ xhr.responseText +'</div>');
+            }
+        });
+	});
+	
 });
 </script>
  
