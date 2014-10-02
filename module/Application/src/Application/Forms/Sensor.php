@@ -60,7 +60,8 @@ class Sensor extends Form
         						'data-slider-min' => "-10",
         						'data-slider-max' => "10",
         						'data-slider-step' => "1",
-        						'data-slider-value' => "3"
+        						'data-slider-value' => "3",
+        						'value' => "3" //default value 
         				),
         		)
         );
@@ -89,7 +90,8 @@ class Sensor extends Form
         						'data-slider-min' => "-10",
         						'data-slider-max' => "10",
         						'data-slider-step' => "1",
-        						'data-slider-value' => "-3"
+        						'data-slider-value' => "-3",
+        						'value' => "-3" //default value
         				),
         		)
         );
