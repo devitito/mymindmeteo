@@ -2,6 +2,7 @@
  <?php echo $this->headLink()
  				->prependStylesheet('/css/morris.css')
  				->prependStylesheet('/css/slider.css')
+ 				->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
  ?>
 
 <!-- Scripts -->
@@ -9,7 +10,8 @@
 				->prependFile('/js/jscroll/jquery.jscroll.min.js')
         		->prependFile('/js/raphael-min.js')
 				->prependFile('/js/morris.min.js')
-				->prependFile('/js/bootstrap-slider.js');
+				->prependFile('/js/bootstrap-slider.js')
+				->prependFile($this->basePath() . '/btvalidator/dist/js/bootstrapValidator.min.js');
 ?>
 
 <!-- Modal -->
@@ -186,24 +188,125 @@ $(document).ready(function() {
 	});
 
 	$( ".modal" ).on( "click", ".btn-meteo", function() {
-        $.ajax({
-            type: "POST",
-            url: $("#mindname").text()+"/add-sensor-and-samples", 
-            cache: false,
-            data: $('form.sensor').serialize(),
-            success: function(msg){
-            	$("#sensormodal").find('.modal-content').html(msg);
-            },
-            error: function(xhr, status, error) {
-            	 $("#sensormodal").find('.modal-body')
-            	 .prepend('<div class="alert alert-danger">'+ xhr.responseText +'</div>');
-            }
-        });
+		if ($('form.sensor').data('bootstrapValidator').isValid() == true) {
+			$('#submitsensor').attr('disabled', 'disabled');
+	        $.ajax({
+	            type: "POST",
+	            url: $("#mindname").text()+"/add-sensor-and-samples", 
+	            cache: false,
+	            data: $('form.sensor').serialize(),
+	            success: function(msg){
+	            	$("#sensormodal").find('.modal-content').html(msg);
+	            },
+	            error: function(xhr, status, error) {
+	            	 $("#sensormodal").find('#errormsg').html(xhr.responseText);
+	            	 $('#submitsensor').removeAttr("disabled");
+	            	// .prepend('<div class="alert alert-danger">'+ xhr.responseText +'</div>');
+	            }
+	        });
+		}
 	});
 
 	//Activate the slider when the modal "sensor is loaded	
 	$('body').on('loaded.bs.modal', '.modal', function() {
 		$(this).find('.slider').slider({ value : 0});
+		
+		$('form.sensor').bootstrapValidator({
+			//submitButtons: 'input[name="submitsensor", type="button", class="btn btn-meteo"]',
+	    	feedbackIcons: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	label: {
+	                message: 'The test of the sensor is not valid',
+	                validators: {
+	        			notEmpty: {
+	            			message: 'Your test is required'
+	        			},
+	        			stringLength: {
+	                        max: 128,
+	                        message: 'Your test must be less than 128 characters'
+	                    },
+	                }
+	            },
+	            topic: {
+	            	message: 'The topic of the sensor is not valid',
+	                validators: {
+		            	callback: {
+							message : 'You should choose a topic',	
+		                    callback: function(value, validator) {
+			                    if (value == 'unpicked')
+				                    return false;
+			                    else
+				                    return true;
+		                    }
+	                    },
+	                }
+		        },
+		        answerPositive: {
+		        	message: 'The positive sample is not valid',
+	                validators: {
+	                	notEmpty: {
+	            			message: 'Your positive sample is required'
+	        			},
+	        			stringLength: {
+	                        max: 32,
+	                        message: 'Your positive sample must be less than 32 characters'
+	                    },
+	                    different: {
+	                         field: 'answerNegative',
+	                         message: "The negative and negative sample can't be the same"
+	                     },
+	                }
+			    },
+			    answerNegative: {
+		        	message: 'The negative sample is not valid',
+	                validators: {
+	                	notEmpty: {
+	            			message: 'Your negative sample is required'
+	        			},
+	        			stringLength: {
+	                        max: 32,
+	                        message: 'Your negative sample must be less than 32 characters'
+	                    },
+	                    different: {
+	                         field: 'answerPositive',
+	                         message: "The positive and negative sample can't be the same"
+	                     },
+	                }
+			    },
+			/*    answerPositiveValue: {
+		        	message: 'The positive sample value is not valid',
+	                validators: {
+	                	 different: {
+	                         field: 'answerNegativeValue',
+	                         message: "The positive and negative sample can't have the same value"
+	                     },
+	                }
+			    },
+			    answerNegativeValue: {
+		        	message: 'The negative sample value is not valid',
+	                validators: {
+	                	callback: {
+							message : "The negative and positive sample can't have the same value",	
+		                    callback: function(value, validator) {
+			                    alert(value);
+			                    if (value == $("#answerPositiveValue").getValue())
+				                    return false;
+			                    else
+				                    return true;
+		                    }
+	                    },
+	                	 different: {
+	                         field: 'answerPositiveValue',
+	                         message: "The negative and positive sample can't have the same value"
+	                     },
+	                }
+			    },*/
+	        }
+	    });
 		
 	});
 });

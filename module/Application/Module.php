@@ -136,8 +136,8 @@ class Module implements Feature\FormElementProviderInterface
     				},
     				'sensor' => function($sm) {
     					$form = new \Application\Forms\Sensor();
-    					//$dbAdapter = $sm->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-    					//$form->setInputFilter(new \Application\InputFilters\QuickRegistration($dbAdapter));
+    					$dbAdapter = $sm->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+    					$form->setInputFilter(new \Application\InputFilters\Sensor($dbAdapter));
     					$form->setHydrator(new ClassMethods());
     					return $form;
     				},

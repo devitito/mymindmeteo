@@ -11,6 +11,7 @@
 <div class="modal-body">
 <?php 
 	if (!isset($message)) {
+		echo '<div id="errormsg"></div>';
 		echo '<h3>Sensor description</h3>';
 		echo '<div class="form-group">'.$this->formRow($sensorform->get('label')).'</div>';
 		echo '<div class="form-group">'.$this->formRow($sensorform->get('topic')).'</div>';
