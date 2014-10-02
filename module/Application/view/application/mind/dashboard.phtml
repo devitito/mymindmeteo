@@ -1,13 +1,15 @@
 <!-- Le styles -->
  <?php echo $this->headLink()
  				->prependStylesheet('/css/morris.css')
+ 				->prependStylesheet('/css/slider.css')
  ?>
 
 <!-- Scripts -->
 <?php echo $this->headScript()
 				->prependFile('/js/jscroll/jquery.jscroll.min.js')
         		->prependFile('/js/raphael-min.js')
-				->prependFile('/js/morris.min.js');
+				->prependFile('/js/morris.min.js')
+				->prependFile('/js/bootstrap-slider.js');
 ?>
 
 <!-- Modal -->
@@ -198,7 +200,12 @@ $(document).ready(function() {
             }
         });
 	});
-	
+
+	//Activate the slider when the modal "sensor is loaded	
+	$('body').on('loaded.bs.modal', '.modal', function() {
+		$(this).find('.slider').slider({ value : 0});
+		
+	});
 });
 </script>
  

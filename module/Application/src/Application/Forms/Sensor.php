@@ -20,26 +20,21 @@ class Sensor extends Form
                 'name' => 'label',
                 'attributes' => array(
                     'type' => 'textarea',
-                    'class' => 'form-control',
+                    'class' => 'form-control input-lg',
                     'placeholder' => 'Enter here text of your sensor'
                 ),
-                'options' => array(
-                    'label' => 'Your sensor'
-                )
             )
         );
         
         $this->add(
             array(
                 'name' => 'topic',
+            	'type' => 'Zend\Form\Element\Select',
                 'attributes' => array(
-                    'type' => 'text',
+                	'id' => 'topic',
                     'class' => 'form-control input-lg',
-                    'placeholder' => 'health, love or money'
+                	'options' => array('unpicked' => 'Pick a topic', 'love' => 'Love', 'health' => 'Health', 'money' => 'Money')
                 ),
-                'options' => array(
-                    'label' => 'The topic of your sensor'
-                )
             )
         );
         
@@ -49,13 +44,28 @@ class Sensor extends Form
         				'attributes' => array(
         						'type' => 'text',
         						'class' => 'form-control input-lg',
-        						'placeholder' => 'The positive sample'
+        						'style' => "width: 200px; margin-right:10px; margin-left:0px;",
+        						'placeholder' => 'Label'
         				),
-        				'options' => array(
-        						'label' => 'The description of the positive sample'
-        				)
         		)
         );
+        
+        $this->add(
+        		array(
+        				'name' => 'answerPositiveValue',
+        				'attributes' => array(
+        						'type' => 'text',
+        						'class' => 'slider slider-horizontal',
+        						'style' => "width: 140px; margin-right:10px; margin-left:10px;",
+        						'data-slider-min' => "-10",
+        						'data-slider-max' => "10",
+        						'data-slider-step' => "1",
+        						'data-slider-value' => "3"
+        				),
+        		)
+        );
+        
+        //@todo image upload
         
         $this->add(
         		array(
@@ -63,11 +73,24 @@ class Sensor extends Form
         				'attributes' => array(
         						'type' => 'text',
         						'class' => 'form-control input-lg',
-        						'placeholder' => 'The negative sample'
+        						'style' => "width: 200px; margin-right:10px; margin-left:0px;",
+        						'placeholder' => 'Label'
         				),
-        				'options' => array(
-        						'label' => 'The description of the negative sample'
-        				)
+        		)
+        );
+        
+        $this->add(
+        		array(
+        				'name' => 'answerNegativeValue',
+        				'attributes' => array(
+        						'type' => 'text',
+        						'class' => 'slider slider-horizontal',
+        						'style' => "width: 140px; margin-right:10px; margin-left:10px;",
+        						'data-slider-min' => "-10",
+        						'data-slider-max' => "10",
+        						'data-slider-step' => "1",
+        						'data-slider-value' => "-3"
+        				),
         		)
         );
         
