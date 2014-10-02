@@ -2,7 +2,7 @@
  * 
  */
 
-function validateQuickRegistration($) {
+function validateQuickRegistration() {
 	$('#quickRegistrationForm').bootstrapValidator({
     	feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
