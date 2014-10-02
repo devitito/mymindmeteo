@@ -68,7 +68,7 @@ class MindController extends AbstractActionController
 			if ($sensorform->isValid()) {
 			//register new mind with filtered input
 				
-			/*	$sensor = new Sensor();
+				$sensor = new Sensor();
 				$sensor->setId(uniqid());
 				$sensor->setLabel($sensorform->get('label')->getValue());
 				$sensor->setTopic($sensorform->get('topic')->getValue());
@@ -80,22 +80,21 @@ class MindController extends AbstractActionController
 				$answerPositive->setLabel($sensorform->get('answerPositive')->getValue());
 				$answerPositive->setTopic($sensorform->get('topic')->getValue());
 				//Very bad day!
-				$answerPositive->setValue(-10);
+				$answerPositive->setValue($sensorform->get('answerPositiveValue')->getValue());
 				
 				$answerNegative = new Sample();
 				$answerNegative->setSensor($sensor);
 				$answerNegative->setId(uniqid());
 				$answerNegative->setLabel($sensorform->get('answerNegative')->getValue());
 				$answerNegative->setTopic($sensorform->get('topic')->getValue());
-				//normal!
-				$answerNegative->setValue(1);
+				$answerNegative->setValue($sensorform->get('answerNegativeValue')->getValue());
 				
 				$this->getEntityManager()->persist($sensor);
 				$this->getEntityManager()->persist($answerPositive);
 				$this->getEntityManager()->persist($answerNegative);
 				
 				$this->getEntityManager()->flush();
-				*/
+				
 				$viewModel = new ViewModel();
 				$viewModel->setVariables(['message' => "Thanks for your contribution, we'll review it and let you know soon!",])
 							->setTerminal(true);
@@ -106,7 +105,7 @@ class MindController extends AbstractActionController
 				foreach ($sensorform as $elements) {
 					$messages = $elements->getMessages();
 					foreach ($messages as $message) {
-						$this->flashMessenger()->addErrorMessage($message);
+						$this->flashMessenger()->addErrorMessage('<b>'.$elements->getName() . '</b> : '. $message);
 					}
 				}
 				
