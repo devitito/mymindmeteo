@@ -3,6 +3,7 @@
  				->prependStylesheet('/css/morris.css')
  				->prependStylesheet('/css/slider.css')
  				->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
+ 			//	->prependStylesheet('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-responsive.min.css')
  ?>
 
 <!-- Scripts -->
@@ -14,7 +15,7 @@
 				->prependFile($this->basePath() . '/btvalidator/dist/js/bootstrapValidator.min.js');
 ?>
 
-<!-- Modal -->
+<!-- Sensor Modal -->
 <div style="display: none;" id="sensormodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="sensorModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
       <div class="modal-content">
@@ -22,7 +23,15 @@
       </div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
-<div id="thanks"></div>
+
+<!-- Sensor Modal -->
+<div style="display: none;" id="measurementmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="measurementModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+      <div class="modal-content">
+
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
 
 <div class="navbar-wrapper">
 	<div class="container">
@@ -56,7 +65,7 @@
 		          </ul>
 		        </li>
 		        <li>
-		          <a href="<?php echo $this->mind->getName() . '/record' ?>" class="glyphicon glyphicon-map-marker tooltip-link" data-toggle="tooltip" data-placement="left" title="Record meteo data of your mind"></a>
+		          <a href="<?php echo $this->mind->getName() . '/measure' ?>" class="glyphicon glyphicon-map-marker tooltip-link" data-toggle="modal" data-target="#measurementmodal" data-placement="left" title="Record meteo data of your mind"></a>
 		        </li>
 		        <li>
 		          <a href="<?php echo $this->mind->getName() . '/publish' ?>" class="glyphicon glyphicon-envelope tooltip-link" data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
@@ -187,7 +196,8 @@ $(document).ready(function() {
 	    $(this).removeData('bs.modal').find(".modal-content").empty();
 	});
 
-	$( ".modal" ).on( "click", ".btn-meteo", function() {
+	//collect the measurment data
+	$( "#sensormodal" ).on( "click", ".btn-meteo", function() {
 		if ($('form.sensor').data('bootstrapValidator').isValid() == true) {
 			$('#submitsensor').attr('disabled', 'disabled');
 	        $.ajax({
@@ -201,14 +211,35 @@ $(document).ready(function() {
 	            error: function(xhr, status, error) {
 	            	 $("#sensormodal").find('#errormsg').html(xhr.responseText);
 	            	 $('#submitsensor').removeAttr("disabled");
-	            	// .prepend('<div class="alert alert-danger">'+ xhr.responseText +'</div>');
 	            }
 	        });
 		}
 	});
 
+	//record the sample 
+	$( "#measurementmodal" ).on( "click", ".btn-meteo", function() {
+		$('.btn-meteo').attr('disabled', 'disabled');
+		$('.btn-default').attr('disabled', 'disabled');
+        $.ajax({
+            type: "GET",
+            url: $("#mindname").text()+'/record/'+$(this).find('.sensorid').val()+'/'+$(this).find('.sampleid').val(), 
+            cache: false,
+            //data: $('form.sensor').serialize(),
+            success: function(msg){
+            	$("#measurementmodal").find('.modal-content').html(msg);
+            	$('.btn-meteo').removeAttr("disabled");
+            	$('.btn-default').removeAttr("disabled");
+            },
+            error: function(xhr, status, error) {
+            	 $("#measurementmodal").find('#errormsg').html(xhr.responseText);
+            	 $('.btn-meteo').removeAttr("disabled");
+            	 $('.btn-default').removeAttr("disabled");
+            }
+        });
+	});
+	
 	//Activate the slider when the modal "sensor is loaded	
-	$('body').on('loaded.bs.modal', '.modal', function() {
+	$('body').on('loaded.bs.modal', '#sensormodal', function() {
 		$(this).find('.slider').slider({ value : 0});
 		
 		$('form.sensor').bootstrapValidator({

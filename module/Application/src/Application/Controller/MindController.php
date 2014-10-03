@@ -7,6 +7,7 @@ use Zend\Http\PhpEnvironment\Response;
 use Zend\View\Model\ViewModel;
 use Application\Entity\Sensor;
 use Application\Entity\Sample;
+use Application\Entity\Record;
 
 class MindController extends AbstractActionController
 {
@@ -69,7 +70,6 @@ class MindController extends AbstractActionController
 			//register new mind with filtered input
 				
 				$sensor = new Sensor();
-				$sensor->setId(uniqid());
 				$sensor->setLabel($sensorform->get('label')->getValue());
 				$sensor->setTopic($sensorform->get('topic')->getValue());
 				$sensor->setMeteologist($identity->getName());
@@ -121,6 +121,52 @@ class MindController extends AbstractActionController
 		$viewModel->setVariables(['sensorform' => $sensorform])
 					->setTerminal(true);
 		return $viewModel;
+	}
+	
+	public function measureAction()
+	{
+		//can't record if not loged in
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+			
+		$sensor = $this->getEntityManager()->getRepository('Application\Entity\Sensor')->findRandom();
+		
+		$samples = $this->getEntityManager()->getRepository('Application\Entity\Sample')->findBy(['sensor' => $sensor->getId()]);
+		
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(['mind' => $identity, 'sensor' => $sensor, 'samplePos' => $samples[0], 'sampleNeg' => $samples[1]])
+					->setTerminal(true);
+		return $viewModel;
+	}
+	
+	public function recordAction()
+	{
+		//can't record if not loged in
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+			
+		try {
+			$record = new Record();
+			$record->setId(uniqid());
+			$record->setMind($identity);
+			$sensor = $this->getEntityManager()->find('Application\Entity\Sensor', $this->getEvent()->getRouteMatch()->getParam('sensorid'));
+			$record->setSensor($sensor);
+			$sample = $this->getEntityManager()->find('Application\Entity\Sample', $this->getEvent()->getRouteMatch()->getParam('sampleid'));
+			$record->setSample($sample);
+			$record->setDate(new \DateTime("now"));
+			
+			$this->getEntityManager()->persist($record);
+			$this->getEntityManager()->flush();
+			
+			return $this->redirect()->toUrl('/'.$identity->getName().'/measure');
+		}
+		catch (\Exception $e) {
+			return $this->redirect()->toUrl('/'.$identity->getName().'/measure');
+		}
 	}
 	
 	/**

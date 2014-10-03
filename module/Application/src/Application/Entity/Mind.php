@@ -8,7 +8,7 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Crypt\Password\Bcrypt;
+//use Zend\Crypt\Password\Bcrypt;
 
 /** 
  * 

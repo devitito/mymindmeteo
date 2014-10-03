@@ -24,10 +24,12 @@ return array(
             		'default' => array(
             			'type'    => 'Segment',
             			'options' => array(
-            				'route'    => '[:mindname[/:action]]',
+            				'route'    => ':mindname[/:action[/:sensorid/:sampleid]]',
             				'constraints' => array(
             					'mindname'     => '[a-zA-Z][a-zA-Z0-9-]*',
             					'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+            				//	'sensorid'     => '[0-9]*',
+            				//	'sampleid'     => '[a-zA-Z][a-zA-Z0-9_-]*'
             					),
             				'defaults' => array(
             					'controller' => 'Application\Controller\Mind',

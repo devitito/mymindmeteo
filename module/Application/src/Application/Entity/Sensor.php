@@ -16,8 +16,8 @@ class Sensor implements \ArrayAccess
 	
 	/**
 	 * @ORM\Id
-	 * @ORM\Column(name="id", type="string", length=32, nullable=false, unique=true)
-	 * @ORM\GeneratedValue(strategy="NONE")
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
 	
