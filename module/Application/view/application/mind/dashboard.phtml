@@ -196,26 +196,6 @@ $(document).ready(function() {
 	    $(this).removeData('bs.modal').find(".modal-content").empty();
 	});
 
-	//collect the measurment data
-	$( "#sensormodal" ).on( "click", ".btn-meteo", function() {
-		if ($('form.sensor').data('bootstrapValidator').isValid() == true) {
-			$('#submitsensor').attr('disabled', 'disabled');
-	        $.ajax({
-	            type: "POST",
-	            url: $("#mindname").text()+"/add-sensor-and-samples", 
-	            cache: false,
-	            data: $('form.sensor').serialize(),
-	            success: function(msg){
-	            	$("#sensormodal").find('.modal-content').html(msg);
-	            },
-	            error: function(xhr, status, error) {
-	            	 $("#sensormodal").find('#errormsg').html(xhr.responseText);
-	            	 $('#submitsensor').removeAttr("disabled");
-	            }
-	        });
-		}
-	});
-
 	//record the sample 
 	$( "#measurementmodal" ).on( "click", ".btn-meteo", function() {
 		$('.btn-meteo').attr('disabled', 'disabled');
@@ -237,13 +217,28 @@ $(document).ready(function() {
             }
         });
 	});
-	
+
 	//Activate the slider when the modal "sensor is loaded	
 	$('body').on('loaded.bs.modal', '#sensormodal', function() {
 		$(this).find('.slider').slider({ value : 0});
-		
+
 		$('form.sensor').bootstrapValidator({
-			//submitButtons: 'input[name="submitsensor", type="button", class="btn btn-meteo"]',
+			//submitButtons: 'input[name="submitsensor"]',
+			submitHandler: function(validator, form, submitButton) {
+				$.ajax({
+			    	type: 'POST',
+			        url: $("#mindname").text()+"/add-sensor-and-samples", 
+			        data: $(form).serialize(),
+			        success: function(msg){
+			           	$("#sensormodal").find('.modal-content').html(msg);
+			        },
+			        error: function(xhr, status, error) {
+			           	 $("#sensormodal").find('#errormsg').html(xhr.responseText);
+			           	 $('#submitsensor').removeAttr("disabled");
+			        }
+			    });
+			    return false;
+ 			},
 	    	feedbackIcons: {
 	            valid: 'glyphicon glyphicon-ok',
 	            invalid: 'glyphicon glyphicon-remove',

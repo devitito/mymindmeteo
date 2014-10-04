@@ -34,7 +34,7 @@
 <div class="modal-footer">
 <?php
 	if (!isset($message)) {
-		echo $this->formRow($sensorform->get('submitsensor'));
+		echo $this->formSubmit($sensorform->get('submitsensor'));
 		echo $this->formRow($sensorform->get('dismiss'));
 	}
 	else {

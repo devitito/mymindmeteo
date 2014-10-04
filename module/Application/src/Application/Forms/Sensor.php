@@ -8,7 +8,7 @@ class Sensor extends Form
 {
     public function init()
     {
-    	$this->setAttribute('method', 'post');
+    	//$this->setAttribute('method', 'post');
     	$this->setAttribute('accept-charset', 'UTF-8');
     	$this->setAttribute('id', 'sensor');
     	$this->setAttribute('class', 'sensor');
@@ -101,7 +101,7 @@ class Sensor extends Form
         				'name' => 'submitsensor',
         				'attributes' => array(
         						'class' => 'btn btn-meteo',
-        						'type' => 'button',
+        						'type' => 'submit',
         						'value' => 'Send',
         						'id' => 'submitsensor',
         				)
