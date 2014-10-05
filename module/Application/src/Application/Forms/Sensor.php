@@ -44,7 +44,7 @@ class Sensor extends Form
         				'attributes' => array(
         						'type' => 'text',
         						'class' => 'form-control input-lg',
-        						'style' => "width: 200px; margin-right:10px; margin-left:0px;",
+        						'style' => "width: 230px; margin-right:10px; margin-left:0px;",
         						'placeholder' => 'Label'
         				),
         		)
@@ -61,7 +61,7 @@ class Sensor extends Form
         						'data-slider-max' => "10",
         						'data-slider-step' => "1",
         						'data-slider-value' => "3",
-        						'value' => "3" //default value 
+        						'value' => "3", //default value 
         				),
         		)
         );
@@ -74,7 +74,7 @@ class Sensor extends Form
         				'attributes' => array(
         						'type' => 'text',
         						'class' => 'form-control input-lg',
-        						'style' => "width: 200px; margin-right:10px; margin-left:0px;",
+        						'style' => "width: 230px; margin-right:10px; margin-left:0px;",
         						'placeholder' => 'Label'
         				),
         		)
@@ -91,7 +91,7 @@ class Sensor extends Form
         						'data-slider-max' => "10",
         						'data-slider-step' => "1",
         						'data-slider-value' => "-3",
-        						'value' => "-3" //default value
+        						'value' => "-3", //default value
         				),
         		)
         );

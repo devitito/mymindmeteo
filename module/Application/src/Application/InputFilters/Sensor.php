@@ -126,16 +126,17 @@ class Sensor extends InputFilter
     			'name' => 'answerPositiveValue',
     			'required' => true,
     			'validators' => array(
-    			/*	array(
-    					'name' => 'Identical',
-    					'options' => array(
-    						'token' => 'answerNegativeValue',
-    					)
-    				),*/
+	    			array('name' => '\Zend\I18n\Validator\Int'),
+	    			array(
+		    			'name' => 'Between',
+		    			'options' => array(
+		    				'min' => -10,
+		    				'max' => 10
+		    			)
+	    			),
     			),
     			'filters'  => array(
-    				array('name' => 'StripTags'),
-    				array('name' => 'StringTrim'),
+    				array('name' => 'Int'),
     			),
     		));
     	
@@ -144,16 +145,25 @@ class Sensor extends InputFilter
     			'name' => 'answerNegativeValue',
     			'required' => true,
     			'validators' => array(
-    			/*	array(
-    					'name' => 'Identical',
+    				array(
+    					'name' => '\Application\Services\Validator\NotIdentical',
     					'options' => array(
     						'token' => 'answerPositiveValue',
+    						'strict' => false,
+    							'messages' => [\Application\Services\Validator\NotIdentical::SAME => 'The negative and positive samples cannot have the same values']
     						)
-    					),*/
+    					),
+    					array('name' => '\Zend\I18n\Validator\Int'),
+    					array(
+	    					'name' => 'Between',
+	    					'options' => array(
+	    						'min' => -10,
+	    						'max' => 10
+	    						)
+    					),
     			),
     			'filters'  => array(
-    				array('name' => 'StripTags'),
-    				array('name' => 'StringTrim'),
+    				array('name' => 'Int'),
     			),
     		));
     }

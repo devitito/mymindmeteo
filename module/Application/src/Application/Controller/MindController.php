@@ -105,7 +105,7 @@ class MindController extends AbstractActionController
 				foreach ($sensorform as $elements) {
 					$messages = $elements->getMessages();
 					foreach ($messages as $message) {
-						$this->flashMessenger()->addErrorMessage('<b>'.$elements->getName() . '</b> : '. $message);
+						$this->flashMessenger()->addErrorMessage($message);
 					}
 				}
 				

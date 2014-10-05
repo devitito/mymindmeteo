@@ -17,12 +17,14 @@
 		echo '<div class="form-group">'.$this->formRow($sensorform->get('topic')).'</div>';
 		echo '<h3>Positive sample</h3>';
 		echo '<div class="row">';
-		echo '<div class="form-group col-md-6">'.$this->formRow($sensorform->get('answerPositive')).'</div>';
+		echo '<div class="form-group col-md-5">'.$this->formRow($sensorform->get('answerPositive')).'</div>';
+		echo '<div class="form-group col-md-1"></div>';
 		echo '<div class="form-group col-md-6" style="margin-top: 10px;"><span style="margin-right: 15px;">Value:</span>'.$this->formRow($sensorform->get('answerPositiveValue'));
 		echo '</div></div>';
 		echo '<h3>Negative sample</h3>';
 		echo '<div class="row">';
-		echo '<div class="form-group col-md-6">'.$this->formRow($sensorform->get('answerNegative')).'</div>';
+		echo '<div class="form-group col-md-5">'.$this->formRow($sensorform->get('answerNegative')).'</div>';
+		echo '<div class="form-group col-md-1"></div>';
 		echo '<div class="form-group col-md-6" style="margin-top: 10px;"><span style="margin-right: 15px;">Value:</span>'.$this->formRow($sensorform->get('answerNegativeValue'));
 		echo '</div></div>';
 	}
