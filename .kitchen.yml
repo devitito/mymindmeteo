@@ -2,15 +2,18 @@
 driver:
   name: vagrant
   network:
-  - ["forwarded_port", {guest: 80, host: 8080}]
-  - ["forwarded_port", {guest: 10081, host: 8081}]
+  - ["forwarded_port", {guest: 81, host: 8080}]
+  - ["forwarded_port", {guest: 8080, host: 8888}]
+  - ["forwarded_port", {guest: 10081, host: 8010}]
   - ["forwarded_port", {guest: 3306, host: 8006}]
+  - ["forwarded_port", {guest: 9200, host: 8092}]
   synced_folders:
   - [".", "/vagrant"]
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
   require_chef_omnibus: latest
+  data_bags_path: resources/data_bags
 
 platforms:
   - name: ubuntu-12.04
@@ -38,4 +41,23 @@ suites:
     - recipe[zendphp]
     - recipe[apache]
     - recipe[mymeteodb]
+    - recipe[ruby]
+    - recipe[java]
+    - recipe[monit]
+    - recipe[elasticsearch]
+    - recipe[elasticsearch::nginx]
+    - recipe[elasticsearch::proxy]
+    - recipe[elasticsearch::monit]
     attributes: 
+      java: 
+        jdk_version: 7	
+      elasticsearch: 
+        mlockall: false
+        nginx:
+          allow_cluster_api : true
+        monit:
+          notify_email : julien_desbois@hotmail.com
+          mail_format  : 
+            from: monit@mindmeteo.com
+            subject: "[monit] $SERVICE $EVENT on $HOST"
+            message: "$SERVICE $ACTION: $DESCRIPTION"
