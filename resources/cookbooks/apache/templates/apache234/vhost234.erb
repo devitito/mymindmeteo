@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost *:81>
 	ServerAdmin webmaster@localhost
 
 	DocumentRoot /vagrant/public
@@ -15,5 +15,6 @@
 		AllowOverride All
 		Order allow,deny
 		allow from all
+		Require all granted
 	</Directory>
 </VirtualHost>
