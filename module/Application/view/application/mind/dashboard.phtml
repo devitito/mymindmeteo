@@ -98,7 +98,15 @@
 					<td>
 						<span class="glyphicon glyphicon-time"></span>
 						<span>Joined on </span>
-						<time datetime="2014-03-18T13:23:44Z" day="numeric" is="local-time" month="short" year="numeric">Mar 18, 2014</time>
+						<time>
+							<?php 
+								echo $this->dateFormat(
+								    $this->mind->getJoindate(),
+								    IntlDateFormatter::LONG, // date
+								    IntlDateFormatter::NONE, // time
+								    $this->mind->getLocale());
+							?>
+						</time>
 					</td>
 				</tr>
 				<tr>
