@@ -14,6 +14,7 @@ CREATE TABLE mymeteo.minds(
  password VARCHAR(128) NOT NULL,
  joindate DATETIME NOT NULL,
  timezone VARCHAR(64) NOT NULL
+ locale VARCHAR(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE mymeteo.sensors (
@@ -52,7 +53,7 @@ CREATE TABLE mymeteo.records (
   CONSTRAINT FK_9C9D5846A247991F FOREIGN KEY (sensor_id) REFERENCES sensors (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone ) VALUES ( '1', 'demo', 'demo@mindmeteo.com', '$2y$10$yPTMpSdcK5kdJqV1aHUpCej1gaGB81iwc8hKfXNOTLHuvS/xvdaGi', CURDATE(), 'Europe/Paris');
+INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone, locale ) VALUES ( '1', 'demo', 'demo@mindmeteo.com', '$2y$10$yPTMpSdcK5kdJqV1aHUpCej1gaGB81iwc8hKfXNOTLHuvS/xvdaGi', CURDATE(), 'Europe/Paris', 'fr_FR');
 
 INSERT INTO mymeteo.sensors (id,label,img,topic,meteologist) VALUES (1,'Did you wash your teeth this morning?',NULL,'love','Mind Meteo');
 INSERT INTO mymeteo.sensors (id,label,img,topic,meteologist) VALUES (2,'Did you eat garlig today?',NULL,'love','Mind Meteo');
@@ -125,3 +126,29 @@ INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54354
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('5435427972246','1',6,'54353dc669954','2014-10-08 13:56:09');
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('5435427fbccf5','1',10,'54353e5ee0607','2014-10-08 13:56:15');
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('543542858a5e3','1',15,'54353f3f3fdb4','2014-10-08 13:56:21');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('5436635815a4d','1',7,'54353de177ff0','2014-10-09 10:28:40');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('5436647ce343f','1',5,'54353da6d5bff','2014-10-09 10:33:32');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('5436648631185','1',10,'54353e5ee0607','2014-10-09 10:33:42');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('5436648b3df97','1',2,'54353cc69048f','2014-10-09 10:33:47');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368c7c5f955','1',1,'54353cacaf337','2014-10-09 13:24:12');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368c9d232bf','1',11,'54353e8ea0538','2014-10-09 13:24:45');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368d2fa65a6','1',4,'54353d7e0e404','2014-10-09 13:27:11');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368d3b8b88b','1',4,'54353d7e0e404','2014-10-09 13:27:23');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368d45e4f82','1',4,'54353d7e0e404','2014-10-09 13:27:33');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368dab021f6','1',4,'54353d7e0e404','2014-10-09 13:29:15');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368dc7700af','1',4,'54353d7e0e404','2014-10-09 13:29:43');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368ddc88cc8','1',4,'54353d7e0e404','2014-10-09 13:30:04');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368e7ee98cf','1',4,'54353d7e0e404','2014-10-09 13:32:46');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368eaa955db','1',4,'54353d7e0e404','2014-10-09 13:33:30');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368ee0e6b9a','1',4,'54353d7e0e404','2014-10-09 13:34:24');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368f2a42f02','1',4,'54353d7e0e404','2014-10-09 13:35:38');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368f5f4302c','1',4,'54353d7e0e404','2014-10-09 13:36:31');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368f97865ff','1',4,'54353d7e0e404','2014-10-09 13:37:27');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368faf27dae','1',4,'54353d7e0e404','2014-10-09 13:37:51');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368fcc7e130','1',4,'54353d7e0e404','2014-10-09 13:38:20');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368fec0f6f5','1',13,'54353ed5e4ec6','2014-10-09 13:38:52');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368ff2aae8f','1',15,'54353f3f3fdb4','2014-10-09 13:38:58');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('54368ffa527ab','1',17,'54353fc0808e1','2014-10-09 13:39:06');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('543697ebf33f7','1',4,'54353d7e0e404','2014-10-09 14:13:00');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('543697f31fe96','1',13,'54353ed5e4ec6','2014-10-09 14:13:07');
+INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('543697f72d06e','1',9,'54353e4067411','2014-10-09 14:13:11');

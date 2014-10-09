@@ -27,4 +27,10 @@ class MindManagerTest extends TestCase
 		$this->instance->setTimezone(null);
 		$this->assertEquals(date_default_timezone_get(), $this->instance->getTimezone());
 	}
+	
+	public function testDefaulLocaleIsUsedIfNoneDefined()
+	{
+		$this->instance->setLocale(null);
+		$this->assertEquals(self::getApplication()->getServiceManager()->get('translator')->getLocale(), $this->instance->getLocale());
+	}
 }

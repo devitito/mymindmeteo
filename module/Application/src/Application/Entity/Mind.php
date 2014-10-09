@@ -8,7 +8,6 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-//use Zend\Crypt\Password\Bcrypt;
 
 /** 
  * 
@@ -19,8 +18,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Mind extends \ArrayObject implements \ArrayAccess
 {
 	use EntitiesArrayAccessTrait;
-	
-	//protected $eventIdentifier = array('entities', 'entity.mind');
 	
 	/**
 	 * @ORM\Id
@@ -54,6 +51,11 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	 */
 	protected $timezone;
 	
+	/**
+	 * @ORM\Column(name="locale", type="string", length=32, nullable=false, unique=false)
+	 */
+	protected $locale;
+	
 	protected $nameoremail;
 	
 	public function __construct($options = null)
@@ -71,6 +73,7 @@ class Mind extends \ArrayObject implements \ArrayAccess
 		$this->joindate  = (isset($data['joindate'])) ? $data['joindate'] : null;
 		$this->nameoremail  = (isset($data['nameoremail'])) ? $data['nameoremail'] : null;
 		$this->timezone  = (isset($data['timezone'])) ? $data['timezone'] : null;
+		$this->locale  = (isset($data['locale'])) ? $data['locale'] : null;
 	}
 	
 	public function getId()
@@ -153,6 +156,20 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	public function setTimezone($value)
 	{
 		$this->timezone = $value;
+		return $this;
+	}
+	
+	public function getLocale()
+	{
+		if (!$this->locale)
+			$this->locale = 'en_US';//$this->getServiceMananger()->get('translator')->getLocale();
+	
+		return $this->locale;
+	}
+	
+	public function setLocale($value)
+	{
+		$this->locale = $value;
 		return $this;
 	}
 	
