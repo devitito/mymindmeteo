@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="records")
  *
  */
-class Record implements \ArrayAccess
+class Record implements \ArrayAccess, IndexableInterface
 {
 	use EntitiesArrayAccessTrait;
 	
@@ -43,6 +43,28 @@ class Record implements \ArrayAccess
 	 * @ORM\Column(name="date", type="utcdatetime", nullable=false, unique=false)
 	 */
 	protected $date;
+	
+	public function toIndexable()
+	{
+		return array(
+		    'id'      => $this->getId(),
+			'topic' => $this->getSensor()->getTopic(),
+			'value' => $this->getSample()->getValue(),
+		    'mind'    => array(
+		        'name'      => $this->getMind()->getName(),
+		        'email'  => $this->getMind()->getEmail(),
+		    	'joindate'  => $this->getMind()->getJoindate(),
+		    ),
+		    'sensor'     => array( 
+		    	'label' => $this->getSensor()->getLabel(),
+		    	'meteologist' => $this->getSensor()->getMeteologist(),
+		    ),
+			'sample' => $this->getSample()->getLabel(),
+		    'tstamp'  => $this->getDate(),
+		    'location'=> '41.12,-71.34',
+		);
+	
+	}
 	
 	public function getId()
 	{
@@ -91,7 +113,10 @@ class Record implements \ArrayAccess
 	public function getDate()
 	{
 		if ($this->date) {
-			$this->date->setTimezone(new \DateTimeZone($this->getMind()->getTimezone()));
+			if ($this->mind)
+				$this->date->setTimezone(new \DateTimeZone($this->getMind()->getTimezone()));
+			else 
+				$this->date->setTimezone(date_default_timezone_get());
 		}
 		return $this->date;
 	}

@@ -35,7 +35,8 @@ class MindController extends AbstractActionController
 			return $this->redirect()->toUrl('/login');
 		else if ($identity->getName() == $requestedMind) {
 			//the mind identified in this session wants to access his dashboard
-			return ['mind' => $mind];
+			
+			return ['mind' => $mind, 'search-manager' => $this->getServiceLocator()->get('search-manager')];
     	}
 		else {
 			//@todo the mind identified in this session tries to access the public page of another mind
@@ -161,6 +162,9 @@ class MindController extends AbstractActionController
 			
 			$this->getEntityManager()->persist($record);
 			$this->getEntityManager()->flush();
+			
+			//index the new record in elasticsearch
+			$this->getEventManager()->trigger('record.post', $this, ['record' => $record]);
 			
 			return $this->redirect()->toUrl('/'.$identity->getName().'/measure');
 		}
