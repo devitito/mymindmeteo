@@ -8,7 +8,7 @@
 #
 
 template "/etc/apache2/sites-available/vagrant.conf" do
-  source "vhost234.erb"
+  source "apache234/vhost234.erb"
 end
 
 file "/etc/apache2/sites-enabled/000-default" do
@@ -23,6 +23,12 @@ end
 execute "Allowing apache to access vagrant files" do
   command "adduser www-data vagrant"
   action :run
+end
+
+conf_plain_file '/etc/apache2/ports.conf' do
+  current_line   'Listen 80'
+  new_line  'Listen 81'
+  action :replace
 end
 
 service "apache2" do
