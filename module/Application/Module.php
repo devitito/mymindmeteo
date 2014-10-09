@@ -25,6 +25,7 @@ class Module implements Feature\FormElementProviderInterface
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        $sharedEventManager = $eventManager->getSharedManager();
       /*  
         $sm  = $e->getApplication()->getServiceManager();
         $config = $sm->get('Config');
@@ -39,9 +40,10 @@ class Module implements Feature\FormElementProviderInterface
         /**
          * @var $sharedEventManager \Zend\EventManager\SharedEventManager
          */
-        /*$sharedEventManager->attach('entities', 'remove.pre', function (EventInterface $e) {
-        	// check acl
-        });*/
+        $sharedEventManager->attach('Zend\Mvc\Controller\AbstractActionController', 'record.post', function ($e) {
+        	$sm = $e->getTarget()->getServiceLocator()->get('search-manager');
+			$sm->index('records', $e->getParams()['record']);
+        });
     }
     
     public function getConfig()

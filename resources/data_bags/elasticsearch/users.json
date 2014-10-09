@@ -1,0 +1,8 @@
+{
+      "id" : "users",
+      "_default" : {
+        "users" : [
+          {"username" : "mindmeteo", "password" : "mindmeteo"}
+        ]
+      }
+}

@@ -115,6 +115,7 @@ return array(
         ),
         'invokables' => array(
         	'mind-manager' => 'Application\Services\MindManager\MindManager',
+        	'search-manager' => 'Application\Services\SearchManager\SearchManager',
         ),
         'shared' => array(
         	//'entity.mind' => false,
