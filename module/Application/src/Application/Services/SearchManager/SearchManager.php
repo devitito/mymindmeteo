@@ -31,13 +31,23 @@ class SearchManager implements ServiceManagerAwareInterface
 		if (!in_array($type, $this->types))
 			throw Exception::factory(Exception::UNKNOWN_TYPE);	
 		
-	//	$eindex = $this->getIndex();
-	//	$this->setType($type);
-		//$etype = $this->getIndex()->getType($type);
-		
 		$edocument = new \Elastica\Document($document->getId(), $document->toIndexable());
 		$this->getIndex()->getType($type)->addDocument($edocument);
 		$this->getIndex()->refresh();
+	}
+	
+	public function getTestedSensorCount($name)
+	{
+		$elasticaQueryString  = new \Elastica\Query\Match();
+		$elasticaQueryString->setField('name', $name);
+		
+		// Create the actual search object with some data.
+		$elasticaQuery        = new \Elastica\Query();
+		$elasticaQuery->setQuery($elasticaQueryString);
+		
+		//Search on the index.
+		$elasticaResultSet    = $this->getIndex()->search($elasticaQuery);
+		return $elasticaResultSet->getTotalHits();
 	}
 	
 	/**

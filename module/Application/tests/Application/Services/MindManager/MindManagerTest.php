@@ -108,6 +108,27 @@ class MindManagerTest extends TestCase
 		$this->instance->save($mind);
 	}
 	
+	public function testSaveGenerateId()
+	{
+		$data = ['id' => null, 'name' => 'aname', 'password' => 'apassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => null];
+		$mind = new Mind($data);
+	
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+			->method('persist')
+			->with($mind)
+			->will($this->returnSelf());
+		$em->expects($this->once())
+			->method('flush')
+			->will($this->returnSelf());
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+	
+		$this->instance->save($mind);
+		$this->assertEquals($mind['id'], uniqid());
+	}
+	
 	public function testSaveEncryptPassword()
 	{
 		$data = ['id' => null, 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => null];

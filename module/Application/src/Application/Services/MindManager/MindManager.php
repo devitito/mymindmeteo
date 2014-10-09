@@ -31,9 +31,9 @@ class MindManager implements ServiceManagerAwareInterface
 		}
 
 		$bcrypt = new Bcrypt();
-		//Eencrypt password and add join date
+		//Set id, Encrypt password and add join date
 		if (!$mind->getId()) {
-		//	$mind->setId(uniqid());
+			$mind->setId(uniqid());
 			$mind->setPassword($bcrypt->create($mind->getPassword()));
 			$mind->setJoindate(new DateTime("now"));
 		}

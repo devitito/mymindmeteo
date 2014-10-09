@@ -36,7 +36,7 @@ class MindController extends AbstractActionController
 		else if ($identity->getName() == $requestedMind) {
 			//the mind identified in this session wants to access his dashboard
 			
-			return ['mind' => $mind, 'search-manager' => $this->getServiceLocator()->get('search-manager')];
+			return ['mind' => $mind, 'searchManager' => $this->getServiceLocator()->get('search-manager')];
     	}
 		else {
 			//@todo the mind identified in this session tries to access the public page of another mind
