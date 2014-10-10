@@ -202,6 +202,7 @@ $(document).ready(function() {
 	//Destroy modal content after hiding
 	$('body').on('hidden.bs.modal', '.modal', function () {
 	    $(this).removeData('bs.modal').find(".modal-content").empty();
+	    location.reload(true);
 	});
 
 	//record the sample 
