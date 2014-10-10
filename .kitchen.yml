@@ -2,7 +2,9 @@
 driver:
   name: vagrant
   network:
+  - ["forwarded_port", {guest: 80, host: 8000}]
   - ["forwarded_port", {guest: 81, host: 8080}]
+  - ["forwarded_port", {guest: 82, host: 8082}]
   - ["forwarded_port", {guest: 8080, host: 8888}]
   - ["forwarded_port", {guest: 10081, host: 8010}]
   - ["forwarded_port", {guest: 3306, host: 8006}]
@@ -42,16 +44,16 @@ suites:
     - recipe[apache]
     - recipe[mymeteodb]
     - recipe[ruby]
-    - recipe[java]
-    - recipe[monit]
-    - recipe[elasticsearch]
-    - recipe[elasticsearch::nginx]
-    - recipe[elasticsearch::proxy]
-    - recipe[elasticsearch::monit]
+    - recipe[mm-elasticsearch]
     attributes: 
+      kibana:
+        version: 3.0.0
+        apache:
+          port: 82
       java: 
         jdk_version: 7	
-      elasticsearch: 
+      elasticsearch:
+        version: 1.3.4 
         mlockall: false
         nginx:
           allow_cluster_api : true

@@ -25,6 +25,12 @@ execute "Allowing apache to access vagrant files" do
   action :run
 end
 
+conf_plain_file '/etc/apache2/ports.conf' do
+  current_line   'Listen 80'
+  new_line  'Listen 81'
+  action :replace
+end
+
 execute "Enable expire module" do
   command "a2enmod expires"
   action :run
