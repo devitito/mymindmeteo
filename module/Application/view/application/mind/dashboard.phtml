@@ -3,7 +3,6 @@
  				->prependStylesheet('/css/morris.css')
  				->prependStylesheet('/css/slider.css')
  				->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
- 			//	->prependStylesheet('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-responsive.min.css')
  ?>
 
 <!-- Scripts -->
@@ -113,12 +112,12 @@
 					<td>
 						<div class="row">
 						<div class="col-md-2">
-					    	<p><span class="badge"><?php echo $this->searchManager->getTestedSensorCount($this->mind->getName()) ?></span></p>
+					    	<p><span id="nbtest" class="badge"><?php echo $this->searchManager->getTestedSensorCount($this->mind->getName()) ?></span></p>
 					    	<p><span class="badge">2</span></p>
 					    	<p><span class="badge">203</span></p>
 					    </div>
 					    <div class="col-md-10">
-					    	<p>Questions answered </p>
+					    	<p>Test completed </p>
 					    	<p>Sunny days </p>
 					    	<p>Rainny days </p>
 					    </div>
@@ -138,8 +137,10 @@
 		      <li class=""><a href="#friends" role="tab" data-toggle="tab">Similar minds</a></li>
 		    </ul>
 		    <div id="myTabContent" class="tab-content">
-		      <div class="tab-pane fade active in" id="climat">
-					<div id="myfirstchart" style="height: 400px;"></div>
+		      <div class="tab-pane fade active in text-center" id="climat">
+		      		<br>
+		      		<span class="glyphicon glyphicon-refresh spin" id="loading-indicator"></span>
+					<div id="meteochart" style="height: 400px;"></div>
 		      </div>
 		      <div class="tab-pane fade" id="reports">
 				<?php echo $this->partial('partials/reports-list'); ?>
@@ -178,31 +179,61 @@ $(document).ready(function() {
 		debug: false,
 		});
 
-	new Morris.Line({
-		  // ID of the element in which to draw the chart.
-		  element: 'myfirstchart',
-		  // Chart data records -- each entry in this array corresponds to a point on
-		  // the chart.
-		  data: [
-		    { days: '2008', love: 20, health: 2, money: -5 },
-		    { days: '2009', love: 10, health: 10, money: 5  },
-		    { days: '2010', love: 5, health: 15, money: 10 },
-		    { days: '2011', love: 5, health: -10, money: -15  },
-		    { days: '2012', love: 20, health: 0, money: 0  }
-		  ],
-		  // The name of the data record attribute that contains x-values.
-		  xkey: 'days',
-		  // A list of names of data record attributes that contain y-values.
-		  ykeys: ['love', 'health', 'money'],
-		  // Labels for the ykeys -- will be displayed when you hover over the
-		  // chart.
-		  labels: ['Love', 'Health', 'Money']
-		});
+	$.ajax({
+    	type: 'GET',
+        url: $("#mindname").text()+"/meteochart", 
+        cache: false,
+        beforeSend: function(xhr,opt){
+        	$('#loading-indicator').addClass('spin');
+        },
+        success: function(msg){
+            if ($.isEmptyObject(msg)) {
+                $('#meteochart').html('<h2>No meteo data captured.</h2>');
+            }
+            else {   
+	        	new Morris.Line({
+	      		  // ID of the element in which to draw the chart.
+	      		  element: 'meteochart',
+	      		  // Chart data records -- each entry in this array corresponds to a point on
+	      		  // the chart.
+	      		  data: msg,
+	      		  // The name of the data record attribute that contains x-values.
+	      		  xkey: 'days',
+	      		  // A list of names of data record attributes that contain y-values.
+	      		  ykeys: ['love', 'health', 'money'],
+	      		  // Labels for the ykeys -- will be displayed when you hover over the
+	      		  // chart.
+	      		  labels: ['Love', 'Health', 'Money']
+	      		});
+	        	$('#loading-indicator').removeClass('spin');
+	        	$('#loading-indicator').hide();
+	       	}
+        },
+        error: function(xhr, status, error) {
+           	 //todo
+        	$('#loading-indicator').removeClass('spin');
+        	$('#loading-indicator').hide();
+        }
+    });
+	
 
 	//Destroy modal content after hiding
 	$('body').on('hidden.bs.modal', '.modal', function () {
 	    $(this).removeData('bs.modal').find(".modal-content").empty();
-	    location.reload(true);
+
+	    $.ajax({
+	    	type: 'GET',
+	        url: $("#mindname").text()+"/nb-test-completed", 
+	        cache: false,
+	        success: function(msg){
+	        	$('#nbtest').text(msg)
+	        },
+	        error: function(xhr, status, error) {
+	        	$('#nbtest').text('-')
+	        }
+	    });
+	    
+	    //location.reload(true);
 	});
 
 	//record the sample 

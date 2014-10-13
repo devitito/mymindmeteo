@@ -5,6 +5,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 use Application\Entity\Sensor;
 use Application\Entity\Sample;
 use Application\Entity\Record;
@@ -171,6 +172,41 @@ class MindController extends AbstractActionController
 		catch (\Exception $e) {
 			return $this->redirect()->toUrl('/'.$identity->getName().'/measure');
 		}
+	}
+	
+	public function nbTestCompletedAction()
+	{
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+		
+		$sm = $this->getServiceLocator()->get('search-manager');
+		$nb = $sm->getTestedSensorCount($identity->getName());
+		
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(['nbTest' => $nb])
+					->setTerminal(true);
+		return $viewModel;
+	}
+	
+	public function meteochartAction()
+	{
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+		
+		$result = new JsonModel(array(
+			array('days' => '2008-01-01', 'love' => '7', 'health' => '2', 'money' => '-5'),
+			array('days' => '2008-01-02', 'love' => '10', 'health' => '10', 'money' => '5'),
+			array('days' => '2008-01-03', 'love' => '5', 'health' => '10', 'money' => '10'),
+			array('days' => '2008-01-04', 'love' => '5', 'health' => '-10', 'money' => '-6'),
+			array('days' => '2008-01-05', 'love' => '9', 'health' => '0', 'money' => '0'),
+			array('days' => '2008-01-06', 'love' => '4', 'health' => '-2', 'money' => '-3'),
+	        ));
+
+        return $result;
 	}
 	
 	/**
