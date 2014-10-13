@@ -139,7 +139,7 @@
 		    <div id="myTabContent" class="tab-content">
 		      <div class="tab-pane fade active in text-center" id="climat">
 		      		<br>
-		      		<span class="glyphicon glyphicon-refresh spin" id="loading-indicator"></span>
+		      		<span class="glyphicon glyphicon-refresh spin loading-indicator"></span><span class="loading-indicator"><?php echo $this->translate('  Loading...')?></span>
 					<div id="meteochart" style="height: 400px;"></div>
 		      </div>
 		      <div class="tab-pane fade" id="reports">
@@ -161,30 +161,32 @@
 </div>
 
 <script>
-$(document).ready(function() {
-	$( ".jscroll-inner" ).on( "click", ".accordion-toggle", function() {
-		$(this).find("span").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
-	});
 
-	$( ".jscroll-inner" ).on( "mouseover", ".item", function() {
-		$(this).css("background-color","#f2f1f0");
-	});
+function updateNbCompletedTest()
+{
+	$.ajax({
+    	type: 'GET',
+        url: $("#mindname").text()+"/nb-test-completed", 
+        cache: false,
+        success: function(msg){
+        	$('#nbtest').text(msg)
+        },
+        error: function(xhr, status, error) {
+        	$('#nbtest').text('-')
+        }
+    });
+}
 
-	$( ".jscroll-inner" ).on( "mouseout", ".item", function() {
-		$(this).css("background-color","white");
-	});
-
-	$('[data-ui="jscroll-default"]').jscroll({
-		autoTrigger: false,
-		debug: false,
-		});
-
+function updateMeteoChart()
+{
 	$.ajax({
     	type: 'GET',
         url: $("#mindname").text()+"/meteochart", 
         cache: false,
         beforeSend: function(xhr,opt){
-        	$('#loading-indicator').addClass('spin');
+        	$('.loading-indicator').show();
+        	$('.loading-indicator').addClass('spin');
+        	$('#meteochart').empty();
         },
         success: function(msg){
             if ($.isEmptyObject(msg)) {
@@ -205,35 +207,43 @@ $(document).ready(function() {
 	      		  // chart.
 	      		  labels: ['Love', 'Health', 'Money']
 	      		});
-	        	$('#loading-indicator').removeClass('spin');
-	        	$('#loading-indicator').hide();
+	        	$('.loading-indicator').removeClass('spin');
+	        	$('.loading-indicator').hide();
 	       	}
         },
         error: function(xhr, status, error) {
            	 //todo
-        	$('#loading-indicator').removeClass('spin');
-        	$('#loading-indicator').hide();
+        	$('.loading-indicator').removeClass('spin');
+        	$('.loading-indicator').hide();
         }
     });
-	
+}
+							
+$(document).ready(function() {
+	$( ".jscroll-inner" ).on( "click", ".accordion-toggle", function() {
+		$(this).find("span").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+	});
 
+	$( ".jscroll-inner" ).on( "mouseover", ".item", function() {
+		$(this).css("background-color","#f2f1f0");
+	});
+
+	$( ".jscroll-inner" ).on( "mouseout", ".item", function() {
+		$(this).css("background-color","white");
+	});
+
+	$('[data-ui="jscroll-default"]').jscroll({
+		autoTrigger: false,
+		debug: false,
+		});
+
+	updateMeteoChart();
+	
 	//Destroy modal content after hiding
 	$('body').on('hidden.bs.modal', '.modal', function () {
 	    $(this).removeData('bs.modal').find(".modal-content").empty();
-
-	    $.ajax({
-	    	type: 'GET',
-	        url: $("#mindname").text()+"/nb-test-completed", 
-	        cache: false,
-	        success: function(msg){
-	        	$('#nbtest').text(msg)
-	        },
-	        error: function(xhr, status, error) {
-	        	$('#nbtest').text('-')
-	        }
-	    });
-	    
-	    //location.reload(true);
+	    updateNbCompletedTest();
+	    updateMeteoChart();
 	});
 
 	//record the sample 
