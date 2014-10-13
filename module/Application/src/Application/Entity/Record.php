@@ -53,14 +53,15 @@ class Record implements \ArrayAccess, IndexableInterface
 		    'mind'    => array(
 		        'name'      => $this->getMind()->getName(),
 		        'email'  => $this->getMind()->getEmail(),
-		    	'joindate'  => $this->getMind()->getJoindate(),
+		    	'joindate'  => $this->getMind()->getJoindate()->format('Y-m-d H:i:s'),
 		    ),
 		    'sensor'     => array( 
 		    	'label' => $this->getSensor()->getLabel(),
 		    	'meteologist' => $this->getSensor()->getMeteologist(),
 		    ),
 			'sample' => $this->getSample()->getLabel(),
-		    'tstamp'  => $this->getDate(),
+		    'tstamp'  => $this->getDate()->format('Y-m-d H:i:s'),//getTimestamp
+			'timezone'  => $this->getMind()->getTimezone(),
 		    'location'=> '41.12,-71.34',
 		);
 	
