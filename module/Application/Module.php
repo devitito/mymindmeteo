@@ -42,7 +42,11 @@ class Module implements Feature\FormElementProviderInterface
          */
         $sharedEventManager->attach('Zend\Mvc\Controller\AbstractActionController', 'record.post', function ($e) {
         	$sm = $e->getTarget()->getServiceLocator()->get('search-manager');
-			$sm->index('records', $e->getParams()['record']);
+        	try {
+				$sm->index('records', $e->getParams()['record']);
+        	} catch (Exception $e) {
+        		//do something if es is down for example (mark record as to be indexed later for example
+        	}
         });
     }
     
