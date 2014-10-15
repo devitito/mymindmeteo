@@ -305,6 +305,27 @@ $(document).ready(function() {
         });
 	});
 
+	//skip the test
+	$( "#measurementmodal" ).on( "click", ".skip", function() {
+		$('.btn-meteo').attr('disabled', 'disabled');
+		$('.btn-default').attr('disabled', 'disabled');
+        $.ajax({
+            type: "GET",
+            url: $("#mindname").text()+'/measure', 
+            cache: false,
+            success: function(msg){
+            	$("#measurementmodal").find('.modal-content').html(msg);
+            	$('.btn-meteo').removeAttr("disabled");
+            	$('.btn-default').removeAttr("disabled");
+            },
+            error: function(xhr, status, error) {
+            	 $("#measurementmodal").find('#errormsg').html(xhr.responseText);
+            	 $('.btn-meteo').removeAttr("disabled");
+            	 $('.btn-default').removeAttr("disabled");
+            }
+        });
+	});
+
 	//Activate the slider when the modal "sensor is loaded	
 	$('body').on('loaded.bs.modal', '#sensormodal', function() {
 		$(this).find('.slider').slider({ value : 0});
