@@ -8,6 +8,8 @@ use Application\Exception;
 use Elastica\Index;
 use Elastica\Type;
 use Application\Entity\IndexableInterface;
+use Application\Entity\Mind;
+use Zend\Session\Container;
 
 class SearchManager implements ServiceManagerAwareInterface
 {
@@ -48,6 +50,80 @@ class SearchManager implements ServiceManagerAwareInterface
 		//Search on the index.
 		$elasticaResultSet    = $this->getIndex()->search($elasticaQuery);
 		return $elasticaResultSet->getTotalHits();
+	}
+	
+	public function fetchMeteoChartData(Mind $mind)
+	{ 
+		$query = $this->buildMeteoChartQuery($mind->getName());
+		
+		//Search on the index.
+		$resultset    = $this->getIndex()->search($query, ['search_type' => 'count']);
+		$response = $resultset->getResponse();
+		return $this->parseMeteoChartResponse($response, $mind);
+	}
+	
+	private function buildMeteoChartQuery($name)
+	{
+		$elasticaQueryString  = new \Elastica\Query\Match();
+		$elasticaQueryString->setField('name', $name);
+		
+		$meteo_over_time_agg = new \Elastica\Aggregation\DateHistogram('meteo_over_time', 'tstamp', 'day');
+		$meteo_over_time_agg->setFormat('yyyy-MM-dd');
+		
+		$value_agg = new \Elastica\Aggregation\Avg('avg_value');
+		$value_agg->setField('value');
+		
+		$topic_agg = new \Elastica\Aggregation\Terms("term_topic");
+		$topic_agg->setField('topic');
+		$topic_agg->addAggregation($value_agg);
+		
+		$meteo_over_time_agg->addAggregation($topic_agg);
+		
+		// Create the actual search object with some data.
+		$elasticaQuery        = new \Elastica\Query();
+		$elasticaQuery->setQuery($elasticaQueryString);
+		$elasticaQuery->addAggregation($meteo_over_time_agg);
+		
+		return $elasticaQuery;
+	}
+	
+	private function parseMeteoChartResponse($response, Mind $mind)
+	{
+		$data = $response->getData();
+		$buckets = $data['aggregations']['meteo_over_time']['buckets'];
+		
+		$chart = [];
+		$sunny = 0;
+		$rainy = 0;
+		foreach ($buckets as $bucket) {
+			$days = $bucket['key_as_string'];
+			$love = 0;
+			$money = 0;
+			$health = 0;
+				
+			$topics = $bucket['term_topic']['buckets'];
+			foreach ($topics as $topic) {
+				if ($topic['key'] == 'love')
+					$love = round($topic['avg_value']['value'], 1);
+				if ($topic['key'] == 'money')
+					$money = round($topic['avg_value']['value'], 1);
+				if ($topic['key'] == 'health')
+					$health = round($topic['avg_value']['value'], 1);
+			}
+
+			$mood = round(($love+$money+$health)/3, 1);
+			if ($mood > 0)
+				$sunny++;
+			else
+				$rainy++;
+			
+			$chart[] = ['days' => $days, 'love' => $love, 'money' => $money, 'health' => $health, 'mood' => $mood];
+		}
+		
+		$sessionMind = new Container('mind');
+		$sessionMind->sunny = $sunny;
+		$sessionMind->rainy = $rainy;
+		return $chart;
 	}
 	
 	/**

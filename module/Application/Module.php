@@ -157,5 +157,6 @@ class Module implements Feature\FormElementProviderInterface
                      		 ->getServiceManager()
                      		 ->get('Zend\Session\SessionManager');
         $sessionManager->start();
+        Container::setDefaultManager($sessionManager);
     }
 }

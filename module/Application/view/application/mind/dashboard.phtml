@@ -112,14 +112,14 @@
 					<td>
 						<div class="row">
 						<div class="col-md-2">
-					    	<p><span id="nbtest" class="badge"><?php echo $this->searchManager->getTestedSensorCount($this->mind->getName()) ?></span></p>
-					    	<p><span class="badge">2</span></p>
-					    	<p><span class="badge">203</span></p>
+					    	<p><span id="nbtest" class="badge">-</span></p>
+					    	<p><span id="nbsunny" class="badge">-</span></p>
+					    	<p><span id="nbrainy" class="badge">-</span></p>
 					    </div>
 					    <div class="col-md-10">
 					    	<p>Test completed </p>
 					    	<p>Sunny days </p>
-					    	<p>Rainny days </p>
+					    	<p>Rainy days </p>
 					    </div>
 					</div>
 					</td>
@@ -177,6 +177,36 @@ function updateNbCompletedTest()
     });
 }
 
+function updateNbSunnyDays()
+{
+	$.ajax({
+    	type: 'GET',
+        url: $("#mindname").text()+"/nb-sunny-days", 
+        cache: false,
+        success: function(msg){
+        	$('#nbsunny').text(msg)
+        },
+        error: function(xhr, status, error) {
+        	$('#nbsunny').text('-')
+        }
+    });
+}
+
+function updateNbRainyDays()
+{
+	$.ajax({
+    	type: 'GET',
+        url: $("#mindname").text()+"/nb-rainy-days", 
+        cache: false,
+        success: function(msg){
+        	$('#nbrainy').text(msg)
+        },
+        error: function(xhr, status, error) {
+        	$('#nbrainy').text('-')
+        }
+    });
+}
+
 function updateMeteoChart()
 {
 	$.ajax({
@@ -202,21 +232,27 @@ function updateMeteoChart()
 	      		  // The name of the data record attribute that contains x-values.
 	      		  xkey: 'days',
 	      		  // A list of names of data record attributes that contain y-values.
-	      		  ykeys: ['love', 'health', 'money'],
+	      		  ykeys: ['love', 'health', 'money', 'mood'],
 	      		  // Labels for the ykeys -- will be displayed when you hover over the
 	      		  // chart.
-	      		  labels: ['Love', 'Health', 'Money']
+	      		  labels: ['Love', 'Health', 'Money', 'Mood'],
+	      		  lineColors: ['#F9A7B0	', '#00ADEF', 'lightgreen', 'yellow'],
+	      		  hideHover: true,
 	      		});
-	        	$('.loading-indicator').removeClass('spin');
-	        	$('.loading-indicator').hide();
+	        	
 	       	}
+            updateNbSunnyDays();
+        	updateNbRainyDays();
+            $('.loading-indicator').removeClass('spin');
+        	$('.loading-indicator').hide();
         },
         error: function(xhr, status, error) {
-           	 //todo
+        	$('#meteochart').html(xhr.responseText);
         	$('.loading-indicator').removeClass('spin');
         	$('.loading-indicator').hide();
         }
     });
+	
 }
 							
 $(document).ready(function() {
@@ -237,6 +273,7 @@ $(document).ready(function() {
 		debug: false,
 		});
 
+	updateNbCompletedTest();
 	updateMeteoChart();
 	
 	//Destroy modal content after hiding

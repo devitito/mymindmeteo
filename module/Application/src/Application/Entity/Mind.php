@@ -172,9 +172,4 @@ class Mind extends \ArrayObject implements \ArrayAccess
 		$this->locale = $value;
 		return $this;
 	}
-	
-	/*public function remove()
-	{
-		$this->getEventManager()->trigger('remove.pre', $this);
-	}*/
 }

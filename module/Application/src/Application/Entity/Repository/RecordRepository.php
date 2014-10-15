@@ -16,5 +16,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecordRepository extends EntityRepository
 {
-	
+	public function fetchUnIndexed()
+	{
+		$qb = $this->createQueryBuilder('r');
+		$qb->where('r.date <= :start')
+			->setParameters(array('start' => new \DateTime('2014-10-13')));
+		
+		return $qb->getQuery()->getResult();
+	}
 }

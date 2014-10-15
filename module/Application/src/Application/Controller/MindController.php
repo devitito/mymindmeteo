@@ -9,6 +9,8 @@ use Zend\View\Model\JsonModel;
 use Application\Entity\Sensor;
 use Application\Entity\Sample;
 use Application\Entity\Record;
+use Application\Exception;
+use Zend\Session\Container;
 
 class MindController extends AbstractActionController
 {
@@ -182,11 +184,39 @@ class MindController extends AbstractActionController
 		}
 		
 		$sm = $this->getServiceLocator()->get('search-manager');
-		$nb = $sm->getTestedSensorCount($identity->getName());
-		
+		try {
+			$nb = $sm->getTestedSensorCount($identity->getName());
+		} catch (Exception $e) {
+			$nb = '-';
+		}
 		$viewModel = new ViewModel();
-		$viewModel->setVariables(['nbTest' => $nb])
-					->setTerminal(true);
+		$viewModel->setVariables(['nbTest' => $nb])->setTerminal(true);
+		return $viewModel;
+	}
+	
+	public function nbSunnyDaysAction()
+	{
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+	
+		$sessionMind = new Container('mind');
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(['nbSunny' => $sessionMind->sunny])->setTerminal(true);
+		return $viewModel;
+	}
+	
+	public function nbRainyDaysAction()
+	{
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+	
+		$sessionMind = new Container('mind');
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(['nbRainy' => $sessionMind->rainy])->setTerminal(true);
 		return $viewModel;
 	}
 	
@@ -197,16 +227,31 @@ class MindController extends AbstractActionController
 			return $this->redirect()->toUrl('/'.$identity->getName());
 		}
 		
-		$result = new JsonModel(array(
-			array('days' => '2008-01-01', 'love' => '7', 'health' => '2', 'money' => '-5'),
-			array('days' => '2008-01-02', 'love' => '10', 'health' => '10', 'money' => '5'),
-			array('days' => '2008-01-03', 'love' => '5', 'health' => '10', 'money' => '10'),
-			array('days' => '2008-01-04', 'love' => '5', 'health' => '-10', 'money' => '-6'),
-			array('days' => '2008-01-05', 'love' => '9', 'health' => '0', 'money' => '0'),
-			array('days' => '2008-01-06', 'love' => '4', 'health' => '-2', 'money' => '-3'),
-	        ));
-
-        return $result;
+		$sm = $this->getServiceLocator()->get('search-manager');
+		try {
+			$chart = $sm->fetchMeteoChartData($identity);
+			return new JsonModel($chart);
+		} catch (\Elastica\Exception\InvalidException $e) {
+			$viewModel = new ViewModel();
+			$viewModel->setTemplate('error/meteo-chart');
+			$this->getResponse()->setStatusCode(400);
+			$viewModel->setTerminal(true);
+			return $viewModel;
+		}
+	}
+	
+	public function recoverUnIndexedAction()
+	{
+		$identity = $this->identity();
+		if ($identity->getName() != "demo") {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+		
+		$records = $this->getEntityManager()->getRepository('Application\Entity\Record')->fetchUnIndexed();
+		foreach ($records as $record) {
+			//index the new record in elasticsearch
+			$this->getEventManager()->trigger('record.post', $this, ['record' => $record]);
+		}
 	}
 	
 	/**
