@@ -17,3 +17,4 @@ vendor/bin
 .*~
 tests/build/*
 *.xcf
+data

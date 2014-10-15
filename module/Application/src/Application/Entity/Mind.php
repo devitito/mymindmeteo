@@ -56,6 +56,11 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	 */
 	protected $locale;
 	
+	/**
+	 * @ORM\Column(name="role", type="string", length=32, nullable=false, unique=false)
+	 */
+	protected $role;
+	
 	protected $nameoremail;
 	
 	public function __construct($options = null)
@@ -74,6 +79,7 @@ class Mind extends \ArrayObject implements \ArrayAccess
 		$this->nameoremail  = (isset($data['nameoremail'])) ? $data['nameoremail'] : null;
 		$this->timezone  = (isset($data['timezone'])) ? $data['timezone'] : null;
 		$this->locale  = (isset($data['locale'])) ? $data['locale'] : null;
+		$this->role  = (isset($data['role'])) ? $data['role'] : null;
 	}
 	
 	public function getId()
@@ -170,6 +176,17 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	public function setLocale($value)
 	{
 		$this->locale = $value;
+		return $this;
+	}
+	
+	public function getRole()
+	{
+		return $this->role;
+	}
+	
+	public function setRole($value)
+	{
+		$this->role = $value;
 		return $this;
 	}
 }
