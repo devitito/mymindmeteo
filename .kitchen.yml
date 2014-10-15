@@ -5,6 +5,7 @@ driver:
   - ["forwarded_port", {guest: 80, host: 8000}]
   - ["forwarded_port", {guest: 81, host: 8080}]
   - ["forwarded_port", {guest: 82, host: 8082}]
+  - ["forwarded_port", {guest: 443, host: 8443}]
   - ["forwarded_port", {guest: 8080, host: 8888}]
   - ["forwarded_port", {guest: 10081, host: 8010}]
   - ["forwarded_port", {guest: 3306, host: 8006}]
