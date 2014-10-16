@@ -115,7 +115,10 @@ class IndexController extends AbstractActionController
 					$sessionManager = $this->getServiceLocator()->get('Zend\Session\SessionManager');
 					$sessionManager->regenerateId(true);
 					
-   					return $this->redirect()->toUrl('/'.$identity->getName());
+					if ($identity->getRole() == $this->getServiceLocator()->get('profile-service')->getAdminRole())
+						return $this->redirect()->toUrl('/admin/'.$identity->getName());
+					else
+   						return $this->redirect()->toUrl('/'.$identity->getName());
 				}
    				else {
    					foreach ($authResult->getMessages() as $message) {
