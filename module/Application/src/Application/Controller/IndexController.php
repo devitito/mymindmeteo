@@ -116,7 +116,7 @@ class IndexController extends AbstractActionController
 					$sessionManager->regenerateId(true);
 					
 					if ($identity->getRole() == $this->getServiceLocator()->get('profile-service')->getAdminRole())
-						return $this->redirect()->toUrl('/admin/'.$identity->getName());
+						return $this->redirect()->toUrl('/administrator/'.$identity->getName());
 					else
    						return $this->redirect()->toUrl('/'.$identity->getName());
 				}

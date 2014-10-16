@@ -38,6 +38,7 @@ return array(
             			),
             		),
             	),
+            	
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -99,6 +100,21 @@ return array(
             				),
             		),
             ),
+            'admin' => array(
+            	'type'    => 'Segment',
+            	'may_terminate' => true,
+            	'options' => array(
+            		'route'    => '/administrator[/:mindname[/:action]]',
+            		'constraints' => array(
+            			'mindname'     => '[a-zA-Z][a-zA-Z0-9-]*',
+            			'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+            		),
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Admin',
+            			'action' => 'dashboard',
+            		),
+            	),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -135,6 +151,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Mind' => 'Application\Controller\MindController',
+            'Application\Controller\Admin' => 'Application\Controller\AdminController',
         ),
     ),
     'view_manager' => array(
