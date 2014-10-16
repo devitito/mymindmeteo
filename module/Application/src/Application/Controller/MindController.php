@@ -126,6 +126,21 @@ class MindController extends AbstractActionController
 		return $viewModel;
 	}
 	
+	public function addAnalyseAction()
+	{
+		//can't contribute if not loged in
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/'.$identity->getName());
+		}
+		
+		//@todo
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(['sensorform' => $sensorform])
+					->setTerminal(true);
+		return $viewModel;
+	}
+		
 	public function measureAction()
 	{
 		//can't record if not loged in

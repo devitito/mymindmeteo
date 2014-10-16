@@ -31,9 +31,11 @@ return array(
 	'acl' => array(
 		'roles' => array(
 			'guest'   => null,
-			'mind'  => 'guest',
+			'demo' => 'guest',
+			'mind'  => 'demo',
 			'meteologist' => 'mind',
-			'admin' => 'meteologist'
+			'validator' => 'meteologist',
+			'admin' => 'validator'
 		),
 		'resources' => array(
 			//permissions => controllers	
@@ -47,7 +49,7 @@ return array(
 					'index' => 'guest',
 					'join' => 'guest',
 					'login' => 'guest',
-					'logout' => 'guest'
+					'logout' => 'demo'
 				),
 				'Application\Controller\Mind' => array(
 					'dashboard' => 'guest',
@@ -58,7 +60,11 @@ return array(
 					'record' => 'mind',
 					'measure' => 'mind',
 					'add-sensor-and-samples' => 'meteologist',
+					'add-analyse' => 'meteologist',
 					'recover-un-indexed' => 'admin'					
+				),
+				'Application\Controller\Admin' => array(
+					'all' => 'admin'
 				),
 			)
 		)

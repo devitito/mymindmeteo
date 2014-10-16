@@ -32,6 +32,15 @@
 	</div><!-- /.modal-dialog -->
 </div>
 
+<!-- Analyse Modal -->
+<div style="display: none;" id="analysemodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="analyseModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+      <div id="analysemodal-content" class="modal-content">
+
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
 <!-- Please wait modal -->
 <div style="display: none;" id="waitmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -76,14 +85,14 @@
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contribute <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
 		            <li><a href="#" id="sensor-contribution-button">Send us a new sensor</a></li>
-		            <li><a href="#">Send us a new weather analyse</a></li>
+		            <li><a href="#" id="anaylse-contribution-button">Send us a new weather analyse</a></li>
 		          </ul>
 		        </li>
 		        <li>
-		          <a href="#" class="glyphicon glyphicon-map-marker tooltip-link" id="sensor-test-button" data-placement="left" title="Record meteo data of your mind"></a>
+		          <a href="#" class="glyphicon glyphicon-map-marker tooltip-link" id="sensor-test-button" data-toggle="tooltip" data-placement="left" title="Record meteo data of your mind"></a>
 		        </li>
 		        <li>
-		          <a href="<?php echo $this->mind->getName() . '/publish' ?>" class="glyphicon glyphicon-envelope tooltip-link" data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
+		          <a href="#" class="glyphicon glyphicon-envelope tooltip-link"  data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
 		        </li>
 		        <li>
 		          <a href="/logout" class="glyphicon glyphicon-log-out"></a>
@@ -350,6 +359,17 @@ $(document).ready(function() {
 			$( "#measurementmodal" ).modal('show');
 			});
 		$( "#measurementmodal" ).modal('toggle');
+	});
+
+	//weather ananylse contribution form request
+	$( "#anaylse-contribution-button" ).on( "click", function(e) {
+		e.preventDefault();
+		$( "#analysemodal-content" ).load($("#mindname").text()+'/add-analyse', function( response, status, xhr ) {
+			if ( status == "error" ) 
+				$("#analysemodal").find('.modal-content').html(errorModal(xhr.responseText));
+			$( "#analysemodal" ).modal('show');
+			});
+		$( "#analysemodal" ).modal('toggle');
 	});
 	
 	//skip the test
