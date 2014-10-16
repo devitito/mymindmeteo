@@ -32,7 +32,10 @@ class IndexController extends AbstractActionController
     {
     	//can't joined if loged in
     	if ($identity = $this->identity()) {
-    		return $this->redirect()->toUrl('/'.$identity->getName());
+    		if ($identity->getRole() == $this->getServiceLocator()->get('profile-service')->getAdminRole())
+				return $this->redirect()->toUrl('/administrator');
+			else
+   				return $this->redirect()->toUrl('/'.$identity->getName());
     	}
     	
      	$formManager = $this->getServiceLocator()->get('FormElementManager');
@@ -75,7 +78,10 @@ class IndexController extends AbstractActionController
     public function loginAction()
     {
     	if ($identity = $this->identity()) {
-    		return $this->redirect()->toUrl('/'.$identity->getName());
+    		if ($identity->getRole() == $this->getServiceLocator()->get('profile-service')->getAdminRole())
+    			return $this->redirect()->toUrl('/administrator');
+    		else
+	    		return $this->redirect()->toUrl('/'.$identity->getName());
     	}
     	
     	$formManager = $this->getServiceLocator()->get('FormElementManager');
@@ -116,7 +122,7 @@ class IndexController extends AbstractActionController
 					$sessionManager->regenerateId(true);
 					
 					if ($identity->getRole() == $this->getServiceLocator()->get('profile-service')->getAdminRole())
-						return $this->redirect()->toUrl('/administrator/'.$identity->getName());
+						return $this->redirect()->toUrl('/administrator');
 					else
    						return $this->redirect()->toUrl('/'.$identity->getName());
 				}

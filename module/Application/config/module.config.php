@@ -104,16 +104,45 @@ return array(
             	'type'    => 'Segment',
             	'may_terminate' => true,
             	'options' => array(
-            		'route'    => '/administrator[/:mindname[/:action]]',
-            		'constraints' => array(
-            			'mindname'     => '[a-zA-Z][a-zA-Z0-9-]*',
-            			'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-            		),
+            		'route'    => '/administrator',
             		'defaults' => array(
             			'controller' => 'Application\Controller\Admin',
             			'action' => 'dashboard',
             		),
             	),
+            ),
+            'admin-minds' => array(
+            		'type'    => 'Segment',
+            		'may_terminate' => true,
+            		'options' => array(
+            				'route'    => '/administrator/minds',
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Admin',
+            						'action' => 'minds',
+            				),
+            		),
+            ),
+            'admin-stats' => array(
+            		'type'    => 'Segment',
+            		'may_terminate' => true,
+            		'options' => array(
+            				'route'    => '/administrator/stats',
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Admin',
+            						'action' => 'stats',
+            				),
+            		),
+            ),
+            'admin-sensors' => array(
+            		'type'    => 'Segment',
+            		'may_terminate' => true,
+            		'options' => array(
+            				'route'    => '/administrator/sensors',
+            				'defaults' => array(
+            						'controller' => 'Application\Controller\Admin',
+            						'action' => 'sensors',
+            				),
+            		),
             ),
         ),
     ),
@@ -124,6 +153,7 @@ return array(
         ),
         'factories' => array(
         	'AuthService' => 'Application\Services\Factory\AuthenticationFactory',
+        	'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
@@ -166,9 +196,9 @@ return array(
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             'error/meteo-chart'             => __DIR__ . '/../view/error/meteo-chart.phtml',
-            'partials/quickRegistration'             => __DIR__ . '/../view/partials/quickRegistration.phtml',
-            'partials/navbar-logged-out'             => __DIR__ . '/../view/partials/navbar-logged-out.phtml',
-            'partials/reports-list'             => __DIR__ . '/../view/partials/reports-list.phtml',
+           // 'partials/quickRegistration'             => __DIR__ . '/../view/partials/quickRegistration.phtml',
+          //  'partials/navbar-logged-out'             => __DIR__ . '/../view/partials/navbar-logged-out.phtml',
+          //  'partials/reports-list'             => __DIR__ . '/../view/partials/reports-list.phtml',
             'contribution/sensor/error'             => __DIR__ . '/../view/contribution/sensor/error.phtml',
         ),
         'template_path_stack' => array(
@@ -233,5 +263,25 @@ return array(
     					),
     			),
     	)
+    ),
+    'navigation' => array(
+    	'default' => array(
+    		array(
+    			'label' => 'Dashboard',
+    			'route' => 'admin',
+    		),
+    		array(
+    			'label' => 'Stats',
+    			'route' => 'admin-stats',
+    		),
+    		array(
+    			'label' => 'Minds',
+    			'route' => 'admin-minds',
+    		),
+    		array(
+    			'label' => 'Sensors',
+    			'route' => 'admin-sensors',
+    		),
+    	),
     ),
 );
