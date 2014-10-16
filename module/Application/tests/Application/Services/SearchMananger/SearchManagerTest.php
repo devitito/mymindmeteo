@@ -67,7 +67,7 @@ class SearchManagerTest extends TestCase
 		$index = $this->getMockBuilder('Elastica\Index')
 					->disableOriginalConstructor()
 					->getMock();
-		$index->expects($this->once())
+		$index->expects($this->any())
 				 ->method('getType')
 				->will($this->returnValue($type));
 		$index->expects($this->once())

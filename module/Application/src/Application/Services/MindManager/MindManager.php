@@ -36,6 +36,7 @@ class MindManager implements ServiceManagerAwareInterface
 			$mind->setId(uniqid());
 			$mind->setPassword($bcrypt->create($mind->getPassword()));
 			$mind->setJoindate(new DateTime("now"));
+			$mind->setRole('mind');
 		}
 		
 		try {

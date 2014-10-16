@@ -15,8 +15,8 @@ return array(
             		'options' => array(
             				'route'    => '/api/validate-mind-name',
             				'defaults' => array(
-            						'controller' => 'api\validate',
-            						'action'     => 'mindName',
+            						'controller' => 'Api\Controller\Validate',
+            						'action'     => 'mind-name',
             				),
             		),
             ),
@@ -25,8 +25,8 @@ return array(
         			'options' => array(
         					'route'    => '/api/validate-mind-email',
         					'defaults' => array(
-        							'controller' => 'api\validate',
-        							'action'     => 'mindEmail',
+        							'controller' => 'Api\Controller\Validate',
+        							'action'     => 'mind-email',
         					),
         			),
         	),
@@ -35,7 +35,7 @@ return array(
     'service_manager' => array(),
     'controllers' => array(
         'invokables' => array(
-            'api\validate' => 'Api\Controller\ValidateController'
+            'Api\Controller\Validate' => 'Api\Controller\ValidateController'
         ),
     ),
 	'view_manager' => array(

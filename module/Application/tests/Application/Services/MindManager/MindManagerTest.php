@@ -176,10 +176,31 @@ class MindManagerTest extends TestCase
 		//$this->assertEquals(date_default_timezone_get(),$mind->getTimezone());
 	}
 	
-	public function testSaveDontOverRideIdAndPasswordAndJoindate()
+	public function testSaveSetDefaultRole()
+	{
+		$data = ['id' => null, 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => null, 'role' => null];
+		$mind = new Mind($data);
+	
+		$em = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+					->disableOriginalConstructor()
+					->getMock();
+		$em->expects($this->once())
+			->method('persist')
+			->with($mind)
+			->will($this->returnSelf());
+		$em->expects($this->once())
+			->method('flush')
+			->will($this->returnSelf());
+		self::getApplication()->getServiceManager()->setService('doctrine.entitymanager.orm_default', $em);
+	
+		$this->instance->save($mind);
+		$this->assertEquals($mind['role'], 'mind');
+	}
+	
+	public function testSaveDontOverRideIdAndPasswordAndJoindateAndRole()
 	{
 		$date = new \DateTime("now");
-		$data = ['id' => 'someid', 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => $date];
+		$data = ['id' => 'someid', 'name' => 'aname', 'password' => 'aapassword', 'email' => 'anemail', 'nameoremail' => null, 'joindate' => $date, 'role' => 'a role'];
 		$mind = new Mind($data);
 		
 		$bcrypt = new Bcrypt();
@@ -201,6 +222,7 @@ class MindManagerTest extends TestCase
 		$this->instance->save($mind);
 		$this->assertEquals('someid', $mind['id']);
 		$this->assertEquals($date, $mind['joindate']);
+		$this->assertEquals('a role', $mind['role']);
 		$this->assertTrue($this->instance->verifyHashedPassword($mind, 'aapassword'));
 	}
 	

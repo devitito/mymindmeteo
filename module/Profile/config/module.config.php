@@ -12,7 +12,11 @@ return array(
         'routes' => array(
         ),
     ),
-    'service_manager' => array(),
+    'service_manager' => array(
+    	'invokables' => array(
+    		'profile-service' => 'Profile\Service\Profile',
+    	),
+    ),
     'controllers' => array(
     ),
 	'view_manager' => array(
@@ -36,14 +40,14 @@ return array(
 			'allow' => array(
 				//controller => actions
 				'Api\Controller\Validate' => array(
-					'mindEmail' => 'guest',
-					'mindName' => 'guest'
+					'mind-email' => 'guest',
+					'mind-name' => 'guest'
 				),
 				'Application\Controller\Index' => array(
 					'index' => 'guest',
 					'join' => 'guest',
 					'login' => 'guest',
-					'logout' => 'mind'
+					'logout' => 'guest'
 				),
 				'Application\Controller\Mind' => array(
 					'dashboard' => 'guest',
@@ -56,9 +60,6 @@ return array(
 					'add-sensor-and-samples' => 'meteologist',
 					'recover-un-indexed' => 'admin'					
 				),
-				'Application\Controller\Error' => array(
-					'all' => 'guest'
-				)
 			)
 		)
 	)
