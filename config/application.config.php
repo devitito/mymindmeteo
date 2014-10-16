@@ -4,6 +4,7 @@ return array(
     'modules' => array(
         'Application',
     	'Api',
+    	'Profile',
     	'AssetManager',
     	'ZendDeveloperTools',
     	'DoctrineModule',
