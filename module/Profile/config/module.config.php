@@ -16,6 +16,13 @@ return array(
     'controllers' => array(
     ),
 	'view_manager' => array(
+		'display_exceptions' => true,
+		'template_map' => array(
+			'error/403'               => __DIR__ . '/../view/error/403.phtml',
+		),
+		'template_path_stack' => array(
+			__DIR__ . '/../view',
+		),
 	),
 	'acl' => array(
 		'roles' => array(

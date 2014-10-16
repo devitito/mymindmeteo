@@ -14,6 +14,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Zend\View\Model\ViewModel;
+use Zend\Stdlib\Response as StdResponse;
 
 class Module
 {
@@ -22,7 +23,10 @@ class Module
     public function onBootstrap(MvcEvent $e)
     {
         $this->initAcl($e);
+        //check Acl when a route is matched
     	$e->getApplication()->getEventManager()->attach('route', array($this, 'checkAcl'));
+    	//If the mind has no permission to access the route, checkAcl trigger a dispatch event error
+    	$e->getApplication()->getEventManager()->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'handlePermsissionDenied'));
     }
 
     public function getConfig()
@@ -123,7 +127,6 @@ class Module
     {
     	$routeMatch = $e->getRouteMatch();
     	$controller = $routeMatch->getParam('controller');
-    	//$mindname = $routeMatch->getParam('mindname');
     	$action = $routeMatch->getParam('action');
     	
     	$authService = $e->getApplication()->getServiceManager()->get('AuthService');
@@ -139,9 +142,37 @@ class Module
 		}
 		
     	if (!$e->getViewModel()->acl->isAllowed($role, $controller, $action)) {
-    		$response = $e->getResponse();
-    		$response->getHeaders()->addHeaderLine('Location', '/error/permissions');
-    		$response->setStatusCode(302);
+    		$e->setError('ACL_ACCESS_DENIED')
+    			->setParam('route', $routeMatch->getMatchedRouteName());
+    		$e->getApplication()->getEventManager()->trigger('dispatch.error', $e);
     	}
+    }
+    
+    public function handlePermsissionDenied(MvcEvent $e)
+    {
+    	$error = $e->getError();
+    	
+    	if (empty($error) || $error != "ACL_ACCESS_DENIED") {
+    		return;
+    	}
+    	
+    	$result = $e->getResult();
+    	
+    	if ($result instanceof StdResponse) {
+    		return;
+    	}
+    	
+    	$model = new ViewModel();
+    	$model->setTemplate('error/403')->setTerminal(true);
+    	
+    	$e->setViewModel($model);
+    	
+    	$response = $e->getResponse();
+    	$response->setStatusCode(403);
+    	
+    	$e->setResponse($response);
+    	$e->setResult($model);
+    	
+    	return false;
     }
 }

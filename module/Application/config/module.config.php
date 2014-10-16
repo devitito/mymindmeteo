@@ -99,18 +99,6 @@ return array(
             				),
             		),
             ),
-            'error' => array(
-            		'type' => 'Segment',
-            		'options' => array(
-            				'route'    => '/error[/:action]',
-            				'constraints' => array(
-           						'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-            				),
-            				'defaults' => array(
-            						'controller' => 'Application\Controller\Error',
-            				),
-            		),
-            ),
         ),
     ),
     'service_manager' => array(
@@ -147,7 +135,6 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Mind' => 'Application\Controller\MindController',
-            'Application\Controller\Error' => 'Application\Controller\ErrorController'
         ),
     ),
     'view_manager' => array(
@@ -162,7 +149,6 @@ return array(
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             'error/meteo-chart'             => __DIR__ . '/../view/error/meteo-chart.phtml',
-            'error/permissions'             => __DIR__ . '/../view/error/permissions.phtml',
             'partials/quickRegistration'             => __DIR__ . '/../view/partials/quickRegistration.phtml',
             'partials/navbar-logged-out'             => __DIR__ . '/../view/partials/navbar-logged-out.phtml',
             'partials/reports-list'             => __DIR__ . '/../view/partials/reports-list.phtml',
