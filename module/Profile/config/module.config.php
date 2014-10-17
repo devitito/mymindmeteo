@@ -45,6 +45,9 @@ return array(
 					'mind-email' => 'guest',
 					'mind-name' => 'guest'
 				),
+				'Api\Controller\Admin' => array(
+					'all' => 'admin',
+				),
 				'Application\Controller\Index' => array(
 					'index' => 'guest',
 					'join' => 'guest',

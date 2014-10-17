@@ -6,7 +6,7 @@ return array(
     	'Api',
     	'Profile',
     	'AssetManager',
-    	'ZendDeveloperTools',
+    	//'ZendDeveloperTools',
     	'DoctrineModule',
     	'DoctrineORMModule',
     	'IntuElastica'

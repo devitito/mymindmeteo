@@ -1,30 +1,40 @@
+<?php echo $this->headScript()
+				->prependFile('/js/adminController.js')
+				->prependFile('/js/adminServices.js')
+				->prependFile('/js/app.js')
+				->prependFile('http://code.angularjs.org/1.2.25/angular-resource.min.js');
+?>
+
 <?php echo $this->partial('partials/navbar-admin.phtml'); ?>
 
-<div class="container">
+<div class="container" ng-controller="mindsCtrl">
 	<div class="row">
 		<div class="col-lg-2">
 			<?php echo $this->partial('partials/menu-admin.phtml'); ?>
 		</div>
 		<div class="col-lg-10">
-			<button type="button" class="btn btn-meteo">Create a mind</button>
+			<a href="minds/new" type="button" class="btn btn-meteo">Create a mind</a>
+			<br><br>
 			<p>list of minds update/delete/view</p>
-			
+		
 			<div>
-			<table>
-				<tr>
-					<td>mind1</td>
-				</tr>
-				
-			</table>
+				<table id="mindlist" class="table">
+					<thead>
+				        <tr>
+				          <th>Name</th>
+				          <th>Join Date</th>
+				          <th>Role</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+						<tr ng-repeat="mind in minds">
+							<td>{{mind.name}}</td>
+							<td>{{mind.joindate}}</td>
+							<td>{{mind.role}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
-
-<script>
-
-</script>
- 
-  
-    
-

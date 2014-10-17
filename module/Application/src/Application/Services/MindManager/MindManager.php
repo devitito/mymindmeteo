@@ -78,6 +78,15 @@ class MindManager implements ServiceManagerAwareInterface
 		}
 	}
 	
+	public function fetchAll()
+	{
+		try {
+			return $this->getEntityManager()->getRepository('Application\Entity\Mind')->findAll();
+		} catch (\Exception $e) {
+				throw Exception::factory(Exception::OPERATION_FAILED);
+		}
+	}
+	
 	/**
 	 * Static function for checking hashed password (as required by Doctrine)
 	 *

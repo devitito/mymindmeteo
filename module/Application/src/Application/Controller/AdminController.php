@@ -26,4 +26,9 @@ class AdminController extends AbstractActionController
 	{
 		return new ViewModel();
 	}
+	
+	public function createMindAction()
+	{
+		return new ViewModel();
+	}
 }

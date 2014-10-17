@@ -30,12 +30,23 @@ return array(
         					),
         			),
         	),
+        	'admin-list-mind' => array(
+        		'type' => 'Zend\Mvc\Router\Http\Literal',
+        		'options' => array(
+        			'route'    => '/api/admin/mind-list',
+        			'defaults' => array(
+        				'controller' => 'Api\Controller\Admin',
+        				'action'     => 'mind-list',
+        			),
+        		),
+        	),
         ),
     ),
     'service_manager' => array(),
     'controllers' => array(
         'invokables' => array(
-            'Api\Controller\Validate' => 'Api\Controller\ValidateController'
+            'Api\Controller\Validate' => 'Api\Controller\ValidateController',
+            'Api\Controller\Admin' => 'Api\Controller\AdminController'
         ),
     ),
 	'view_manager' => array(

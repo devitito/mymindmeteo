@@ -144,6 +144,17 @@ return array(
             				),
             		),
             ),
+            'admin-create-mind' => array(
+            	'type'    => 'Segment',
+            	'may_terminate' => true,
+            	'options' => array(
+            		'route'    => '/administrator/minds/new',
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Admin',
+            			'action' => 'createMind',
+            		),
+            	),
+            ),
         ),
     ),
     'service_manager' => array(
