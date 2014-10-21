@@ -3,7 +3,7 @@
 	<br><br>
 	<p>list of minds update/delete/view</p>
 	
-	<div>
+	<div ng-hide="error">
 		<table id="mindlist" class="table">
 			<thead>
 		        <tr>
@@ -20,5 +20,8 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	<div ng-show="error">
+		<span>{{error}}</span>
 	</div>
 </div>
