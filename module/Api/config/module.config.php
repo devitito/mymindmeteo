@@ -40,6 +40,16 @@ return array(
         			),
         		),
         	),
+        	'admin-recover-records' => array(
+        		'type' => 'Zend\Mvc\Router\Http\Literal',
+        		'options' => array(
+        			'route'    => '/api/admin/records/recover',
+        			'defaults' => array(
+        				'controller' => 'Api\Controller\Admin',
+        				'action'     => 'recover-records',
+        			),
+        		),
+        	),
         ),
     ),
     'service_manager' => array(),
@@ -50,6 +60,9 @@ return array(
         ),
     ),
 	'view_manager' => array(
+		'template_path_stack' => array(
+			__DIR__ . '/../view',
+		),
 		'strategies' => array(
 			'ViewJsonStrategy',
 		),

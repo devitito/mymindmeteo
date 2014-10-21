@@ -254,20 +254,6 @@ class MindController extends AbstractActionController
 		}
 	}
 	
-	public function recoverUnIndexedAction()
-	{
-		$identity = $this->identity();
-		if ($identity->getName() != "demo") {
-			return $this->redirect()->toUrl('/'.$identity->getName());
-		}
-		
-		$records = $this->getEntityManager()->getRepository('Application\Entity\Record')->fetchUnIndexed();
-		foreach ($records as $record) {
-			//index the new record in elasticsearch
-			$this->getEventManager()->trigger('record.post', $this, ['record' => $record]);
-		}
-	}
-	
 	/**
 	 * get entityManager
 	 *

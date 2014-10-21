@@ -20,7 +20,7 @@ class RecordRepository extends EntityRepository
 	{
 		$qb = $this->createQueryBuilder('r');
 		$qb->where('r.date <= :start')
-			->setParameters(array('start' => new \DateTime('2014-10-13')));
+			->setParameters(array('start' => new \DateTime('2014-10-20')));
 		
 		return $qb->getQuery()->getResult();
 	}

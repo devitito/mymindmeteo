@@ -11,6 +11,11 @@ use IntlDateFormatter;
 
 class AdminController extends AbstractActionController
 {
+	/**
+	 * @var Doctrine\ORM\EntityManager
+	 */
+	protected $entityManager;
+	
 	public function mindListAction()
 	{
 		$identity = $this->identity();
@@ -31,16 +36,36 @@ class AdminController extends AbstractActionController
 		} catch (Exception $e) {
 			
 		}
-		/*try {
-			$mindManager = $this->getServiceLocator()->get('mind-manager');
-			$isAvailable = $mindManager->isAvailable(['name' => $_POST['name']]);
-			$variables = array( 'valid' => $isAvailable);
+	}
+	
+	public function recoverRecordsAction()
+	{
+		$identity = $this->identity();
+		if (!$identity) {
+			return $this->redirect()->toUrl('/');
 		}
-		catch (\Exception $e) {
-			$variables = array( 'valid' => 'false', 'message' => 'Sorry, we can\'t check the avaibility of your mind name right now. Try again later.');
+	
+		$records = $this->getEntityManager()->getRepository('Application\Entity\Record')->fetchUnIndexed();
+		foreach ($records as $record) {
+			//index the new record in elasticsearch
+			$this->getEventManager()->trigger('record.post', $this, ['record' => $record]);
 		}
-		
-		$json = new JsonModel( $variables );
-		return $json;*/
+		$dateformat = new DateFormat();
+		$date = $dateformat(new \DateTime('now'), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
+		return new JsonModel([$date]);
+	}
+	
+	/**
+	 * get entityManager
+	 *
+	 * @return EntityManager
+	 */
+	private function getEntityManager()
+	{
+		if (null === $this->entityManager) {
+			$this->entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+		}
+	
+		return $this->entityManager;
 	}
 }
