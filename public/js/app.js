@@ -1,19 +1,29 @@
-var mindmeteo = angular.module('mindmeteo', ['adminControllers', 'adminServices']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'adminControllers', 'adminServices']);
 
-/*
-phonecatApp.config(['$routeProvider',
+mindmeteo.config(['$routeProvider',
 function($routeProvider) {
   $routeProvider.
-    when('/phones', {
-      templateUrl: 'partials/phone-list.html',
-      controller: 'PhoneListCtrl'
+  	when('/', {
+      templateUrl: '/js/partials/admin/dashboard.html',
+      controller: 'dashboardCtrl'
     }).
-    when('/phones/:phoneId', {
-      templateUrl: 'partials/phone-detail.html',
-      controller: 'PhoneDetailCtrl'
+    when('/stats', {
+        templateUrl: '/js/partials/admin/stats.html',
+        controller: 'statsCtrl'
+      }).
+    when('/sensors', {
+         templateUrl: '/js/partials/admin/sensors.html',
+         controller: 'sensorsCtrl'
+    }).
+    when('/minds', {
+        templateUrl: '/js/partials/admin/minds.html',
+        controller: 'mindsCtrl'
+   }).
+    when('/minds/edit/:mindId', {
+      templateUrl: '/js/partials/mind/edit.html',
+      controller: 'EditMindCtrl'
     }).
     otherwise({
-      redirectTo: '/phones'
+      redirectTo: '/'
     });
 }]);
-*/

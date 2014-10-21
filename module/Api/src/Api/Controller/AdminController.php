@@ -30,7 +30,7 @@ class AdminController extends AbstractActionController
 			foreach ($minds as $mind) {
 				$dateformat = new DateFormat();
 				$date = $dateformat($mind->getJoindate(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
-				$data [] = ['name' => $mind->getName(), 'joindate' => $date , 'role' => $mind->getRole()];
+				$data [] = ['id' => $mind->getId(), 'name' => $mind->getName(), 'joindate' => $date , 'role' => $mind->getRole(), 'locale' => $mind->getLocale()];
 			}
 			return new JsonModel($data);
 		} catch (Exception $e) {

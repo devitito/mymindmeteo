@@ -30,6 +30,7 @@
             ->prependFile('/js/adminServices.js')
             ->prependFile('/js/app.js')
             ->prependFile('http://code.angularjs.org/1.2.25/angular-resource.min.js')
+            ->prependFile('http://code.angularjs.org/1.2.25/angular-route.min.js')
             ->prependFile('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js')
         ; ?>
     </head>
@@ -40,7 +41,7 @@
 				<div class="col-lg-2">
 					<?php echo $this->partial('partials/menu-admin.phtml'); ?>
 				</div>
-					<?php echo $this->content; ?>
+				<div ng-view></div>
 			</div>
             <hr>
             <footer>

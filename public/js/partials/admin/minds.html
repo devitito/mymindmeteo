@@ -4,19 +4,21 @@
 	<p>list of minds update/delete/view</p>
 	
 	<div ng-hide="error">
-		<table id="mindlist" class="table">
+		<table id="mindlist" class="table table-hover">
 			<thead>
 		        <tr>
 		          <th>Name</th>
 		          <th>Join Date</th>
 		          <th>Role</th>
+		          <th>Locale</th>
 		        </tr>
 		      </thead>
 		      <tbody>
-				<tr ng-repeat="mind in minds">
+				<tr ng-repeat="mind in minds" ng-click="go('/minds/edit/'+ mind.id)">
 					<td>{{mind.name}}</td>
 					<td>{{mind.joindate}}</td>
 					<td>{{mind.role}}</td>
+					<td>{{mind.locale}}</td>
 				</tr>
 			</tbody>
 		</table>
