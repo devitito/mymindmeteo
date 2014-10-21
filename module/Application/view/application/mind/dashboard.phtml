@@ -95,7 +95,7 @@
 		          <a href="#" class="glyphicon glyphicon-envelope tooltip-link"  data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
 		        </li>
 		        <li>
-		          <a href="/logout" class="glyphicon glyphicon-log-out"></a>
+		          <a href="/mind/logout" class="glyphicon glyphicon-log-out"></a>
 		        </li>
 		      </ul>
 		      
@@ -110,7 +110,7 @@
 <div class="container">
 	<div class="row">
 	    <div class="col-md-3">
-	        <a href="<?php echo $this->mind->getName() . '/account' ?>">
+	        <a href="'/mind/account' ?>">
 	        	<img alt="" height="230" width="230" src="/img/icons/placeholder.png">
 	        </a>
 			<br><br>
@@ -191,7 +191,7 @@ function updateNbCompletedTest()
 {
 	$.ajax({
     	type: 'GET',
-        url: $("#mindname").text()+"/nb-test-completed", 
+        url: "/mind/sensors/completed/count", 
         cache: false,
         success: function(msg){
         	$('#nbtest').text(msg)
@@ -206,7 +206,7 @@ function updateNbSunnyDays()
 {
 	$.ajax({
     	type: 'GET',
-        url: $("#mindname").text()+"/nb-sunny-days", 
+        url: "/mind/days/sunny", 
         cache: false,
         success: function(msg){
         	$('#nbsunny').text(msg)
@@ -221,7 +221,7 @@ function updateNbRainyDays()
 {
 	$.ajax({
     	type: 'GET',
-        url: $("#mindname").text()+"/nb-rainy-days", 
+        url: "/mind/days/rainy", 
         cache: false,
         success: function(msg){
         	$('#nbrainy').text(msg)
@@ -242,7 +242,8 @@ function updateMeteoChart()
 {
 	$.ajax({
     	type: 'GET',
-        url: $("#mindname").text()+"/meteochart", 
+        url: "/mind/meteochart", 
+        data: $("#mindname").text(),
         cache: false,
         beforeSend: function(xhr,opt){
         	$('.loading-indicator').show();
@@ -321,7 +322,7 @@ $(document).ready(function() {
 		$('.btn-default').attr('disabled', 'disabled');
         $.ajax({
             type: "GET",
-            url: $("#mindname").text()+'/record/'+$(this).find('.sensorid').val()+'/'+$(this).find('.sampleid').val(), 
+            url: '/sensor/record/'+$(this).find('.sensorid').val()+'/'+$(this).find('.sampleid').val(), 
             cache: false,
             //data: $('form.sensor').serialize(),
             success: function(msg){
@@ -341,7 +342,7 @@ $(document).ready(function() {
 	$( "#sensor-contribution-button" ).on( "click", function(e) {
 		e.preventDefault();
 	//	$('#waitmodal').modal('show');
-		$( "#sensormodal-content" ).load($("#mindname").text()+'/add-sensor-and-samples', function( response, status, xhr ) {
+		$( "#sensormodal-content" ).load('/sensor/add', function( response, status, xhr ) {
 			if ( status == "error" ) 
 				$("#sensormodal").find('.modal-content').html(errorModal(xhr.responseText));
 			//$('#waitmodal').modal('hide');
@@ -353,7 +354,7 @@ $(document).ready(function() {
 	//sensor test request
 	$( "#sensor-test-button" ).on( "click", function(e) {
 		e.preventDefault();
-		$( "#measurementmodal-content" ).load($("#mindname").text()+'/measure', function( response, status, xhr ) {
+		$( "#measurementmodal-content" ).load('/sensor/get/random', function( response, status, xhr ) {
 			if ( status == "error" ) 
 				$("#measurementmodal").find('.modal-content').html(errorModal(xhr.responseText));
 			$( "#measurementmodal" ).modal('show');
@@ -378,7 +379,7 @@ $(document).ready(function() {
 		$('.btn-default').attr('disabled', 'disabled');
         $.ajax({
             type: "GET",
-            url: $("#mindname").text()+'/measure', 
+            url: '/sensor/get/random', 
             cache: false,
             success: function(msg){
             	$("#measurementmodal").find('.modal-content').html(msg);
@@ -402,7 +403,7 @@ $(document).ready(function() {
 			submitHandler: function(validator, form, submitButton) {
 				$.ajax({
 			    	type: 'POST',
-			        url: $("#mindname").text()+"/add-sensor-and-samples", 
+			        url: "/sensor/add", 
 			        data: $(form).serialize(),
 			        success: function(msg){
 			           	$("#sensormodal").find('.modal-content').html(msg);

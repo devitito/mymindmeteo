@@ -20,7 +20,7 @@ return array(
                     ),
                 ),
             	'may_terminate' => true,
-            	'child_routes' => array(
+           /* 	'child_routes' => array(
             		'default' => array(
             			'type'    => 'Segment',
             			'options' => array(
@@ -37,7 +37,7 @@ return array(
             				),
             			),
             		),
-            	),
+            	),*/
             	
             ),
             // The following is a route to simplify getting started creating
@@ -73,7 +73,7 @@ return array(
             'join' => array(
             		'type' => 'Zend\Mvc\Router\Http\Literal',
             		'options' => array(
-            				'route'    => '/join',
+            				'route'    => '/mind/join',
             				'defaults' => array(
             						'controller' => 'Application\Controller\Index',
             						'action'     => 'join',
@@ -83,7 +83,7 @@ return array(
             'login' => array(
             		'type' => 'Zend\Mvc\Router\Http\Literal',
             		'options' => array(
-            				'route'    => '/login',
+            				'route'    => '/mind/login',
             				'defaults' => array(
             						'controller' => 'Application\Controller\Index',
             						'action'     => 'login',
@@ -91,17 +91,104 @@ return array(
             		),
             ),
             'logout' => array(
-            		'type' => 'Zend\Mvc\Router\Http\Literal',
-            		'options' => array(
-            				'route'    => '/logout',
-            				'defaults' => array(
-            						'controller' => 'Application\Controller\Index',
-            						'action'     => 'logout',
-            				),
+            	'type' => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/mind/logout',
+            			'defaults' => array(
+            				'controller' => 'Application\Controller\Index',
+            				'action'     => 'logout',
+            			),
+            	),
+            ),
+            'mind-dashboard' => array(
+            	'type'    => 'Segment',
+            	'options' => array(
+            		'route'    => '/:mindname',
+            		'constraints' => array(
+            			'mindname'     => '[a-zA-Z][a-zA-Z0-9-]*',
             		),
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Mind',
+            			'action' => 'dashboard',
+            		),
+            	),
+            ),
+            'mind-meteochart' => array(
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/mind/meteochart',
+	            	'defaults' => array(
+    	        		'controller' => 'Application\Controller\Mind',
+        	    		'action' => 'meteochart',
+            		),
+            	),
+            ),
+            'mind-days-sunny' => array(
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/mind/days/sunny',
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Mind',
+            			'action' => 'nb-sunny-days',
+            		),
+            	),
+            ),
+            'mind-days-rainy' => array(
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/mind/days/rainy',
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Mind',
+            			'action' => 'nb-rainy-days',
+            		),
+            	),
+            ),
+            'mind-sensor-completed' => array(
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/mind/sensors/completed/count',
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Mind',
+            			'action' => 'nb-test-completed',
+            		),
+            	),
+            ),
+            'sensor-record' => array(
+            	'type'    => 'Segment',
+            	'options' => array(
+            		'route'    => '/sensor/record/:sensorid/:sampleid',
+            		'constraints' => array(
+	            	//	'sensorid'     => '[0-9]*',
+	            	//	'sampleid'     => '[a-zA-Z][a-zA-Z0-9_-]*'
+	            		),
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Sensor',
+            			'action' => 'record',
+            		),
+            	),
+            ),
+            'sensor-get-random' => array(
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/sensor/get/random',
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Sensor',
+            			'action' => 'get-random',
+            		),
+            	),
+            ),
+            'sensor-add' => array(
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/sensor/add',
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Sensor',
+            			'action' => 'add',
+            		),
+            	),
             ),
             'admin' => array(
-            	'type'    => 'Segment',
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
             	'may_terminate' => true,
             	'options' => array(
             		'route'    => '/administrator',
@@ -110,49 +197,17 @@ return array(
             			'action' => 'dashboard',
             		),
             	),
-            ),
-            'admin-minds' => array(
-            		'type'    => 'Segment',
-            		'may_terminate' => true,
-            		'options' => array(
-            				'route'    => '/administrator/minds',
-            				'defaults' => array(
-            						'controller' => 'Application\Controller\Admin',
-            						'action' => 'minds',
-            				),
-            		),
-            ),
-            'admin-stats' => array(
-            		'type'    => 'Segment',
-            		'may_terminate' => true,
-            		'options' => array(
-            				'route'    => '/administrator/stats',
-            				'defaults' => array(
-            						'controller' => 'Application\Controller\Admin',
-            						'action' => 'stats',
-            				),
-            		),
-            ),
-            'admin-sensors' => array(
-            		'type'    => 'Segment',
-            		'may_terminate' => true,
-            		'options' => array(
-            				'route'    => '/administrator/sensors',
-            				'defaults' => array(
-            						'controller' => 'Application\Controller\Admin',
-            						'action' => 'sensors',
-            				),
-            		),
-            ),
-            'admin-create-mind' => array(
-            	'type'    => 'Segment',
-            	'may_terminate' => true,
-            	'options' => array(
-            		'route'    => '/administrator/minds/new',
-            		'defaults' => array(
-            			'controller' => 'Application\Controller\Admin',
-            			'action' => 'createMind',
-            		),
+            	'child_routes' => array(
+	            	'default' => array(
+	            		'type'    => 'Zend\Mvc\Router\Http\Literal',
+	            		'options' => array(
+	            			'route'    => '/',
+	            			'defaults' => array(
+	            				'controller' => 'Application\Controller\Mind',
+	            				'action' => 'dashboard',
+	            			),
+	            		),
+	            	),
             	),
             ),
         ),
@@ -193,6 +248,7 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Mind' => 'Application\Controller\MindController',
             'Application\Controller\Admin' => 'Application\Controller\AdminController',
+            'Application\Controller\Sensor' => 'Application\Controller\SensorController',
         ),
     ),
     'view_manager' => array(
@@ -280,19 +336,19 @@ return array(
     	'default' => array(
     		array(
     			'label' => 'Dashboard',
-    			'route' => 'admin',
+    			'uri' => '#',
     		),
     		array(
     			'label' => 'Stats',
-    			'route' => 'admin-stats',
+    			'uri' => '#stats',
     		),
     		array(
     			'label' => 'Minds',
-    			'route' => 'admin-minds',
+    			'uri' => '#minds',
     		),
     		array(
     			'label' => 'Sensors',
-    			'route' => 'admin-sensors',
+    			'uri' => '#sensors',
     		),
     	),
     ),

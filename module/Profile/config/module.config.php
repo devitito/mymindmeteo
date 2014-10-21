@@ -60,11 +60,14 @@ return array(
 					'nb-sunny-days' => 'guest',
 					'nb-rainy-days' => 'guest',
 					'nb-test-completed' => 'guest',
+				),
+				'Application\Controller\Sensor' => array(
 					'record' => 'mind',
-					'measure' => 'mind',
-					'add-sensor-and-samples' => 'meteologist',
-					'add-analyse' => 'meteologist',
-					'recover-un-indexed' => 'admin'					
+					'get-random' => 'mind',
+					'add' => 'meteologist',
+				),
+				'Application\Controller\Analyse' => array(
+					'add' => 'meteologist',
 				),
 				'Application\Controller\Admin' => array(
 					'all' => 'admin'
