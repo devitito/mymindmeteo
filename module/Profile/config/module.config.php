@@ -66,7 +66,7 @@ return array(
 					'get-random' => 'mind',
 					'add' => 'meteologist',
 				),
-				'Application\Controller\Analyse' => array(
+				'Application\Controller\Analyze' => array(
 					'add' => 'meteologist',
 				),
 				'Application\Controller\Admin' => array(

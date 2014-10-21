@@ -187,6 +187,16 @@ return array(
             		),
             	),
             ),
+            'analyze-add' => array(
+            	'type'    => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+            		'route'    => '/analyze/add',
+            		'defaults' => array(
+            			'controller' => 'Application\Controller\Analyze',
+            			'action' => 'add',
+            		),
+            	),
+            ),
             'admin' => array(
             	'type'    => 'Zend\Mvc\Router\Http\Literal',
             	'may_terminate' => true,
@@ -249,6 +259,7 @@ return array(
             'Application\Controller\Mind' => 'Application\Controller\MindController',
             'Application\Controller\Admin' => 'Application\Controller\AdminController',
             'Application\Controller\Sensor' => 'Application\Controller\SensorController',
+            'Application\Controller\Analyze' => 'Application\Controller\AnalyzeController',
         ),
     ),
     'view_manager' => array(

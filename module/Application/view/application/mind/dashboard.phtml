@@ -365,7 +365,7 @@ $(document).ready(function() {
 	//weather ananylse contribution form request
 	$( "#anaylse-contribution-button" ).on( "click", function(e) {
 		e.preventDefault();
-		$( "#analysemodal-content" ).load($("#mindname").text()+'/add-analyse', function( response, status, xhr ) {
+		$( "#analysemodal-content" ).load('/analyze/add', function( response, status, xhr ) {
 			if ( status == "error" ) 
 				$("#analysemodal").find('.modal-content').html(errorModal(xhr.responseText));
 			$( "#analysemodal" ).modal('show');
