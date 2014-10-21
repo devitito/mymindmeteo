@@ -1,9 +1,9 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html lang="en" ng-app="mindmeteo">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle($this->translate('Welcome to the meteo of your mind'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle($this->translate('Mind Meteo administration'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -26,11 +26,22 @@
             ->prependFile('//code.jquery.com/jquery-migrate-1.2.1.min.js')
             ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile('/js/adminController.js')
+            ->prependFile('/js/adminServices.js')
+            ->prependFile('/js/app.js')
+            ->prependFile('http://code.angularjs.org/1.2.25/angular-resource.min.js')
+            ->prependFile('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js')
         ; ?>
     </head>
     <body>
         <div class="container">
-            <?php echo $this->content; ?>
+			<?php echo $this->partial('partials/navbar-admin.phtml'); ?>
+			<div class="row">
+				<div class="col-lg-2">
+					<?php echo $this->partial('partials/menu-admin.phtml'); ?>
+				</div>
+					<?php echo $this->content; ?>
+			</div>
             <hr>
             <footer>
                 <p>&copy; developped by devitito</p>

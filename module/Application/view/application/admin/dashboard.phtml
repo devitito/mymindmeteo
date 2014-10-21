@@ -1,22 +1,7 @@
-<?php echo $this->partial('partials/navbar-admin.phtml'); ?>
-
-<div class="container">
-	<div class="row">
-		<div class="col-lg-2">
-			<?php echo $this->partial('partials/menu-admin.phtml'); ?>
-		</div>
-		<div class="col-lg-10">
-			<header><p>{{ 'dashboard'}}</p></header>
-			<p>Recover undindexed records</p>
-			<p>Repartition des sensors par topic. Alerte si desiquilibre (pas assez de money par exemple)</p>
-		</div>
-	</div>
+<div class="col-lg-10" ng-controller="dashboardCtrl">
+	<header><p>Dashboard</p></header>
+	<hr>
+	<button ng-click="recover();" class="btn btn-meteo">Recover unidexed records</button><span>{{recovery_date}}</span>
+	<hr>
+	<p>Repartition des sensors par topic. Alerte si desiquilibre (pas assez de money par exemple)</p>
 </div>
-
-<script>
-
-</script>
- 
-  
-    
-
