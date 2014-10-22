@@ -17,8 +17,7 @@ class AnalyzeController extends AbstractActionController
 	
 		//@todo
 		$viewModel = new ViewModel();
-		$viewModel->setVariables(['sensorform' => $sensorform])
-		->setTerminal(true);
+		$viewModel->setTerminal(true);
 		return $viewModel;
 	}
 }

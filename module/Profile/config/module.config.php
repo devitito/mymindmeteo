@@ -48,6 +48,9 @@ return array(
 				'Api\Controller\Admin' => array(
 					'all' => 'admin',
 				),
+				'Api\Controller\Admin\Mind' => array(
+					'all' => 'admin',
+				),
 				'Application\Controller\Index' => array(
 					'index' => 'guest',
 					'join' => 'guest',

@@ -1,36 +1,53 @@
 var adminControllers = angular.module('adminControllers', []);
 
-adminControllers.controller('mindsCtrl', ['$scope', 'minds', '$location',
-    function ($scope, minds, $location) {
+adminControllers.controller('mindsCtrl', ['$scope', '$location', 'minds',
+    function ($scope, $location, minds) {
 	    $scope.go = function (url) {
 	      $location.path(url);
 	    };
-		minds.query(
+	    
+	    $scope.minds = minds;
+	 /*   mindFactory.query(
 	    	function(data){
 	    		$scope.minds = data;
 	    	},
 	    	function(error) {
 	    		$scope.error = 'An error occured while retreiving the list of minds';
-	    		//todo display error
-	  });
+	    });*/
 }]);
 
-adminControllers.controller('EditMindCtrl', ['$scope', '$location',
-    function ($scope, $location) {
+/*
+adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mindFactory', '$routeParams', '$http',
+    function ($scope, $location, mindFactory, $routeParams, $http) {
 	 	$scope.go = function (url) {
 	      $location.path(url);
 	    };
-		$scope.mind = {};
-		var load = function() {
-			console.log('call load()...');
-			/*$http.get('api/admin/mind/fetch/' + $routeParams['mindId'])
-				.success(function(data, status, headers, config) {
-				$scope.mind = data.data;
-				angular.copy($scope.mind, $scope.copy);
-			});*/
-			$scope.mind.name = 'test';
-			};
-		load(); 
+	    
+	    $scope.roles = ['guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'];
+	    
+	/*    $scope.langs = [{code:'fr', name:'french'},
+	                    {code:'en', name:'english'}];
+	    */
+/*	    $scope.langs = ['fr', 'en'];
+	    
+	    mindFactory.get({id:$routeParams.mindId}, 
+	    	function(data){
+    			$scope.mind = data;
+    		},
+	    	function(error) {
+	    		$scope.error = 'An error occured while retreiving the mind data';
+	    });
+}]);*/
+
+adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind',
+    function ($scope, $location, mind, $routeParams) {
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+		
+		$scope.roles = ['guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'];
+		$scope.langs = ['fr', 'en'];
+		$scope.mind = mind;
 }]);
 
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',

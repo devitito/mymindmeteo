@@ -17,11 +17,35 @@ function($routeProvider) {
     }).
     when('/minds', {
         templateUrl: '/js/partials/admin/minds.html',
-        controller: 'mindsCtrl'
+        controller: 'mindsCtrl',
+        resolve: {
+      	  minds: function(mindFactory, $q) {
+      		  var deferred = $q.defer();
+      		  mindFactory.query(
+	      		  function(data){
+	      			  deferred.resolve(data); 
+	      		  }, function(errorData) {
+	      			  deferred.reject(); // you could optionally pass error data here
+	      	});
+      		return deferred.promise;
+      	  }
+        }
    }).
     when('/minds/edit/:mindId', {
       templateUrl: '/js/partials/mind/edit.html',
-      controller: 'EditMindCtrl'
+      controller: 'EditMindCtrl',
+      resolve: {
+    	  mind: function(mindFactory, $q, $route) {
+    		  var deferred = $q.defer();
+    		  mindFactory.get({id:$route.current.params.mindId},
+    		  function(data){
+    			  deferred.resolve(data); 
+    		  }, function(errorData) {
+    			  deferred.reject(); // you could optionally pass error data here
+    		  });
+    		  return deferred.promise;
+    	  }
+      }
     }).
     otherwise({
       redirectTo: '/'

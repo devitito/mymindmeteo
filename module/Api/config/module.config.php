@@ -50,13 +50,26 @@ return array(
         			),
         		),
         	),
+        	'minds' => array(
+        		'type' => 'segment',
+        		'options' => array(
+        			'route' => '/api/admin/minds[/:id]',
+        			'constraints' => array(
+        			//	'idd' => '[0-9]+',
+        			),
+        			'defaults' => array(
+        				'controller' => 'Api\Controller\Admin\Mind'
+        			),
+        		),
+        	),
         ),
     ),
     'service_manager' => array(),
     'controllers' => array(
         'invokables' => array(
             'Api\Controller\Validate' => 'Api\Controller\ValidateController',
-            'Api\Controller\Admin' => 'Api\Controller\AdminController'
+            'Api\Controller\Admin' => 'Api\Controller\AdminController',
+            'Api\Controller\Admin\Mind' => 'Api\Controller\Admin\MindController'
         ),
     ),
 	'view_manager' => array(
