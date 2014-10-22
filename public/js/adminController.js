@@ -6,7 +6,10 @@ adminControllers.controller('mindsCtrl', ['$scope', '$location', 'minds',
 	      $location.path(url);
 	    };
 	    
-	    $scope.minds = minds;
+	    if (angular.isArray(minds))
+			$scope.minds = minds;
+		else
+			$scope.error = minds;
 	 /*   mindFactory.query(
 	    	function(data){
 	    		$scope.minds = data;
@@ -47,7 +50,10 @@ adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind',
 		
 		$scope.roles = ['guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'];
 		$scope.langs = ['fr', 'en'];
-		$scope.mind = mind;
+		if (angular.isObject(mind))
+			$scope.mind = mind;
+		else
+			$scope.error = mind;
 }]);
 
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',

@@ -25,7 +25,7 @@ function($routeProvider) {
 	      		  function(data){
 	      			  deferred.resolve(data); 
 	      		  }, function(errorData) {
-	      			  deferred.reject(); // you could optionally pass error data here
+	      			  deferred.resolve('An error occured while retreiving the list of minds');
 	      	});
       		return deferred.promise;
       	  }
@@ -38,12 +38,12 @@ function($routeProvider) {
     	  mind: function(mindFactory, $q, $route) {
     		  var deferred = $q.defer();
     		  mindFactory.get({id:$route.current.params.mindId},
-    		  function(data){
-    			  deferred.resolve(data); 
-    		  }, function(errorData) {
-    			  deferred.reject(); // you could optionally pass error data here
-    		  });
-    		  return deferred.promise;
+	    		  function(data){
+	    			  deferred.resolve(data); 
+	    		  }, function(errorData) {
+	    			  deferred.resolve('An error occured while retreiving the requested data');
+	    	});
+    		return deferred.promise;
     	  }
       }
     }).
