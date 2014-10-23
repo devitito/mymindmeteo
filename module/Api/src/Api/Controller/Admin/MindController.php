@@ -24,7 +24,10 @@ class MindController extends AbstractRestfulController
 			foreach ($minds as $mind) {
 				$dateformat = new DateFormat();
 				$date = $dateformat($mind->getJoindate(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
-				$data [] = ['id' => $mind->getId(), 'name' => $mind->getName(), 'joindate' => $date , 'role' => $mind->getRole(), 
+				$data [] = ['id' => $mind->getId(), 
+							'name' => $mind->getName(), 
+							'joindate' => $date , 
+							'role' => $mind->getRole(), 
 							'locale' => $mind->getLocale(),
 							'lang' => substr($mind->getLocale(), 0, 2)];
 			}
@@ -51,6 +54,27 @@ class MindController extends AbstractRestfulController
 			return new JsonModel($data);
 		} catch (Exception $e) {
 		
+		}
+	}
+	
+	public function update($id, $data)
+	{
+		$identity = $this->identity();
+		$mindManager = $this->getServiceLocator()->get('mind-manager');
+		
+		$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+		$filters = new \Application\InputFilters\AdminMindSave($dbAdapter);
+		
+		$isValid = $filters->setData($data)
+							->isValid();
+
+		if ($isValid) {
+			return new JsonModel($id);
+		}
+		else {
+			$errorMessages = $filters->getMessages();
+			$this->getResponse()->setStatusCode(400);
+			return new JsonModel($errorMessages);
 		}
 	}
 	

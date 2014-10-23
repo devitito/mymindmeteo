@@ -1,5 +1,5 @@
 <div class="col-lg-10">
-	<div class="col-lg-5" ng-hide="error">
+	<div class="col-lg-5" ng-hide="errors">
 	 <form>
 		<h1>Edit mind ({{mind.name}})</h1>
 			<div class="from-group">
@@ -30,7 +30,10 @@
 		</div>
 	</form>
 	</div>
-	<div ng-show="error">
-		<span>{{error}}</span>
+	<div ng-show="errors">
+		<span><strong>Error : </strong><br>
+		<p ng-repeat="error in errors">{{error}}</p>
+		<br>
+		<button ng-click="go('/minds')" class="btn btn-default">Return</button>
 	</div>
 </div>

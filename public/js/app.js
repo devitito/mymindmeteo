@@ -19,33 +19,22 @@ function($routeProvider) {
         templateUrl: '/js/partials/admin/minds.html',
         controller: 'mindsCtrl',
         resolve: {
-      	  minds: function(mindFactory, $q) {
-      		  var deferred = $q.defer();
-      		  mindFactory.query(
-	      		  function(data){
-	      			  deferred.resolve(data); 
-	      		  }, function(errorData) {
-	      			  deferred.resolve('An error occured while retreiving the list of minds');
-	      	});
-      		return deferred.promise;
-      	  }
+        	minds: function(mindFactory, $q) {
+    		var deferred = $q.defer();
+    		mindFactory.query(
+    			function(data){
+    				deferred.resolve(data); 
+    			}, function(errorData) {
+    				deferred.resolve('An error occured while retreiving the list of minds');
+    			});
+    		return deferred.promise;
+    	}
         }
    }).
     when('/minds/edit/:mindId', {
       templateUrl: '/js/partials/mind/edit.html',
       controller: 'EditMindCtrl',
-      resolve: {
-    	  mind: function(mindFactory, $q, $route) {
-    		  var deferred = $q.defer();
-    		  mindFactory.get({id:$route.current.params.mindId},
-	    		  function(data){
-	    			  deferred.resolve(data); 
-	    		  }, function(errorData) {
-	    			  deferred.resolve('An error occured while retreiving the requested data');
-	    	});
-    		return deferred.promise;
-    	  }
-      }
+      resolve: EditMindCtrl.resolve 
     }).
     otherwise({
       redirectTo: '/'

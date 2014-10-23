@@ -19,7 +19,13 @@ var adminServices = angular.module('adminServices', ['ngResource']);
 }]);*/
 
 adminServices.factory('mindFactory', ['$resource', function($resource){
-	return $resource('/api/admin/minds/:id');
+	return $resource('/api/admin/minds/:id', {id: '@id'}, {
+      update: {method:'PUT'}
+    });
+}]);
+
+adminServices.factory('roles', [function(){
+	return ['guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'];
 }]);
 
 adminServices.factory('recovery', ['$resource',

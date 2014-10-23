@@ -1,6 +1,6 @@
 var adminControllers = angular.module('adminControllers', []);
 
-adminControllers.controller('mindsCtrl', ['$scope', '$location', 'minds',
+var mindsCtrl = adminControllers.controller('mindsCtrl', ['$scope', '$location', 'minds',
     function ($scope, $location, minds) {
 	    $scope.go = function (url) {
 	      $location.path(url);
@@ -10,15 +10,22 @@ adminControllers.controller('mindsCtrl', ['$scope', '$location', 'minds',
 			$scope.minds = minds;
 		else
 			$scope.error = minds;
-	 /*   mindFactory.query(
-	    	function(data){
-	    		$scope.minds = data;
-	    	},
-	    	function(error) {
-	    		$scope.error = 'An error occured while retreiving the list of minds';
-	    });*/
 }]);
 
+/*
+mindsCtrl.resolve = {
+	minds: function(mindFactory, $q) {
+		var deferred = $q.defer();
+		mindFactory.query(
+			function(data){
+				deferred.resolve(data); 
+			}, function(errorData) {
+				deferred.resolve('An error occured while retreiving the list of minds');
+			});
+		return deferred.promise;
+	}
+};
+*/
 /*
 adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mindFactory', '$routeParams', '$http',
     function ($scope, $location, mindFactory, $routeParams, $http) {
@@ -42,19 +49,50 @@ adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mindFactory
 	    });
 }]);*/
 
-adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind',
-    function ($scope, $location, mind, $routeParams) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind', 'roles',
+    function ($scope, $location, mind, roles, mindFactory) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
 		
-		$scope.roles = ['guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'];
+		$scope.updateMind = function() {
+			$scope.mind.$update(
+				function(success) {
+					$scope.go('/minds');
+				},
+				function(errors) {
+					$scope.errors = [];
+					try {
+						var list = angular.fromJson(errors).data;
+						angular.forEach(list, function (key, value) {
+							$scope.errors.push(angular.fromJson(key).recordFound);
+						}) ;
+					} catch (e) {
+						$scope.errors.push('An error occured while applying the changes');
+				}
+			);
+		};
+		
+		$scope.roles = roles;
 		$scope.langs = ['fr', 'en'];
 		if (angular.isObject(mind))
 			$scope.mind = mind;
 		else
 			$scope.error = mind;
 }]);
+
+EditMindCtrl.resolve = {
+	mind: function(mindFactory, $q, $route) {
+	  var deferred = $q.defer();
+	  mindFactory.get({id:$route.current.params.mindId},
+		  function(data){
+			  deferred.resolve(data); 
+		  }, function(errorData) {
+			  deferred.resolve('An error occured while retreiving the requested data');
+	});
+	return deferred.promise;
+  }
+};
 
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
     function ($scope, recovery) {
