@@ -26,31 +26,9 @@ mindsCtrl.resolve = {
 	}
 };
 */
-/*
-adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mindFactory', '$routeParams', '$http',
-    function ($scope, $location, mindFactory, $routeParams, $http) {
-	 	$scope.go = function (url) {
-	      $location.path(url);
-	    };
-	    
-	    $scope.roles = ['guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'];
-	    
-	/*    $scope.langs = [{code:'fr', name:'french'},
-	                    {code:'en', name:'english'}];
-	    */
-/*	    $scope.langs = ['fr', 'en'];
-	    
-	    mindFactory.get({id:$routeParams.mindId}, 
-	    	function(data){
-    			$scope.mind = data;
-    		},
-	    	function(error) {
-	    		$scope.error = 'An error occured while retreiving the mind data';
-	    });
-}]);*/
 
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind', 'roles',
-    function ($scope, $location, mind, roles, mindFactory) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind', 'roles', 'flash',
+    function ($scope, $location, mind, roles, flash) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -58,17 +36,20 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$loca
 		$scope.updateMind = function() {
 			$scope.mind.$update(
 				function(success) {
-					$scope.go('/minds');
+					flash.setMessage('Mind updated successfully!');
+					$location.path('/minds/edited/result/'+$scope.mind.id+'/1');
 				},
 				function(errors) {
 					$scope.errors = [];
 					try {
 						var list = angular.fromJson(errors).data;
 						angular.forEach(list, function (key, value) {
-							$scope.errors.push(angular.fromJson(key).recordFound);
+							flash.setMessage(angular.fromJson(key).recordFound);
 						}) ;
 					} catch (e) {
-						$scope.errors.push('An error occured while applying the changes');
+						flash.setMessage('An error occured while applying the changes');
+					}
+					$location.path('/minds/edited/result/'+$scope.mind.id+'/0');
 				}
 			);
 		};
@@ -93,6 +74,17 @@ EditMindCtrl.resolve = {
 	return deferred.promise;
   }
 };
+
+var EditedMindCtrl = adminControllers.controller('EditedMindCtrl', ['$scope', '$location', 'flash', '$routeParams',
+    function ($scope, $location, flash, $routeParams) {
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+		
+		$scope.id = $routeParams.id;
+		$scope.result = $routeParams.result;
+		$scope.flash = flash;
+}]);                                                         		
 
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
     function ($scope, recovery) {

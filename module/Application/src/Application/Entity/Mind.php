@@ -75,7 +75,7 @@ class Mind extends \ArrayObject implements \ArrayAccess
 		$this->name = (isset($data['name'])) ? $data['name'] : null;
 		$this->email  = (isset($data['email'])) ? $data['email'] : null;
 		$this->password  = (isset($data['password'])) ? $data['password'] : null;
-		$this->joindate  = (isset($data['joindate'])) ? $data['joindate'] : null;
+		$this->setJoindate((isset($data['joindate'])) ? $data['joindate'] : null);
 		$this->nameoremail  = (isset($data['nameoremail'])) ? $data['nameoremail'] : null;
 		$this->timezone  = (isset($data['timezone'])) ? $data['timezone'] : null;
 		$this->locale  = (isset($data['locale'])) ? $data['locale'] : null;
@@ -147,6 +147,9 @@ class Mind extends \ArrayObject implements \ArrayAccess
 	
 	public function setJoindate($value)
 	{
+		if (!$value instanceof \DateTime) 
+			$value = new \DateTime($value);
+			
 		$this->joindate = $value;
 		return $this;
 	}

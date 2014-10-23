@@ -37,16 +37,37 @@ class MindManager implements ServiceManagerAwareInterface
 			$mind->setPassword($bcrypt->create($mind->getPassword()));
 			$mind->setJoindate(new DateTime("now"));
 			$mind->setRole('mind');
+			$this->getEntityManager()->persist($mind);
+		}
+		else 
+		{
+			//compare with existing one
+			$existing = $this->getEntityManager()->getRepository('Application\Entity\Mind')->find($mind->getId());
+			$this->update($existing, $mind);
 		}
 		
 		try {
-			$this->getEntityManager()->persist($mind);
 			$this->getEntityManager()->flush();
 		} catch (\Exception $e) {
 			throw Exception::factory(Exception::OPERATION_FAILED);
 		}
 		
 		return $mind;
+	}
+	
+	protected function update($existing, $update)
+	{
+		if ($update->getEmail() != $existing->getEmail())
+			$existing->setEmail($update->getEmail());
+		
+		if ($update->getRole() != $existing->getRole())
+			$existing->setRole($update->getRole());
+		
+		if ($update->getLocale() != $existing->getLocale())
+			$existing->setLocale($update->getLocale());
+		
+		if ($update->getTimezone() != $existing->getTimezone())
+			$existing->setTimezone($update->getTimezone());
 	}
 	
 	public function isAvailable($options)

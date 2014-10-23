@@ -3,19 +3,12 @@
 namespace Application\InputFilters;
 
 use Zend\InputFilter\InputFilter;
-use Zend\Db\Adapter\Adapter;
 
 class AdminMindSave extends InputFilter
 {
-	/**
-	 * @var Database Adapter
-	 */
-	protected $dbAdapter;
 	
-    public function __construct(Adapter $dbAdapter)
+    public function __construct()
     {
-    	$this->dbAdapter = $dbAdapter;
-    	
     	$this->add(
     		array(
     			'name' => 'name',
@@ -36,17 +29,6 @@ class AdminMindSave extends InputFilter
     						\Zend\Validator\Regex::INVALID => "The mind name can consist of alphanumerical characters and dash only",
     						\Zend\Validator\Regex::NOT_MATCH => "The mind name can consist of alphanumerical characters and dash only",
     						\Zend\Validator\Regex::ERROROUS => "The mind name can consist of alphanumerical characters and dash only",
-    					)
-    				)
-    			),
-    			array(
-					'name' => 'Db\NoRecordExists',
-    				'options' => array (
-    					'table' => 'minds',
-    					'field' => 'name',
-    					'adapter' => $this->getDbAdapter(),
-    					'messages' => array(
-    						\Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'The specified name already exists in database'
     					)
     				)
     			),
@@ -81,14 +63,34 @@ class AdminMindSave extends InputFilter
     					'name' => 'EmailAddress'
     					),
     				array(
-    					'name' => 'Db\NoRecordExists',
-    					'options' => array (
-    						'table' => 'minds',
-    						'field' => 'email',
-    						'adapter' => $this->getDbAdapter(),
-    						'messages' => array(
-    							\Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'The specified email already exists in database'
-    						)
+    					'name' => 'NotEmpty',
+    					'options' => array(
+    						'type' => \Zend\Validator\NotEmpty::STRING
+    					)
+    				)
+    			),
+    			'filters'  => array(
+    				array('name' => 'StripTags'),
+    				array('name' => 'StringTrim'),
+    			),
+    		));
+    	
+    	$this->add(
+    		array(
+    			'name' => 'role',
+    			'required' => true,
+    			'validators' => array(
+    				array(
+    					'name' => 'StringLength',
+    					'options' => array(
+    						'max' => 32,
+    						'encoding' => 'UTF-8'
+    					)
+    				),
+    				array (
+    					'name' => 'InArray',
+    					'options' => array(
+    						'haystack' => array('guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'),
     					)
     				),
     				array(
@@ -104,15 +106,36 @@ class AdminMindSave extends InputFilter
     			),
     		));
     	
+    	$this->add(
+    		array(
+    			'name' => 'lang',
+    			'required' => true,
+    				'validators' => array(
+    					array(
+    						'name' => 'StringLength',
+    						'options' => array(
+    							'max' => 32,
+    							'encoding' => 'UTF-8'
+    						)
+    					),
+    					array (
+    						'name' => 'InArray',
+    						'options' => array(
+    							'haystack' => array('fr', 'en'),
+    						)
+    					),
+    				array(
+    					'name' => 'NotEmpty',
+    					'options' => array(
+    						'type' => \Zend\Validator\NotEmpty::STRING
+    					)
+    				)
+    			),
+    			'filters'  => array(
+    				array('name' => 'StripTags'),
+    				array('name' => 'StringTrim'),
+    			),
+    		));
+    	
     }
-    
-    /**
-     *
-     * @return Zend\Db\Adapter
-     */
-    public function getDbAdapter() 
-    {
-    	return $this->dbAdapter;
-    }
-
 }

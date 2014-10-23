@@ -36,6 +36,10 @@ function($routeProvider) {
       controller: 'EditMindCtrl',
       resolve: EditMindCtrl.resolve 
     }).
+    when('/minds/edited/result/:id/:result', {
+        templateUrl: '/js/partials/mind/edited.html',
+        controller: 'EditedMindCtrl'
+    }).
     otherwise({
       redirectTo: '/'
     });

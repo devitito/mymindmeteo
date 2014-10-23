@@ -1,23 +1,5 @@
 var adminServices = angular.module('adminServices', ['ngResource']);
 
-/*adminServices.factory('mindFactory', ['$resource', function($resource){
-	var mindFactory = {};
-	
-	mindFactory.fetchAll = function () {
-		return $resource('/api/admin/minds', {}, {
-    		query: {method:'GET', isArray:true}
-        });
-	}
-	
-	mindFactory.fetch = function (id) {
-		return $resource('/api/admin/mind/get', {}, {
-    		query: {method:'GET', params:{mindId: id}, isArray:true}
-        });
-	}
-
-	return mindFactory;
-}]);*/
-
 adminServices.factory('mindFactory', ['$resource', function($resource){
 	return $resource('/api/admin/minds/:id', {id: '@id'}, {
       update: {method:'PUT'}
@@ -34,3 +16,21 @@ adminServices.factory('recovery', ['$resource',
       query: {method:'GET', isArray:true}
     });
 }]);
+
+adminServices.factory("flash", function($rootScope) {
+	  var queue = [];
+	  var currentMessage = "";
+
+	  $rootScope.$on("$routeChangeSuccess", function() {
+	    currentMessage = queue.shift() || "";
+	  });
+
+	  return {
+	    setMessage: function(message) {
+	      queue.push(message);
+	    },
+	    getMessage: function() {
+	      return currentMessage;
+	    }
+	  };
+	});

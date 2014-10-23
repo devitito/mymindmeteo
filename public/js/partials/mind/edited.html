@@ -1,0 +1,6 @@
+<div class="col-lg-10">
+	<p>{{flash.getMessage()}}</p>
+	<br>
+	<button ng-show="result" ng-click="go('/minds')" class="btn btn-default pull-right">Return</button>
+	<button ng-show="result == 0" ng-click="go('/minds/edit/' + id)" class="btn btn-default pull-right">Return</button>
+</div>
