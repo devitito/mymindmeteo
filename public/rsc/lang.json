@@ -1,26 +1,26 @@
 {
-	"en": "English",
-    "fr": "French",
-    "es": "Spanish",
-    "ar": "Arabic",
-    "cmn": "Mandarin",
-    "ru": "Russian",
-    "pt": "Portuguese",
-    "de": "German",
-    "ja": "Japanese",
-    "hi": "Hindi",
-    "ms": "Malay",
-    "fa": "Persian",
-    "sw": "Swahili",
-    "ta": "Tamil",
-    "it": "Italian",
-    "nl": "Dutch",
-    "bn": "Bengali",
-    "tr": "Turkish",
-    "vi": "Vietnamese",
-    "pl": "Polish",
-    "jv": "Javanese",
-    "pa": "Punjabi",
-    "th": "Thai",
-    "ko": "Korean"
+	"fr_FR": [
+		"fr": "Français",
+		"en": "French",
+		"es: "Frances",
+		"pl": "Franseski"
+	],
+	"en_EN": [
+		"fr": "Anglais",
+		"en": "English",
+		"es: "Ingles",
+		"pl": "Angleski"
+	],
+	"es_ES": [
+		"fr": "Espagnol",
+		"en": "Spanish",
+		"es: "Espanol",
+		"pl": "espanosko"
+	],
+	"pl_PL": [
+		"fr": "Polonais",
+		"en": "Polish",
+		"es: "Polones",
+		"pl": "Polsku"
+	]
 }

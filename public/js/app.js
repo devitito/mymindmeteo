@@ -20,15 +20,25 @@ function($routeProvider) {
         controller: 'mindsCtrl',
         resolve: {
         	minds: function(mindFactory, $q) {
-    		var deferred = $q.defer();
-    		mindFactory.query(
-    			function(data){
-    				deferred.resolve(data); 
-    			}, function(errorData) {
-    				deferred.resolve('An error occured while retreiving the list of minds');
-    			});
-    		return deferred.promise;
-    	}
+	    		var deferred = $q.defer();
+	    		mindFactory.query(
+	    			function(data){
+	    				deferred.resolve(data); 
+	    			}, function(errorData) {
+	    				deferred.resolve('An error occured while retreiving the list of minds');
+	    			});
+	    		return deferred.promise;
+        	},
+    		identity: function(identityService, $q) {
+    			var deferred = $q.defer();
+    			identityService.get(
+    				function(data){
+	    				deferred.resolve(data); 
+	    			}, function(errorData) {
+	    				deferred.resolve('An error occured while retreiving the identity');
+	    			});
+	    		return deferred.promise;
+    		}
         }
    }).
     when('/minds/edit/:mindId', {

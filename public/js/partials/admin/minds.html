@@ -15,9 +15,9 @@
 		      <tbody>
 				<tr ng-repeat="mind in minds" ng-click="go('/minds/edit/'+ mind.id)">
 					<td>{{mind.name}}</td>
-					<td>{{mind.joindate}}</td>
+					<td>{{mind.locale_joindate}}</td>
 					<td>{{mind.role}}</td>
-					<td>{{mind.lang}}</td>
+					<td>{{langtools.locale2lang(mind.locale, locale)}}</td><!-- @todo use locale of the admin logged in -->
 				</tr>
 			</tbody>
 		</table>

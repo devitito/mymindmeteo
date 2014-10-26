@@ -28,10 +28,10 @@ class MindController extends AbstractRestfulController
 				$date = $dateformat($mind->getJoindate(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
 				$data [] = ['id' => $mind->getId(), 
 							'name' => $mind->getName(), 
-							'joindate' => $date , 
+							'joindate' => $mind->getJoindate()->format('Y-m-d'),
+							'locale_joindate' => $date, 
 							'role' => $mind->getRole(), 
 							'locale' => $mind->getLocale(),
-							'lang' => substr($mind->getLocale(), 0, 2),
 							'timezone' => $mind->getTimezone()];
 			}
 			return new JsonModel($data);
@@ -50,10 +50,10 @@ class MindController extends AbstractRestfulController
 			$data = [	'id' => $mind->getId(), 
 						'name' => $mind->getName(), 
 						'email' => $mind->getEmail(),
-						'joindate' => $date , 
+						'joindate' => $mind->getJoindate()->format('Y-m-d'),
+						'locale_joindate' => $date, 
 						'role' => $mind->getRole(), 
 						'locale' => $mind->getLocale(),
-						'lang' => substr($mind->getLocale(), 0, 2),
 						'timezone' => $mind->getTimezone()];
 			return new JsonModel($data);
 		} catch (Exception $e) {

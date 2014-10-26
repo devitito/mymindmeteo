@@ -30,16 +30,6 @@ return array(
         					),
         			),
         	),
-        	'admin-list-mind' => array(
-        		'type' => 'Zend\Mvc\Router\Http\Literal',
-        		'options' => array(
-        			'route'    => '/api/admin/mind-list',
-        			'defaults' => array(
-        				'controller' => 'Api\Controller\Admin',
-        				'action'     => 'mind-list',
-        			),
-        		),
-        	),
         	'admin-recover-records' => array(
         		'type' => 'Zend\Mvc\Router\Http\Literal',
         		'options' => array(
@@ -47,6 +37,16 @@ return array(
         			'defaults' => array(
         				'controller' => 'Api\Controller\Admin',
         				'action'     => 'recover-records',
+        			),
+        		),
+        	),
+        	'admin-identity' => array(
+        		'type' => 'Zend\Mvc\Router\Http\Literal',
+        		'options' => array(
+        			'route'    => '/api/admin/identity',
+        			'defaults' => array(
+        				'controller' => 'Api\Controller\Admin',
+        				'action'     => 'identity',
         			),
         		),
         	),

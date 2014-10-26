@@ -16,28 +16,6 @@ class AdminController extends AbstractActionController
 	 */
 	protected $entityManager;
 	
-	public function mindListAction()
-	{
-		$identity = $this->identity();
-		if (!$identity) {
-			return $this->redirect()->toUrl('/');
-		}
-		
-		$mindManager = $this->getServiceLocator()->get('mind-manager');
-		try{
-			$data = [];
-			$minds = $mindManager->fetchAll();
-			foreach ($minds as $mind) {
-				$dateformat = new DateFormat();
-				$date = $dateformat($mind->getJoindate(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
-				$data [] = ['id' => $mind->getId(), 'name' => $mind->getName(), 'joindate' => $date , 'role' => $mind->getRole(), 'locale' => $mind->getLocale()];
-			}
-			return new JsonModel($data);
-		} catch (Exception $e) {
-			
-		}
-	}
-	
 	public function recoverRecordsAction()
 	{
 		$identity = $this->identity();
@@ -53,6 +31,23 @@ class AdminController extends AbstractActionController
 		$dateformat = new DateFormat();
 		$date = $dateformat(new \DateTime('now'), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
 		return new JsonModel([$date]);
+	}
+	
+	public function identityAction()
+	{
+		$identity = $this->identity();
+		
+		$dateformat = new DateFormat();
+		$date = $dateformat($identity->getJoindate(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
+		$data = [	'id' => $identity->getId(),
+					'name' => $identity->getName(),
+					'email' => $identity->getEmail(),
+					'joindate' => $identity->getJoindate()->format('Y-m-d') ,
+					'locale_joindate' => $date,
+					'role' => $identity->getRole(),
+					'locale' => $identity->getLocale(),
+					'timezone' => $identity->getTimezone()];
+		return new JsonModel($data);
 	}
 	
 	/**

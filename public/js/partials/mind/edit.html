@@ -4,7 +4,7 @@
 		<h1>Edit mind ({{mind.name}})</h1>
 			<div class="from-group">
 				<label class="form-label">Join date : </label>
-				<span id="joindate">{{mind.joindate}}</span>
+				<span id="joindate">{{mind.locale_joindate}}</span>
 			</div>
 			<div class="from-group">
 				<label class="form-label" for="email">Email : </label>
@@ -16,7 +16,7 @@
 			</div>
 			<div class="from-group">
 				<label class="form-label" for="lang">Language : </label>
-				<select class="form-control input-lg" id="locale" required="true" ng-model="mind.lang" ng-options="lang for lang in langs"></select>
+				<select class="form-control input-lg" id="locale" required="true" ng-model="mind.locale" ng-options="lang.code as lang.name for lang in langs"></select>
 			</div>
 			<!-- div class="from-group">
 				<label class="form-label" for="timezone">Timezone : </label>

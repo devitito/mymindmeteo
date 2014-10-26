@@ -1,10 +1,13 @@
 var adminControllers = angular.module('adminControllers', []);
 
-var mindsCtrl = adminControllers.controller('mindsCtrl', ['$scope', '$location', 'minds',
-    function ($scope, $location, minds) {
+var mindsCtrl = adminControllers.controller('mindsCtrl', ['$scope', '$location', 'minds', 'lang', 'identity',
+    function ($scope, $location, minds, lang, identity) {
 	    $scope.go = function (url) {
 	      $location.path(url);
 	    };
+	    
+	    $scope.langtools = lang;
+	    $scope.locale = identity.locale;
 	    
 	    if (angular.isArray(minds))
 			$scope.minds = minds;
@@ -27,8 +30,8 @@ mindsCtrl.resolve = {
 };
 */
 
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind', 'roles', 'flash',
-    function ($scope, $location, mind, roles, flash) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind', 'roles', 'flash', 'lang',
+    function ($scope, $location, mind, roles, flash, lang) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -55,7 +58,8 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$loca
 		};
 		
 		$scope.roles = roles;
-		$scope.langs = ['fr', 'en'];
+		$scope.langs = lang.list(mind.locale);
+		
 		if (angular.isObject(mind))
 			$scope.mind = mind;
 		else

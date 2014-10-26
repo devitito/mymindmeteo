@@ -108,7 +108,7 @@ class AdminMindSave extends InputFilter
     	
     	$this->add(
     		array(
-    			'name' => 'lang',
+    			'name' => 'locale',
     			'required' => true,
     				'validators' => array(
     					array(
@@ -121,7 +121,7 @@ class AdminMindSave extends InputFilter
     					array (
     						'name' => 'InArray',
     						'options' => array(
-    							'haystack' => array('fr', 'en'),
+    							'haystack' => array('fr_FR', 'en_EN', 'es_ES', 'pl_PL', 'fi_FI'),
     						)
     					),
     				array(
