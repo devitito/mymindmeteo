@@ -6,16 +6,26 @@ adminServices.factory('mindFactory', ['$resource', function($resource){
     });
 }]);
 
-adminServices.factory('identityService', ['$resource', '$cacheFactory', function($resource, $cacheFactory){
+adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootScope', function($resource, $cacheFactory, $rootScope){
 	var factory = {};
 	var cache = $cacheFactory('identity');
 	
+	$rootScope.$on("mind.post.edit", function(event, args) {
+		//Remove current identity from cache if it was modified
+		if (args.id == factory.getId()) {
+			cache.removeAll();
+		}
+	});
+	
+	factory.getId = function () {
+		if (cache.info().size == 0)
+			return null;
+		
+		return cache.get('id');
+	};
+	
 	factory.get = function (deferred) {
-		
-		var info = cache.info();
-		var size = info.size;
-		
-		if (size == 0) {
+		if (cache.info().size == 0) {
 			//nothing cached yet
 			$resource('/api/admin/identity').get(
 			    function(data){

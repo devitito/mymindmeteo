@@ -30,8 +30,8 @@ mindsCtrl.resolve = {
 };
 */
 
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$location', 'mind', 'roles', 'flash', 'lang',
-    function ($scope, $location, mind, roles, flash, lang) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang',
+    function ($scope, $rootScope, $location, mind, roles, flash, lang) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -39,6 +39,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$loca
 		$scope.updateMind = function() {
 			$scope.mind.$update(
 				function(success) {
+					$rootScope.$broadcast('mind.post.edit', mind);
 					flash.setMessage('Mind updated successfully!');
 					$location.path('/minds/edited/result/'+$scope.mind.id+'/1');
 				},

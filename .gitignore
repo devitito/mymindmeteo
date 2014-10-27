@@ -18,3 +18,4 @@ vendor/bin
 tests/build/*
 *.xcf
 data
+/README.md~
