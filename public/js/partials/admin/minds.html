@@ -1,5 +1,5 @@
 <div class="col-lg-10">
-	<a href="minds/new" type="button" class="btn btn-meteo">Create a mind</a>
+	<a href="#minds/new" type="button" class="btn btn-meteo">Create a mind</a>
 	<br><br>
 	
 	<div ng-hide="error">
@@ -17,7 +17,7 @@
 					<td>{{mind.name}}</td>
 					<td>{{mind.locale_joindate}}</td>
 					<td>{{mind.role}}</td>
-					<td>{{langtools.locale2lang(mind.locale, locale)}}</td><!-- @todo use locale of the admin logged in -->
+					<td>{{langtools.locale2lang(mind.locale, locale)}}</td>
 				</tr>
 			</tbody>
 		</table>

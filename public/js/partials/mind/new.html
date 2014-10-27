@@ -1,14 +1,22 @@
 <div class="col-lg-10">
-	<div class="col-lg-5" ng-hide="error">
+	<div class="col-lg-5">
 	 <form>
-		<h1>Edit mind ({{mind.name}})</h1>
+		<h1>Create a new mind</h1>
 			<div class="from-group">
-				<label class="form-label">Join date : </label>
-				<span id="joindate">{{mind.locale_joindate}}</span>
+				<label class="form-label">Name : </label>
+				<input class="form-control input-lg" id="name" type="text" required="true" ng-model="mind.name"></input>
 			</div>
 			<div class="from-group">
 				<label class="form-label" for="email">Email : </label>
 				<input class="form-control input-lg" id="email" type="email" required="true" ng-model="mind.email"></input>
+			</div>
+			<div class="from-group">
+				<label class="form-label" for="password1">Password : </label>
+				<input class="form-control input-lg" id="password1" type="password" required="true" ng-model="mind.password"></input>
+			</div>
+			<div class="from-group">
+				<label class="form-label" for="password1">Retype password : </label>
+				<input class="form-control input-lg" id="password2" type="password" required="true" ng-model="password2"></input>
 			</div>
 			<div class="from-group">
 				<label class="form-label" for="role">Role : </label>
@@ -25,8 +33,7 @@
 		<br>
 		<div class="form-actions">	
 			<button ng-click="go('/minds')" class="btn btn-default">Cancel</button>
-			<button ng-click="update()" class="btn btn-meteo">Update Mind</button>
-			<button ng-hide="isSelf" ng-click="delete()" class="btn btn-warning">Delete Mind</button>
+			<button ng-click="create()" class="btn btn-meteo">Create</button>
 		</div>
 	</form>
 	</div>

@@ -47,6 +47,7 @@ adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootSc
 			identity.timezone = cache.get('timezone');
 			deferred.resolve(identity);
 		}
+		return deferred.promise;
 	};
 
 	factory.set = function(data) {

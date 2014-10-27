@@ -84,8 +84,10 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 			$scope.mind = mind;
 			$scope.isSelf = identityService.isSelf(mind.id);
 		}
-		else
-			$scope.error = mind;
+		else {
+			flash.setMessage('An error occured while fetching the data');
+			$location.path('/minds/edited/result/0/1');
+		}
 }]);
 
 EditMindCtrl.resolve = {
@@ -125,6 +127,40 @@ adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
 	           });
 		}
 }]);
+
+var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$location', '$q', 'flash', 'roles', 'identityService', 'lang', 'mindFactory',
+    function ($scope, $location, $q, flash, roles, identityService, lang, mindFactory) {
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+		
+		var deferred = $q.defer();
+		var promise = identityService.get(deferred);
+		promise.then(
+			function(identity){
+				$scope.langs = lang.list(identity.locale);
+			},
+			function(error){
+				flash.setMessage('An error occured while fetching the data');
+				$location.path('/minds/edited/result/0/1');
+		});
+		
+		
+		$scope.roles = roles;
+		$scope.flash = flash;
+		
+		$scope.create = function() {
+			mindFactory.save($scope.mind,
+				function(success) {
+					flash.setMessage('Mind created successfully!');
+					$location.path('/minds/edited/result/'+success.id+'/1');
+				},
+				function(error) {
+					flash.setMessage('An error occured while creating the mind.');
+					$location.path('/minds/edited/result/0/1');
+			});
+		};
+}]);       
 
 adminControllers.controller('statsCtrl', ['$scope', 
     function ($scope) {

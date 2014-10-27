@@ -31,11 +31,14 @@ function($routeProvider) {
         	},
     		identity: function(identityService, $q) {
     			var deferred = $q.defer();
-    			identityService.get(deferred);
-	    		return deferred.promise;
+    			return identityService.get(deferred);
     		}
         }
    }).
+   when('/minds/new', {
+       templateUrl: '/js/partials/mind/new.html',
+       controller: 'NewMindCtrl'
+  }).
     when('/minds/edit/:mindId', {
       templateUrl: '/js/partials/mind/edit.html',
       controller: 'EditMindCtrl',
