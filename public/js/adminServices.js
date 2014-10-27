@@ -6,12 +6,51 @@ adminServices.factory('mindFactory', ['$resource', function($resource){
     });
 }]);
 
-adminServices.factory('identityService', ['$resource', function($resource){
-	//todo check changes + localstorage
-	return $resource('/api/admin/identity', {}, {
-	      get: {method:'GET', isArray:false}
-	    });
-	//return $http.get('/api/admin/identity', {cache: false});
+adminServices.factory('identityService', ['$resource', '$cacheFactory', function($resource, $cacheFactory){
+	var factory = {};
+	var cache = $cacheFactory('identity');
+	
+	factory.get = function (deferred) {
+		
+		var info = cache.info();
+		var size = info.size;
+		
+		if (size == 0) {
+			//nothing cached yet
+			$resource('/api/admin/identity').get(
+			    function(data){
+					factory.set(data);
+    				deferred.resolve(data); 
+    			}, function(errorData) {
+    				deferred.resolve('An error occured while retreiving the identity');
+    			});
+		}
+		else {
+			var identity = [];
+			identity.id = cache.get('id');
+			identity.email = cache.get('email');
+			identity.joindate = cache.get('joindate');
+			identity.locale_joindate = cache.get('locale_joindate');
+			identity.locale = cache.get('locale');
+			identity.name = cache.get('name');
+			identity.role = cache.get('role');
+			identity.timezone = cache.get('timezone');
+			deferred.resolve(identity);
+		}
+	};
+
+	factory.set = function(data) {
+		cache.put('id', data.id);
+		cache.put('email', data.email);
+		cache.put('joindate', data.joindate);
+		cache.put('locale_joindate', data.locale_joindate);
+		cache.put('locale', data.locale);
+		cache.put('name', data.name);
+		cache.put('role', data.role);
+		cache.put('timezone', data.timezone);
+	};
+	
+	return factory;
 }]);
 
 adminServices.factory('roles', [function(){

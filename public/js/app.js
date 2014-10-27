@@ -31,12 +31,7 @@ function($routeProvider) {
         	},
     		identity: function(identityService, $q) {
     			var deferred = $q.defer();
-    			identityService.get(
-    				function(data){
-	    				deferred.resolve(data); 
-	    			}, function(errorData) {
-	    				deferred.resolve('An error occured while retreiving the identity');
-	    			});
+    			identityService.get(deferred);
 	    		return deferred.promise;
     		}
         }
