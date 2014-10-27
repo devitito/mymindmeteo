@@ -25,8 +25,8 @@
 		<br>
 		<div class="form-actions">	
 			<button ng-click="go('/minds')" class="btn btn-default">Cancel</button>
-			<button ng-click="updateMind()" class="btn btn-meteo">Update Mind</button>
-			<button ng-click="deleteMind()" class="btn btn-warning">Delete Mind</button>
+			<button ng-click="update()" class="btn btn-meteo">Update Mind</button>
+			<button ng-hide="isSelf" ng-click="delete()" class="btn btn-warning">Delete Mind</button>
 		</div>
 	</form>
 	</div>

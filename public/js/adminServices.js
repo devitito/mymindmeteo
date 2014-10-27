@@ -60,6 +60,13 @@ adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootSc
 		cache.put('timezone', data.timezone);
 	};
 	
+	factory.isSelf = function (id) {
+		if (id == factory.getId()) 
+			return true;
+		else 
+			return false;
+	};
+	
 	return factory;
 }]);
 

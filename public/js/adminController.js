@@ -30,13 +30,13 @@ mindsCtrl.resolve = {
 };
 */
 
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang',
-    function ($scope, $rootScope, $location, mind, roles, flash, lang) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang', 'identityService',
+    function ($scope, $rootScope, $location, mind, roles, flash, lang, identityService) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
 		
-		$scope.updateMind = function() {
+		$scope.update = function() {
 			$scope.mind.$update(
 				function(success) {
 					$rootScope.$broadcast('mind.post.edit', mind);
@@ -44,7 +44,6 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 					$location.path('/minds/edited/result/'+$scope.mind.id+'/1');
 				},
 				function(errors) {
-					$scope.errors = [];
 					try {
 						var list = angular.fromJson(errors).data;
 						angular.forEach(list, function (key, value) {
@@ -58,11 +57,33 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 			);
 		};
 		
+		$scope.delete = function () {
+			$scope.mind.$delete(
+				function(success) {
+					flash.setMessage('Mind deleted successfully!');
+					$location.path('/minds/delete/1');
+				},
+				function(errors) {
+					try {
+						var list = angular.fromJson(errors).data;
+						angular.forEach(list, function (key, value) {
+							flash.setMessage(angular.fromJson(key).recordFound);
+						}) ;
+					} catch (e) {
+						flash.setMessage('An error occured while deleting the mind');
+					}
+					$location.path('/minds/delete/0');
+				}
+			);
+		}
+		
 		$scope.roles = roles;
 		$scope.langs = lang.list(mind.locale);
 		
-		if (angular.isObject(mind))
+		if (angular.isObject(mind)) {
 			$scope.mind = mind;
+			$scope.isSelf = identityService.isSelf(mind.id);
+		}
 		else
 			$scope.error = mind;
 }]);

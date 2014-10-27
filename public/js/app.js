@@ -45,6 +45,10 @@ function($routeProvider) {
         templateUrl: '/js/partials/mind/edited.html',
         controller: 'EditedMindCtrl'
     }).
+    when('/minds/delete/:result', {
+        templateUrl: '/js/partials/mind/edited.html',
+        controller: 'EditedMindCtrl'
+    }).
     otherwise({
       redirectTo: '/'
     });
