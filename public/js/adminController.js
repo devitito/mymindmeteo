@@ -147,6 +147,7 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 		
 		
 		$scope.roles = roles;
+		$scope.timezones = ['Europe/Paris', 'Europe/London'];
 		$scope.flash = flash;
 		
 		$scope.create = function() {
@@ -155,8 +156,15 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 					flash.setMessage('Mind created successfully!');
 					$location.path('/minds/edited/result/'+success.id+'/1');
 				},
-				function(error) {
-					flash.setMessage('An error occured while creating the mind.');
+				function(errors) {
+					try {
+						var list = angular.fromJson(errors).data;
+						angular.forEach(list, function (value) {
+							flash.setMessage(value);
+						}) ;
+					} catch (e) {
+						flash.setMessage('An error occured while creating the mind.');
+					}
 					$location.path('/minds/edited/result/0/1');
 			});
 		};
