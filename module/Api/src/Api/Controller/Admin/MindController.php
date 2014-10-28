@@ -8,6 +8,7 @@ use Zend\I18n\View\Helper\DateFormat;
 use IntlDateFormatter;
 use Zend\Mvc\Service\ValidatorManagerFactory;
 use Application\Entity\Mind;
+use Application\Exception;
 
 class MindController extends AbstractRestfulController 
 {
@@ -21,6 +22,7 @@ class MindController extends AbstractRestfulController
 		$identity = $this->identity();
 		$mindManager = $this->getServiceLocator()->get('mind-manager');
 		try{
+			
 			$data = [];
 			$minds = $mindManager->fetchAll();
 			foreach ($minds as $mind) {
@@ -36,7 +38,8 @@ class MindController extends AbstractRestfulController
 			}
 			return new JsonModel($data);
 		} catch (Exception $e) {
-				
+			$this->getResponse()->setStatusCode(400);
+			return new JsonModel($e->getMessage());
 		}
 	}
 	
@@ -57,7 +60,8 @@ class MindController extends AbstractRestfulController
 						'timezone' => $mind->getTimezone()];
 			return new JsonModel($data);
 		} catch (Exception $e) {
-		
+			$this->getResponse()->setStatusCode(400);
+			return new JsonModel([$e->getMessage()]);
 		}
 	}
 	
@@ -95,6 +99,34 @@ class MindController extends AbstractRestfulController
 			$errorMessages = $filters->getMessages();
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel($errorMessages);
+		}
+	}
+	
+	public function create($data)
+	{
+		$identity = $this->identity();
+		$mindManager = $this->getServiceLocator()->get('mind-manager');
+		try{
+			//@todo validate data
+			$mind = $mindManager->save(new Mind($data));
+			return new JsonModel(['data' => $mind]);
+		} catch (Exception $e) {
+			$this->getResponse()->setStatusCode(400);
+			return new JsonModel([$e->getMessage()]);
+		}
+	}
+	
+	public function delete($id)
+	{
+		$identity = $this->identity();
+		try{
+			$mind = $this->getEntityManager()->getRepository('Application\Entity\Mind')->find($id);
+			$this->getEntityManager()->remove($mind);
+			$this->getEntityManager()->flush();
+			return new JsonModel(['data' => 'Mind deleted']);
+		} catch (Exception $e) {
+			$this->getResponse()->setStatusCode(400);
+			return new JsonModel([$e->getMessage()]);
 		}
 	}
 	
