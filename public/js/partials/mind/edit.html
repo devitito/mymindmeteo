@@ -12,7 +12,7 @@
 			</div>
 			<div class="from-group">
 				<label class="form-label" for="role">Role : </label>
-				<select class="form-control input-lg" id="role" required="true" ng-model="mind.role" ng-options="role for role in roles"></select>
+				<select class="form-control input-lg" id="role" required="true" ng-model="mind.role" ng-options="role.code as role.name for role in roles"></select>
 			</div>
 			<div class="from-group">
 				<label class="form-label" for="lang">Language : </label>

@@ -72,7 +72,12 @@ adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootSc
 }]);
 
 adminServices.factory('roles', [function(){
-	return ['guest', 'demo', 'mind', 'meteologist', 'validator', 'admin'];
+		return [{code:'guest', name:'Guest'},
+		        {code:'demo', name:'Demo'},
+		        {code:'mind', name:'Mind'},
+		        {code:'meteologist', name:'Meteologist'},
+		        {code:'validator', name:'Validator'},
+		        {code:'admin', name:'Administrator'}];
 }]);
 
 adminServices.factory('recovery', ['$resource',
