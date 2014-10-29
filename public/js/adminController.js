@@ -15,23 +15,8 @@ var mindsCtrl = adminControllers.controller('mindsCtrl', ['$scope', '$location',
 			$scope.error = minds;
 }]);
 
-/*
-mindsCtrl.resolve = {
-	minds: function(mindFactory, $q) {
-		var deferred = $q.defer();
-		mindFactory.query(
-			function(data){
-				deferred.resolve(data); 
-			}, function(errorData) {
-				deferred.resolve('An error occured while retreiving the list of minds');
-			});
-		return deferred.promise;
-	}
-};
-*/
-
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang', 'identityService',
-    function ($scope, $rootScope, $location, mind, roles, flash, lang, identityService) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang', 'identity', 'identityService',
+    function ($scope, $rootScope, $location, mind, roles, flash, lang, identity, identityService) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -78,8 +63,8 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 		}
 		
 		$scope.roles = roles;
-		$scope.langs = lang.list(mind.locale);
-		
+		$scope.langs = lang.list(identity.locale);
+	
 		if (angular.isObject(mind)) {
 			$scope.mind = mind;
 			$scope.isSelf = identityService.isSelf(mind.id);
@@ -91,7 +76,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 }]);
 
 EditMindCtrl.resolve = {
-	mind: function(mindFactory, $q, $route) {
+  mind: function(mindFactory, $q, $route) {
 	  var deferred = $q.defer();
 	  mindFactory.get({id:$route.current.params.mindId},
 		  function(data){
@@ -100,6 +85,10 @@ EditMindCtrl.resolve = {
 			  deferred.resolve('An error occured while retreiving the requested data');
 	});
 	return deferred.promise;
+  },
+  identity: function(identityService, $q) {
+		var deferred = $q.defer();
+		return identityService.get(deferred);
   }
 };
 
@@ -128,23 +117,13 @@ adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
 		}
 }]);
 
-var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$location', '$q', 'flash', 'roles', 'identityService', 'lang', 'mindFactory',
-    function ($scope, $location, $q, flash, roles, identityService, lang, mindFactory) {
+var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$location', '$q', 'flash', 'roles', 'identity', 'lang', 'mindFactory',
+    function ($scope, $location, $q, flash, roles, identity, lang, mindFactory) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
-		
-		var deferred = $q.defer();
-		var promise = identityService.get(deferred);
-		promise.then(
-			function(identity){
-				$scope.langs = lang.list(identity.locale);
-			},
-			function(error){
-				flash.setMessage('An error occured while fetching the data');
-				$location.path('/minds/edited/result/0/1');
-		});
-		
+
+		$scope.langs = lang.list(identity.locale);
 		$scope.roles = roles;
 		$scope.timezones = ['Europe/Paris', 'Europe/London'];
 		$scope.flash = flash;

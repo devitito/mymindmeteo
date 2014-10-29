@@ -37,7 +37,13 @@ function($routeProvider) {
    }).
    when('/minds/new', {
        templateUrl: '/js/partials/mind/new.html',
-       controller: 'NewMindCtrl'
+       controller: 'NewMindCtrl',
+       resolve: {
+    	   identity: function(identityService, $q) {
+    			var deferred = $q.defer();
+    			return identityService.get(deferred);
+    		}
+       }
   }).
     when('/minds/edit/:mindId', {
       templateUrl: '/js/partials/mind/edit.html',
