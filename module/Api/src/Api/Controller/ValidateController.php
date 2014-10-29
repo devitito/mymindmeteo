@@ -13,7 +13,9 @@ class ValidateController extends AbstractActionController
 	{
 		try {
 			$mindManager = $this->getServiceLocator()->get('mind-manager');
-			$isAvailable = $mindManager->isAvailable(['name' => $_POST['name']]);
+			$name = $_POST['name'];
+			if (!$name) throw new \Exception();
+			$isAvailable = $mindManager->isAvailable(['name' => $name]);
 			$variables = array( 'valid' => $isAvailable);
 		}
 		catch (\Exception $e) {
@@ -28,7 +30,9 @@ class ValidateController extends AbstractActionController
 	{
 		try {
 			$mindManager = $this->getServiceLocator()->get('mind-manager');
-			$isAvailable = $mindManager->isAvailable(['email' => $_POST['email']]);
+			$email = $_POST['email'];
+			if (!$email) throw new \Exception();
+			$isAvailable = $mindManager->isAvailable(['email' => $email]);
 			$variables = array( 'valid' => $isAvailable);
 		}
 		catch (\Exception $e) {
