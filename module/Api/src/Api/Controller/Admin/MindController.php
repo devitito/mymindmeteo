@@ -69,34 +69,15 @@ class MindController extends AbstractRestfulController
 	{
 		$identity = $this->identity();
 		$mindManager = $this->getServiceLocator()->get('mind-manager');
-		$filters = new \Application\InputFilters\AdminMindSave();
-		
-		//exclude the current mind in the search
-		$options = array (
-				'table' => 'minds',
-				'field' => 'email',
-				'adapter' => $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter'),
-				'messages' => array(
-						\Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'The specified email already exists in database'
-				),
-				'exclude' =>  array(
-		            'field' => 'id',
-		            'value' => $id
-       			)
-		);
-		$validator = new \Zend\Validator\Db\NoRecordExists($options);
-		$filters->get('email')->getValidatorChain()->attach($validator);
-		
-		$isValid = $filters->setData($data)
-							->isValid();
-
-		if ($isValid) {
+		$res = $mindManager->isValid($data);
+			
+		if ($res['result']) {
 			$mind = new Mind($data);
 			$mindManager->save($mind);
 			return new JsonModel(['id' => $mind->getId()]);
 		}
 		else {
-			$errorMessages = $filters->getMessages();
+			$errorMessages = $res['messages'];
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel($errorMessages);
 		}
