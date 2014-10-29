@@ -9,6 +9,9 @@ class AdminMindSave extends InputFilter
 	
     public function __construct()
     {
+    	//@todo inject profileservice and collect the list of roles from it
+    	//@todo inject profileservice and collect the list of locale from it
+    	
     	$this->add(
     		array(
     			'name' => 'name',

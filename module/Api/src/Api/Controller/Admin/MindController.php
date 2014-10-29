@@ -107,9 +107,19 @@ class MindController extends AbstractRestfulController
 		$identity = $this->identity();
 		$mindManager = $this->getServiceLocator()->get('mind-manager');
 		try{
-			//@todo validate data
-			$mind = $mindManager->save(new Mind($data));
-			return new JsonModel(['data' => $mind]);
+			//validate data before insert
+			$res = $mindManager->isValid($data);
+			
+			if ($res['result']) {
+				$mind = new Mind($data);
+				$mindManager->save($mind);
+				return new JsonModel(['data' => $mind]);
+			}
+			else {
+				$errorMessages = $res['messages'];
+				$this->getResponse()->setStatusCode(400);
+				return new JsonModel($errorMessages);
+			}
 		} catch (Exception $e) {
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel([$e->getMessage()]);
