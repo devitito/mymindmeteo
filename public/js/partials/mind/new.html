@@ -59,7 +59,9 @@
 				<div class="row">
 					<div class="col-lg-5">
 						<label class="control-label" for="confirmedpassword">Retype password : </label>
-						<input class="form-control input-lg" id="confirmedpassword" name="confirmedpassword" type="password" required ng-model="password2"></input>
+						<input class="form-control input-lg" id="confirmedpassword" name="confirmedpassword" type="password" required 
+								equals-to="newMindForm.password"
+								ng-model="confirmedpassword"></input>
 					</div>
 				</div>
 				<div class="row">
