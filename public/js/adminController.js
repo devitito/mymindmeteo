@@ -15,8 +15,8 @@ var mindsCtrl = adminControllers.controller('mindsCtrl', ['$scope', '$location',
 			$scope.error = minds;
 }]);
 
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang', 'identity', 'identityService',
-    function ($scope, $rootScope, $location, mind, roles, flash, lang, identity, identityService) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang', 'timezones', 'identity', 'identityService',
+    function ($scope, $rootScope, $location, mind, roles, flash, lang, timezones, identity, identityService) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -63,6 +63,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 		}
 		
 		$scope.roles = roles;
+		$scope.timezones = timezones;
 		$scope.langs = lang.list(identity.locale);
 	
 		if (angular.isObject(mind)) {
@@ -117,15 +118,15 @@ adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
 		}
 }]);
 
-var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$location', '$q', 'flash', 'roles', 'identity', 'lang', 'mindFactory',
-    function ($scope, $location, $q, flash, roles, identity, lang, mindFactory) {
+var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$location', '$q', 'flash', 'roles', 'identity', 'lang', 'timezones', 'mindFactory',
+    function ($scope, $location, $q, flash, roles, identity, lang, timezones, mindFactory) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
 
 		$scope.langs = lang.list(identity.locale);
 		$scope.roles = roles;
-		$scope.timezones = ['Europe/Paris', 'Europe/London'];
+		$scope.timezones = timezones;
 		$scope.flash = flash;
 		
 		$scope.create = function() {

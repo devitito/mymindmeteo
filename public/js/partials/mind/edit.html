@@ -18,10 +18,10 @@
 				<label class="form-label" for="lang">Language : </label>
 				<select class="form-control input-lg" id="locale" required="true" ng-model="mind.locale" ng-options="lang.code as lang.name for lang in langs"></select>
 			</div>
-			<!-- div class="from-group">
+			<div class="from-group">
 				<label class="form-label" for="timezone">Timezone : </label>
 				<select class="form-control input-lg" id="timezone" required="true" ng-model="mind.timezone" ng-options="timezone for timezone in timezones"></select>
-			</div-->
+			</div>
 		<br>
 		<div class="form-actions">	
 			<button ng-click="go('/minds')" class="btn btn-default">Cancel</button>

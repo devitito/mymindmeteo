@@ -80,6 +80,10 @@ adminServices.factory('roles', [function(){
 		        {code:'admin', name:'Administrator'}];
 }]);
 
+adminServices.factory('timezones', [function(){
+	return ['Europe/Paris', 'Europe/London'];
+}]);
+
 adminServices.factory('recovery', ['$resource',
   function($resource){
     return $resource('/api/admin/records/recover', {}, {
