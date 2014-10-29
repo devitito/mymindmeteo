@@ -30,13 +30,13 @@ return array(
         					),
         			),
         	),
-        	'admin-recover-records' => array(
+        	'admin-recreate-indexes' => array(
         		'type' => 'Zend\Mvc\Router\Http\Literal',
         		'options' => array(
-        			'route'    => '/api/admin/records/recover',
+        			'route'    => '/api/admin/indexes/recreate',
         			'defaults' => array(
         				'controller' => 'Api\Controller\Admin',
-        				'action'     => 'recover-records',
+        				'action'     => 'recreate-indexes',
         			),
         		),
         	),

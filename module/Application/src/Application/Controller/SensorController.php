@@ -120,9 +120,12 @@ class SensorController extends AbstractActionController
 	
 				$this->getEntityManager()->flush();
 	
+				//index the new sensor in elasticsearch
+				$this->getEventManager()->trigger('sensor.post', $this, ['sensor' => $sensor]);
+				
 				$viewModel = new ViewModel();
 				$viewModel->setVariables(['message' => "Thanks for your contribution, we'll review it and let you know soon!",])
-				->setTerminal(true);
+							->setTerminal(true);
 				return $viewModel;
 	
 			}

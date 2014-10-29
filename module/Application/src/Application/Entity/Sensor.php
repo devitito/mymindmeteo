@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sensors")
  *
  */
-class Sensor implements \ArrayAccess
+class Sensor implements \ArrayAccess, IndexableInterface
 {
 	use EntitiesArrayAccessTrait;
 	
@@ -94,5 +94,17 @@ class Sensor implements \ArrayAccess
 	{
 		$this->meteologist = $value;
 		return $this;
+	}
+	
+	public function toIndexable()
+	{
+		return array(
+			'id'      => $this->getId(),
+			'topic' => $this->getTopic(),
+			'label' => $this->getLabel(),
+			'meteologist' => $this->getMeteologist(),
+			'tstamp'  => (new \DateTime("now"))->format('Y-m-d H:i:s'),
+		);
+	
 	}
 }
