@@ -145,7 +145,6 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 				$location.path('/minds/edited/result/0/1');
 		});
 		
-		
 		$scope.roles = roles;
 		$scope.timezones = ['Europe/Paris', 'Europe/London'];
 		$scope.flash = flash;
