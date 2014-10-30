@@ -60,7 +60,9 @@ class Record implements \ArrayAccess, IndexableInterface
 		    	'meteologist' => $this->getSensor()->getMeteologist(),
 		    ),
 			'sample' => $this->getSample()->getLabel(),
-		    'tstamp'  => $this->getDate()->format('Y-m-d H:i:s'),//getTimestamp
+		    'tstamp'  => $this->getDate()->format('Y-m-d H:i:s'),
+		    'day'	=> date('w', $this->getDate()->getTimestamp()),
+			'hour'	=> $this->getDate()->format('H'),
 			'timezone'  => $this->getMind()->getTimezone(),
 		    'location'=> '41.12,-71.34',
 		);
