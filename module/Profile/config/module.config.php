@@ -51,6 +51,9 @@ return array(
 				'Api\Controller\Admin\Mind' => array(
 					'all' => 'admin',
 				),
+				'Api\Controller\Admin\Stat' => array(
+					'all' => 'admin',
+				),
 				'Application\Controller\Index' => array(
 					'index' => 'guest',
 					'join' => 'guest',

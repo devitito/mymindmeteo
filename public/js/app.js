@@ -1,4 +1,4 @@
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'adminControllers', 'adminServices', 'adminDirectives']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart']);
 
 mindmeteo.config(['$routeProvider',
 function($routeProvider) {
@@ -9,7 +9,23 @@ function($routeProvider) {
     }).
     when('/stats', {
         templateUrl: '/js/partials/admin/stats.html',
-        controller: 'statsCtrl'
+        controller: 'statsCtrl',
+        resolve : {
+        	stats : function(statsFactory, $q) {
+	    		var deferred = $q.defer();
+	    		statsFactory.query(
+	    			function(data){
+	    				deferred.resolve(data); 
+	    			}, function(errorData) {
+	    				deferred.resolve('An error occured while retreiving the stats');
+	    			});
+	    		return deferred.promise;
+        	},
+    		identity: function(identityService, $q) {
+    			var deferred = $q.defer();
+    			return identityService.get(deferred);
+    		}
+        }
       }).
     when('/sensors', {
          templateUrl: '/js/partials/admin/sensors.html',
@@ -62,3 +78,11 @@ function($routeProvider) {
       redirectTo: '/'
     });
 }]);
+
+mindmeteo.value('googleChartApiConfig', {
+    version: '1',
+    optionalSettings: {
+        packages: ['corechart'],
+        language: 'fr'
+    }
+});

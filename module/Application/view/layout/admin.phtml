@@ -17,13 +17,10 @@
                         ->prependStylesheet($this->basePath() . '/css/mindmeteo.css')
                         ->prependStylesheet('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css')
                         ->prependStylesheet('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-                        ->prependStylesheet($this->basePath() . '/btvalidator/dist/css/bootstrapValidator.min.css')
         				 ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
-            ->prependFile('//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
-            
            // ->prependFile('//code.jquery.com/jquery-migrate-1.2.1.min.js')
             ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
@@ -31,10 +28,11 @@
             ->prependFile('/js/adminServices.js')
             ->prependFile('/js/adminDirectives.js')
             ->prependFile('/js/app.js')
-            ->prependFile('http://code.angularjs.org/1.2.25/angular-resource.min.js')
-            ->prependFile('http://code.angularjs.org/1.2.25/angular-route.min.js')
-            ->prependFile('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js')
-            ->prependFile($this->basePath() . '/btvalidator/dist/js/bootstrapValidator.min.js')
+            ->prependFile('/js/bower_components/angular-google-chart/ng-google-chart.js')
+            ->prependFile('http://code.angularjs.org/1.2.8/angular-resource.min.js')
+            ->prependFile('http://code.angularjs.org/1.2.8/angular-route.min.js')
+            ->prependFile('https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js')
+            ->prependFile('//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
             ->prependFile('//code.jquery.com/jquery-1.11.0.min.js')
         ; ?>
     </head>

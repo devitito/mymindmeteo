@@ -62,6 +62,18 @@ return array(
         			),
         		),
         	),
+        	'stats' => array(
+        		'type' => 'segment',
+        		'options' => array(
+        			'route' => '/api/admin/stats[/:graph]',
+        			'constraints' => array(
+        				//	'stats' => '[0-9]+',
+        			),
+        			'defaults' => array(
+        				'controller' => 'Api\Controller\Admin\Stat'
+        			),
+        		),
+        	),
         ),
     ),
     'service_manager' => array(),
@@ -69,7 +81,8 @@ return array(
         'invokables' => array(
             'Api\Controller\Validate' => 'Api\Controller\ValidateController',
             'Api\Controller\Admin' => 'Api\Controller\AdminController',
-            'Api\Controller\Admin\Mind' => 'Api\Controller\Admin\MindController'
+            'Api\Controller\Admin\Mind' => 'Api\Controller\Admin\MindController',
+            'Api\Controller\Admin\Stat' => 'Api\Controller\Admin\StatController'
         ),
     ),
 	'view_manager' => array(

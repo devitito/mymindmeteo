@@ -1,8 +1,30 @@
 <div class="col-lg-10">
-	<header><p>stats</p></header>
-	<p>Repartition des sensors par topic. Alerte si desiquilibre (pas assez de money par exemple)</p>
-	<p>Most popular test</p>
-	<p>Most skipped test</p>
-	<p>Time of test 00 till 23</p>
-	<p>Days of tests monday till sunday</p>
+	<br>
+	<div class="row">
+		<div class="col-lg-6">
+			<div ng-hide="errors" google-chart class="thumbnail" chart="sensorPerTopic" style="height:300px;"></div>
+			<div ng-show="errors" class="thumbnail" style="height:300px;">{{errors}}</div>
+			<p>Alerter si desiquilibre (pas assez de money par exemple)</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="thumbnail" style="height:300px;"></div>
+			<p>Most popular test</p>
+		</div>
+		<div class="col-lg-6">
+			<div class="thumbnail" style="height:300px;"></div>
+			<p>Most skipped test</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="thumbnail" style="height:300px;"></div>
+			<p>Time of test 00 till 23</p>
+		</div>
+		<div class="col-lg-6">
+			<div class="thumbnail" style="height:300px;"></div>
+			<p>Days of tests monday till sunday</p>
+		</div>
+	</div>
 </div>

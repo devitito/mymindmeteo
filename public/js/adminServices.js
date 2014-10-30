@@ -6,6 +6,12 @@ adminServices.factory('mindFactory', ['$resource', function($resource){
     });
 }]);
 
+adminServices.factory('statsFactory', ['$resource', function($resource){
+	return $resource('/api/admin/stats/:graph', {}, {
+      query: {method:'GET', isArray:false}
+    });
+}]);
+
 adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootScope', function($resource, $cacheFactory, $rootScope){
 	var factory = {};
 	var cache = $cacheFactory('identity');

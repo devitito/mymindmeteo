@@ -67,6 +67,24 @@ class SearchManager implements ServiceManagerAwareInterface
 		return $this->parseMeteoChartResponse($response, $mind);
 	}
 	
+	public function fetchAdminStatChartsData()
+	{
+		return [
+			'sensorPerTopic' => [
+				'love' => 35,
+				'health' => 15,
+				'money' => 9
+			],
+			'mostPopularSensor' => [
+				'1' => ['How is your caca?', '1021'],
+				'2' => ['Did you run out of toilet paper today?', '543'],
+				'3' => ['Did you quit your job today?', '521'],
+				'4' => ['What\'s your plan for tonight?', '328'],
+				'5' => ['Did you score yesterday?', '196']
+			]
+		];
+	}
+	
 	private function buildMeteoChartQuery($name)
 	{
 		$elasticaQueryString  = new \Elastica\Query\Match();
@@ -190,7 +208,7 @@ class SearchManager implements ServiceManagerAwareInterface
 		return $this;
 	}
 	
-	protected function setMapping($type, &$mapping)
+	protected function setMapping($type, $mapping)
 	{
 		switch ($type) {
 			case 'records':
@@ -207,7 +225,7 @@ class SearchManager implements ServiceManagerAwareInterface
 		
 	}
 	
-	private function setRecordMapping(&$mapping)
+	private function setRecordMapping($mapping)
 	{
 		// Set mapping
 		$mapping->setProperties(array(
@@ -239,7 +257,7 @@ class SearchManager implements ServiceManagerAwareInterface
 		$mapping->send();
 	}
 	
-	private function setSensorMapping(&$mapping)
+	private function setSensorMapping($mapping)
 	{
 		// Set mapping
 		$mapping->setProperties(array(

@@ -107,8 +107,10 @@ var EditedMindCtrl = adminControllers.controller('EditedMindCtrl', ['$scope', '$
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
     function ($scope, recovery) {
 		$scope.recover = function () {
+			$scope.recovery_date = '  On progress. Wait...';
 			recovery.query(
 				function(data){
+					console.log(data[0]);
 					$scope.recovery_date = '  Indexes re-created on : ' + data[0].toString();
 	            },
 	            function(error) {
@@ -149,8 +151,56 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 		};
 }]);       
 
-adminControllers.controller('statsCtrl', ['$scope', 
-    function ($scope) {
+adminControllers.controller('statsCtrl', ['$scope', 'stats',
+    function ($scope, stats) {
+		try {
+			
+			var sensorPerTopicRaw = angular.fromJson(stats).sensorPerTopic;
+			$scope.sensorPerTopic = {};
+			var cols = [
+			              				     {id: "t", label: "Topic", type: "string"},
+			            		             {id: "s", label: "Sensors", type: "number"}
+			              				     ];
+
+			var rows = [];
+			angular.forEach(sensorPerTopicRaw, function(value, key) {
+				console.log('key: ' + key);
+				console.log('value : ' + value);
+				rows.push({c: [{v: key}, {v: value}]});
+			});
+			
+			 $scope.sensorPerTopic.data = { "cols": cols, "rows": rows};
+		/*	$scope.sensorPerTopic.data = {
+				"cols": [
+				     {id: "t", label: "Topic", type: "string"},
+		             {id: "s", label: "Sensors", type: "number"}
+		         ], "rows": [
+		             {c: [
+		                  {v: "Love"},
+		                  {v: sensorPerTopicRaw.love},
+		             ]},
+		             {c: [
+		                  {v: "Health"},
+		                  {v: sensorPerTopicRaw.health}
+		             ]},
+		             {c: [
+		                  {v: "Money"},
+		                  {v: sensorPerTopicRaw.money},
+		             ]}
+		       ]
+			};*/
+			
+		 $scope.sensorPerTopic.type = 'PieChart';
+		    $scope.sensorPerTopic.options = {
+		        'title': 'Sensor per topic',
+		        'is3D':true,
+		        colors: ['#FF0000', '#00ADEF', '#85bb65']
+		    }
+		} catch (e) {
+			$scope.errors = 'error';
+		}
+		
+	
 }]);
 
 adminControllers.controller('sensorsCtrl', ['$scope', 
