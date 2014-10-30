@@ -107,7 +107,7 @@ var EditedMindCtrl = adminControllers.controller('EditedMindCtrl', ['$scope', '$
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
     function ($scope, recovery) {
 		$scope.recover = function () {
-			$scope.recovery_date = '  On progress. Wait...';
+			$scope.recovery_date = '  In progress. Wait...';
 			recovery.query(
 				function(data){
 					console.log(data[0]);
@@ -151,56 +151,54 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 		};
 }]);       
 
-adminControllers.controller('statsCtrl', ['$scope', 'stats',
-    function ($scope, stats) {
+var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'statsFactory',
+    function ($scope, stats, statsFactory) {
 		try {
-			
 			var sensorPerTopicRaw = angular.fromJson(stats).sensorPerTopic;
 			$scope.sensorPerTopic = {};
 			var cols = [
-			              				     {id: "t", label: "Topic", type: "string"},
-			            		             {id: "s", label: "Sensors", type: "number"}
-			              				     ];
+			       {id: "t", label: "Topic", type: "string"},
+			       {id: "s", label: "Sensors", type: "number"}
+			];
 
 			var rows = [];
-			angular.forEach(sensorPerTopicRaw, function(value, key) {
-				console.log('key: ' + key);
-				console.log('value : ' + value);
-				rows.push({c: [{v: key}, {v: value}]});
-			});
+			statsFactory.populateRows(rows, sensorPerTopicRaw);
 			
-			 $scope.sensorPerTopic.data = { "cols": cols, "rows": rows};
-		/*	$scope.sensorPerTopic.data = {
-				"cols": [
-				     {id: "t", label: "Topic", type: "string"},
-		             {id: "s", label: "Sensors", type: "number"}
-		         ], "rows": [
-		             {c: [
-		                  {v: "Love"},
-		                  {v: sensorPerTopicRaw.love},
-		             ]},
-		             {c: [
-		                  {v: "Health"},
-		                  {v: sensorPerTopicRaw.health}
-		             ]},
-		             {c: [
-		                  {v: "Money"},
-		                  {v: sensorPerTopicRaw.money},
-		             ]}
-		       ]
-			};*/
-			
-		 $scope.sensorPerTopic.type = 'PieChart';
+			$scope.sensorPerTopic.data = { "cols": cols, "rows": rows};
+			$scope.sensorPerTopic.type = 'PieChart';
 		    $scope.sensorPerTopic.options = {
 		        'title': 'Sensor per topic',
 		        'is3D':true,
-		        colors: ['#FF0000', '#00ADEF', '#85bb65']
-		    }
+		        colors: ['#FF0000', '#00ADEF', '#85bb65'],
+		        fontSize: 14,
+		    };
+		    
+		    /**
+		     * *************************************************
+		     */
+		    var testPerDayRaw = angular.fromJson(stats).testPerDay;
+			$scope.testPerDay = {};
+			
+			cols = [
+			       {id: "d", label: "Days", type: "string"},
+			       {id: "c", label: "Test completed", type: "number"}
+			];
+
+			rows = [];
+			statsFactory.populateRows(rows, testPerDayRaw);
+			
+			$scope.testPerDay.data = { "cols": cols, "rows": rows};
+			$scope.testPerDay.type = 'ColumnChart';
+		    $scope.testPerDay.options = {
+		        'title': 'Number of test completed per day of the week',
+		        'is3D':true,
+		        fontSize: 14,
+		        legend : {position: 'none'}
+		    };
+		    
 		} catch (e) {
 			$scope.errors = 'error';
-		}
-		
-	
+		};
 }]);
 
 adminControllers.controller('sensorsCtrl', ['$scope', 

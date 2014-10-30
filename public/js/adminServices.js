@@ -7,9 +7,30 @@ adminServices.factory('mindFactory', ['$resource', function($resource){
 }]);
 
 adminServices.factory('statsFactory', ['$resource', function($resource){
-	return $resource('/api/admin/stats/:graph', {}, {
-      query: {method:'GET', isArray:false}
-    });
+	var factory = {};
+	
+	factory.query = function (deferred) {
+		$resource('/api/admin/stats/:graph', {}, {
+			query: {method:'GET', isArray:false}
+		}).query(
+			function(data){
+    			deferred.resolve(data); 
+    		}, function(errorData) {
+    			deferred.resolve('An error occured while retreiving the stats');
+    		});
+		return deferred.promise;
+	};
+	
+	factory.populateRows = function (rows, data)
+	{
+		angular.forEach(data, function(value, key) {
+			console.log('key: ' + key);
+			console.log('value : ' + value);
+			rows.push({c: [{v: key}, {v: value}]});
+		});
+	};
+	
+	return factory;
 }]);
 
 adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootScope', function($resource, $cacheFactory, $rootScope){

@@ -69,11 +69,17 @@ class SearchManager implements ServiceManagerAwareInterface
 	
 	public function fetchAdminStatChartsData()
 	{
+		$query = $this->buildSensorPerTopicChartQuery();
+		
+		//Search on the index.
+		$resultset    = $this->getIndex()->search($query, ['search_type' => 'count']);
+		$response = $resultset->getResponse();
+		
 		return [
 			'sensorPerTopic' => [
-				'love' => 35,
-				'health' => 15,
-				'money' => 9
+				'Love' => 35,
+				'Health' => 15,
+				'Money' => 9
 			],
 			'mostPopularSensor' => [
 				'1' => ['How is your caca?', '1021'],
@@ -81,8 +87,40 @@ class SearchManager implements ServiceManagerAwareInterface
 				'3' => ['Did you quit your job today?', '521'],
 				'4' => ['What\'s your plan for tonight?', '328'],
 				'5' => ['Did you score yesterday?', '196']
+			],
+			'testPerDay' => [
+				'Monday' => 32,
+				'Tuesday' => 54,
+				'Wednesday' => 12,
+				'Thursday' => 23,
+				'Friday' => 32,
+				'Saturday' => 68,
+				'Sunday' => 98
+			],
+			'testPerHour' => [
+				'11' => 32,
+				'15' => 54,
+				'12' => 12,
+				'13' => 23,
+				'17' => 32,
+				'09' => 68,
+				'10' => 98,
+				'18' => 18,
+				'14' => 9,
+				'16' => 1,
 			]
 		];
+	}
+	
+	private function buildSensorPerTopicChartQuery()
+	{
+		$elasticaQueryString  = new \Elastica\Query\Terms('topic');
+		
+		// Create the actual search object with some data.
+		$elasticaQuery        = new \Elastica\Query();
+		$elasticaQuery->setQuery($elasticaQueryString);
+		
+		return $elasticaQuery;
 	}
 	
 	private function buildMeteoChartQuery($name)
@@ -234,6 +272,7 @@ class SearchManager implements ServiceManagerAwareInterface
 				'sample'     => array('type' => 'string', 'include_in_all' => TRUE),
 				'value'	=> array('type' => 'integer', 'include_in_all' => TRUE),
 				'tstamp'  => array('type' => 'date', "format" => "yyyy-MM-dd HH:mm:ss", 'include_in_all' => TRUE),
+				'day' => array('type' => 'string', 'include_in_all' => TRUE),
 				'timezone'  => array('type' => 'string', 'include_in_all' => TRUE),
 				'location'  => array('type' => 'geo_point', 'include_in_all' => TRUE),
 				'mind'  => array(

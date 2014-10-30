@@ -13,13 +13,7 @@ function($routeProvider) {
         resolve : {
         	stats : function(statsFactory, $q) {
 	    		var deferred = $q.defer();
-	    		statsFactory.query(
-	    			function(data){
-	    				deferred.resolve(data); 
-	    			}, function(errorData) {
-	    				deferred.resolve('An error occured while retreiving the stats');
-	    			});
-	    		return deferred.promise;
+	    		return statsFactory.query(deferred);	
         	},
     		identity: function(identityService, $q) {
     			var deferred = $q.defer();
