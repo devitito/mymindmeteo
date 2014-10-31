@@ -154,48 +154,14 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'statsFactory',
     function ($scope, stats, statsFactory) {
 		try {
-			var sensorPerTopicRaw = angular.fromJson(stats).sensorPerTopic;
-			$scope.sensorPerTopic = {};
-			var cols = [
-			       {id: "t", label: "Topic", type: "string"},
-			       {id: "s", label: "Sensors", type: "number"}
-			];
-
-			var rows = [];
-			statsFactory.populateRows(rows, sensorPerTopicRaw);
-			
-			$scope.sensorPerTopic.data = { "cols": cols, "rows": rows};
-			$scope.sensorPerTopic.type = 'PieChart';
-		    $scope.sensorPerTopic.options = {
-		        'title': 'Sensor per topic',
-		        'is3D':true,
-		        colors: ['#FF0000', '#00ADEF', '#85bb65'],
-		        fontSize: 14,
-		    };
-		    
-		    /**
-		     * *************************************************
-		     */
-		    var testPerDayRaw = angular.fromJson(stats).testPerDay;
-			$scope.testPerDay = {};
-			
-			cols = [
-			       {id: "d", label: "Days", type: "string"},
-			       {id: "c", label: "Test completed", type: "number"}
-			];
-
-			rows = [];
-			statsFactory.populateRows(rows, testPerDayRaw);
-			
-			$scope.testPerDay.data = { "cols": cols, "rows": rows};
-			$scope.testPerDay.type = 'ColumnChart';
-		    $scope.testPerDay.options = {
-		        'title': 'Number of test completed per day of the week',
-		        'is3D':true,
-		        fontSize: 14,
-		        legend : {position: 'none'}
-		    };
-		    
+			var stats = angular.fromJson(stats);
+			angular.forEach(stats, function(key, value) {
+				console.log(key);
+				$scope[value] = {};
+				$scope[value].data = statsFactory.populate(value, key);
+				$scope[value].type = statsFactory.getType(value);
+				$scope[value].options = statsFactory.getOptions(value);
+			});
 		} catch (e) {
 			$scope.errors = 'error';
 		};
