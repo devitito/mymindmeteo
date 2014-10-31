@@ -9,7 +9,6 @@ use Elastica\Index;
 use Elastica\Type;
 use Application\Entity\IndexableInterface;
 use Application\Entity\Mind;
-use Zend\Session\Container;
 
 class SearchManager implements ServiceManagerAwareInterface
 {
@@ -43,148 +42,29 @@ class SearchManager implements ServiceManagerAwareInterface
 		$this->getIndex()->refresh();
 	}
 	
-	public function getTestedSensorCount($name)
+	public function request($request, $options = null)
 	{
-		$elasticaQueryString  = new \Elastica\Query\Match();
-		$elasticaQueryString->setField('name', $name);
+		$adapter = $this->getAdapter($request);
+		if (!$adapter)
+			throw Exception::factory(Exception::UNKNOWN_REQUEST);
 		
-		// Create the actual search object with some data.
-		$elasticaQuery        = new \Elastica\Query();
-		$elasticaQuery->setQuery($elasticaQueryString);
+		$searchObject = new \Elastica\Search($this->getElastica());
+		$searchObject->addIndex('mindmeteo');
 		
-		//Search on the index.
-		$elasticaResultSet    = $this->getIndex()->search($elasticaQuery);
-		return $elasticaResultSet->getTotalHits();
+		$searchTypes = $adapter->getSearchTypes();
+		foreach($searchTypes as $type)
+			$searchObject->addType($type);
+		
+		$resultSet = $searchObject->search($adapter->query($options), $adapter->getSearchOptions());
+		return $adapter->parse($resultSet);
 	}
 	
-	public function fetchMeteoChartData(Mind $mind)
-	{ 
-		$query = $this->buildMeteoChartQuery($mind->getName());
-		
-		//Search on the index.
-		$resultset    = $this->getIndex()->search($query, ['search_type' => 'count']);
-		$response = $resultset->getResponse();
-		return $this->parseMeteoChartResponse($response, $mind);
-	}
-	
-	public function fetchAdminStatChartsData()
+	public function getAdapter($request)
 	{
-		$query = $this->buildSensorPerTopicChartQuery();
-		
-		//Search on the index.
-		$resultset    = $this->getIndex()->search($query, ['search_type' => 'count']);
-		$response = $resultset->getResponse();
-		
-		return [
-			'sensorPerTopic' => [
-				'Love' => 35,
-				'Health' => 15,
-				'Money' => 9
-			],
-			'mostPopularSensor' => [
-				'1' => ['How is your caca?', '1021'],
-				'2' => ['Did you run out of toilet paper today?', '543'],
-				'3' => ['Did you quit your job today?', '521'],
-				'4' => ['What\'s your plan for tonight?', '328'],
-				'5' => ['Did you score yesterday?', '196']
-			],
-			'testPerDay' => [
-				'Monday' => 32,
-				'Tuesday' => 54,
-				'Wednesday' => 12,
-				'Thursday' => 23,
-				'Friday' => 32,
-				'Saturday' => 68,
-				'Sunday' => 98
-			],
-			'testPerHour' => [
-				'11' => 32,
-				'15' => 54,
-				'12' => 12,
-				'13' => 23,
-				'17' => 32,
-				'09' => 68,
-				'10' => 98,
-				'18' => 18,
-				'14' => 9,
-				'16' => 1,
-			]
-		];
-	}
-	
-	private function buildSensorPerTopicChartQuery()
-	{
-		$elasticaQueryString  = new \Elastica\Query\Terms('topic');
-		
-		// Create the actual search object with some data.
-		$elasticaQuery        = new \Elastica\Query();
-		$elasticaQuery->setQuery($elasticaQueryString);
-		
-		return $elasticaQuery;
-	}
-	
-	private function buildMeteoChartQuery($name)
-	{
-		$elasticaQueryString  = new \Elastica\Query\Match();
-		$elasticaQueryString->setField('name', $name);
-		
-		$meteo_over_time_agg = new \Elastica\Aggregation\DateHistogram('meteo_over_time', 'tstamp', 'day');
-		$meteo_over_time_agg->setFormat('yyyy-MM-dd');
-		
-		$value_agg = new \Elastica\Aggregation\Avg('avg_value');
-		$value_agg->setField('value');
-		
-		$topic_agg = new \Elastica\Aggregation\Terms("term_topic");
-		$topic_agg->setField('topic');
-		$topic_agg->addAggregation($value_agg);
-		
-		$meteo_over_time_agg->addAggregation($topic_agg);
-		
-		// Create the actual search object with some data.
-		$elasticaQuery        = new \Elastica\Query();
-		$elasticaQuery->setQuery($elasticaQueryString);
-		$elasticaQuery->addAggregation($meteo_over_time_agg);
-		
-		return $elasticaQuery;
-	}
-	
-	private function parseMeteoChartResponse($response, Mind $mind)
-	{
-		$data = $response->getData();
-		$buckets = $data['aggregations']['meteo_over_time']['buckets'];
-		
-		$chart = [];
-		$sunny = 0;
-		$rainy = 0;
-		foreach ($buckets as $bucket) {
-			$days = $bucket['key_as_string'];
-			$love = 0;
-			$money = 0;
-			$health = 0;
-				
-			$topics = $bucket['term_topic']['buckets'];
-			foreach ($topics as $topic) {
-				if ($topic['key'] == 'love')
-					$love = round($topic['avg_value']['value'], 1);
-				if ($topic['key'] == 'money')
-					$money = round($topic['avg_value']['value'], 1);
-				if ($topic['key'] == 'health')
-					$health = round($topic['avg_value']['value'], 1);
-			}
-
-			$mood = round(($love+$money+$health)/3, 1);
-			if ($mood > 0)
-				$sunny++;
-			else
-				$rainy++;
+		if (!$this->getServiceManager()->has($request))
+			return null;
 			
-			$chart[] = ['days' => $days, 'love' => $love, 'money' => $money, 'health' => $health, 'mood' => $mood];
-		}
-		
-		$sessionMind = new Container('mind');
-		$sessionMind->sunny = $sunny;
-		$sessionMind->rainy = $rainy;
-		return $chart;
+		return $this->getServiceManager()->get($request);
 	}
 	
 	public function getTypes()
@@ -260,7 +140,6 @@ class SearchManager implements ServiceManagerAwareInterface
 			default:
 				break;
 		};
-		
 	}
 	
 	private function setRecordMapping($mapping)

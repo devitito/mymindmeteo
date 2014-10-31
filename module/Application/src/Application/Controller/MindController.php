@@ -55,7 +55,7 @@ class MindController extends AbstractActionController
 		
 		$sm = $this->getServiceLocator()->get('search-manager');
 		try {
-			$nb = $sm->getTestedSensorCount($identity->getName());
+			$nb = $sm->request('count-completed-test', $identity->getName());
 		} catch (Exception $e) {
 			$nb = '-';
 		}
@@ -99,7 +99,7 @@ class MindController extends AbstractActionController
 		
 		$sm = $this->getServiceLocator()->get('search-manager');
 		try {
-			$chart = $sm->fetchMeteoChartData($identity);
+			$chart = $sm->request('meteo-chart', $identity);
 			return new JsonModel($chart);
 		} catch (\Elastica\Exception\InvalidException $e) {
 			$viewModel = new ViewModel();

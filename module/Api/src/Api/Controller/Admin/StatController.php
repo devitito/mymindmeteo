@@ -21,7 +21,36 @@ class StatController extends AbstractRestfulController
 		$identity = $this->identity();
 		$searchManager = $this->getServiceLocator()->get('search-manager');
 		try{
-			$stats = $searchManager->fetchAdminStatChartsData();			
+			$stats = [
+				'sensorPerTopic' => $searchManager->request('sensor-per-topic'),
+				'mostPopularSensor' => [
+				'1' => ['How is your caca?', '1021'],
+				'2' => ['Did you run out of toilet paper today?', '543'],
+				'3' => ['Did you quit your job today?', '521'],
+				'4' => ['What\'s your plan for tonight?', '328'],
+				'5' => ['Did you score yesterday?', '196']
+				],
+				'testPerDay' => [
+				'Monday' => 32,
+				'Tuesday' => 54,
+				'Wednesday' => 12,
+				'Thursday' => 23,
+				'Friday' => 32,
+				'Saturday' => 68,
+				'Sunday' => 98
+				],
+				'testPerHour' => [
+				'11' => 32,
+				'15' => 54,
+				'12' => 12,
+				'13' => 23,
+				'17' => 32,
+				'09' => 68,
+				'10' => 98,
+				'18' => 18,
+				'14' => 9,
+				'16' => 1,
+				]];
 			return new JsonModel($stats);
 		} catch (Exception $e) {
 			$this->getResponse()->setStatusCode(400);

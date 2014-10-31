@@ -238,6 +238,9 @@ return array(
         'invokables' => array(
         	'mind-manager' => 'Application\Services\MindManager\MindManager',
         	'search-manager' => 'Application\Services\SearchManager\SearchManager',
+        	'sensor-per-topic' => 'Application\Services\SearchManager\Adapters\SensorPerTopicAdapter',
+        	'count-completed-test' => 'Application\Services\SearchManager\Adapters\TestCompletedCountAdapter',
+        	'meteo-chart' => 'Application\Services\SearchManager\Adapters\MeteoChartAdapter',
         ),
         'shared' => array(
         	//'entity.mind' => false,

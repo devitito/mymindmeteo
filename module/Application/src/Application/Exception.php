@@ -9,6 +9,8 @@ class Exception extends \Exception
 	const UNKNOWN_MIND = 3;
 	const OPERATION_FAILED = 4;
 	const UNKNOWN_TYPE = 5;
+	const UNKNOWN_REQUEST = 6;
+	const REQUEST_FAILED = 6;
 
 	static protected $messages = array(
 		self::REGISTRATION_FAILED => 'We couldn\'t register you right now. Please try again later.',
@@ -16,6 +18,8 @@ class Exception extends \Exception
 		self::UNKNOWN_MIND => 'We couldn\'t identify you right now. Please try again later.',
 		self::OPERATION_FAILED => 'We couldn\'t complete the operation. Please try again later.',
 		self::UNKNOWN_TYPE => 'We couldn\'t index your document (type unknwon). Please try again later.',
+		self::UNKNOWN_REQUEST => 'There is no adapter for the requested statistic.',
+		self::REQUEST_FAILED => 'Collecting the requested statistic failed.',
 	);
 	
 	static public function factory ($code, $previous = null) 
