@@ -62,7 +62,7 @@ class SearchManager implements ServiceManagerAwareInterface
 	{
 		$adapter = $this->getAdapter($request);
 		if (!$adapter)
-			throw Exception::factory(Exception::UNKNOWN_REQUEST);
+			throw Exception::factory(Exception::REQUEST_FAILED);
 		
 		$searchObject = new \Elastica\Search($this->getElastica());
 		$searchObject->addIndex('mindmeteo');
@@ -126,6 +126,11 @@ class SearchManager implements ServiceManagerAwareInterface
 		return $this->elastica;
 	}
 	
+	/**
+	 * Create the index if necessary and map types
+	 * 
+	 * @return Elastica\Index
+	 */
 	public function getIndex()
 	{
 		if(!$this->index)
@@ -153,68 +158,17 @@ class SearchManager implements ServiceManagerAwareInterface
 		return $this;
 	}
 	
+	/**
+	 * Call type's mapper to define the mapping
+	 * 
+	 * @param string $type the type to map
+	 * @param \Elastica\Type\Mapping $mapping the mapping object
+	 */
 	protected function setMapping($type, $mapping)
 	{
-		switch ($type) {
-			case 'records':
-				$this->setRecordMapping($mapping);
-				break;
-				
-			case 'sensors':
-				$this->setSensorMapping($mapping);
-				break;
-				
-			default:
-				break;
-		};
-	}
-	
-	private function setRecordMapping($mapping)
-	{
-		// Set mapping
-		$mapping->setProperties(array(
-				'id'    => array('type' => 'string', 'include_in_all' => FALSE),
-				'topic'	=> array('type' => 'string', 'include_in_all' => TRUE),
-				'sample'     => array('type' => 'string', 'include_in_all' => TRUE),
-				'value'	=> array('type' => 'integer', 'include_in_all' => TRUE),
-				'tstamp'  => array('type' => 'date', "format" => "yyyy-MM-dd HH:mm:ss", 'include_in_all' => TRUE),
-				'day' => array('type' => 'string', 'include_in_all' => TRUE),
-				'hour' => array('type' => 'integer', 'include_in_all' => TRUE),
-				'timezone'  => array('type' => 'string', 'include_in_all' => TRUE),
-				'location'  => array('type' => 'geo_point', 'include_in_all' => TRUE),
-				'mind'  => array(
-						'type' => 'object',
-						'properties' => array(
-								'name'   => array('type' => 'string', 'include_in_all' => TRUE),
-								'email'  => array('type' => 'string', 'include_in_all' => TRUE),
-								'joindate'  => array('type' => 'date', "format" => "yyyy-MM-dd HH:mm:ss", 'include_in_all' => TRUE)
-						),
-				),
-				'sensor'  => array(
-						'type' => 'object',
-						'properties' => array(
-								'label'   		=> array('type' => 'string', 'include_in_all' => TRUE),
-								'meteologist'  	=> array('type' => 'string', 'include_in_all' => TRUE),
-						),
-				),
-		));
+		if (!$this->getServiceManager()->has('type-'.$type.'-mapping'))
+			return;
 			
-		// Send mapping to type
-		$mapping->send();
-	}
-	
-	private function setSensorMapping($mapping)
-	{
-		// Set mapping
-		$mapping->setProperties(array(
-			'id'    => array('type' => 'string', 'include_in_all' => FALSE),
-			'topic'	=> array('type' => 'string', 'include_in_all' => TRUE),
-			'label' => array('type' => 'string', 'include_in_all' => TRUE),
-			'tstamp'  => array('type' => 'date', "format" => "yyyy-MM-dd HH:mm:ss", 'include_in_all' => TRUE),
-			'meteologist'  => array('type' => 'string', 'include_in_all' => TRUE),
-		));
-			
-		// Send mapping to type
-		$mapping->send();
+		$this->getServiceManager()->get('type-'.$type.'-mapping')->setProperties($mapping);
 	}
 }

@@ -30,15 +30,7 @@ class StatController extends AbstractRestfulController
 				'4' => ['What\'s your plan for tonight?', '328'],
 				'5' => ['Did you score yesterday?', '196']
 				],
-				'testPerDay' => [
-				'Monday' => 32,
-				'Tuesday' => 54,
-				'Wednesday' => 12,
-				'Thursday' => 23,
-				'Friday' => 32,
-				'Saturday' => 68,
-				'Sunday' => 98
-				],
+				'testPerDay' => $searchManager->request('records-per-day', $identity->getLocale()),
 				'testPerHour' => $searchManager->request('records-per-hour')];
 			return new JsonModel($stats);
 		} catch (Exception $e) {
