@@ -101,7 +101,7 @@ adminServices.factory('statsFactory', ['$resource', function($resource){
 				
 			case 'testPerHour':
 				return [
-				      {id: "d", label: "Hour", type: "string"},
+				      {id: "h", label: "Hour", type: "string"},
 				      {id: "c", label: "Test completed", type: "number"}
 					];
 				break;

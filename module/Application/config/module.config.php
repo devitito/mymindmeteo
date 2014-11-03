@@ -20,25 +20,6 @@ return array(
                     ),
                 ),
             	'may_terminate' => true,
-           /* 	'child_routes' => array(
-            		'default' => array(
-            			'type'    => 'Segment',
-            			'options' => array(
-            				'route'    => ':mindname[/:action[/:sensorid/:sampleid]]',
-            				'constraints' => array(
-            					'mindname'     => '[a-zA-Z][a-zA-Z0-9-]*',
-            					'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-            				//	'sensorid'     => '[0-9]*',
-            				//	'sampleid'     => '[a-zA-Z][a-zA-Z0-9_-]*'
-            					),
-            				'defaults' => array(
-            					'controller' => 'Application\Controller\Mind',
-            					'action' => 'dashboard',
-            				),
-            			),
-            		),
-            	),*/
-            	
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -241,6 +222,7 @@ return array(
         	'sensor-per-topic' => 'Application\Services\SearchManager\Adapters\SensorPerTopicAdapter',
         	'count-completed-test' => 'Application\Services\SearchManager\Adapters\TestCompletedCountAdapter',
         	'meteo-chart' => 'Application\Services\SearchManager\Adapters\MeteoChartAdapter',
+        	'records-per-hour' => 'Application\Services\SearchManager\Adapters\RecordsPerHourAdapter',
         ),
         'shared' => array(
         	//'entity.mind' => false,

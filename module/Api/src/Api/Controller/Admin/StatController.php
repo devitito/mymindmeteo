@@ -39,18 +39,7 @@ class StatController extends AbstractRestfulController
 				'Saturday' => 68,
 				'Sunday' => 98
 				],
-				'testPerHour' => [
-				'11' => 32,
-				'15' => 54,
-				'12' => 12,
-				'13' => 23,
-				'17' => 32,
-				'09' => 68,
-				'10' => 98,
-				'18' => 18,
-				'14' => 9,
-				'16' => 1,
-				]];
+				'testPerHour' => $searchManager->request('records-per-hour')];
 			return new JsonModel($stats);
 		} catch (Exception $e) {
 			$this->getResponse()->setStatusCode(400);

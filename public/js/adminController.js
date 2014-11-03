@@ -156,7 +156,6 @@ var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'st
 		try {
 			var stats = angular.fromJson(stats);
 			angular.forEach(stats, function(key, value) {
-				console.log(key);
 				$scope[value] = {};
 				$scope[value].data = statsFactory.populate(value, key);
 				$scope[value].type = statsFactory.getType(value);

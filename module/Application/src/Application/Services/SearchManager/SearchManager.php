@@ -26,11 +26,21 @@ class SearchManager implements ServiceManagerAwareInterface
 	 */
 	protected $serviceManager;
 
+	/**
+	 * Clear all indexes
+	 * 
+	 */
 	public function clearAll()
 	{
 		$this->getIndex()->delete();
 	}
 	
+	/**
+	 * Index a document with the given type
+	 * 
+	 * @param string $type
+	 * @param IndexableInterface $document
+	 */
 	public function index($type, IndexableInterface $document)
 	{
 		$type = (string) $type;
@@ -42,6 +52,12 @@ class SearchManager implements ServiceManagerAwareInterface
 		$this->getIndex()->refresh();
 	}
 	
+	/**
+	 * Issue a request in elasticsearch
+	 * 
+	 * @param string $request the name of the service
+	 * @param string|array $options
+	 */
 	public function request($request, $options = null)
 	{
 		$adapter = $this->getAdapter($request);
@@ -59,6 +75,12 @@ class SearchManager implements ServiceManagerAwareInterface
 		return $adapter->parse($resultSet);
 	}
 	
+	/**
+	 * Fetch the adapater if any
+	 * 
+	 * @param string $request the name of the service
+	 * @return the service or null
+	 */
 	public function getAdapter($request)
 	{
 		if (!$this->getServiceManager()->has($request))
@@ -67,6 +89,11 @@ class SearchManager implements ServiceManagerAwareInterface
 		return $this->getServiceManager()->get($request);
 	}
 	
+	/**
+	 * Return the supported types
+	 * 
+	 * @return multitype:string
+	 */
 	public function getTypes()
 	{
 		return $this->types;
@@ -152,6 +179,7 @@ class SearchManager implements ServiceManagerAwareInterface
 				'value'	=> array('type' => 'integer', 'include_in_all' => TRUE),
 				'tstamp'  => array('type' => 'date', "format" => "yyyy-MM-dd HH:mm:ss", 'include_in_all' => TRUE),
 				'day' => array('type' => 'string', 'include_in_all' => TRUE),
+				'hour' => array('type' => 'integer', 'include_in_all' => TRUE),
 				'timezone'  => array('type' => 'string', 'include_in_all' => TRUE),
 				'location'  => array('type' => 'geo_point', 'include_in_all' => TRUE),
 				'mind'  => array(
