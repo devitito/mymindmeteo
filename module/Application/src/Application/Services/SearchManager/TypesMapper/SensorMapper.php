@@ -16,6 +16,14 @@ class SensorMapper implements TypesMapperInterface
 			'label' => array('type' => 'string', 'include_in_all' => TRUE),
 			'tstamp'  => array('type' => 'date', "format" => "yyyy-MM-dd HH:mm:ss", 'include_in_all' => TRUE),
 			'meteologist'  => array('type' => 'string', 'include_in_all' => TRUE),
+			'samples' => array(
+				'type' => 'nested',
+				'properties' => array(
+					'id'   => array('type' => 'string', 'include_in_all' => TRUE),
+					'label'   => array('type' => 'string', 'include_in_all' => TRUE),
+					'value'  => array('type' => 'integer', 'include_in_all' => TRUE),
+				),
+			)
 		));
 			
 		// Send mapping to type

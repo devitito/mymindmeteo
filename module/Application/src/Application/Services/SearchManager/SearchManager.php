@@ -47,7 +47,7 @@ class SearchManager implements ServiceManagerAwareInterface
 		if (!in_array($type, $this->types))
 			throw Exception::factory(Exception::UNKNOWN_TYPE);	
 		
-		$edocument = new \Elastica\Document($document->getId(), $document->toIndexable());
+		$edocument = new \Elastica\Document($document->getId(), $document->toIndexable($this->getServiceManager()));
 		$this->getIndex()->getType($type)->addDocument($edocument);
 		$this->getIndex()->refresh();
 	}
@@ -71,8 +71,12 @@ class SearchManager implements ServiceManagerAwareInterface
 		foreach($searchTypes as $type)
 			$searchObject->addType($type);
 		
-		$resultSet = $searchObject->search($adapter->query($options), $adapter->getSearchOptions());
-		return $adapter->parse($resultSet);
+		try {
+			$resultSet = $searchObject->search($adapter->query($options), $adapter->getSearchOptions());
+			return $adapter->parse($resultSet);
+		} catch (\Exception $e) {
+			return [$e->getMessage()];
+		}
 	}
 	
 	/**

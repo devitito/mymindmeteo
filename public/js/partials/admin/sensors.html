@@ -1,6 +1,47 @@
 <div class="col-lg-10">
-	<header><p>sensors</p></header>
-	<p>list of sensors (approved, to be approved)</p>
-	<p>Modify a sensor (label..)</p>
-	<p>Delegate approval to a validator</p>
+	<br>
+	<div class="clearfix"></div>
+    <div loading-container="tableParams.settings().$loading"> 
+		<table ng-table="tableParams" class="table">
+	        <tr ng-repeat="sensor in $data">
+	            <td data-title="'Label'">
+	                <span ng-if="!sensor.$edit">{{sensor.label}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.label" /></div>
+	            </td>
+	         	<td data-title="'Positive Sample'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[0].label}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].label" /></div>
+	            </td>
+	            <td data-title="'Positive Sample value'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[0].value}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].value" /></div>
+	            </td>
+	            <td data-title="'Negative Sample'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[1].label}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].label" /></div>
+	            </td>
+	             <td data-title="'Negative Sample value'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[1].value}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].value" /></div>
+	            </td>
+	            <td data-title="'Topic'">
+	                <span ng-if="!sensor.$edit">{{sensor.topic}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.topic" /></div>
+	            </td>
+	            <td data-title="'Meteologist'">
+	                <span ng-if="!sensor.$edit">{{sensor.meteologist}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.meteologist" /></div>
+	            </td>
+	            <td data-title="'Status'">
+	                <span ng-if="!sensor.$edit">{{sensor.status}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.status" /></div>
+	            </td>
+	            <td data-title="'Actions'">
+	                <a ng-if="!sensor.$edit" href="" class="btn btn-default btn-xs" ng-click="sensor.$edit = true">Edit</a>
+	                <a ng-if="sensor.$edit" href="" class="btn btn-primary btn-xs" ng-click="sensor.$edit = false">Save</a>
+	            </td>
+	        </tr>
+	    </table> 
+    </div>
+	<p>todo : Delegate approval to a validator</p>
 </div>

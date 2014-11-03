@@ -54,6 +54,9 @@ return array(
 				'Api\Controller\Admin\Stat' => array(
 					'all' => 'admin',
 				),
+				'Api\Controller\Admin\Sensor' => array(
+					'all' => 'admin',
+				),
 				'Application\Controller\Index' => array(
 					'index' => 'guest',
 					'join' => 'guest',

@@ -3,6 +3,7 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  *
@@ -44,7 +45,7 @@ class Record implements \ArrayAccess, IndexableInterface
 	 */
 	protected $date;
 	
-	public function toIndexable()
+	public function toIndexable(ServiceManager $serviceManager)
 	{
 		return array(
 		    'id'      => $this->getId(),

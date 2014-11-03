@@ -166,7 +166,27 @@ var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'st
 		};
 }]);
 
-adminControllers.controller('sensorsCtrl', ['$scope', 
-    function ($scope) {
-	
+adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout',
+    function ($scope, ngTableParams, $sce, $resource, $timeout) {
+		var Api = $resource('/api/admin/sensors', {}, {
+			query: {method:'GET', isArray:false}
+		});
+
+		$scope.tableParams = new ngTableParams({
+			page: 1,            // show first page
+            count: 10           // count per page
+        }, {
+        	counts: [], // hide page counts control
+        	total:0, // length of data
+        	getData: function($defer, params) {
+        		Api.query(params.url(), function(data) {
+        			$timeout(function() {
+        				// update table params
+        				params.total(data.total);
+        				// set new data
+        				$defer.resolve(data.result);
+        			}, 500);
+        		}); 
+        	}
+        }); 
 }]);

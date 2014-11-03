@@ -3,6 +3,7 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  *
@@ -96,15 +97,21 @@ class Sensor implements \ArrayAccess, IndexableInterface
 		return $this;
 	}
 	
-	public function toIndexable()
+	public function toIndexable(ServiceManager $serviceManager)
 	{
+		$samples = $serviceManager->get('doctrine.entitymanager.orm_default')->getRepository('Application\Entity\Sample')->findBy(['sensor' => $this->getId()]);
+		$sampleArray= [];
+		foreach($samples as $sample) {
+			$sampleArray [] = ['id' => $sample->getId(), 'label' => $sample->getLabel(), 'value' => $sample->getValue()];
+		}
+		
 		return array(
 			'id'      => $this->getId(),
 			'topic' => $this->getTopic(),
 			'label' => $this->getLabel(),
 			'meteologist' => $this->getMeteologist(),
 			'tstamp'  => (new \DateTime("now"))->format('Y-m-d H:i:s'),
+			'samples' => $sampleArray
 		);
-	
 	}
 }

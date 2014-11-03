@@ -74,6 +74,18 @@ return array(
         			),
         		),
         	),
+        	'sensors' => array(
+        		'type' => 'segment',
+        		'options' => array(
+        			'route' => '/api/admin/sensors[/:id]',
+        			'constraints' => array(
+        				//	'id' => '[0-9]+',
+        			),
+        			'defaults' => array(
+        				'controller' => 'Api\Controller\Admin\Sensor'
+        			),
+        		),
+        	),
         ),
     ),
     'service_manager' => array(),
@@ -82,7 +94,8 @@ return array(
             'Api\Controller\Validate' => 'Api\Controller\ValidateController',
             'Api\Controller\Admin' => 'Api\Controller\AdminController',
             'Api\Controller\Admin\Mind' => 'Api\Controller\Admin\MindController',
-            'Api\Controller\Admin\Stat' => 'Api\Controller\Admin\StatController'
+            'Api\Controller\Admin\Stat' => 'Api\Controller\Admin\StatController',
+            'Api\Controller\Admin\Sensor' => 'Api\Controller\Admin\SensorController'
         ),
     ),
 	'view_manager' => array(

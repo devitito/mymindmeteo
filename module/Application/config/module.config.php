@@ -219,12 +219,13 @@ return array(
         'invokables' => array(
         	'mind-manager' => 'Application\Services\MindManager\MindManager',
         	'search-manager' => 'Application\Services\SearchManager\SearchManager',
-        	//stats requests
+        	//elasitcsearch requests
         	'sensor-per-topic' => 'Application\Services\SearchManager\Adapters\SensorPerTopicAdapter',
         	'count-completed-test' => 'Application\Services\SearchManager\Adapters\TestCompletedCountAdapter',
         	'meteo-chart' => 'Application\Services\SearchManager\Adapters\MeteoChartAdapter',
         	'records-per-hour' => 'Application\Services\SearchManager\Adapters\RecordsPerHourAdapter',
         	'records-per-day' => 'Application\Services\SearchManager\Adapters\RecordsPerDayAdapter',
+        	'sensor-list' => 'Application\Services\SearchManager\Adapters\SensorListAdapter',
         	//types mapper
         	'type-records-mapping' => 'Application\Services\SearchManager\TypesMapper\RecordMapper',
         	'type-sensors-mapping' => 'Application\Services\SearchManager\TypesMapper\SensorMapper',

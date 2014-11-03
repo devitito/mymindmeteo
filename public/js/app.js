@@ -1,4 +1,4 @@
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart']);
 
 mindmeteo.config(['$routeProvider',
 function($routeProvider) {
