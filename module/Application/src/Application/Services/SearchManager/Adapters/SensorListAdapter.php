@@ -44,7 +44,8 @@ class SensorListAdapter implements SearchAdapterInterface
 		$data = [];
 		foreach($results as $result) {
 			$source = $result->getSource();
-			$data[] = [	'label' => $source['label'], 
+			$data[] = [	'id' => $source['id'],
+						'label' => $source['label'], 
 						'samples' => $source['samples'], 
 						'topic' => $source['topic'], 	
 						'meteologist' => $source['meteologist'], 

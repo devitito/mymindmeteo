@@ -24,6 +24,7 @@ CREATE TABLE mymeteo.sensors (
   img varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   topic varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   meteologist varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  status varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

@@ -42,6 +42,11 @@ class Sensor implements \ArrayAccess, IndexableInterface
 	 */
 	protected $meteologist;
 	
+	/**
+	 * @ORM\Column(name="status", type="string", length=32, nullable=false, unique=false)
+	 */
+	protected $status;
+	
 	public function getId()
 	{
 		return $this->id;
@@ -97,18 +102,30 @@ class Sensor implements \ArrayAccess, IndexableInterface
 		return $this;
 	}
 	
+	public function getStatus()
+	{
+		return $this->status;
+	}
+	
+	public function setStatus($value)
+	{
+		$this->status = $value;
+		return $this;
+	}
+	
 	public function toIndexable(ServiceManager $serviceManager)
 	{
 		$samples = $serviceManager->get('doctrine.entitymanager.orm_default')->getRepository('Application\Entity\Sample')->findBy(['sensor' => $this->getId()]);
 		$sampleArray= [];
 		foreach($samples as $sample) {
-			$sampleArray [] = ['id' => $sample->getId(), 'label' => $sample->getLabel(), 'value' => $sample->getValue()];
+			$sampleArray [] = ['id' => $sample->getId(), 'label' => $sample->getLabel(), 'value' => $sample->getValue(), 'topic' => $sample->getTopic()];
 		}
 		
 		return array(
 			'id'      => $this->getId(),
 			'topic' => $this->getTopic(),
 			'label' => $this->getLabel(),
+			'status' => $this->getStatus(),
 			'meteologist' => $this->getMeteologist(),
 			'tstamp'  => (new \DateTime("now"))->format('Y-m-d H:i:s'),
 			'samples' => $sampleArray

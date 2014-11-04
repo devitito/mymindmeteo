@@ -166,10 +166,11 @@ var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'st
 		};
 }]);
 
-adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout',
-    function ($scope, ngTableParams, $sce, $resource, $timeout) {
-		var Api = $resource('/api/admin/sensors', {}, {
-			query: {method:'GET', isArray:false}
+adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout', '$rootScope',
+    function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope) {
+		var Api = $resource('/api/admin/sensors/:id', {id: '@id'}, {
+			query: {method:'GET', isArray:false},
+			update: {method:'PUT'}
 		});
 
 		$scope.tableParams = new ngTableParams({
@@ -189,4 +190,31 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
         		}); 
         	}
         }); 
+		
+		$scope.update = function(index) {
+			var data = $scope.tableParams.settings().$scope.$data[index];
+			Api.update(data.id, data,
+					function(success) {
+						$rootScope.$broadcast('sensor.post.edit', data);
+				//		$scope.tableParams.reload();
+				//		flash.setMessage('Sensor updated successfully!');
+						data.$edit = false;
+						//$location.path('/minds/edited/result/'+$scope.mind.id+'/1');
+					},
+					function(errors) {
+				/*		try {
+							var list = angular.fromJson(errors).data;
+							angular.forEach(list, function (key, value) {
+								flash.setMessage(angular.fromJson(key).recordFound);
+							}) ;
+						} catch (e) {
+							flash.setMessage('An error occured while applying the changes');
+						}*/
+						//$location.path('/minds/edited/result/'+$scope.mind.id+'/0');
+					//	$scope.tableParams.reload();
+						data.$edit = false;
+					}
+					
+				);
+			};
 }]);

@@ -4,9 +4,7 @@ namespace Api\Controller\Admin;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
-use Zend\I18n\View\Helper\DateFormat;
-use IntlDateFormatter;
-use Application\Entity\Mind;
+use Application\Entity\Sample;
 use Application\Exception;
 
 class SensorController extends AbstractRestfulController 
@@ -52,26 +50,40 @@ class SensorController extends AbstractRestfulController
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel([$e->getMessage()]);
 		}
-	}
+	}*/
 	
 	public function update($id, $data)
 	{
 		$identity = $this->identity();
-		$mindManager = $this->getServiceLocator()->get('mind-manager');
-		$res = $mindManager->isValid($data);
+		try {
+			//@todo validate data
 			
-		if ($res['result']) {
-			$mind = new Mind($data);
-			$mindManager->save($mind);
-			return new JsonModel(['id' => $mind->getId()]);
-		}
-		else {
-			$errorMessages = $res['messages'];
+			//Get sensor and sample & update
+			$existingSensor = $this->getEntityManager()->getRepository('\Application\Entity\Sensor')->find($id);
+			$existingSensor->setLabel($data['label']);
+			$existingSensor->setTopic($data['topic']);
+			$existingSensor->setMeteologist($data['meteologist']);
+			$existingSensor->setStatus($data['status']);
+			
+			foreach($data['samples'] as $sample) {
+				$existingSample = $this->getEntityManager()->getRepository('\Application\Entity\Sample')->find($sample['id']);
+				$existingSample->setLabel($sample['label']);
+				$existingSample->setTopic($sample['topic']);
+				$existingSample->setValue($sample['value']);
+			}
+
+			$this->getEntityManager()->flush();
+			
+			//index the updated sensor in elasticsearch
+			$this->getEventManager()->trigger('sensor.post', $this, ['sensor' => $existingSensor]);
+			return new JsonModel(['id' => $existingSensor->getId()]);
+		} catch (Exception $e) {
+			$errorMessages = $e->getMessage();
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel($errorMessages);
 		}
 	}
-	
+	/*
 	public function create($data)
 	{
 		$identity = $this->identity();

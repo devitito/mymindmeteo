@@ -4,7 +4,7 @@
     <div loading-container="tableParams.settings().$loading"> 
 		<table ng-table="tableParams" class="table">
 	        <tr ng-repeat="sensor in $data">
-	            <td data-title="'Label'">
+	            <td data-title="'Label'" style="with:20%;">
 	                <span ng-if="!sensor.$edit">{{sensor.label}}</span>
 	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.label" /></div>
 	            </td>
@@ -12,7 +12,7 @@
 	                <span ng-if="!sensor.$edit">{{sensor.samples[0].label}}</span>
 	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].label" /></div>
 	            </td>
-	            <td data-title="'Positive Sample value'">
+	            <td data-title="'Pos. Sample val.'">
 	                <span ng-if="!sensor.$edit">{{sensor.samples[0].value}}</span>
 	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].value" /></div>
 	            </td>
@@ -20,7 +20,7 @@
 	                <span ng-if="!sensor.$edit">{{sensor.samples[1].label}}</span>
 	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].label" /></div>
 	            </td>
-	             <td data-title="'Negative Sample value'">
+	             <td data-title="'Neg. Sample val.'">
 	                <span ng-if="!sensor.$edit">{{sensor.samples[1].value}}</span>
 	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].value" /></div>
 	            </td>
@@ -38,7 +38,7 @@
 	            </td>
 	            <td data-title="'Actions'">
 	                <a ng-if="!sensor.$edit" href="" class="btn btn-default btn-xs" ng-click="sensor.$edit = true">Edit</a>
-	                <a ng-if="sensor.$edit" href="" class="btn btn-primary btn-xs" ng-click="sensor.$edit = false">Save</a>
+	                <a ng-if="sensor.$edit" href="" class="btn btn-primary btn-xs" ng-click="update($index)">Save</a>
 	            </td>
 	        </tr>
 	    </table> 

@@ -49,7 +49,7 @@ class Module implements Feature\FormElementProviderInterface
         	}
         });
         
-       	$sharedEventManager->attach('Zend\Mvc\Controller\AbstractActionController', 'sensor.post', function ($e) {
+       	$sharedEventManager->attach('Zend\Mvc\Controller\AbstractController', 'sensor.post', function ($e) {
        		$sm = $e->getTarget()->getServiceLocator()->get('search-manager');
         	try {
         		$sm->index('sensors', $e->getParams()['sensor']);
