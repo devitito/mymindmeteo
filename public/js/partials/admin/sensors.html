@@ -1,7 +1,7 @@
 <div class="col-lg-10">
 	<br>
 	<section id="search_container" class="active">
-		<form novalidate="novalidate" id="blog_search" role="search" ng-submit="tableParams.reload()">
+		<form novalidate="novalidate" id="blog_search" role="search" ng-submit="doFilter()">
 				<input id="s" name="s" class="form-control input-lg" placeholder="search" autocomplete="off" tabindex="1" type="text" ng-model="filterTxt">
 				<ul style="display: none;" id="results"></ul>
 		</form>

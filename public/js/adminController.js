@@ -191,6 +191,11 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
         	}
         }); 
 				
+		$scope.doFilter = function () {
+			$scope.tableParams.page(1);
+			$scope.tableParams.reload();
+		};
+		
 		$scope.update = function(index) {
 			var data = $scope.tableParams.settings().$scope.$data[index];
 			Api.update(data.id, data,
