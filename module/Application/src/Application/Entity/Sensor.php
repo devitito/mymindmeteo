@@ -45,7 +45,7 @@ class Sensor implements \ArrayAccess, IndexableInterface
 	/**
 	 * @ORM\Column(name="status", type="string", length=32, nullable=false, unique=false)
 	 */
-	protected $status;
+	protected $status = 'approved';
 	
 	public function getId()
 	{
