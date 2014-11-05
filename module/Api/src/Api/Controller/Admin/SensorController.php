@@ -21,15 +21,16 @@ class SensorController extends AbstractRestfulController
 		try{
 			$count = $this->params()->fromQuery('count');
 			$page = $this->params()->fromQuery('page');
+			$filter = $this->params()->fromQuery('filter');
 			
-			$sensors = $searchManager->request('sensor-list', ['count' => $count, 'page' => $page]);
+			$sensors = $searchManager->request('sensor-list', ['count' => $count, 'page' => $page, 'filter' => $filter]);
 			return new JsonModel($sensors);
 		} catch (Exception $e) {
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel($e->getMessage());
 		}
 	}
-	/*
+/*	
 	public function get($id)
 	{
 		$identity = $this->identity();
@@ -50,8 +51,8 @@ class SensorController extends AbstractRestfulController
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel([$e->getMessage()]);
 		}
-	}*/
-	
+	}
+*/	
 	public function update($id, $data)
 	{
 		$identity = $this->identity();

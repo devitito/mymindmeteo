@@ -1,5 +1,11 @@
 <div class="col-lg-10">
 	<br>
+	<section id="search_container" class="active">
+		<form novalidate="novalidate" id="blog_search" role="search" ng-submit="tableParams.reload()">
+				<input id="s" name="s" class="form-control input-lg" placeholder="search" autocomplete="off" tabindex="1" type="text" ng-model="filterTxt">
+				<ul style="display: none;" id="results"></ul>
+		</form>
+	</section>
 	<div class="clearfix"></div>
     <div loading-container="tableParams.settings().$loading"> 
 		<table ng-table="tableParams" class="table">
@@ -43,5 +49,4 @@
 	        </tr>
 	    </table> 
     </div>
-	<p>todo : Delegate approval to a validator</p>
 </div>
