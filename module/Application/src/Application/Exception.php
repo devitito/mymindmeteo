@@ -10,7 +10,8 @@ class Exception extends \Exception
 	const OPERATION_FAILED = 4;
 	const UNKNOWN_TYPE = 5;
 	const UNKNOWN_REQUEST = 6;
-	const REQUEST_FAILED = 6;
+	const REQUEST_FAILED = 7;
+	const DO_QUERY_FAILED = 8;
 
 	static protected $messages = array(
 		self::REGISTRATION_FAILED => 'We couldn\'t register you right now. Please try again later.',
@@ -20,6 +21,7 @@ class Exception extends \Exception
 		self::UNKNOWN_TYPE => 'We couldn\'t index your document (type unknwon). Please try again later.',
 		self::UNKNOWN_REQUEST => 'There is no adapter for the requested statistic.',
 		self::REQUEST_FAILED => 'Collecting the requested statistic failed.',
+		self::DO_QUERY_FAILED => 'Failed to assemble the search query.',
 	);
 	
 	static public function factory ($code, $previous = null) 

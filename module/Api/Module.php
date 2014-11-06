@@ -11,6 +11,7 @@ namespace Api;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Api\Http\MindMeteoRequest;
 
 class Module
 {
@@ -35,5 +36,16 @@ class Module
                 ),
             ),
         );
+    }
+    
+    public function getServiceConfig()
+    {
+    	return array(
+    		'factories' => array(
+    			'Request' => function($sm) {
+    				return new MindMeteoRequest();
+    			}
+    		)
+    	);
     }
 }

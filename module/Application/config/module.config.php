@@ -229,6 +229,8 @@ return array(
         	//types mapper
         	'type-records-mapping' => 'Application\Services\SearchManager\TypesMapper\RecordMapper',
         	'type-sensors-mapping' => 'Application\Services\SearchManager\TypesMapper\SensorMapper',
+        	//Suggesters
+        	'sensor-suggest' => 'Application\Services\SearchManager\Adapters\SensorSuggestAdapter'
         ),
         'shared' => array(
         	//'entity.mind' => false,

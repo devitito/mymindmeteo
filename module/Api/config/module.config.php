@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -88,7 +89,6 @@ return array(
         	),
         ),
     ),
-    'service_manager' => array(),
     'controllers' => array(
         'invokables' => array(
             'Api\Controller\Validate' => 'Api\Controller\ValidateController',

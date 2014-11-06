@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Application\Entity\Sample;
 use Application\Exception;
+use Api\Http\MindMeteoRequest;
 
 class SensorController extends AbstractRestfulController 
 {
@@ -13,6 +14,11 @@ class SensorController extends AbstractRestfulController
 	 * @var Doctrine\ORM\EntityManager
 	 */
 	protected $entityManager;
+	
+	public function __construct()
+	{
+		$this->addHttpMethodHandler(MindMeteoRequest::METHOD_SUGGEST, array($this, 'suggest'));
+	}
 	
 	public function getList()
 	{
@@ -84,6 +90,21 @@ class SensorController extends AbstractRestfulController
 			return new JsonModel($errorMessages);
 		}
 	}
+	
+	public function suggest()
+	{
+		$identity = $this->identity();
+		$searchManager = $this->getServiceLocator()->get('search-manager');
+		try{
+			$filter = $this->params()->fromQuery('filter');
+			$sensors = $searchManager->request('sensor-suggest', ['filter' => $filter]);
+			return new JsonModel($sensors);
+		} catch (Exception $e) {
+			$this->getResponse()->setStatusCode(400);
+			return new JsonModel($e->getMessage());
+		}
+	}
+	
 	/*
 	public function create($data)
 	{

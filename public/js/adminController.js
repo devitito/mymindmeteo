@@ -170,7 +170,8 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
     function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope, $filter, $q) {
 		var Api = $resource('/api/admin/sensors/:id', {id: '@id'}, {
 			query: {method:'GET', params:{filter: function() {return $scope.filterTxt}}, isArray:false},
-			update: {method:'PUT'}
+			update: {method:'PUT'},
+			suggest: {method:'SUGGEST', params:{filter: function() {return $scope.filterTxt}}, isArray:true}
 		});
 
 		$scope.tableParams = new ngTableParams({
@@ -180,6 +181,7 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
         	counts: [], // hide page counts control
         	total:0, // length of data
         	getData: function($defer, params) {
+        		$scope.suggestions = [];
         		Api.query(params.url(), function(data) {
         			$timeout(function() {
         				// update table params
@@ -199,15 +201,41 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
 		$scope.update = function(index) {
 			var data = $scope.tableParams.settings().$scope.$data[index];
 			Api.update(data.id, data,
-					function(success) {
-						$rootScope.$broadcast('sensor.post.edit');
-						data.$edit = false;
-					},
-					function(errors) {
-						//todo
-						data.$edit = false;
-					}
-					
-				);
-			};
+				function(success) {
+					$rootScope.$broadcast('sensor.post.edit');
+					data.$edit = false;
+				},
+				function(errors) {
+					//todo
+					data.$edit = false;
+				}
+			);
+		};
+		
+		var doSuggest = function () {
+			prevent = true;
+			Api.suggest(
+				function(success) {
+					$scope.suggestions = success;
+					prevent = false;
+				},
+				function(errors) {
+					$scope.suggestions = [];
+					prevent = false;
+				}
+			);
+		};
+		
+		$scope.suggestions = [];
+		var prevent = false;
+		var timer;
+		$scope.suggest = function(event) {
+			$scope.suggestions = [];
+			if (($scope.filterTxt.length > 3) && (event.keyCode != 13) && (prevent == false)) {
+				$timeout.cancel(timer);
+				timer = $timeout(doSuggest, 1000);
+			}
+		};
+		
+		
 }]);
