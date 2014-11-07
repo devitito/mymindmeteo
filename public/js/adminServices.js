@@ -6,6 +6,14 @@ adminServices.factory('mindFactory', ['$resource', function($resource){
     });
 }]);
 
+adminServices.factory('sensorFactory', ['$resource', function($resource){
+	return $resource('/api/admin/sensors/:id', {id: '@id'}, {
+		query: {method:'GET', isArray:false},
+		update: {method:'PUT'},
+		suggest: {method:'SUGGEST', isArray:true}
+	});
+}]);
+
 adminServices.factory('statsFactory', ['$resource', function($resource){
 	var factory = {};
 	

@@ -25,6 +25,26 @@ function($routeProvider) {
          templateUrl: '/js/partials/admin/sensors.html',
          controller: 'sensorsCtrl'
     }).
+    when('/sensors/edit/:sensorId', {
+        templateUrl: '/js/partials/sensor/edit.html',
+        controller: 'EditSensorCtrl',
+        resolve: {
+        	sensor: function(sensorFactory, $q, $route) {
+        		  var deferred = $q.defer();
+        		  sensorFactory.get({id:$route.current.params.sensorId},
+        			  function(data){
+        				  deferred.resolve(data); 
+        			  }, function(errorData) {
+        				  deferred.resolve('An error occured while retreiving the requested data');
+        		});
+        		return deferred.promise;
+        	  },
+        	  identity: function(identityService, $q) {
+        			var deferred = $q.defer();
+        			return identityService.get(deferred);
+        	  }
+        }
+   }).
     when('/minds', {
         templateUrl: '/js/partials/admin/minds.html',
         controller: 'mindsCtrl',

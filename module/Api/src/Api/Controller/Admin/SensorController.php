@@ -36,29 +36,20 @@ class SensorController extends AbstractRestfulController
 			return new JsonModel($e->getMessage());
 		}
 	}
-/*	
+	
 	public function get($id)
 	{
 		$identity = $this->identity();
 		try{
-			$mind = $this->getEntityManager()->getRepository('Application\Entity\Mind')->find($id);
-			$dateformat = new DateFormat();
-			$date = $dateformat($mind->getJoindate(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE, $identity->getLocale());
-			$data = [	'id' => $mind->getId(), 
-						'name' => $mind->getName(), 
-						'email' => $mind->getEmail(),
-						'joindate' => $mind->getJoindate()->format('Y-m-d'),
-						'locale_joindate' => $date, 
-						'role' => $mind->getRole(), 
-						'locale' => $mind->getLocale(),
-						'timezone' => $mind->getTimezone()];
-			return new JsonModel($data);
+			$searchManager = $this->getServiceLocator()->get('search-manager');
+			$sensor = $searchManager->request('sensor-get', ['id' => $id]);
+			return new JsonModel($sensor);
 		} catch (Exception $e) {
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel([$e->getMessage()]);
 		}
 	}
-*/	
+	
 	public function update($id, $data)
 	{
 		$identity = $this->identity();

@@ -226,6 +226,7 @@ return array(
         	'records-per-hour' => 'Application\Services\SearchManager\Adapters\RecordsPerHourAdapter',
         	'records-per-day' => 'Application\Services\SearchManager\Adapters\RecordsPerDayAdapter',
         	'sensor-list' => 'Application\Services\SearchManager\Adapters\SensorListAdapter',
+        	'sensor-get' => 'Application\Services\SearchManager\Adapters\SensorGetAdapter',
         	//types mapper
         	'type-records-mapping' => 'Application\Services\SearchManager\TypesMapper\RecordMapper',
         	'type-sensors-mapping' => 'Application\Services\SearchManager\TypesMapper\SensorMapper',

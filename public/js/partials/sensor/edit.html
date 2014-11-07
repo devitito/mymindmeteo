@@ -1,0 +1,29 @@
+<div class="col-lg-10">
+	<div class="col-lg-7" ng-hide="error">
+	 <form>
+		<h1>Edit sensor ({{sensor.id}})</h1>
+			<div class="from-group">
+				<label class="form-label">Created on : </label>
+				<span id="createdOn">{{sensor.createdOn}}</span>
+			</div>
+			<div class="from-group">
+				<label class="form-label" for="status">Status : </label>
+				<select class="form-control input-lg" id="status" required="true" ng-model="sensor.status"></select>
+			</div>
+			<div class="from-group">
+				<label class="form-label" for="meteologist">Meteologist : </label>
+				<input class="form-control input-lg" id="meteologist" type="text" required="true" ng-model="sensor.meteologist"></input>
+			</div>
+			<div class="from-group">
+				<label class="form-label" for="label">Label : </label>
+				<input class="form-control input-lg" id="label" type="text" required="true" ng-model="sensor.label"></input>
+			</div>
+		<br>
+		<div class="form-actions">	
+			<button ng-click="go('/sensors')" class="btn btn-default">Cancel</button>
+			<button ng-click="update()" class="btn btn-meteo">Update</button>
+			<button ng-click="delete()" class="btn btn-warning">Delete</button>
+		</div>
+	</form>
+	</div>
+</div>

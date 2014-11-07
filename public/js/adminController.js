@@ -166,14 +166,12 @@ var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'st
 		};
 }]);
 
-adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout', '$rootScope', '$filter', '$q',
-    function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope, $filter, $q) {
-		var Api = $resource('/api/admin/sensors/:id', {id: '@id'}, {
-			query: {method:'GET', params:{filter: function() {return $scope.filterTxt}}, isArray:false},
-			update: {method:'PUT'},
-			suggest: {method:'SUGGEST', params:{filter: function() {return $scope.filterTxt}}, isArray:true}
-		});
-
+adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout', '$rootScope', '$filter', '$q', 'sensorFactory',
+    function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope, $filter, $q, sensorFactory) {
+		var timer;
+		var prevent = false;
+		$scope.suggestions = [];
+	
 		$scope.tableParams = new ngTableParams({
 			page: 1,            // show first page
             count: 10           // count per page
@@ -182,25 +180,29 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
         	total:0, // length of data
         	getData: function($defer, params) {
         		$scope.suggestions = [];
-        		Api.query(params.url(), function(data) {
+        		sensorFactory.query(params.url(), function(data) {
         			$timeout(function() {
         				// update table params
         				params.total(data.total);
         				// set new data
         				$defer.resolve(data.result);
+        				prevent = false;
         			}, 500);
         		}); 
         	}
         }); 
 				
 		$scope.doFilter = function () {
+			prevent = true;
+			$scope.tableParams.parameters({'filter':$scope.filterTxt}, true);
 			$scope.tableParams.page(1);
-			$scope.tableParams.reload();
+			//table is reloaded when params changes
+			//$scope.tableParams.reload();
 		};
 		
 		$scope.update = function(index) {
 			var data = $scope.tableParams.settings().$scope.$data[index];
-			Api.update(data.id, data,
+			sensorFactory.update(data.id, data,
 				function(success) {
 					$rootScope.$broadcast('sensor.post.edit');
 					data.$edit = false;
@@ -214,7 +216,7 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
 		
 		var doSuggest = function () {
 			prevent = true;
-			Api.suggest(
+			sensorFactory.suggest({'filter':$scope.filterTxt},
 				function(success) {
 					$scope.suggestions = success;
 					prevent = false;
@@ -226,16 +228,20 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
 			);
 		};
 		
-		$scope.suggestions = [];
-		var prevent = false;
-		var timer;
 		$scope.suggest = function(event) {
 			$scope.suggestions = [];
+			$timeout.cancel(timer);
 			if (($scope.filterTxt.length > 3) && (event.keyCode != 13) && (prevent == false)) {
-				$timeout.cancel(timer);
 				timer = $timeout(doSuggest, 1000);
 			}
 		};
-		
-		
+}]);
+
+var EditSensorCtrl = adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor',
+    function ($scope, $location, sensor) {
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+	
+		$scope.sensor = sensor;// {id: $route.current.params.sensorId, createdOn: '13 Jul 2014', meteologist: 'Mind Meteo', label : 'a label'};
 }]);

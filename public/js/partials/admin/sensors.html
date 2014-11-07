@@ -8,7 +8,7 @@
 						ng-model="filterTxt"
 						ng-keyup="suggest($event)">
 				<ul id="results" style="display: block;" ng-show="suggestions">
-					<li ng-repeat="suggestion in suggestions"><a class="selected" href="/sensors/edit/{{suggestion.id}}">
+					<li ng-repeat="suggestion in suggestions"><a class="selected" href="administrator#/sensors/edit/{{suggestion.id}}">
 						<h4><span><strong>{{suggestion.topic}} </strong></span>» {{suggestion.label}}</h4>
 					</a></li>
 				</ul>
