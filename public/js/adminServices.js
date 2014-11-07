@@ -200,6 +200,12 @@ adminServices.factory('roles', [function(){
 		        {code:'admin', name:'Administrator'}];
 }]);
 
+adminServices.factory('sensorStatus', [function(){
+	return [{code:'unapproved', name:'Unapproved'},
+	        {code:'approved', name:'Approved'},
+	        {code:'assigned', name:'Assigned'}];
+}]);
+
 adminServices.factory('timezones', [function(){
 	return ['Europe/Paris', 'Europe/London'];
 }]);

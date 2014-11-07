@@ -17,8 +17,8 @@
 	</section>
 	<div class="clearfix"></div>
     <div loading-container="tableParams.settings().$loading"> 
-		<table ng-table="tableParams" class="table">
-	        <tr ng-repeat="sensor in $data">
+		<table ng-table="tableParams" class="table table-hover">
+	        <tr ng-repeat="sensor in $data" ng-click="go('/sensors/edit/'+sensor.id)">
 	            <td data-title="'Label'" style="with:20%;">
 	                <span ng-if="!sensor.$edit">{{sensor.label}}</span>
 	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.label" /></div>
@@ -51,10 +51,10 @@
 	                <span ng-if="!sensor.$edit">{{sensor.status}}</span>
 	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.status" /></div>
 	            </td>
-	            <td data-title="'Actions'">
+	            <!-- td data-title="'Actions'">
 	                <a ng-if="!sensor.$edit" href="" class="btn btn-default btn-xs" ng-click="sensor.$edit = true">Edit</a>
 	                <a ng-if="sensor.$edit" href="" class="btn btn-primary btn-xs" ng-click="update($index)">Save</a>
-	            </td>
+	            </td-->
 	        </tr>
 	    </table> 
     </div>

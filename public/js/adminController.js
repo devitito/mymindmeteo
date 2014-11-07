@@ -26,7 +26,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 				function(success) {
 					$rootScope.$broadcast('mind.post.edit', mind);
 					flash.setMessage('Mind updated successfully!');
-					$location.path('/minds/edited/result/'+$scope.mind.id+'/1');
+					$location.path('/edited/result/minds/'+$scope.mind.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -37,7 +37,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 					} catch (e) {
 						flash.setMessage('An error occured while applying the changes');
 					}
-					$location.path('/minds/edited/result/'+$scope.mind.id+'/0');
+					$location.path('/edited/result/mind/'+$scope.mind.id+'/0');
 				}
 			);
 		};
@@ -72,7 +72,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 		}
 		else {
 			flash.setMessage('An error occured while fetching the data');
-			$location.path('/minds/edited/result/0/1');
+			$location.path('/edited/result/minds/0/1');
 		}
 }]);
 
@@ -93,14 +93,17 @@ EditMindCtrl.resolve = {
   }
 };
 
-var EditedMindCtrl = adminControllers.controller('EditedMindCtrl', ['$scope', '$location', 'flash', '$routeParams',
+var EditedCtrl = adminControllers.controller('EditedCtrl', ['$scope', '$location', 'flash', '$routeParams',
     function ($scope, $location, flash, $routeParams) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
 		
-		$scope.id = $routeParams.id;
+	//	$scope.id = $routeParams.id;
 		$scope.result = $routeParams.result;
+	//	$scope.object = $routeParams.object;
+		$scope.returnRoute = '/' + $routeParams.object +'/edit/' + $routeParams.id;
+		$scope.finishRoute = '/' + $routeParams.object;
 		$scope.flash = flash;
 }]);                                                         		
 
@@ -135,7 +138,7 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 			mindFactory.save($scope.mind,
 				function(success) {
 					flash.setMessage('Mind created successfully!');
-					$location.path('/minds/edited/result/'+success.id+'/1');
+					$location.path('/edited/result/minds/'+success.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -146,7 +149,7 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 					} catch (e) {
 						flash.setMessage('An error occured while creating the mind.');
 					}
-					$location.path('/minds/edited/result/0/1');
+					$location.path('/edited/result/minds/0/1');
 			});
 		};
 }]);       
@@ -166,12 +169,12 @@ var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'st
 		};
 }]);
 
-adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout', '$rootScope', '$filter', '$q', 'sensorFactory',
-    function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope, $filter, $q, sensorFactory) {
+adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout', '$rootScope', '$filter', '$q', '$location', 'sensorFactory',
+    function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope, $filter, $q, $location, sensorFactory) {
 		var timer;
 		var prevent = false;
 		$scope.suggestions = [];
-	
+		
 		$scope.tableParams = new ngTableParams({
 			page: 1,            // show first page
             count: 10           // count per page
@@ -192,26 +195,16 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
         	}
         }); 
 				
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+		
 		$scope.doFilter = function () {
 			prevent = true;
 			$scope.tableParams.parameters({'filter':$scope.filterTxt}, true);
 			$scope.tableParams.page(1);
 			//table is reloaded when params changes
 			//$scope.tableParams.reload();
-		};
-		
-		$scope.update = function(index) {
-			var data = $scope.tableParams.settings().$scope.$data[index];
-			sensorFactory.update(data.id, data,
-				function(success) {
-					$rootScope.$broadcast('sensor.post.edit');
-					data.$edit = false;
-				},
-				function(errors) {
-					//todo
-					data.$edit = false;
-				}
-			);
 		};
 		
 		var doSuggest = function () {
@@ -237,11 +230,32 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
 		};
 }]);
 
-var EditSensorCtrl = adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor',
-    function ($scope, $location, sensor) {
+var EditSensorCtrl = adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor', 'sensorStatus', 'flash',
+    function ($scope, $location, sensor, sensorStatus, flash) {
+		$scope.statusList = sensorStatus;
+		$scope.sensor = sensor;
+		
+		$scope.update = function(index) {
+			$scope.sensor.$update(
+				function(success) {
+					flash.setMessage('Sensor updated successfully!');
+					$location.path('/edited/result/sensors/'+$scope.sensor.id+'/1');
+				},
+				function(errors) {
+					try {
+						var list = angular.fromJson(errors).data;
+						angular.forEach(list, function (key, value) {
+							flash.setMessage(angular.fromJson(key).recordFound);
+						}) ;
+					} catch (e) {
+						flash.setMessage('An error occured while applying the changes');
+					}
+					$location.path('/edited/result/sensors/'+$scope.sensor.id+'/0');
+				}
+			);
+		};
+		
 		$scope.go = function (url) {
 			$location.path(url);
 		};
-	
-		$scope.sensor = sensor;// {id: $route.current.params.sensorId, createdOn: '13 Jul 2014', meteologist: 'Mind Meteo', label : 'a label'};
 }]);

@@ -12,6 +12,7 @@ class Exception extends \Exception
 	const UNKNOWN_REQUEST = 6;
 	const REQUEST_FAILED = 7;
 	const DO_QUERY_FAILED = 8;
+	const DO_PARSE_FAILED = 9;
 
 	static protected $messages = array(
 		self::REGISTRATION_FAILED => 'We couldn\'t register you right now. Please try again later.',
@@ -22,6 +23,7 @@ class Exception extends \Exception
 		self::UNKNOWN_REQUEST => 'There is no adapter for the requested statistic.',
 		self::REQUEST_FAILED => 'Collecting the requested statistic failed.',
 		self::DO_QUERY_FAILED => 'Failed to assemble the search query.',
+		self::DO_PARSE_FAILED => 'Failed to parse the search results.',
 	);
 	
 	static public function factory ($code, $previous = null) 

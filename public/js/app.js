@@ -80,9 +80,9 @@ function($routeProvider) {
       controller: 'EditMindCtrl',
       resolve: EditMindCtrl.resolve 
     }).
-    when('/minds/edited/result/:id/:result', {
-        templateUrl: '/js/partials/mind/edited.html',
-        controller: 'EditedMindCtrl'
+    when('/edited/result/:object/:id/:result', {
+        templateUrl: '/js/partials/admin/edited.html',
+        controller: 'EditedCtrl'
     }).
     when('/minds/delete/:result', {
         templateUrl: '/js/partials/mind/edited.html',

@@ -42,7 +42,7 @@ class SensorController extends AbstractRestfulController
 		$identity = $this->identity();
 		try{
 			$searchManager = $this->getServiceLocator()->get('search-manager');
-			$sensor = $searchManager->request('sensor-get', ['id' => $id]);
+			$sensor = $searchManager->request('sensor-get', ['id' => $id, 'identity' => $identity]);
 			return new JsonModel($sensor);
 		} catch (Exception $e) {
 			$this->getResponse()->setStatusCode(400);
