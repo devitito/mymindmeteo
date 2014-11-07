@@ -1,4 +1,4 @@
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap']);
 
 mindmeteo.config(['$routeProvider',
 function($routeProvider) {
@@ -6,6 +6,10 @@ function($routeProvider) {
   	when('/', {
       templateUrl: '/js/partials/admin/dashboard.html',
       controller: 'dashboardCtrl'
+    }).
+    when('/dash', {
+        templateUrl: '/js/partials/admin/dashboard.html',
+        controller: 'dashboardCtrl'
     }).
     when('/stats', {
         templateUrl: '/js/partials/admin/stats.html',
