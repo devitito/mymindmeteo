@@ -225,7 +225,7 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
 			$scope.suggestions = [];
 			$timeout.cancel(timer);
 			if (($scope.filterTxt.length > 3) && (event.keyCode != 13) && (prevent == false)) {
-				timer = $timeout(doSuggest, 1000);
+				timer = $timeout(doSuggest, 500);
 			}
 		};
 }]);
@@ -235,7 +235,7 @@ var EditSensorCtrl = adminControllers.controller('EditSensorCtrl', ['$scope', '$
 		$scope.statusList = sensorStatus;
 		$scope.sensor = sensor;
 		
-		$scope.update = function(index) {
+		$scope.update = function() {
 			$scope.sensor.$update(
 				function(success) {
 					flash.setMessage('Sensor updated successfully!');
@@ -253,6 +253,10 @@ var EditSensorCtrl = adminControllers.controller('EditSensorCtrl', ['$scope', '$
 					$location.path('/edited/result/sensors/'+$scope.sensor.id+'/0');
 				}
 			);
+		};
+		
+		$scope.delete = function () {
+			
 		};
 		
 		$scope.go = function (url) {

@@ -7,7 +7,7 @@
 						autocomplete="off"
 						ng-model="filterTxt"
 						ng-keyup="suggest($event)">
-				<ul id="results" style="display: block;" ng-show="suggestions">
+				<ul id="results" style="display: block;" ng-show="suggestions.length">
 					<li ng-repeat="suggestion in suggestions"><a class="selected" href="administrator#/sensors/edit/{{suggestion.id}}">
 						<h4><span><strong>{{suggestion.topic}} </strong></span>» {{suggestion.label}}</h4>
 					</a></li>
