@@ -53,6 +53,23 @@ class SearchManager implements ServiceManagerAwareInterface
 	}
 	
 	/**
+	 * Delete a document of type $type from the index
+	 * 
+	 * @param string $type
+	 * @param IndexableInterface $document
+	 */
+	public function delete($type, IndexableInterface $document)
+	{
+		$type = (string) $type;
+		if (!in_array($type, $this->types))
+			throw Exception::factory(Exception::UNKNOWN_TYPE);
+		
+		$edocument = $this->getIndex()->getType($type)->getDocument($document->getId());
+		$this->getIndex()->getType($type)->deleteDocument($edocument);
+		$this->getIndex()->refresh();
+	}
+	
+	/**
 	 * Issue a request in elasticsearch
 	 * 
 	 * @param string $request the name of the service

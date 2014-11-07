@@ -88,9 +88,9 @@ function($routeProvider) {
         templateUrl: '/js/partials/admin/edited.html',
         controller: 'EditedCtrl'
     }).
-    when('/minds/delete/:result', {
-        templateUrl: '/js/partials/mind/edited.html',
-        controller: 'EditedMindCtrl'
+    when('/deleted/:object/:id/:result', {
+        templateUrl: '/js/partials/admin/edited.html',
+        controller: 'DeletedCtrl'
     }).
     otherwise({
       redirectTo: '/'

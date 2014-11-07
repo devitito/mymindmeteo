@@ -44,7 +44,7 @@ class Sample implements \ArrayAccess
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Application\Entity\Sensor", cascade={"persist", "remove"})
-	 * @ORM\JoinColumn(nullable=false)
+	 * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
 	 */
 	protected $sensor;
 	

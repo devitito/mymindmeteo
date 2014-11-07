@@ -46,7 +46,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 			$scope.mind.$delete(
 				function(success) {
 					flash.setMessage('Mind deleted successfully!');
-					$location.path('/minds/delete/1');
+					$location.path('/deleted/minds/'+$scope.mind.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -57,7 +57,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 					} catch (e) {
 						flash.setMessage('An error occured while deleting the mind');
 					}
-					$location.path('/minds/delete/0');
+					$location.path('/deleted/minds/'+$scope.mind.id+'/0');
 				}
 			);
 		}
@@ -106,6 +106,18 @@ var EditedCtrl = adminControllers.controller('EditedCtrl', ['$scope', '$location
 		$scope.finishRoute = '/' + $routeParams.object;
 		$scope.flash = flash;
 }]);                                                         		
+
+var DeletedCtrl = adminControllers.controller('DeletedCtrl', ['$scope', '$location', 'flash', '$routeParams',
+    function ($scope, $location, flash, $routeParams) {
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+		
+		$scope.result = $routeParams.result;
+		$scope.returnRoute = '/' + $routeParams.object +'/edit/' + $routeParams.id;
+		$scope.finishRoute = '/' + $routeParams.object;
+		$scope.flash = flash;
+}]);            
 
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
     function ($scope, recovery) {
@@ -166,100 +178,5 @@ var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'st
 			});
 		} catch (e) {
 			$scope.errors = 'error';
-		};
-}]);
-
-adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout', '$rootScope', '$filter', '$q', '$location', 'sensorFactory',
-    function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope, $filter, $q, $location, sensorFactory) {
-		var timer;
-		var prevent = false;
-		$scope.suggestions = [];
-		
-		$scope.tableParams = new ngTableParams({
-			page: 1,            // show first page
-            count: 10           // count per page
-        }, {
-        	counts: [], // hide page counts control
-        	total:0, // length of data
-        	getData: function($defer, params) {
-        		$scope.suggestions = [];
-        		sensorFactory.query(params.url(), function(data) {
-        			$timeout(function() {
-        				// update table params
-        				params.total(data.total);
-        				// set new data
-        				$defer.resolve(data.result);
-        				prevent = false;
-        			}, 500);
-        		}); 
-        	}
-        }); 
-				
-		$scope.go = function (url) {
-			$location.path(url);
-		};
-		
-		$scope.doFilter = function () {
-			prevent = true;
-			$scope.tableParams.parameters({'filter':$scope.filterTxt}, true);
-			$scope.tableParams.page(1);
-			//table is reloaded when params changes
-			//$scope.tableParams.reload();
-		};
-		
-		var doSuggest = function () {
-			prevent = true;
-			sensorFactory.suggest({'filter':$scope.filterTxt},
-				function(success) {
-					$scope.suggestions = success;
-					prevent = false;
-				},
-				function(errors) {
-					$scope.suggestions = [];
-					prevent = false;
-				}
-			);
-		};
-		
-		$scope.suggest = function(event) {
-			$scope.suggestions = [];
-			$timeout.cancel(timer);
-			if (($scope.filterTxt.length > 3) && (event.keyCode != 13) && (prevent == false)) {
-				timer = $timeout(doSuggest, 500);
-			}
-		};
-}]);
-
-var EditSensorCtrl = adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor', 'sensorStatus', 'flash',
-    function ($scope, $location, sensor, sensorStatus, flash) {
-		$scope.statusList = sensorStatus;
-		$scope.sensor = sensor;
-		
-		$scope.update = function() {
-			$scope.sensor.$update(
-				function(success) {
-					flash.setMessage('Sensor updated successfully!');
-					$location.path('/edited/result/sensors/'+$scope.sensor.id+'/1');
-				},
-				function(errors) {
-					try {
-						var list = angular.fromJson(errors).data;
-						angular.forEach(list, function (key, value) {
-							flash.setMessage(angular.fromJson(key).recordFound);
-						}) ;
-					} catch (e) {
-						flash.setMessage('An error occured while applying the changes');
-					}
-					$location.path('/edited/result/sensors/'+$scope.sensor.id+'/0');
-				}
-			);
-		};
-		
-		$scope.delete = function () {
-			
-		};
-		
-		$scope.go = function (url) {
-			$location.path(url);
 		};
 }]);

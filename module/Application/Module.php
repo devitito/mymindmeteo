@@ -57,6 +57,15 @@ class Module implements Feature\FormElementProviderInterface
         		//do something if es is down for example (mark record as to be indexed later for example
         	}
         });
+       	
+       	$sharedEventManager->attach('Zend\Mvc\Controller\AbstractController', 'sensor.deleted', function ($e) {
+       		$sm = $e->getTarget()->getServiceLocator()->get('search-manager');
+       		try {
+       			$sm->delete('sensors', $e->getParams()['sensor']);
+       		} catch (Exception $e) {
+       			//do something if es is down for example (mark record as to be indexed later for example
+       		}
+       	});
     }
     
     public function getConfig()

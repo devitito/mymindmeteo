@@ -120,15 +120,20 @@ class SensorController extends AbstractRestfulController
 			return new JsonModel([$e->getMessage()]);
 		}
 	}
-	
+	*/
 	public function delete($id)
 	{
 		$identity = $this->identity();
 		try{
-			$mind = $this->getEntityManager()->getRepository('Application\Entity\Mind')->find($id);
-			$this->getEntityManager()->remove($mind);
+			$sensor = $this->getEntityManager()->getRepository('Application\Entity\Sensor')->find($id);
+			
+			//delete sensor from elasticsearch
+			$this->getEventManager()->trigger('sensor.deleted', $this, ['sensor' => $sensor]);
+			
+			$this->getEntityManager()->remove($sensor);
 			$this->getEntityManager()->flush();
-			return new JsonModel(['data' => 'Mind deleted']);
+			
+			return new JsonModel(['data' => 'Sensor deleted']);
 		} catch (Exception $e) {
 			$this->getResponse()->setStatusCode(400);
 			return new JsonModel([$e->getMessage()]);
