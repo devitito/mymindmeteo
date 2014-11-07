@@ -338,7 +338,7 @@ return array(
     	'default' => array(
     		array(
     			'label' => 'Dashboard',
-    			'uri' => '#',
+    			'uri' => '#dash',
     		),
     		array(
     			'label' => 'Stats',
