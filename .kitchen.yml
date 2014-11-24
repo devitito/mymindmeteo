@@ -64,3 +64,30 @@ suites:
             from: monit@mindmeteo.com
             subject: "[monit] $SERVICE $EVENT on $HOST"
             message: "$SERVICE $ACTION: $DESCRIPTION"
+            
+   - name: node
+    run_list: 
+    - recipe[apt]
+    - recipe[build-essential]
+    - recipe[networking_basic]
+    - recipe[mymeteodb]
+    - recipe[ruby]
+    - recipe[mm-elasticsearch]
+    attributes: 
+      kibana:
+        version: 3.0.0
+        apache:
+          port: 82
+      java: 
+        jdk_version: 7	
+      elasticsearch:
+        version: 1.3.4 
+        mlockall: false
+        nginx:
+          allow_cluster_api : true
+        monit:
+          notify_email : julien_desbois@hotmail.com
+          mail_format  : 
+            from: monit@mindmeteo.com
+            subject: "[monit] $SERVICE $EVENT on $HOST"
+            message: "$SERVICE $ACTION: $DESCRIPTION"
