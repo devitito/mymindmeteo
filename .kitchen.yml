@@ -10,6 +10,7 @@ driver:
   - ["forwarded_port", {guest: 10081, host: 8010}]
   - ["forwarded_port", {guest: 3306, host: 8006}]
   - ["forwarded_port", {guest: 9200, host: 8092}]
+  - ["forwarded_port", {guest: 1337, host: 8137}]
   synced_folders:
   - [".", "/vagrant"]
 
@@ -65,7 +66,7 @@ suites:
             subject: "[monit] $SERVICE $EVENT on $HOST"
             message: "$SERVICE $ACTION: $DESCRIPTION"
             
-   - name: node
+  - name: node
     run_list: 
     - recipe[apt]
     - recipe[build-essential]
@@ -73,6 +74,7 @@ suites:
     - recipe[mymeteodb]
     - recipe[ruby]
     - recipe[mm-elasticsearch]
+    - recipe[node]
     attributes: 
       kibana:
         version: 3.0.0
