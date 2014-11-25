@@ -1,4 +1,4 @@
 {
-  "directory": "assets/js/dependencies/bower_components",
+  "directory": "assets/bower_components",
   "json": "bower.json"
 }

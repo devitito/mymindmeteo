@@ -15,8 +15,8 @@
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'js/dependencies/bower_components/bootstrap/dist/css/bootstrap.min.css',
-  'js/dependencies/bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+  'bower_components/bootstrap/dist/css/bootstrap.min.css',
+  'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
   'styles/**/*.css'
 ];
 
@@ -29,9 +29,9 @@ var jsFilesToInject = [
   'js/dependencies/sails.io.js',
 
   // Dependencies like jQuery, or Angular are brought in here
-  'js/dependencies/bower_components/jquery/dist/jquery.min.js',
-  'js/dependencies/bower_components/bootstrap/dist/bootstrap.min.js',
-  'js/dependencies/bower_components/angular/angular.min.js',
+  'bower_components/jquery/dist/jquery.min.js',
+  'bower_components/bootstrap/dist/js/bootstrap.min.js',
+  'bower_components/angular/angular.min.js',
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files
