@@ -1,0 +1,48 @@
+<%- partial ('../partials/navbar-logged-out.ejs')%>
+
+<br>
+
+<div class="container"> 
+	<% if(flash && flash.err) { %>
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div class="alert alert-danger" role="alert">
+				<%- JSON.stringify(flash.err[error]) %>
+			</div>
+		<% }) %>
+	<% } %>
+	
+	<div class="row">
+    	<div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        	<table class="table table-bordered">
+				<tr><th style="background: #00ADEF;	color: #FFFFFF; ">Register your mind</th></tr>
+				<tr>
+					<td>
+        				<form action="/mind/create" method="POST" accept-charset="UTF-8">
+        					<label>Mind name</label>
+        					<div class="form-group">
+        						<input name="name" type="text" class="form-control input-lg" placeholder="Your mind">
+        					</div>
+        					
+        					<label>Email</label>
+        					<div class="form-group">
+        						<input name="email" type="email" class="form-control input-lg" placeholder="Your email">
+        					</div>
+        					
+        					<label>Password</label>
+        					<div class="form-group">
+        						<input name="password" type="password" class="form-control input-lg" placeholder="Your password">
+        					</div>
+        					
+        					<input type="submit" class="btn btn-meteo" value="Register" />
+        					<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+        				</form>
+        			</td>
+				</tr>
+			</table>
+        </div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</div>
