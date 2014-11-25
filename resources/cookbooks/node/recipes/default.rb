@@ -33,8 +33,8 @@ execute "Install node and npm" do
   action :run
 end
 
-execute "Install grunt and grunt-cli" do
-  command "npm install -g grunt-cli -y"
+execute "npm install" do
+  command "npm install -y"
   action :run
 end
 
