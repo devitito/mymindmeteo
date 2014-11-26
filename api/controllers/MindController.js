@@ -19,7 +19,7 @@ module.exports = {
 	      if (err) {
 	        console.log(err);
 	        req.session.flash = {
-	          err: err
+	          err: err.ValidationError
 	        }
 
 	        // If error redirect back to sign-up page
