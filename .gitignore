@@ -20,5 +20,3 @@ tests/build/*
 data
 /README.md~
 /.tmp
-
-/node_modules
