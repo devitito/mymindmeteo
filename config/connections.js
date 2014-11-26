@@ -48,7 +48,8 @@ module.exports.connections = {
     password: 'supersecret',
     database: 'mymeteo',
     
-    schema: true
+    charset   : 'utf8',
+    collation : 'utf8_unicode_ci'
   },
 
   /***************************************************************************
