@@ -12,4 +12,8 @@
  */
 
 return array(
+	'db' => array(
+		'username' => 'mymeteo_app',
+		'password' => 'supersecret',
+	)
 );

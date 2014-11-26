@@ -19,3 +19,4 @@ tests/build/*
 *.xcf
 data
 /README.md~
+local.php
