@@ -46,6 +46,7 @@ suites:
     - recipe[mymeteodb]
     - recipe[ruby]
     - recipe[mm-elasticsearch]
+    - recipe[js::bower]
     attributes: 
       kibana:
         version: 3.0.0
