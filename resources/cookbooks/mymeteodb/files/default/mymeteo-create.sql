@@ -6,16 +6,18 @@
 
 /* A table for mymeteo minds */
 
-CREATE TABLE mymeteo.minds(
- id varchar(32) COLLATE utf8_unicode_ci NOT NULL,
- PRIMARY KEY(id),
- name VARCHAR(64) NOT NULL,
- email VARCHAR(128) NOT NULL,
- password VARCHAR(128) NOT NULL,
- joindate DATETIME NOT NULL,
- timezone VARCHAR(64) NOT NULL,
- locale VARCHAR(32) NOT NULL,
- role VARCHAR(32) NOT NULL
+CREATE TABLE mymeteo.minds (
+  id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  name varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  email varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  password varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  joindate datetime NOT NULL,
+  timezone varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  locale varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  role varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY name (name),
+  UNIQUE KEY email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE mymeteo.sensors (
