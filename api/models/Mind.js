@@ -5,48 +5,63 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
-module.exports = {
+var uuid = require('node-uuid');
 
+module.exports = {
+  autoPK: false,
+  autoCreatedAt: false,
+  autoUpdatedAt: false,
+  schema: true,		
   tableName: 'minds',
   attributes: {
+	  
+	  id: {
+		  type: 'string',
+		  primaryKey : true,
+		  unique: true,
+	  },
 	  name: {
 		  type: 'string',
 		  size: 64,
 		  unique: true,
-		  required: true
+		  required: true,
+		  notNull: true,
 	  },
 	  email : {
 		  type: 'string',
 		  size: 128,
 		  email: true,
 		  required: true,
-		  unique: true
+		  unique: true,
+		  notNull: true,
 	  },
 	  password: {
 		  type: 'string',
 		  size: 128,
-		  required: true
+		  required: true,
+		  notNull: true,
 	  },
 	  joindate: {
-		  type: 'utcdatetime'
+		  type: 'datetime',
+		  notNull: true,
 	  },
 	  timezone: {
 		  type: 'string',
 		  size: 64,
-		  defaultsTo: 'Europe/Paris'
+		  defaultsTo: 'Europe/Paris',
+		  notNull: true,
 	  },
 	  locale: {
 		  type: 'string',
 		  size: 32,
-		  defaultsTo: 'en_EN'
+		  defaultsTo: 'en_EN',
+		  notNull: true,
 	  },
 	  role: {
 		  type: 'string',
 		  size: 32,
-		  defaultsTo: 'mind'
-	  },
-	  nameoremail: {
-		  type: 'string'
+		  defaultsTo: 'mind',
+		  notNull: true,
 	  },
 	  
 	  toJSON: function() {
@@ -56,6 +71,11 @@ module.exports = {
 		  return obj;
 	  }
 
+  },
+  
+  beforeCreate: function(values, callback) {
+	  values.id = uuid.v4();
+	  callback();
   }
 };
 
