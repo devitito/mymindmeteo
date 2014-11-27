@@ -3,6 +3,14 @@
 <br>
 
 <div class="container"> 
+    <% if(flash && flash.err) { %>
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div class="alert alert-danger" role="alert">
+				<%- JSON.stringify(flash.err[error]) %>
+			</div>
+		<% }) %>
+	<% } %>
+
 	<div class="row">
     	<div class="col-md-4">
         </div>
@@ -11,15 +19,10 @@
 				<tr><th style="background: #00ADEF;	color: #FFFFFF; ">Sign in</th></tr>
 				<tr>
 					<td>
-        				<form action="/mind/create" method="POST" accept-charset="UTF-8">
-        					<label>Mind name</label>
+        				<form action="/session/create" method="POST" accept-charset="UTF-8">
+        					<label>Mind name or email</label>
         					<div class="form-group">
-        						<input name="name" type="text" class="form-control input-lg" placeholder="Your mind">
-        					</div>
-        					
-        					<label>Email</label>
-        					<div class="form-group">
-        						<input name="email" type="email" class="form-control input-lg" placeholder="Your email">
+        						<input name="nameoremail" type="text" class="form-control input-lg" placeholder="Name or email">
         					</div>
         					
         					<label>Password</label>

@@ -26,11 +26,12 @@ module.exports = {
 		  unique: true,
 		  required: true,
 		  notNull: true,
-		  maxLength: 10,
+		  maxLength: 10
 	  },
 	  email : {
 		  type: 'string',
 		  size: 128,
+          maxLength: 32,
 		  email: true,
 		  required: true,
 		  unique: true,
