@@ -17,9 +17,10 @@
 	    	Our fully qualified meteorologsits will issue reports for you, you just have to address them to whoever you want:<br>your lover,<br>your mama,<br> your friends,<br>your boss....
 	    </p>
 	   <br>
-	   	<form id="demo-login" method="post" action="/session/new">
+	   	<form id="demo-login" method="post" action="/session/create">
 			<input type="hidden" name="nameoremail" value="demo" />
 			<input type="hidden" name="password" value="demodemo" />
+			<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 			<input type="submit" name="submitlogin" value="Take a tour now!" class="btn btn-meteo btn-lg" />
 		</form>
 		<hr class="featurette-divider">
