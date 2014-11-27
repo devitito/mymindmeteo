@@ -12,7 +12,7 @@ module.exports = {
 		res.view();
 	},
 
-    create: function(req, res, next) {
+	create: function(req, res, next) {
 
 		// Check for email and password in params sent via the form, if none
 		// redirect the browser back to the sign-in form.
