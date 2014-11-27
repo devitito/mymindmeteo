@@ -18,7 +18,7 @@ module.exports = {
 	  id: {
 		  type: 'string',
 		  primaryKey : true,
-		  unique: true,
+		  unique: true
 	  },
 	  name: {
 		  type: 'string',
@@ -26,6 +26,7 @@ module.exports = {
 		  unique: true,
 		  required: true,
 		  notNull: true,
+		  maxLength: 10,
 	  },
 	  email : {
 		  type: 'string',
@@ -40,6 +41,8 @@ module.exports = {
 		  size: 128,
 		  required: true,
 		  notNull: true,
+		  maxLength: 12,
+		  minLength: 8
 	  },
 	  joindate: {
 		  type: 'datetime',
@@ -73,9 +76,19 @@ module.exports = {
 
   },
   
-  beforeCreate: function(values, callback) {
+  beforeCreate: function(values, next) {
 	  values.id = uuid.v4();
-	  callback();
+	  values.joindate = new Date();
+
+	  // This checks to make sure the password and password confirmation match before creating record
+	  //if (!values.password || values.password != values.confirmation) {
+	  //	  return next({err: ["Password doesn't match password confirmation."]});
+	  //}
+	  require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
+		  if (err) return next(err);
+		  values.password = encryptedPassword;
+		  // values.online= true;
+		  next();
+	  });
   }
 };
-
