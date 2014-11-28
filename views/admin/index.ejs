@@ -1,7 +1,12 @@
 <%- partial ('../partials/navbar-admin.ejs')%>
 <div class="row">
 	<div class="col-lg-2">
-		menu
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href='/administrator#/dash'>Dashboard</a></li>
+			<li><a href='/administrator#/minds'>Minds</a></li>
+			<li><a href='/administrator#/stats'>Stats</a></li>
+			<li><a href='/administrator#/sensors'>Sensors</a></li>
+		</ul>
 	</div>
 	<div ng-view></div>
 </div>

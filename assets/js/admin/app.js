@@ -4,15 +4,15 @@ mindmeteo.config(['$routeProvider',
 function($routeProvider) {
   $routeProvider.
   	when('/', {
-      templateUrl: '/js/partials/admin/dashboard.html',
+      templateUrl: '/js/admin/partials/admin/dashboard.html',
       controller: 'dashboardCtrl'
     }).
     when('/dash', {
-        templateUrl: '/js/partials/admin/dashboard.html',
+        templateUrl: '/js/admin/partials/admin/dashboard.html',
         controller: 'dashboardCtrl'
     }).
     when('/stats', {
-        templateUrl: '/js/partials/admin/stats.html',
+        templateUrl: '/js/admin/partials/admin/stats.html',
         controller: 'statsCtrl',
         resolve : {
         	stats : function(statsFactory, $q) {
@@ -26,11 +26,11 @@ function($routeProvider) {
         }
       }).
     when('/sensors', {
-         templateUrl: '/js/partials/admin/sensors.html',
+         templateUrl: '/js/admin/partials/admin/sensors.html',
          controller: 'sensorsCtrl'
     }).
     when('/sensors/edit/:sensorId', {
-        templateUrl: '/js/partials/sensor/edit.html',
+        templateUrl: '/js/admin/partials/sensor/edit.html',
         controller: 'EditSensorCtrl',
         resolve: {
         	sensor: function(sensorFactory, $q, $route) {
@@ -50,7 +50,7 @@ function($routeProvider) {
         }
    }).
     when('/minds', {
-        templateUrl: '/js/partials/admin/minds.html',
+        templateUrl: '/js/admin/partials/admin/minds.html',
         controller: 'mindsCtrl',
         resolve: {
         	minds: function(mindFactory, $q) {
@@ -70,7 +70,7 @@ function($routeProvider) {
         }
    }).
    when('/minds/new', {
-       templateUrl: '/js/partials/mind/new.html',
+       templateUrl: '/js/admin/partials/mind/new.html',
        controller: 'NewMindCtrl',
        resolve: {
     	   identity: function(identityService, $q) {
@@ -80,16 +80,16 @@ function($routeProvider) {
        }
   }).
     when('/minds/edit/:mindId', {
-      templateUrl: '/js/partials/mind/edit.html',
+      templateUrl: '/js/admin/partials/mind/edit.html',
       controller: 'EditMindCtrl',
       resolve: EditMindCtrl.resolve
     }).
     when('/edited/result/:object/:id/:result', {
-        templateUrl: '/js/partials/admin/edited.html',
+        templateUrl: '/js/admin/partials/admin/edited.html',
         controller: 'EditedCtrl'
     }).
     when('/deleted/:object/:id/:result', {
-        templateUrl: '/js/partials/admin/edited.html',
+        templateUrl: '/js/admin/partials/admin/edited.html',
         controller: 'DeletedCtrl'
     }).
     otherwise({
