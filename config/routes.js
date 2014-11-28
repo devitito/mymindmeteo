@@ -46,6 +46,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+	'GET /administrator' : 'AdminController.index',
 	'GET /:mindname' : 'MindController.index'
 
 };
