@@ -1,0 +1,61 @@
+<div class="col-lg-10">
+	<br>
+	<section id="search_container" class="active">
+		<form novalidate="novalidate" id="blog_search" role="search" ng-submit="doFilter()">
+			<div class="blog_search-wrapper">
+				<input id="s" name="s" class="form-control input-lg search_term valid" placeholder="search" type="text"
+						autocomplete="off"
+						ng-model="filterTxt"
+						ng-keyup="suggest($event)">
+				<ul id="results" style="display: block;" ng-show="suggestions.length">
+					<li ng-repeat="suggestion in suggestions"><a class="selected" href="administrator#/sensors/edit/{{suggestion.id}}">
+						<h4><span><strong>{{suggestion.topic}} </strong></span>» {{suggestion.label}}</h4>
+					</a></li>
+				</ul>
+			</div>
+		</form>
+	</section>
+	<div class="clearfix"></div>
+    <div loading-container="tableParams.settings().$loading">
+		<table ng-table="tableParams" class="table table-hover">
+	        <tr ng-repeat="sensor in $data" ng-click="go('/sensors/edit/'+sensor.id)">
+	            <td data-title="'Label'" style="with:20%;">
+	                <span ng-if="!sensor.$edit">{{sensor.label}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.label" /></div>
+	            </td>
+	         	<td data-title="'Positive Sample'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[0].label}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].label" /></div>
+	            </td>
+	            <td data-title="'Pos. Sample val.'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[0].value}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].value" /></div>
+	            </td>
+	            <td data-title="'Negative Sample'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[1].label}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].label" /></div>
+	            </td>
+	             <td data-title="'Neg. Sample val.'">
+	                <span ng-if="!sensor.$edit">{{sensor.samples[1].value}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].value" /></div>
+	            </td>
+	            <td data-title="'Topic'">
+	                <span ng-if="!sensor.$edit">{{sensor.topic}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.topic" /></div>
+	            </td>
+	            <td data-title="'Meteologist'">
+	                <span ng-if="!sensor.$edit">{{sensor.meteologist}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.meteologist" /></div>
+	            </td>
+	            <td data-title="'Status'">
+	                <span ng-if="!sensor.$edit">{{sensor.status}}</span>
+	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.status" /></div>
+	            </td>
+	            <!-- td data-title="'Actions'">
+	                <a ng-if="!sensor.$edit" href="" class="btn btn-default btn-xs" ng-click="sensor.$edit = true">Edit</a>
+	                <a ng-if="sensor.$edit" href="" class="btn btn-primary btn-xs" ng-click="update($index)">Save</a>
+	            </td-->
+	        </tr>
+	    </table>
+    </div>
+</div>

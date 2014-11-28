@@ -1,0 +1,30 @@
+<div class="col-lg-10">
+	<br>
+	<div class="row">
+		<div class="col-lg-6">
+			<div ng-hide="errors" google-chart class="thumbnail" chart="sensorPerTopic" style="height:300px;"></div>
+			<div ng-show="errors" class="thumbnail" style="height:300px;">{{errors}}</div>
+		</div>
+		<p>Alerter si desiquilibre (pas assez de money par exemple)</p>
+	</div>
+	<!-- div class="row">
+		<div class="col-lg-6">
+			<div class="thumbnail" style="height:300px;">Most popular test</div>
+			<p></p>
+		</div>
+		<div class="col-lg-6">
+			<div class="thumbnail" style="height:300px;">Most skipped test</div>
+			<p></p>
+		</div>
+	</div-->
+	<div class="row">
+		<div class="col-lg-6">
+			<div ng-hide="errors" google-chart class="thumbnail" chart="testPerHour" style="height:300px;"></div>
+			<div ng-show="errors" class="thumbnail" style="height:300px;">{{errors}}</div>
+		</div>
+		<div class="col-lg-6">
+			<div ng-hide="errors" google-chart class="thumbnail" chart="testPerDay" style="height:300px;"></div>
+			<div ng-show="errors" class="thumbnail" style="height:300px;">{{errors}}</div>
+		</div>
+	</div>
+</div>
