@@ -33,14 +33,7 @@ module.exports = {
 			return;
 		}
 
-		//@todo nameoremail
-    //    var nameoremail = req.param('nameoremail');
-    //    if (nameoremail.search('@') == -1)
-
-		// Try to find the user by there email address.
-		// findOneByEmail() is a dynamic finder in that it searches the model by a particular attribute.
-		// Mind.findOneByEmail(req.param('email')).done(function(err, user) {
-		Mind.findOneByName(req.param('nameoremail'), function foundMind(err, mind) {
+		var foundMind = function(err, mind) {
 			if (err) return next(err);
 
 			// If no mind is found...
@@ -82,7 +75,15 @@ module.exports = {
 				else
 						res.redirect('/' + mind.name);
         });
-		});
+		};
+
+    var nameoremail = req.param('nameoremail');
+    if (nameoremail.search('@') == -1)
+			Mind.findOneByName(req.param('nameoremail'), foundMind);
+		else
+			// Try to find the user by there email address.
+			// findOneByEmail() is a dynamic finder in that it searches the model by a particular attribute.
+			Mind.findOneByEmail(req.param('nameoremail'), foundMind);
 	},
 
 	destroy: function(req, res, next) {
