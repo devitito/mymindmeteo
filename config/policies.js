@@ -33,7 +33,7 @@ module.exports.policies = {
         '*': ["sessionAuth", "mindCanSeeProfile"]
     },
 		admin: {
-        '*': ["sessionAuth"]
+        '*': 'admin'
     }
 
 
