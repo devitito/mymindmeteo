@@ -35,6 +35,9 @@
 		        <li>
 		          <a href="#" class="glyphicon glyphicon-envelope tooltip-link"  data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
 		        </li>
+						<li>
+							<a href="/mind/profile/<%= session.Mind.id %>"><%= session.Mind.name %> </a>
+						</li>
 		        <li>
 		          <a href="/session/destroy" class="glyphicon glyphicon-log-out"></a>
 		        </li>
