@@ -9,7 +9,7 @@
 
 include_recipe 'js::nodejs'
 
-execute "Install Sails and Forever" do
+execute "Install Forever" do
   command "npm -g install sails forever --yes"
   action :run
 end
