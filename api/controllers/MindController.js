@@ -57,6 +57,34 @@ module.exports = {
 	},
 
 	index: function(req, res, next) {
+		// Get an array of all minds in the Mind collection(e.g. table)
+    Mind.find(function foundMinds(err, minds) {
+      if (err) return next(err);
+      res.json(minds);
+    });
+	},
+
+	 update: function(req, res, next) {
+
+		 var mindObj = {
+			 email: req.param('email'),
+			 role: req.param('role'),
+			 locale: req.param('locale'),
+			 timezone: req.param('timezone')
+		 }
+
+    Mind.update(req.param('id'), mindObj, function mindUpdated(err, minds) {
+      if (err) res.json(err);
+
+			//update current session if needed
+			if (req.param('id') == req.session.Mind.id)
+				req.session.Mind = minds[0];
+
+      res.json(minds[0]);
+    });
+  },
+
+	dashboard: function(req, res, next) {
 		res.view();
 	}
 };

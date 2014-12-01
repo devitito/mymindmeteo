@@ -4,7 +4,7 @@
 		<h1>Edit mind ({{mind.name}})</h1>
 			<div class="from-group">
 				<label class="form-label">Join date : </label>
-				<span id="joindate">{{mind.locale_joindate}}</span>
+				<span id="joindate">{{mind.joindate | amDateFormat:'LL'}}</span>
 			</div>
 			<div class="from-group">
 				<label class="form-label" for="email">Email : </label>

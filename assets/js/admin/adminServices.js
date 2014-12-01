@@ -1,7 +1,7 @@
 var adminServices = angular.module('adminServices', ['ngResource']);
 
 adminServices.factory('mindFactory', ['$resource', function($resource){
-	return $resource('/api/admin/minds/:id', {id: '@id'}, {
+	return $resource('/mind/:id', {id: '@id'}, {
       update: {method:'PUT'}
     });
 }]);
@@ -126,7 +126,7 @@ adminServices.factory('statsFactory', ['$resource', function($resource){
 	return factory;
 }]);
 
-adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootScope', function($resource, $cacheFactory, $rootScope){
+adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootScope', 'moment', function($resource, $cacheFactory, $rootScope, moment){
 	var factory = {};
 	var cache = $cacheFactory('identity');
 
@@ -147,7 +147,7 @@ adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootSc
 	factory.get = function (deferred) {
 		if (cache.info().size == 0) {
 			//nothing cached yet
-			$resource('/api/admin/identity').get(
+			$resource('/admin/online').get(
 			    function(data){
 					factory.set(data);
     				deferred.resolve(data);
@@ -160,11 +160,12 @@ adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootSc
 			identity.id = cache.get('id');
 			identity.email = cache.get('email');
 			identity.joindate = cache.get('joindate');
-			identity.locale_joindate = cache.get('locale_joindate');
 			identity.locale = cache.get('locale');
+			moment.locale(identity.locale);
 			identity.name = cache.get('name');
 			identity.role = cache.get('role');
 			identity.timezone = cache.get('timezone');
+			//console.log(identity);
 			deferred.resolve(identity);
 		}
 		return deferred.promise;
@@ -174,7 +175,7 @@ adminServices.factory('identityService', ['$resource', '$cacheFactory', '$rootSc
 		cache.put('id', data.id);
 		cache.put('email', data.email);
 		cache.put('joindate', data.joindate);
-		cache.put('locale_joindate', data.locale_joindate);
+		moment.locale(data.locale);
 		cache.put('locale', data.locale);
 		cache.put('name', data.name);
 		cache.put('role', data.role);

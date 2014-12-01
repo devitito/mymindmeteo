@@ -8,11 +8,12 @@ var mindsCtrl = adminControllers.controller('mindsCtrl', ['$scope', '$location',
 
 	    $scope.langtools = lang;
 	    $scope.locale = identity.locale;
+			console.log($scope.locale);
 
 	    if (angular.isArray(minds))
-			$scope.minds = minds;
-		else
-			$scope.error = minds;
+				$scope.minds = minds;
+			else
+				$scope.error = minds;
 }]);
 
 var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', 'mind', 'roles', 'flash', 'lang', 'timezones', 'identity', 'identityService',
