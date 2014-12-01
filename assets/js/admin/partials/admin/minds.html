@@ -13,7 +13,7 @@
 		        </tr>
 		      </thead>
 		      <tbody>
-				<tr ng-repeat="mind in minds" ng-click="go('/minds/edit/'+ mind.id)">
+				<tr ng-repeat="mind in minds" ng-click="go('/minds/edit/'+ mind.id)" class="clickable">
 					<td>{{mind.name}}</td>
 					<td><span>{{mind.joindate | amDateFormat:'LL'}}</span></td>
 					<td>{{mind.role}}</td>
