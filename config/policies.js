@@ -30,7 +30,7 @@ module.exports.policies = {
     mind: {
         'new': "flash",
         create: "flash",
-        '*': ["sessionAuth", "mindCanSeeProfile"]
+        '*': ["sessionAuth", "mindCanSeeProfile", "admin"]
     },
 		admin: {
         '*': 'admin'
