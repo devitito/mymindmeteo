@@ -77,13 +77,12 @@ module.exports = {
 	},
 
 	 update: function(req, res, next) {
-
 		 var mindObj = {
 			 email: req.param('email'),
 			 role: req.param('role'),
 			 locale: req.param('locale'),
 			 timezone: req.param('timezone')
-		 }
+		}
 
     Mind.update(req.param('id'), mindObj, function mindUpdated(err, minds) {
       if (err) res.json(err);
@@ -98,6 +97,30 @@ module.exports = {
 
 	dashboard: function(req, res, next) {
 		res.view();
-	}
+	},
+
+	'validate-name': function(req, res, next) {
+		Mind.findOneByName(req.param('name'), function(err, mind) {
+			if (err) return next(err);
+
+			// If no mind is found...
+			if (!mind)
+				res.json({valid: true});
+			else
+				res.json({valid: false});
+		});
+	},
+
+	'validate-email': function(req, res, next) {
+		Mind.findOneByEmail(req.param('email'), function(err, mind) {
+			if (err) return next(err);
+
+			// If no mind is found...
+			if (!mind)
+				res.json({valid: true});
+			else
+				res.json({valid: false});
+		});
+	},
 };
 
