@@ -106,7 +106,6 @@ mindmeteo.value('googleChartApiConfig', {
 });
 
 mindmeteo.run(function($http) {
-    // change site
     $http.get('/csrfToken').success(function(data){
         $http.defaults.headers.common['x-csrf-token'] = data._csrf;
     });

@@ -53,6 +53,7 @@ module.exports.routes = {
 	'GET /session/*' : {view: '404'},
 	'GET /mind' : 'MindController.index',
 	'GET /mind/*' : 'MindController.edit',
-	'GET /:mindname' : 'MindController.dashboard'
+	//'GET /:mindname' : 'MindController.dashboard'
+
 
 };
