@@ -11,7 +11,6 @@ module.exports = {
 	},
 	
 	create: function(req, res, next) {
-
 		var adminCreate = function (req, res, next) {
 			//marshalize parameters (if input added through inspect element > edit in html > paste html input with role = admin)
 			var mindObj = {
@@ -66,14 +65,6 @@ module.exports = {
 			return adminCreate(req, res, next);
 		else
 			return guestCreate(req, res, next);
-	},
-
-	index: function(req, res, next) {
-		// Get an array of all minds in the Mind collection(e.g. table)
-    Mind.find(function foundMinds(err, minds) {
-      if (err) return next(err);
-      res.json(minds);
-    });
 	},
 
 	 update: function(req, res, next) {

@@ -51,9 +51,11 @@ module.exports.routes = {
 	'GET /session/create' : 'SessionController.create',
 	'GET /session/destroy' : 'SessionController.destroy',
 	'GET /session/*' : {view: '404'},
-	'GET /mind' : 'MindController.index',
-	'POST /mind' : 'MindController.create',
-	//'GET /mind/*' : 'MindController.edit',
+	//No need to declare those routes if there is no index action in the controller (default rest behavior apply)
+	//'GET /mind' : 'MindController.index',
+	//'POST /mind' : 'MindController.create',
+	//Can't do it because the built-in crsfToken route wouldn't be matched
+	//'GET/:mindname': 'MindController.dashboard',
 	'GET /mind/dashboard/:mindname' : 'MindController.dashboard'
 
 
