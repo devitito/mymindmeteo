@@ -12,48 +12,60 @@ module.exports = {
 	
 	create: function(req, res, next) {
 
-		//marshalize parameters (if input added through inspect element > edit in html > paste html input with role = admin)
-		var mindObj = {
-			name: req.param('name'),
-			email: req.param('email'),
-			password: req.param('password')
-		}
+		var adminCreate = function (req, res, next) {
+			//marshalize parameters (if input added through inspect element > edit in html > paste html input with role = admin)
+			var mindObj = {
+				name: req.param('name'),
+				email: req.param('email'),
+				password: req.param('password'),
+				role: req.param('role'),
+				locale: req.param('locale'),
+				timezone: req.param('timezone')
+			};
 
-		// Create a mind with the params sent from
-		// the sign-up form --> new.ejs
-		Mind.create(mindObj, function mindCreated(err, mind) {
+			//todo check password and confirm password
 
-			// If there's an error
-			if (err) {
-				console.log(err);
-				req.session.flash = {
-					err: err.ValidationError
+			Mind.create(mindObj, function mindCreated(err, mind) {
+				if (err) return next(err);
+				res.json(mind);
+			});
+		};
+
+		var guestCreate = function (req, res, next) {
+			//marshalize parameters (if input added through inspect element > edit in html > paste html input with role = admin)
+			var mindObj = {
+				name: req.param('name'),
+				email: req.param('email'),
+				password: req.param('password')
+			};
+
+			// Create a mind with the params sent from
+			// the sign-up form --> new.ejs
+			Mind.create(mindObj, function mindCreated(err, mind) {
+
+				// If there's an error
+				if (err) {
+					console.log(err);
+					req.session.flash = {
+						err: err.ValidationError
+					}
+
+					// If error redirect back to sign-up page
+					return res.redirect('/mind/new');
 				}
 
-				// If error redirect back to sign-up page
-				return res.redirect('/mind/new');
-			}
+				// Log mind in
+				req.session.authenticated = true;
+				req.session.Mind = mind;
 
-			// Log mind in
-			req.session.authenticated = true;
-			req.session.Mind = mind;
+				res.redirect('/mind/dashboard/' + mind.name);
+			});
+		};
 
-                /*
-								// Change status to online
-              user.online = true;
-              user.save(function(err, user) {
-                if (err) return next(err);
-
-              // add the action attribute to the user object for the flash message.
-              user.action = " signed-up and logged-in."
-
-              // Let other subscribed sockets know that the user was created.
-              User.publishCreate(user);
-
-            */
-
-			res.redirect('/' + mind.name);
-		});
+		if (req.session.Mind && req.session.Mind.role == 'admin')
+			return adminCreate(req, res, next);
+		else
+			return guestCreate(req, res, next);
 	},
 
 	index: function(req, res, next) {

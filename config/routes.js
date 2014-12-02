@@ -52,8 +52,9 @@ module.exports.routes = {
 	'GET /session/destroy' : 'SessionController.destroy',
 	'GET /session/*' : {view: '404'},
 	'GET /mind' : 'MindController.index',
-	'GET /mind/*' : 'MindController.edit',
-	//'GET /:mindname' : 'MindController.dashboard'
+	'POST /mind' : 'MindController.create',
+	//'GET /mind/*' : 'MindController.edit',
+	'GET /mind/dashboard/:mindname' : 'MindController.dashboard'
 
 
 };

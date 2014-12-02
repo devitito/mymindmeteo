@@ -73,7 +73,7 @@ module.exports = {
 				if (mind.role == 'admin')
 						res.redirect('/administrator/');
 				else
-						res.redirect('/' + mind.name);
+						res.redirect('/mind/dashboard/' + mind.name);
         });
 		};
 
