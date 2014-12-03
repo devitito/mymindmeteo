@@ -9,7 +9,13 @@ function($routeProvider) {
     }).
     when('/dash', {
         templateUrl: '/js/admin/partials/admin/dashboard.html',
-        controller: 'dashboardCtrl'
+        controller: 'dashboardCtrl',
+				resolve: {
+					identity: function(identityService, $q) {
+						var deferred = $q.defer();
+						return identityService.get(deferred);
+					}
+				}
     }).
     when('/stats', {
         templateUrl: '/js/admin/partials/admin/stats.html',

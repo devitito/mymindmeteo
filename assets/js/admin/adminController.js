@@ -12,14 +12,13 @@ var ResultCtrl = adminControllers.controller('ResultCtrl', ['$scope', '$location
 		$scope.flash = flash;
 }]);
 
-adminControllers.controller('dashboardCtrl', ['$scope', 'recovery',
-    function ($scope, recovery) {
+adminControllers.controller('dashboardCtrl', ['$scope', 'recovery', 'identity',
+    function ($scope, recovery, identity) {
 		$scope.recover = function () {
 			$scope.recovery_date = '  In progress. Wait...';
 			recovery.query(
 				function(data){
-					console.log(data[0]);
-					$scope.recovery_date = '  Indexes re-created on : ' + data[0].toString();
+					$scope.recovery_date = '  Indexes re-created on : ' + moment().locale(identity.locale).format('lll');
 	            },
 	            function(error) {
 	            	$scope.error = 'An error occured while recovering the undindexed records';
