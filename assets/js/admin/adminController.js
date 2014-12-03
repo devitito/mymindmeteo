@@ -16,21 +16,7 @@ var mindsCtrl = adminControllers.controller('mindsCtrl', ['$scope', '$location',
 				$scope.error = minds;
 }]);
 
-var EditedCtrl = adminControllers.controller('EditedCtrl', ['$scope', '$location', 'flash', '$routeParams',
-    function ($scope, $location, flash, $routeParams) {
-		$scope.go = function (url) {
-			$location.path(url);
-		};
-
-	//	$scope.id = $routeParams.id;
-		$scope.result = $routeParams.result;
-	//	$scope.object = $routeParams.object;
-		$scope.returnRoute = '/' + $routeParams.object +'/edit/' + $routeParams.id;
-		$scope.finishRoute = '/' + $routeParams.object;
-		$scope.flash = flash;
-}]);
-
-var DeletedCtrl = adminControllers.controller('DeletedCtrl', ['$scope', '$location', 'flash', '$routeParams',
+var ResultCtrl = adminControllers.controller('ResultCtrl', ['$scope', '$location', 'flash', '$routeParams',
     function ($scope, $location, flash, $routeParams) {
 		$scope.go = function (url) {
 			$location.path(url);
@@ -73,7 +59,7 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 			mindFactory.save($scope.mind,
 				function(success) {
 					flash.setMessage('Mind created successfully!');
-					$location.path('/edited/result/minds/'+success.id+'/1');
+					$location.path('/result/minds/'+success.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -84,7 +70,7 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 					} catch (e) {
 						flash.setMessage('An error occured while creating the mind.');
 					}
-					$location.path('/edited/result/minds/0/1');
+					$location.path('/result/minds/0/1');
 			});
 		};
 }]);

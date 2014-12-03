@@ -1,5 +1,6 @@
 <div class="col-lg-10">
-	<div class="col-lg-5" ng-hide="error">
+	<p>{{flash.getMessage()}}</p>
+	<div class="col-lg-5" ng-hide="flash.getMessage().length">
 	 <form>
 		<h1>Edit mind ({{mind.name}})</h1>
 			<div class="from-group">
@@ -30,4 +31,5 @@
 		</div>
 	</form>
 	</div>
+	<button ng-show="flash.getMessage().length" ng-click="go('/minds')" class="btn btn-default pull-right">Return</button>
 </div>
