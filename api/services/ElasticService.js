@@ -17,29 +17,31 @@ var indexTable = function(indexableTable, next) {
 	var errors = [];
 	var recordIndexed = 0;
 
-	//todo check if model and table exist
+	try {
+		eval(indexableTable.model).find({}, function(err, records) {
+			if (err) return next(err);
 
-	eval(indexableTable.model).find({}, function(err, records) {
-		if (err) return next(err);
-
-		for(var i = 0, len = records.length; i < len; i++) {
-			console.log(records[i].label);
-			eval(indexableTable.model).toIndexable(records[i], function (err, indexable) {
-				if (err) {
-					errors.push(err);
-					recordIndexed++;
-					if (recordIndexed == records.length) next(errors);
-				}
-				else module.exports.index(indexableTable.table, indexable, function documentIndexed(err, res) {
-					if (err) errors.push(err);
-
-					console.log(res);
-					recordIndexed++;
-					if (recordIndexed == records.length) next(errors);
-				});
+			async.each(records,
+				function(record, cb) {
+					eval(indexableTable.model).toIndexable(record, function (err, indexable) {
+						if (err) {
+							errors.push(err);
+							cb();
+						}
+						else module.exports.index(indexableTable.table, indexable, function documentIndexed(err, res) {
+							if (err) errors.push(err);
+							cb();
+						});
+					});
+				},
+				function(err) {
+					next(errors)
 			});
-		}
-	});
+		});
+	} catch (e) {
+		errors.push(e.message);
+		//next(errors);
+	};
 };
 
 /**
