@@ -5,7 +5,13 @@ function($routeProvider) {
   $routeProvider.
   	when('/', {
       templateUrl: '/js/admin/partials/admin/dashboard.html',
-      controller: 'dashboardCtrl'
+      controller: 'dashboardCtrl',
+			resolve: {
+				identity: function(identityService, $q) {
+					var deferred = $q.defer();
+					return identityService.get(deferred);
+				}
+			}
     }).
     when('/dash', {
         templateUrl: '/js/admin/partials/admin/dashboard.html',
