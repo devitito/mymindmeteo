@@ -17,11 +17,17 @@ module.exports = {
 	},
 
 	'recreate-indexes': function(req, res, next) {
-		Sensor.find({}, function(err, sensors) {
-			for(var i = 0, len = sensors.length; i < len; i++)
-				console.log(sensors[i].label);
+
+		//CLear the index
+		ElasticService.clearAll(function allCleared(err) {
+			if (err) return next(err);
+			console.log('all indices cleared');
+
+			ElasticService.indexAll(function allIndexed(err) {
+				res.send(200, err);
+			});
 		});
-		res.send(200);
+
 	}
 };
 
