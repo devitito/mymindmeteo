@@ -5,6 +5,7 @@
   "description": "The meteo of your mind",
   "keywords": [],
   "dependencies": {
+    "async": "^0.9.0",
     "bcrypt": "~0.7.6",
     "ejs": "~0.8.4",
     "elasticsearch": "^3.0.1",
