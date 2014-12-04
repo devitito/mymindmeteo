@@ -6,25 +6,31 @@
  */
 
 var elasticsearch = require('elasticsearch');
+var async = require('async');
 var client;
+var indexableTable = [{model: 'Sensor', table:'sensors'}, {model: 'Record', table:'records'}];
 
 /**
  * Index all records of a table in Elasticsearch
  */
-var indexTable = function(model, table, next) {
+var indexTable = function(indexableTable, next) {
 	var errors = [];
 	var recordIndexed = 0;
 
-	eval(model).find({}, function(err, records) {
+	//todo check if model and table exist
+
+	eval(indexableTable.model).find({}, function(err, records) {
+		if (err) return next(err);
+
 		for(var i = 0, len = records.length; i < len; i++) {
 			console.log(records[i].label);
-			eval(model).toIndexable(records[i], function (err, indexable) {
+			eval(indexableTable.model).toIndexable(records[i], function (err, indexable) {
 				if (err) {
 					errors.push(err);
 					recordIndexed++;
 					if (recordIndexed == records.length) next(errors);
 				}
-				else module.exports.index(table, indexable, function documentIndexed(err, res) {
+				else module.exports.index(indexableTable.table, indexable, function documentIndexed(err, res) {
 					if (err) errors.push(err);
 
 					console.log(res);
@@ -43,7 +49,6 @@ module.exports.clearAll = function(next) {
 		client.indices.delete({index: 'mindmeteo'}, function indicesDeleted(err, res) {
 			if (err) return next(err);
 			module.exports.connect(next);
-			//next(err, res);
 		});
 };
 
@@ -75,20 +80,20 @@ module.exports.connect = function(next) {
 * Index a document with the given type
 */
 module.exports.index = function (type, document, next) {
-			client.index({index: 'mindmeteo', type: type, body: document}, function documentIndexed(err, res, status) {
-				if (err) return next(err);
-				next(err, res);
-			});
-	};
+	client.index({index: 'mindmeteo', type: type, body: document}, function documentIndexed(err, res, status) {
+		if (err) return next(err);
+		next(err, res);
+	});
+};
 
 /**
- * Export all tables into Elasticsearch
+ * Export all indexable tables into Elasticsearch
  */
 module.exports.indexAll = function(next) {
-	errors = [];
-	indexTable('Sensor', 'sensors', function(err) {
-		errors.push(err);
-		//other indexation (records)
+	var errors = [];
+
+	async.each(indexableTable, indexTable, function(err) {
+		errors.concat(err);
 		next(errors);
 	});
 };
