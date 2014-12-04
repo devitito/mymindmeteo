@@ -5,6 +5,8 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
+var moment = require('moment');
+
 module.exports = {
 
 	autoCreatedAt: false,
@@ -46,5 +48,26 @@ module.exports = {
 			notNull: true,
 	  }
   },
-};
 
+	toIndexable: function (options, cb) {
+		//var sensor = options.sensor;
+
+		(function _lookupSensorIfNecessary(afterLookup){
+			if (typeof options == 'object') return afterLookup(null, options);
+			Sensor.findOne(options).exec(afterLookup);
+  	})(function (err, sensor) {
+			if (err) return cb(err);
+			console.log(sensor);
+			cb(null, {
+				id: sensor.id,
+				topic: sensor.topic,
+				label: sensor.label,
+				status: sensor.status,
+				meteologist: sensor.meteologist,
+				tstamp: moment().format('YYYY-MM-DD HH:MM:SS'),
+				samples: [{id: 'id', label: 'label', value: 5}, {id: 'id', label: 'label', value: 5}]
+			});
+		})
+
+	},
+};
