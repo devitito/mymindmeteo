@@ -46,7 +46,13 @@ module.exports = {
 		  type: 'string',
 		  size: 32,
 			notNull: true,
-	  }
+	  },
+		samples: {
+			notNull: true,
+			required: true,
+			collection: 'Sample',
+			via: 'sensor'
+		}
   },
 
 	toIndexable: function (options, cb) {
@@ -57,16 +63,33 @@ module.exports = {
 			Sensor.findOne(options).exec(afterLookup);
   	})(function (err, sensor) {
 			if (err) return cb(err);
-			console.log(sensor);
-			cb(null, {
+
+			//populate associated samples (should be done automaticly with Sensor.find but it is not working)
+			Sample.find({sensor: sensor.id}, function(err, samples) {
+				if (err) return cb(err);
+
+				console.log(samples);
+
+				cb(null, {
 				id: sensor.id,
 				topic: sensor.topic,
 				label: sensor.label,
 				status: sensor.status,
 				meteologist: sensor.meteologist,
 				tstamp: moment().format('YYYY-MM-DD HH:MM:SS'),
-				samples: [{id: 'id', label: 'label', value: 5}, {id: 'id', label: 'label', value: 5}]
+				samples: samples
 			});
+			});
+
+		/*	cb(null, {
+				id: sensor.id,
+				topic: sensor.topic,
+				label: sensor.label,
+				status: sensor.status,
+				meteologist: sensor.meteologist,
+				tstamp: moment().format('YYYY-MM-DD HH:MM:SS'),
+				samples: sensor.samples
+			});*/
 		})
 
 	},
