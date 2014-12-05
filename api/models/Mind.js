@@ -31,7 +31,7 @@ module.exports = {
 	  email : {
 		  type: 'string',
 		  size: 128,
-          maxLength: 32,
+      maxLength: 32,
 		  email: true,
 		  required: true,
 		  unique: true,
