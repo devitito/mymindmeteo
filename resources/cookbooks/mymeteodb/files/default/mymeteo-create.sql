@@ -33,14 +33,14 @@ CREATE TABLE mymeteo.sensors (
 
 CREATE TABLE mymeteo.samples (
   id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  sensor INT(11) NOT NULL,
+  sensor_id INT(11) NOT NULL,
   label varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   img varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   topic varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   value int(11) NOT NULL,
   PRIMARY KEY (id),
-  #KEY IDX_19925777A247991F (sensor_id),
-  #CONSTRAINT FK_19925777A247991F FOREIGN KEY (sensor_id) REFERENCES sensors (id) ON DELETE CASCADE
+  KEY IDX_19925777A247991F (sensor_id),
+  CONSTRAINT FK_19925777A247991F FOREIGN KEY (sensor_id) REFERENCES sensors (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE mymeteo.records (

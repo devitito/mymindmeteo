@@ -51,7 +51,7 @@ module.exports = {
 			notNull: true,
 			required: true,
 			collection: 'Sample',
-			via: 'sensor'
+			via: 'sensor_id'
 		}
   },
 
@@ -63,7 +63,7 @@ module.exports = {
 			if (err) return cb(err);
 
 			//populate associated samples (should be done automaticly with Sensor.find but it is not working)
-			Sample.find({sensor: sensor.id}, function(err, samples) {
+			Sample.find({sensor_id: sensor.id}, function(err, samples) {
 				if (err) return cb(err);
 
 				cb(null, {
@@ -82,6 +82,6 @@ module.exports = {
 	afterDestroy: function(destroyedRecords, cb) {
 		// Destroy any sample whose sensor has an ID of one of the
 		// deleted sensor models
-		Sample.destroy({sensor: _.pluck(destroyedRecords, 'id')}).exec(cb);
+		Sample.destroy({sensor_id: _.pluck(destroyedRecords, 'id')}).exec(cb);
 	}
 };

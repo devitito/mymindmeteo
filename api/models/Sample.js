@@ -45,7 +45,7 @@ module.exports = {
 			required: true,
 			notNull: true
 		},
-		sensor: {
+		sensor_id: {
 			//notNull: true,
 			//required: true,
 			model: 'Sensor'
