@@ -117,6 +117,19 @@ module.exports.indexAll = function(next) {
 	/**
 	* Issue a request
 	*/
-/*	request: function(request, options, next) {
-		next();
-	}*/
+	module.exports.request = function(request, options, next) {
+		client.search({
+			index: 'mindmeteo',
+			from: options.page*options.count,
+			size: options.count,
+			type: 'sensors',
+			body: {
+				query: {
+    			match_all: {}
+  			},
+			}
+		}, function(err, sensors) {
+			if (err) return next(err);
+			next(null, {result: sensors.hits.hits, total: sensors.hits.total});
+		});
+	}

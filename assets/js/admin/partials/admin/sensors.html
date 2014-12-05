@@ -18,30 +18,30 @@
 	<div class="clearfix"></div>
     <div loading-container="tableParams.settings().$loading">
 		<table ng-table="tableParams" class="table table-hover">
-	        <tr class="clickable" ng-repeat="sensor in $data" ng-click="go('/sensors/edit/'+sensor.id)">
+	        <tr class="clickable" ng-repeat="sensor in $data" ng-click="go('/sensors/edit/'+sensor._source.id)">
 	            <td data-title="'Label'" style="with:20%;">
-	                <span>{{sensor.label}}</span>
+	                <span>{{sensor._source.label}}</span>
 	            </td>
 	         	<td data-title="'Positive Sample'">
-	                <span>{{sensor.samples[0].label}}</span>
+	                <span>{{sensor._source.samples[0].label}}</span>
 	            </td>
 	            <td data-title="'Pos. Sample val.'">
-	                <span>{{sensor.samples[0].value}}</span>
+	                <span>{{sensor._source.samples[0].value}}</span>
 	            </td>
 	            <td data-title="'Negative Sample'">
-	                <span>{{sensor.samples[1].label}}</span>
+	                <span>{{sensor._source.samples[1].label}}</span>
 	            </td>
 	             <td data-title="'Neg. Sample val.'">
-	                <span>{{sensor.samples[1].value}}</span>
+	                <span>{{sensor._source.samples[1].value}}</span>
 	            </td>
 	            <td data-title="'Topic'">
-	                <span>{{sensor.topic}}</span>
+	                <span>{{sensor._source.topic}}</span>
 	            </td>
 	            <td data-title="'Meteologist'">
-	                <span>{{sensor.meteologist}}</span>
+	                <span>{{sensor._source.meteologist}}</span>
 	            </td>
 	            <td data-title="'Status'">
-	                <span>{{sensor.status}}</span>
+	                <span>{{sensor._source.status}}</span>
 	            </td>
 	            <!-- td data-title="'Actions'">
 	                <a ng-if="!sensor.$edit" href="" class="btn btn-default btn-xs" ng-click="sensor.$edit = true">Edit</a>
