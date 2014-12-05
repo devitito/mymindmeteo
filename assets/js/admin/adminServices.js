@@ -7,7 +7,7 @@ adminServices.factory('mindFactory', ['$resource', function($resource){
 }]);
 
 adminServices.factory('sensorFactory', ['$resource', function($resource){
-	return $resource('/api/admin/sensors/:id', {id: '@id'}, {
+	return $resource('/sensor/:id', {id: '@id'}, {
 		query: {method:'GET', isArray:false},
 		update: {method:'PUT'},
 		suggest: {method:'SUGGEST', isArray:true}

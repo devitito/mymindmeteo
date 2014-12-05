@@ -18,38 +18,30 @@
 	<div class="clearfix"></div>
     <div loading-container="tableParams.settings().$loading">
 		<table ng-table="tableParams" class="table table-hover">
-	        <tr ng-repeat="sensor in $data" ng-click="go('/sensors/edit/'+sensor.id)">
+	        <tr class="clickable" ng-repeat="sensor in $data" ng-click="go('/sensors/edit/'+sensor.id)">
 	            <td data-title="'Label'" style="with:20%;">
-	                <span ng-if="!sensor.$edit">{{sensor.label}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.label" /></div>
+	                <span>{{sensor.label}}</span>
 	            </td>
 	         	<td data-title="'Positive Sample'">
-	                <span ng-if="!sensor.$edit">{{sensor.samples[0].label}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].label" /></div>
+	                <span>{{sensor.samples[0].label}}</span>
 	            </td>
 	            <td data-title="'Pos. Sample val.'">
-	                <span ng-if="!sensor.$edit">{{sensor.samples[0].value}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[0].value" /></div>
+	                <span>{{sensor.samples[0].value}}</span>
 	            </td>
 	            <td data-title="'Negative Sample'">
-	                <span ng-if="!sensor.$edit">{{sensor.samples[1].label}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].label" /></div>
+	                <span>{{sensor.samples[1].label}}</span>
 	            </td>
 	             <td data-title="'Neg. Sample val.'">
-	                <span ng-if="!sensor.$edit">{{sensor.samples[1].value}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.samples[1].value" /></div>
+	                <span>{{sensor.samples[1].value}}</span>
 	            </td>
 	            <td data-title="'Topic'">
-	                <span ng-if="!sensor.$edit">{{sensor.topic}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.topic" /></div>
+	                <span>{{sensor.topic}}</span>
 	            </td>
 	            <td data-title="'Meteologist'">
-	                <span ng-if="!sensor.$edit">{{sensor.meteologist}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.meteologist" /></div>
+	                <span>{{sensor.meteologist}}</span>
 	            </td>
 	            <td data-title="'Status'">
-	                <span ng-if="!sensor.$edit">{{sensor.status}}</span>
-	                <div ng-if="sensor.$edit"><input class="form-control" type="text" ng-model="sensor.status" /></div>
+	                <span>{{sensor.status}}</span>
 	            </td>
 	            <!-- td data-title="'Actions'">
 	                <a ng-if="!sensor.$edit" href="" class="btn btn-default btn-xs" ng-click="sensor.$edit = true">Edit</a>

@@ -32,8 +32,11 @@ module.exports.policies = {
         create: "flash",
 				'validate-*': true,
 				'dashboard': ["sessionAuth", "mindCanSeeProfile"],
-        '*': ["sessionAuth", "mindCanSeeProfile", "admin"]
+        '*': "admin"
     },
+		sensor: {
+			index: 'admin'
+		},
 		admin: {
         '*': 'admin'
     }
