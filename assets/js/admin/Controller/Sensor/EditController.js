@@ -14,7 +14,7 @@ adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor', 
 			$scope.sensor.$update(
 				function(success) {
 					flash.setMessage('Sensor updated successfully!');
-					$location.path('/edited/result/sensors/'+$scope.sensor.id+'/1');
+					$location.path('/result/sensors/'+$scope.sensor.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -25,7 +25,7 @@ adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor', 
 					} catch (e) {
 						flash.setMessage('An error occured while applying the changes');
 					}
-					$location.path('/edited/result/sensors/'+$scope.sensor.id+'/0');
+					$location.path('/result/sensors/'+$scope.sensor.id+'/0');
 				}
 			);
 		};
@@ -34,7 +34,7 @@ adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor', 
 			$scope.sensor.$delete(
 				function(success) {
 					flash.setMessage('Sensor deleted successfully!');
-					$location.path('/deleted/sensors/'+$scope.sensor.id+'/1');
+					$location.path('/result/sensors/'+$scope.sensor.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -45,7 +45,7 @@ adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor', 
 					} catch (e) {
 						flash.setMessage('An error occured while deleting the sensor');
 					}
-					$location.path('/deleted/sensors/'+$scope.sensor.id+'/0');
+					$location.path('/result/sensors/'+$scope.sensor.id+'/0');
 				}
 			);
 		};

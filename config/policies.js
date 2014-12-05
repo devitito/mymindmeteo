@@ -35,7 +35,8 @@ module.exports.policies = {
         '*': "admin"
     },
 		sensor: {
-			index: 'admin'
+			//create: 'meteologist',
+			'*': 'admin'
 		},
 		admin: {
         '*': 'admin'

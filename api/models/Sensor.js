@@ -56,8 +56,6 @@ module.exports = {
   },
 
 	toIndexable: function (options, cb) {
-		//var sensor = options.sensor;
-
 		(function _lookupSensorIfNecessary(afterLookup){
 			if (typeof options == 'object') return afterLookup(null, options);
 			Sensor.findOne(options).exec(afterLookup);
@@ -68,29 +66,22 @@ module.exports = {
 			Sample.find({sensor: sensor.id}, function(err, samples) {
 				if (err) return cb(err);
 
-				console.log(samples);
-
 				cb(null, {
-				id: sensor.id,
-				topic: sensor.topic,
-				label: sensor.label,
-				status: sensor.status,
-				meteologist: sensor.meteologist,
-				tstamp: moment().format('YYYY-MM-DD HH:MM:SS'),
-				samples: samples
+					id: sensor.id,
+					topic: sensor.topic,
+					label: sensor.label,
+					status: sensor.status,
+					meteologist: sensor.meteologist,
+					tstamp: moment().format('YYYY-MM-DD HH:MM:SS'),
+					samples: samples
+				});
 			});
-			});
-
-		/*	cb(null, {
-				id: sensor.id,
-				topic: sensor.topic,
-				label: sensor.label,
-				status: sensor.status,
-				meteologist: sensor.meteologist,
-				tstamp: moment().format('YYYY-MM-DD HH:MM:SS'),
-				samples: sensor.samples
-			});*/
 		})
-
 	},
+
+	afterDestroy: function(destroyedRecords, cb) {
+		// Destroy any sample whose sensor has an ID of one of the
+		// deleted sensor models
+		Sample.destroy({sensor: _.pluck(destroyedRecords, 'id')}).exec(cb);
+	}
 };

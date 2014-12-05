@@ -14,7 +14,7 @@ module.exports = {
 		Sensor.find().limit(10).populate('samples').exec(function(err, sensors) {
 			if (err) return next(err);
 
-			res.json({result: sensors});
+			res.json({result: sensors, total: 10});
 		});
 	},
 };
