@@ -73,7 +73,33 @@ module.exports.connect = function(next) {
 			if (err) return next(err);
 
 			//add types and mappings
-			next();
+			client.indices.putMapping({
+				index: 'mindmeteo',
+				type: 'sensors',
+				body: {
+			//		sensor: {
+						properties: {
+							'id' : {type: 'string', include_in_all: false},
+							'topic' : {type : 'string', include_in_all: true},
+							'label': {type: 'string', include_in_all: true},
+							'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
+							'meteologist' : {type : 'string', include_in_all : true},
+							'samples' : {
+								'type' : 'nested',
+								'properties' : {
+									'id' : {type : 'string', include_in_all : true},
+									'label' : {type : 'string', include_in_all : true},
+									'value' : {type : 'integer', include_in_all : true},
+								}
+							}
+						}
+			//		}
+				}
+			}, function (err, mappingRes) {
+				if (err) return next(err);
+				next();
+			});
+
 		});
 		else
 			next();
@@ -120,19 +146,11 @@ module.exports.indexAll = function(next) {
 	/**
 	* Issue a request
 	*/
-	module.exports.request = function(request, options, next) {
-		client.search({
-			index: 'mindmeteo',
-			from: (options.page-1)*options.count,
-			size: options.count,
-			type: 'sensors',
-			body: {
-				query: {
-    			match_all: {}
-  			},
-			}
-		}, function(err, sensors) {
-			if (err) return next(err);
-			next(null, {result: sensors.hits.hits, total: sensors.hits.total});
-		});
-	}
+module.exports.request = function(request, options, next) {
+	var adapter = require('./requests/'+request+'.js');
+
+	client.search(adapter.query(options), function (err, res) {
+		if (err) return next(err);
+		next(null, adapter.parse(res));
+	});
+};

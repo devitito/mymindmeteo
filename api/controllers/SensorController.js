@@ -7,19 +7,19 @@
 
 module.exports = {
 	index: function(req, res, next) {
-		var count = req.param('count');
-		var page = req.param('page');
+		var request = (req.param('filter') === undefined) ? 'sensor-list' : 'sensor-list-filter';
 
-		ElasticService.request('sensor-list', {count: count, page: page}, function sensorList(err, list) {
+		ElasticService.request(request, {count: req.param('count'), page: req.param('page'), filter: req.param('filter')}, function sensorList(err, list) {
 			if (err) return next(err);
 			res.json(list);
 		});
-
-		/*Sensor.find().limit(10).populate('samples').exec(function(err, sensors) {
-			if (err) return next(err);
-
-			res.json({result: sensors, total: 10});
-		});*/
 	},
+
+	suggest: function(req, res, next) {
+		ElasticService.request('sensor-list-suggest', {filter: req.param('filter')}, function sensorList(err, list) {
+			if (err) return next(err);
+			res.json(list);
+		});
+	}
 };
 

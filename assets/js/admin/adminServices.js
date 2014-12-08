@@ -10,7 +10,7 @@ adminServices.factory('sensorFactory', ['$resource', function($resource){
 	return $resource('/sensor/:id', {id: '@id'}, {
 		query: {method:'GET', isArray:false},
 		update: {method:'PUT'},
-		suggest: {method:'SUGGEST', isArray:true}
+		suggest: {method:'GET', url:'/sensor/suggest', isArray:true}
 	});
 }]);
 
