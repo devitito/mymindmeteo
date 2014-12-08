@@ -9,7 +9,12 @@
 
 include_recipe 'js::nodejs'
 
-execute "Install Forever" do
+execute "Install sails and Forever" do
   command "npm -g install sails forever --yes"
+  action :run
+end
+
+execute "Install node theseus debugger" do
+  command "npm -g install node-theseus --yes"
   action :run
 end
