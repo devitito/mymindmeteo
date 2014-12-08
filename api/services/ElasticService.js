@@ -75,7 +75,10 @@ module.exports.connect = function(next) {
 			//add types and mappings
 			next();
 		});
+		else
+			next();
 	});
+
 }
 
 /*
@@ -120,7 +123,7 @@ module.exports.indexAll = function(next) {
 	module.exports.request = function(request, options, next) {
 		client.search({
 			index: 'mindmeteo',
-			from: options.page*options.count,
+			from: (options.page-1)*options.count,
 			size: options.count,
 			type: 'sensors',
 			body: {

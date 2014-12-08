@@ -21,7 +21,6 @@ module.exports = {
 		//CLear the index
 		ElasticService.clearAll(function allCleared(err) {
 			if (err) return next(err);
-			console.log('all indices cleared');
 
 			ElasticService.indexAll(function allIndexed(err) {
 				res.send(200, err);
