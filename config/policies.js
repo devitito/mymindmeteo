@@ -36,6 +36,8 @@ module.exports.policies = {
     },
 		sensor: {
 			//create: 'meteologist',
+			index : ['admin', 'replaceSpaceByAND'],
+			suggest : ['admin', 'replaceSpaceByAND'],
 			'*': 'admin'
 		},
 		admin: {
