@@ -5,15 +5,17 @@
  *
  */
 
-adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', '$resource', '$timeout', '$rootScope', '$filter', '$q', '$location', 'sensorFactory',
-    function ($scope, ngTableParams, $sce, $resource, $timeout, $rootScope, $filter, $q, $location, sensorFactory) {
+adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$resource', '$timeout', '$location', 'sensorsCache', 'sensorFactory',
+    function ($scope, ngTableParams, $resource, $timeout, $location, sensorsCache, sensorFactory) {
 			var timer;
 			var prevent = false;
 			$scope.suggestions = [];
+			$scope.filterTxt = sensorsCache.get('fitlerTxt');
 
 			$scope.tableParams = new ngTableParams({
 				page: 1,            // show first page
-				count: 10           // count per page
+				count: 10,           // count per page
+				filter: $scope.filterTxt
 			}, {
 				counts: [], // hide page counts control
 				total:0, // length of data
@@ -39,6 +41,7 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$sce', 
 				prevent = true;
 				$scope.tableParams.parameters({'filter':$scope.filterTxt}, true);
 				$scope.tableParams.page(1);
+				sensorsCache.set('fitlerTxt', $scope.filterTxt);
 				//table is reloaded when params changes
 				//$scope.tableParams.reload();
 			};
