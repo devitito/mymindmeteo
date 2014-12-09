@@ -111,7 +111,7 @@ module.exports.connect = function(next) {
 * Index a document with the given type
 */
 module.exports.index = function (type, document, next) {
-	client.index({index: 'mindmeteo', type: type, body: document}, function documentIndexed(err, res, status) {
+	client.index({index: 'mindmeteo', type: type, id: document.id, refresh: true, body: document}, function documentIndexed(err, res, status) {
 		if (err) return next(err);
 		next(err, res);
 	});

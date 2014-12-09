@@ -11,6 +11,7 @@ module.exports.query = function(options) {
 	return {
 		index: 'mindmeteo',
 		type: 'sensors',
+		trackScores: false,
 		body: {
 			query: {
 				fuzzy_like_this: {

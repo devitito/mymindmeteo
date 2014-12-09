@@ -14,6 +14,7 @@ module.exports.query = function(options) {
 		from: (page-1)*count,
 		size: count,
 		type: 'sensors',
+		trackScores: false,
 		body: {
 			query: {
 				match_all: {}

@@ -5,10 +5,6 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var replaceSpaceByAnd = function(str) {
-	return str.replace(' ', ' AND ');
-};
-
 module.exports = {
 	index: function(req, res, next) {
 		var request = (req.param('filter') === undefined) ? 'sensor-list' : 'sensor-list-filter';

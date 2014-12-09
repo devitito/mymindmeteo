@@ -15,6 +15,7 @@ module.exports.query = function(options) {
 			type: 'sensors',
 			from: (page-1)*count,
 			size: count,
+			trackScores: false,
 			body: {
 				query: {
 					bool: {

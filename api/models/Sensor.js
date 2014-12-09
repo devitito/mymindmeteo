@@ -72,11 +72,26 @@ module.exports = {
 					label: sensor.label,
 					status: sensor.status,
 					meteologist: sensor.meteologist,
-					tstamp: moment().format('YYYY-MM-DD HH:MM:SS'),
+					tstamp: moment().format('YYYY-MM-DD HH:MM:ss'),
 					samples: samples
 				});
 			});
 		})
+	},
+
+	afterUpdate: function(updatedRecord, cb) {
+		Sensor.toIndexable(updatedRecord, function(err, indexable) {
+			if (err) return cb(err);
+
+			ElasticService.index('sensors', indexable, function IndexedSensor(err, res) {
+				if (err) return cb(err);
+
+				console.log('index updated sensor in elasticsearch');
+				cb();
+			});
+		});
+
+
 	},
 
 	afterDestroy: function(destroyedRecords, cb) {
