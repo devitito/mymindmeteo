@@ -10,11 +10,6 @@ module.exports.query = function(options) {
 	var count = (options.count === undefined) ? 10 : options.count;
 	var filter = (options.filter === undefined) ? '' : options.filter;
 
-	/*var filter = options.filter;
-
-	if (filter === undefined)
-		filter = '';*/
-
 	return {
 			index: 'mindmeteo',
 			type: 'sensors',
