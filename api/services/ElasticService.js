@@ -141,9 +141,12 @@ module.exports.indexAll = function(next) {
 	/*
 	* Delete the document of a given type
 	*/
-/*	delete: function(type, document, next) {
-		next();
-	},*/
+	module.exports.delete = function(type, id, next) {
+		client.delete({index: 'mindmeteo', type: type, id: id, refresh: true}, function documentDeleted(err, res) {
+			if (err) return next(err);
+			next(err, res);
+		});
+	},
 
 	/**
 	* Issue a request

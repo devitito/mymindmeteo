@@ -90,13 +90,24 @@ module.exports = {
 				cb();
 			});
 		});
-
-
 	},
 
 	afterDestroy: function(destroyedRecords, cb) {
 		// Destroy any sample whose sensor has an ID of one of the
 		// deleted sensor models
 		Sample.destroy({sensor_id: _.pluck(destroyedRecords, 'id')}).exec(cb);
-	}
+
+		//delete it in ES also
+		var results = [];
+		async.each(_.pluck(destroyedRecords, 'id'),
+							function(record, cb) {
+								ElasticService.delete('sensors', record, function deletedSensor(err, res) {
+									if (err) results.push(err.message);
+									cb();
+								});
+							},
+							function(err) {
+								cb(err, results);
+		});
+	},
 };
