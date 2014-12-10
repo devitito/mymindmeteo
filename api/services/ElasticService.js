@@ -121,13 +121,25 @@ module.exports.index = function (type, document, next) {
  * Export all indexable tables into Elasticsearch
  */
 module.exports.indexAll = function(next) {
-	async.concat(indexableTable, indexTable, function(err, res) {
-		if (!_.isEmpty(res)) {
-			var error = new Error();
-			error.message = res.toString();
-			return next(error);
-		}
-		next();
+
+	var domain = require('domain');
+	var d = domain.create();
+	// Domain emits 'error' when it's given an unhandled error
+	d.on('error', function(err) {
+		var error = new Error();
+		error.message = err.message;
+		next(error);
+	});
+
+	d.run(function() {
+		async.concat(indexableTable, indexTable, function(err, res) {
+			if (!_.isEmpty(res)) {
+				var error = new Error();
+				error.message = res.toString();
+				return next(error);
+			}
+			next();
+		});
 	});
 };
 
