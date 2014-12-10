@@ -67,6 +67,10 @@ module.exports = {
 		  defaultsTo: 'mind',
 		  notNull: true,
 	  },
+		records: {
+			collection: 'record',
+			via: 'mind_id'
+		},
 	  
 	  toJSON: function() {
 		  var obj = this.toObject();

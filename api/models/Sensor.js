@@ -52,7 +52,11 @@ module.exports = {
 			required: true,
 			collection: 'Sample',
 			via: 'sensor_id'
-		}
+		},
+		records: {
+			collection: 'Record',
+			via: 'sensor_id'
+	}
   },
 
 	toIndexable: function (options, cb) {

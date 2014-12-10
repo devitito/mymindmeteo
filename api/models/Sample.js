@@ -49,6 +49,10 @@ module.exports = {
 			//notNull: true,
 			//required: true,
 			model: 'Sensor'
+		},
+		records: {
+			collection: 'Record',
+			via: 'sample_id'
 		}
 	},
 
