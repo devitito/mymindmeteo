@@ -8,7 +8,7 @@
 var elasticsearch = require('elasticsearch');
 var async = require('async');
 var client;
-var indexableTable = [{model: 'Sensor', table:'sensors'}, {model: 'Record', table:'records'}];
+var indexableTable = [{model: 'Record', table:'records'}, {model: 'Sensor', table:'sensors'} ];
 
 /**
  * Index all records of a table in Elasticsearch
@@ -25,11 +25,11 @@ var indexTable = function(indexableTable, next) {
 				function(record, cb) {
 					eval(indexableTable.model).toIndexable(record, function (err, indexable) {
 						if (err) {
-							errors.push(err);
+							errors.push(err.message);
 							cb();
 						}
 						else module.exports.index(indexableTable.table, indexable, function documentIndexed(err, res) {
-							if (err) errors.push(err);
+							if (err) errors.push(err.message);
 							cb();
 						});
 					});
@@ -40,7 +40,7 @@ var indexTable = function(indexableTable, next) {
 		});
 	} catch (e) {
 		errors.push(e.message);
-		//next(errors);
+		next(null, errors);
 	};
 };
 
@@ -121,11 +121,13 @@ module.exports.index = function (type, document, next) {
  * Export all indexable tables into Elasticsearch
  */
 module.exports.indexAll = function(next) {
-	var errors = [];
-
-	async.each(indexableTable, indexTable, function(err) {
-		errors.concat(err);
-		next(errors);
+	async.concat(indexableTable, indexTable, function(err, res) {
+		if (!_.isEmpty(res)) {
+			var error = new Error();
+			error.message = res.toString();
+			return next(error);
+		}
+		next();
 	});
 };
 

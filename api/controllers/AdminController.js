@@ -23,7 +23,8 @@ module.exports = {
 			if (err) return next(err);
 
 			ElasticService.indexAll(function allIndexed(err) {
-				res.send(200, err);
+				if (err) return next(err);
+				res.send(200);
 			});
 		});
 

@@ -15,15 +15,18 @@ var ResultCtrl = adminControllers.controller('ResultCtrl', ['$scope', '$location
 adminControllers.controller('dashboardCtrl', ['$scope', 'recovery', 'identity',
     function ($scope, recovery, identity) {
 		$scope.recover = function () {
-			$scope.recovery_date = '  In progress. Wait...';
+			$scope.result = '  In progress. Wait...';
 			recovery.query(
 				function(data){
-					$scope.recovery_date = '  Indexes re-created on : ' + moment().locale(identity.locale).format('lll');
-	            },
-	            function(error) {
-	            	$scope.error = 'An error occured while recovering the undindexed records';
-	  	    		//todo display error
-	           });
+					$scope.result = '  Indexes re-created on : ' + moment().locale(identity.locale).format('lll');
+				},
+				function(error) {
+					try {
+					$scope.result = '  ' + error.data.message;
+					} catch (e) {
+						$scope.result = '  An error occured while re indexing the records';
+					}
+				});
 		}
 }]);
 
