@@ -9,19 +9,24 @@ adminControllers.controller('sensorsCtrl', ['$scope',  'ngTableParams', '$resour
     function ($scope, ngTableParams, $resource, $timeout, $location, sensorsCache, sensorFactory) {
 			var timer;
 			var prevent = false;
+			var page = (sensorsCache.get('page') === undefined) ? 1 : sensorsCache.get('page');
+			var filter = (sensorsCache.get('fitlerTxt') === undefined) ? new Object() : sensorsCache.get('fitlerTxt');//sensorsCache.get('fitlerTxt');
+
 			$scope.suggestions = [];
 			$scope.filterTxt = sensorsCache.get('fitlerTxt');
 
 			$scope.tableParams = new ngTableParams({
-				page: 1,            // show first page
+				page: page,            // show saved page
 				count: 10,           // count per page
-				filter: $scope.filterTxt
+				filter: filter
 			}, {
 				counts: [], // hide page counts control
 				total:0, // length of data
 				getData: function($defer, params) {
 					$scope.suggestions = [];
 					sensorFactory.query(params.url(), function(data) {
+						sensorsCache.set('page', params.page());
+						page = params.page();
 						$timeout(function() {
 							// update table params
 							params.total(data.total);
