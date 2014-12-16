@@ -81,7 +81,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 }]);
 
 EditMindCtrl.resolve = {
-  mind: function(mindFactory, $q, $route, flash) {
+  mind: function(mindFactory, $q, $route) {
 	  var deferred = $q.defer();
 	  mindFactory.get({id:$route.current.params.mindId},
 		  function(data){
