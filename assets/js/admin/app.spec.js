@@ -24,11 +24,9 @@ describe("admin routes", function() {
 			function(_mindFactory_, _identityService_) {
 				$httpBackend.expectGET('/js/admin/partials/mind/edit.html').respond(200);
 
-				var mind = $q.defer();
-				mind.resolve('a mind');
 				mindFactory = _mindFactory_;
 				spyOn(mindFactory, 'get').and.callFake(function (id, success, error) {
-					return success(mind.promise);
+					return success('a mind');
 				});
 
 				var identity = $q.defer();
@@ -65,7 +63,6 @@ describe("admin routes", function() {
 			$rootScope.$apply();
 			expect(resolvedMind).toBe('a mind');
 			expect(resolvedIdentity).toBe('an identity');
-
     });
 	});
 });
