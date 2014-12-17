@@ -22,6 +22,7 @@ module.exports = function (config) {
 				//	'assets/bower_components/moment/locale/es.js',
 
 					'assets/js/admin/app.js',
+					'assets/js/admin/app.spec.js',
 					'assets/js/admin/adminServices.js',
 					'assets/js/admin/Services/identity.js',
 					'assets/js/admin/Services/lang.js',
