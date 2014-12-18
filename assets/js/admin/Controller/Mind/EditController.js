@@ -5,8 +5,8 @@
  *
  */
 
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', '$modal', 'mind', 'roles', 'flash', 'lang', 'timezones', 'identity', 'identityService',
-    function ($scope, $rootScope, $location, $modal, mind, roles, flash, lang, timezones, identity, identityService) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', '$modal', 'mind', 'roles', 'lang', 'timezones', 'identity', 'identityService',
+    function ($scope, $rootScope, $location, $modal, mind, roles, lang, timezones, identity, identityService) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -65,31 +65,32 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 			});
 		};
 
+		$scope.mind = mind;
+		$scope.isSelf = identityService.isSelf(mind.id);
 		$scope.roles = roles;
 		$scope.timezones = timezones;
 		$scope.langs = lang.list(identity.locale);
-
-		if (angular.isObject(mind)) {
-			$scope.mind = mind;
-			$scope.isSelf = identityService.isSelf(mind.id);
-		}
-		else {
-			flash.setMessage(mind);
-			$scope.flash = flash;
-			//$location.path('/result/minds/0/1');
-		}
 }]);
 
 EditMindCtrl.resolve = {
-  mind: function(mindFactory, $q, $route) {
-	  var deferred = $q.defer();
-	  mindFactory.get({id:$route.current.params.mindId},
+  mind: function(mindFactory, $q, $route, $location, flash) {
+		var mindRequest = mindFactory.get({id:$route.current.params.mindId}).$promise;
+		mindRequest.catch(function(reason) {
+			flash.setMessage(reason.data);
+			$location.path('/result/minds/0/1');
+		});
+		return mindRequest;
+
+	 	/*var deferred = $q.defer();
+	 	mindFactory.get({id:$route.current.params.mindId},
 		  function(data){
 			  deferred.resolve(data);
 		  }, function(errorData) {
-			  deferred.resolve(errorData.data);
-	});
-	return deferred.promise;
+			  flash.setMessage(errorData.data);
+				$location.path('/result/minds/0/1');
+		});
+		return deferred.promise;*/
+
   },
   identity: function(identityService, $q) {
 		var deferred = $q.defer();
