@@ -36,24 +36,34 @@ describe("admin routes", function() {
 			}
 		));
 
-		it('should resolve mind and identity', function() {
-			var resolvedMind;
-			var resolvedIdentity;
+		beforeEach(function() {
 			expect($location.path()).toBe( '' );
 			$location.path('/minds/edit/2');
-
 			$rootScope.$digest();
+		});
 
+		it('should be defined', function() {
 			expect($location.path()).toBe( '/minds/edit/2' );
 			expect($route.current.controller).toBe('EditMindCtrl');
 			expect($route.current.templateUrl).toEqual('/js/admin/partials/mind/edit.html');
+		});
 
+		it('should resolve mind', function() {
+			var resolvedMind;
 			// We need to do $injector.invoke to resolve dependencies
 			var mindPromise = $injector.invoke($route.current.resolve.mind);
 			mindPromise.then(function(value) {
 				resolvedMind = value;
 			});
 
+			// Propagate promise resolution to 'then' functions using $apply().
+			$rootScope.$apply();
+			expect(resolvedMind).toBe('a mind');
+    });
+
+		it('should resolve identity', function() {
+			var resolvedIdentity;
+			// We need to do $injector.invoke to resolve dependencies
 			var identityPromise = $injector.invoke($route.current.resolve.identity);
 			identityPromise.then(function(value) {
 				resolvedIdentity = value;
@@ -61,7 +71,6 @@ describe("admin routes", function() {
 
 			// Propagate promise resolution to 'then' functions using $apply().
 			$rootScope.$apply();
-			expect(resolvedMind).toBe('a mind');
 			expect(resolvedIdentity).toBe('an identity');
     });
 	});
