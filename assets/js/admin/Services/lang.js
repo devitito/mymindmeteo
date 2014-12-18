@@ -13,6 +13,8 @@ adminServices.factory('lang', ['$http',
     }); */
 	return {
 		list: function(locale) {
+			if (angular.isUndefined(locale)) locale = 'en_EN';
+
 			if (locale == 'fr_FR')
 				return [{code:'fr_FR', name:'Français'},
 				        {code:'en_EN', name:'Anglais'},
