@@ -68,7 +68,7 @@ module.exports = {
 		  notNull: true,
 	  },
 		records: {
-			collection: 'record',
+			collection: 'Record',
 			via: 'mind_id'
 		},
 	  
