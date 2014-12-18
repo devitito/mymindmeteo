@@ -5,8 +5,8 @@
  *
  */
 
-var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', '$modal', 'mind', 'roles', 'lang', 'timezones', 'identity', 'identityService',
-    function ($scope, $rootScope, $location, $modal, mind, roles, lang, timezones, identity, identityService) {
+var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', '$modal', 'flash', 'mind', 'roles', 'lang', 'timezones', 'identity', 'identityService',
+    function ($scope, $rootScope, $location, $modal, flash, mind, roles, lang, timezones, identity, identityService) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
