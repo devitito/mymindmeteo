@@ -25,3 +25,4 @@ data
 /coverage/
 /node_modules/karma-coverage/
 /node_modules/karma-brackets/
+/assets/coverage/
