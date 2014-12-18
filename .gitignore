@@ -22,3 +22,6 @@ data
 /.tmp
 /config/local.js
 /npm-debug.log
+/coverage/
+/node_modules/karma-coverage/
+/node_modules/karma-brackets/

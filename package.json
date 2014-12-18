@@ -45,6 +45,7 @@
     "karma": "^0.12.28",
     "karma-brackets": "^0.2.1",
     "karma-chrome-launcher": "^0.1.7",
+    "karma-coverage": "^0.2.7",
     "karma-firefox-launcher": "^0.1.3",
     "karma-jasmine": "^0.3.2"
   }

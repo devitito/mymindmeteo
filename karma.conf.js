@@ -34,7 +34,21 @@ module.exports = function (config) {
 					'assets/js/admin/Controller/Mind/EditController.js',
 					'assets/js/admin/Controller/Mind/EditController.spec.js'
 				],
-        reporters: ['progress', 'brackets'],
+        reporters: ['progress', 'brackets', 'coverage'],
+
+				preprocessors: {
+					// source files, that you wanna generate coverage for
+					// do not include tests or libraries
+					// (these files will be instrumented by Istanbul)
+					'assets/js/admin/**/*.js': ['coverage']
+				},
+
+				// optionally, configure the reporter
+				coverageReporter: {
+					type : 'html',
+					dir : 'coverage/'
+				},
+
         frameworks: ['jasmine'],
         port: 9876,
         runnerPort: 9100,
