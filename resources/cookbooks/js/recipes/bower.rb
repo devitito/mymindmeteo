@@ -7,6 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe 'js::default'
 include_recipe 'js::nodejs'
 
 execute "Install bower" do
