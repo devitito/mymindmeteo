@@ -22,7 +22,6 @@ module.exports = function (config) {
 				//	'assets/bower_components/moment/locale/es.js',
 
 					'assets/js/admin/app.js',
-					'assets/js/admin/app.spec.js',
 					'assets/js/admin/adminServices.js',
 					'assets/js/admin/Services/identity.js',
 					'assets/js/admin/Services/lang.js',
@@ -31,8 +30,12 @@ module.exports = function (config) {
 					'assets/js/admin/Services/cache.js',
 					'assets/js/admin/adminController.js',
 					'assets/js/admin/adminDirectives.js',
+					'assets/js/admin/**/*.js',
+				/*	,
+					'assets/js/admin/app.spec.js',
+
 					'assets/js/admin/Controller/Mind/EditController.js',
-					'assets/js/admin/Controller/Mind/EditController.spec.js'
+					'assets/js/admin/Controller/Mind/EditController.spec.js'*/
 				],
         reporters: ['progress', 'brackets', 'coverage'],
 
@@ -40,7 +43,7 @@ module.exports = function (config) {
 					// source files, that you wanna generate coverage for
 					// do not include tests or libraries
 					// (these files will be instrumented by Istanbul)
-					'assets/js/admin/**/*.js': ['coverage']
+					'assets/js/admin/**/!(*.spec).js': ['coverage']
 				},
 
 				// optionally, configure the reporter
