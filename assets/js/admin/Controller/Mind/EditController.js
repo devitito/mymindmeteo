@@ -92,8 +92,13 @@ EditMindCtrl.resolve = {
 		return deferred.promise;*/
 
   },
-  identity: function(identityService, $q) {
+  identity: function(identityService, $q, $location) {
 		var deferred = $q.defer();
-		return identityService.get(deferred);
+		var identityRequest = identityService.get(deferred);
+		identityRequest.catch(function(reason) {
+			//flash.setMessage(reason.data);
+			$location.path('/error');
+		});
+		return identityRequest;
   }
 };

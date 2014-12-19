@@ -89,39 +89,65 @@ describe("admin routes", function() {
 	describe("/minds/edit if cannot resolve", function() {
 		var mindFactory, identityService;
 
+		var getMindWithError = function (id, success, error) {
+			//Handle both callbacks and promise
+			if (angular.isDefined(error))
+				//mindFactory.get called with callback
+				return error({data: 'an error message'});
+			else {
+				//mindFactory.get called with promise
+				getDeferred = $q.defer();
+				getDeferred.reject({data: 'an error message'});
+				return {$promise: getDeferred.promise};
+			};
+		};
+
+		var getMindWithSuccess = function (id, success, error) {
+			//Handle both callbacks and promise
+			if (angular.isDefined(success))
+				//mindFactory.get called with callback
+				return success('a mind');
+			else {
+				//mindFactory.get called with promise
+				getDeferred = $q.defer();
+				getDeferred.resolve('a mind');
+				return {$promise: getDeferred.promise};
+			}
+		};
+
+		var getIdentityWithSuccess = function(deferred) {
+			deferred.resolve('an identity');
+			return deferred.promise;
+		};
+
+		var getIdentityWithError = function(deferred) {
+			deferred.reject('a reason');
+			return deferred.promise;
+		};
+
 		beforeEach(inject(
 			function(_mindFactory_, _identityService_) {
 				$httpBackend.expectGET('/js/admin/partials/mind/edit.html').respond(200);
-				$httpBackend.expectGET('/js/admin/partials/admin/edited.html').respond(200);
 
 				mindFactory = _mindFactory_;
-				spyOn(mindFactory, 'get').and.callFake(function (id, success, error) {
-					//Handle both callbacks and promise
-					if (angular.isDefined(error))
-						//mindFactory.get called with callback
-						return error({data: 'an error message'});
-					else {
-						//mindFactory.get called with promise
-						getDeferred = $q.defer();
-						getDeferred.reject({data: 'an error message'});
-						return {$promise: getDeferred.promise};
-					};
-				});
-
-				var identity = $q.defer();
-				identity.resolve('an identity');
 				identityService = _identityService_;
-				spyOn(identityService, 'get').and.returnValue(identity.promise);
 			}
 		));
 
-		beforeEach(function() {
+		it("mind Should redirect toward result page with error message", function(done) {
+			$httpBackend.expectGET('/js/admin/partials/admin/edited.html').respond(200);
+			spyOn(mindFactory, 'get').and.callFake(function (id, success, error) {
+				return getMindWithError(id, success, error);
+			});
+
+			spyOn(identityService, 'get').and.callFake(function (deferred) {
+				return getIdentityWithSuccess(deferred);
+			});
+
 			expect($location.path()).toBe( '' );
 			$location.path('/minds/edit/2');
 			$rootScope.$digest();
-		});
 
-		it("mind Should redirect toward result page with error message", function(done) {
 			expect($location.path()).toBe( '/result/minds/0/1' );
 
 			$rootScope.$on('$routeChangeSuccess', function () {
@@ -131,6 +157,23 @@ describe("admin routes", function() {
 
 			//The message will be available when $routeChangeSuccess event is triggered
 			$rootScope.$broadcast('$routeChangeSuccess', {});
+		});
+
+		it("identity Should logout", function() {
+			$httpBackend.expectGET('/js/admin/partials/admin/error.html').respond(200);
+			spyOn(mindFactory, 'get').and.callFake(function (id, success, error) {
+				return getMindWithSuccess(id, success, error);
+			});
+
+			spyOn(identityService, 'get').and.callFake(function (deferred) {
+				return getIdentityWithError(deferred);
+			});
+
+			expect($location.path()).toBe( '' );
+			$location.path('/minds/edit/2');
+			$rootScope.$digest();
+
+			expect($location.path()).toBe( '/error' );
 		});
 	});
 

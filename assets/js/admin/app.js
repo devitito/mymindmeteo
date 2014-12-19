@@ -81,28 +81,31 @@ function($routeProvider) {
     		}
         }
    }).
-   when('/minds/new', {
-       templateUrl: '/js/admin/partials/mind/new.html',
-       controller: 'NewMindCtrl',
-       resolve: {
-    	   identity: function(identityService, $q) {
-    			var deferred = $q.defer();
-    			return identityService.get(deferred);
-    		}
-       }
-  }).
-    when('/minds/edit/:mindId', {
-      templateUrl: '/js/admin/partials/mind/edit.html',
-      controller: 'EditMindCtrl',
-      resolve: EditMindCtrl.resolve
-    }).
-    when('/result/:object/:id/:result', {
-        templateUrl: '/js/admin/partials/admin/edited.html',
-        controller: 'ResultCtrl'
-    }).
-    otherwise({
-      redirectTo: '/'
-    });
+	when('/error', {
+		templateUrl: '/js/admin/partials/admin/error.html',
+	}).
+	when('/minds/new', {
+		templateUrl: '/js/admin/partials/mind/new.html',
+		controller: 'NewMindCtrl',
+		resolve: {
+			identity: function(identityService, $q) {
+				var deferred = $q.defer();
+				return identityService.get(deferred);
+			}
+		}
+	}).
+	when('/minds/edit/:mindId', {
+		templateUrl: '/js/admin/partials/mind/edit.html',
+		controller: 'EditMindCtrl',
+		resolve: EditMindCtrl.resolve
+	}).
+	when('/result/:object/:id/:result', {
+		templateUrl: '/js/admin/partials/admin/edited.html',
+		controller: 'ResultCtrl'
+	}).
+	otherwise({
+		redirectTo: '/'
+	});
 }]);
 
 mindmeteo.value('googleChartApiConfig', {
