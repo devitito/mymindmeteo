@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe 'js::default'
+
 execute "Compile and install python" do
   command "apt-get install python-software-properties python g++ make --yes"
   action :run
