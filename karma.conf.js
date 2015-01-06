@@ -3,8 +3,6 @@ module.exports = function (config) {
     config.set({
         basePath: '.',
         files: [
-					//	'assets/bower_components/angular/angular.js',
-					//	'assets/bower_components/angular-mocks/angular-mocks.js',
 					'assets/js/dependencies/sails.io.js',
 					'assets/bower_components/jquery/dist/jquery.js',
 					'assets/bower_components/bootstrap/dist/js/bootstrap.js',
@@ -18,8 +16,6 @@ module.exports = function (config) {
 					'assets/bower_components/angular-google-chart/ng-google-chart.js',
 					'assets/bower_components/moment/moment.js',
 					'assets/bower_components/angular-moment/angular-moment.js',
-				//	'assets/bower_components/moment/locale/fr.js',
-				//	'assets/bower_components/moment/locale/es.js',
 
 					'assets/js/admin/app.js',
 					'assets/js/admin/adminServices.js',
@@ -31,22 +27,15 @@ module.exports = function (config) {
 					'assets/js/admin/adminController.js',
 					'assets/js/admin/adminDirectives.js',
 					'assets/js/admin/**/*.js',
-				/*	,
-					'assets/js/admin/app.spec.js',
-
-					'assets/js/admin/Controller/Mind/EditController.js',
-					'assets/js/admin/Controller/Mind/EditController.spec.js'*/
 				],
         reporters: ['progress', 'brackets', 'coverage'],
 
 				preprocessors: {
-					// source files, that you wanna generate coverage for
 					// do not include tests or libraries
 					// (these files will be instrumented by Istanbul)
 					'assets/js/admin/**/!(*.spec).js': ['coverage']
 				},
 
-				// optionally, configure the reporter
 				coverageReporter: {
 					type : 'html',
 					dir : 'assets/coverage/'
