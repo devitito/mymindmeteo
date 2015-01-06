@@ -17,4 +17,4 @@ include_recipe 'elasticsearch::monit'
 #execuute : 
 #cd /usr/local/bin
 #plugin -i elasticsearch/marvel/latest
-#restart service elasticsearch
+# service elasticsearch restart
