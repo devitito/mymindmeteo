@@ -8,7 +8,6 @@
 #
 
 include_recipe 'js::default'
-include_recipe 'js::nodejs'
 
 execute "Install sails and Forever" do
   command "npm -g install sails forever --yes"

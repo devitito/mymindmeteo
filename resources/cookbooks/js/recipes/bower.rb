@@ -8,7 +8,6 @@
 #
 
 include_recipe 'js::default'
-include_recipe 'js::nodejs'
 
 execute "Install bower" do
   command "npm install -g bower"
