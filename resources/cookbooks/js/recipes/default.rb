@@ -9,7 +9,7 @@
 
 include_recipe 'js::nodejs'
 
-execute "Install grunt globally" do
-  command "npm -g install grunt --yes"
+execute "Install grunt cli globally" do
+  command "npm -g install grunt-cli --yes"
   action :run
 end

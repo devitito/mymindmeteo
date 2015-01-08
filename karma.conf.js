@@ -38,7 +38,7 @@ module.exports = function (config) {
 
 				coverageReporter: {
 					type : 'html',
-					dir : 'assets/coverage/'
+					dir : 'assets/coverage/front'
 				},
 
         frameworks: ['jasmine'],

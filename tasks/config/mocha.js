@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 			options: {
 				reporter: 'spec'
 			},
-			src: ['tests/**/*.spec.js']
+			src: ['test/**/*.test.js']
 		}
 	});
 	grunt.loadNpmTasks('grunt-mocha-test');
