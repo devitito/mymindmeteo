@@ -24,12 +24,15 @@ module.exports = {
 		  notNull: true,
 	  },
 		mind_id: {
+			notNull: true,
 			model: 'Mind'
 		},
 		sensor_id: {
+			notNull: true,
 			model: 'Sensor'
 		},
 		sample_id: {
+			notNull: true,
 			model: 'Sample'
 		}
 	},

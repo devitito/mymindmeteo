@@ -56,7 +56,7 @@ module.exports = {
 		records: {
 			collection: 'Record',
 			via: 'sensor_id'
-	}
+		}
   },
 
 	toIndexable: function (options, cb) {
