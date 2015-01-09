@@ -15,6 +15,13 @@ include_recipe 'elasticsearch::proxy'
 include_recipe 'elasticsearch::monit'
 
 #execuute : 
+execute "Install marvel" do
+  command "cd /usr/local/bin"
+	command "plugin -i elasticsearch/marvel/latest"
+	command "service elasticsearch restart"
+  action :run
+end
+
 #cd /usr/local/bin
 #plugin -i elasticsearch/marvel/latest
 # service elasticsearch restart
