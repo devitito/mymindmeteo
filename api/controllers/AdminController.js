@@ -5,18 +5,17 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var moment = require('moment');
-
 module.exports = {
 	index: function(req, res, next) {
 		res.view();
 	},
 
 	'online': function(req, res) {
+		if (req.session.Mind == undefined) return res.send(404);
 		res.json(req.session.Mind);
 	},
 
-	'recreate-indexes': function(req, res, next) {
+	'resetIndices': function(req, res, next) {
 
 		//CLear the index
 		ElasticService.clearAll(function allCleared(err) {

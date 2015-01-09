@@ -35,7 +35,7 @@ adminServices.factory('timezones', [function(){
 
 adminServices.factory('recovery', ['$resource',
   function($resource){
-    return $resource('/admin/recreate-indexes', {}, {
-      query: {method:'GET', isArray:true}
+    return $resource('/admin/resetIndices', {}, {
+      query: {method:'GET', isArray:false}
     });
 }]);
