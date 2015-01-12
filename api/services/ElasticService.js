@@ -45,10 +45,17 @@ var indexTable = function(indexableTable, next) {
 	};
 };
 
+module.exports.resetIndices = function () {
+	return clearAll()
+	.then(function (result) {
+		return indexAll();
+	});
+};
+
 /**
  * Delete mindmeteo index and recreate it with mappings
  */
-module.exports.clearAll = function() {
+var clearAll = function() {
 	var deferred = promise.defer();
 	client.indices.delete({index: 'mindmeteo', refresh: true})
 	.then(function (res) {
@@ -132,7 +139,7 @@ module.exports.index = function (type, document, next) {
 /**
  * Export all indexable tables into Elasticsearch
  */
-module.exports.indexAll = function() {
+var indexAll = function() {
 	var deferred = promise.defer();
 	var domain = require('domain');
 	var d = domain.create();

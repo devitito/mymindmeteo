@@ -16,16 +16,12 @@ module.exports = {
 	},
 
 	'resetIndices': function(req, res, next) {
-		//CLear the index
-		ElasticService.clearAll()
-		.then(function (result) {
-			return ElasticService.indexAll();
-		})
+		ElasticService.resetIndices()
 		.then(function (result) {
 			res.send(200);
 		})
-		.catch(function (err) {
-			next(err);
+		.catch(function (e) {
+			next(e);
 		});
 	}
 };
