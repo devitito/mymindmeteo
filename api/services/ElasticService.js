@@ -12,6 +12,54 @@ var client;
 var indexableTable = [{model: 'Record', table:'records'}, {model: 'Sensor', table:'sensors'} ];
 
 /**
+ * Delete mindmeteo index and recreate it with mappings
+ */
+var clearAll = function() {
+	var deferred = promise.defer();
+	client.indices.delete({index: 'mindmeteo', refresh: true})
+	.then(function (res) {
+		module.exports.connect()
+		.then(function (res) {
+			deferred.resolve(res);
+		})
+		.catch(function (err) {
+			deferred.reject(err);
+		});
+	})
+	.catch(function (err) {
+		deferred.reject(err);
+	});
+	return deferred.promise;
+};
+
+/**
+ * Export all indexable tables into Elasticsearch
+ */
+var indexAll = function() {
+	var deferred = promise.defer();
+	var domain = require('domain');
+	var d = domain.create();
+	// Domain emits 'error' when it's given an unhandled error
+	d.on('error', function(err) {
+		var error = new Error();
+		error.message = err.message;
+		deferred.reject(error);
+	});
+
+	d.run(function() {
+		async.concat(indexableTable, indexTable, function(err, res) {
+			if (!_.isEmpty(res)) {
+				var error = new Error();
+				error.message = res.toString();
+				return deferred.reject(error);
+			}
+			deferred.resolve(res);
+		});
+	});
+	return deferred.promise;
+};
+
+/**
  * Index all records of a table in Elasticsearch
  */
 var indexTable = function(indexableTable, next) {
@@ -45,32 +93,15 @@ var indexTable = function(indexableTable, next) {
 	};
 };
 
+/**
+ * Reset and recreate all indices
+ *
+ */
 module.exports.resetIndices = function () {
 	return clearAll()
 	.then(function (result) {
 		return indexAll();
 	});
-};
-
-/**
- * Delete mindmeteo index and recreate it with mappings
- */
-var clearAll = function() {
-	var deferred = promise.defer();
-	client.indices.delete({index: 'mindmeteo', refresh: true})
-	.then(function (res) {
-		module.exports.connect()
-		.then(function (res) {
-			deferred.resolve(res);
-		})
-		.catch(function (err) {
-			deferred.reject(err);
-		});
-	})
-	.catch(function (err) {
-		deferred.reject(err);
-	});
-	return deferred.promise;
 };
 
 /**
@@ -135,34 +166,6 @@ module.exports.index = function (type, document, next) {
 		next(err, res);
 	});
 };
-
-/**
- * Export all indexable tables into Elasticsearch
- */
-var indexAll = function() {
-	var deferred = promise.defer();
-	var domain = require('domain');
-	var d = domain.create();
-	// Domain emits 'error' when it's given an unhandled error
-	d.on('error', function(err) {
-		var error = new Error();
-		error.message = err.message;
-		deferred.reject(error);
-	});
-
-	d.run(function() {
-		async.concat(indexableTable, indexTable, function(err, res) {
-			if (!_.isEmpty(res)) {
-				var error = new Error();
-				error.message = res.toString();
-				return deferred.reject(error);
-			}
-			deferred.resolve(res);
-		});
-	});
-	return deferred.promise;
-};
-
 
 /*
 	* map a type in the index
