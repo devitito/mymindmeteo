@@ -11,7 +11,6 @@ module.exports = {
 	},
 
 	'online': function(req, res) {
-		if (req.session.Mind == undefined) return res.send(404);
 		res.json(req.session.Mind);
 	},
 

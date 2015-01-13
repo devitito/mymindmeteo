@@ -2,7 +2,9 @@ var AdminController = require('../../api/controllers/AdminController'),
     sinon = require('sinon'),
     assert = require('assert'),
 	  request = require('supertest'),
-		promise = require('bluebird');
+		promise = require('bluebird'),
+		login = require('../helpers/login'),
+		should = require('should');
 
 describe('The Admin Controller', function () {
 	describe('when index action is called', function () {
@@ -16,27 +18,65 @@ describe('The Admin Controller', function () {
 	});
 
 	describe('when online action is called', function () {
-		it ('should return the mind of the current session in json', function () {
-			var mind = {id: 'anid', name: 'a name'};
-			var json = sinon.spy();
+
+		beforeEach(function(done) {
+			request(sails.hooks.http.app)
+        .get('/session/destroy')
+        .expect(302)
+				.expect('location', '/', done);
+		});
+
+		it ('should return the mind datas in json, if the mind is admin role', function (done) {
+			//var mind = {id: 'anid', name: 'a name'};
+			/*var json = sinon.spy();
 			AdminController.online({
 				session: {Mind: mind}
 			}, {
 				json: json
 			});
 			assert(json.called);
-			assert(json.calledWith(mind));
+			assert(json.calledWith(mind));*/
+
+			login.admin(request(sails.hooks.http.app))
+			.then(function (loginAgent) {
+      	agent = loginAgent;
+
+				var req = request(sails.hooks.http.app).get('/admin/online');
+				agent.attachCookies(req);
+				req.expect(200)
+					.end(function(err, res) {
+						if(err) return done(err);
+						should(res.body).have.properties({
+							'id': '2',
+							'name': 'admin',
+							'email': 'admin@mindmeteo.com',
+							'joindate': '2015-01-12T00:00:00.000Z',
+							'timezone': 'Europe/Paris',
+							'locale': 'fr_FR',
+							'role': 'admin'
+						});
+						done();
+					});
+    	});
 		});
 
-		it ('should return 404 if there is no active mind in session', function () {
-			var send = sinon.spy();
-			AdminController.online({
-				session: {}
-			}, {
-				send: send
-			});
-			assert(send.called);
-			assert(send.calledWith(404));
+		it('should redirect to login page if the mind is not identified', function (done) {
+			request(sails.hooks.http.app)
+        .get('/admin/online')
+        .expect(302)
+				.expect('location', '/session/new', done);
+		});
+
+		it('should redirect to login page if the mind is not admin role', function (done) {
+			login.demo(request(sails.hooks.http.app))
+			.then(function (loginAgent) {
+      	agent = loginAgent;
+
+				var req = request(sails.hooks.http.app).get('/admin/online');
+				agent.attachCookies(req);
+				req.expect(302)
+					 .expect('location', '/session/new', done);
+				});
 		});
 	});
 
@@ -45,7 +85,6 @@ describe('The Admin Controller', function () {
 		afterEach(function () {
 			// Restores mock to the original service
 			sails.services.elasticservice.resetIndices.restore();
-		//	sails.services.elasticservice.indexAll.restore();
 		})
 
 		it ('should call Elasticservice.resetIndices', function (done) {

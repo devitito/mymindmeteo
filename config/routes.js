@@ -48,7 +48,7 @@ module.exports.routes = {
 
 	'GET /administrator' : { controller: 'AdminController', action: 'index', locals: {layout: 'layouts/admin'}},
 	'GET /session/new' : 'SessionController.new',
-	'GET /session/create' : 'SessionController.create',
+	'POST /session/create' : 'SessionController.create',
 	'GET /session/destroy' : 'SessionController.destroy',
 	'GET /session/*' : {view: '404'},
 	//No need to declare those routes if there is no index action in the controller (default rest behavior apply)
