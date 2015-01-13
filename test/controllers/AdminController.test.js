@@ -8,12 +8,37 @@ var AdminController = require('../../api/controllers/AdminController'),
 
 describe('The Admin Controller', function () {
 	describe('when index action is called', function () {
+
+		beforeEach(function(done) {
+			request(sails.hooks.http.app)
+        .get('/session/destroy')
+        .expect(302)
+				.expect('location', '/', done);
+		});
+
 		it ('should render the view', function () {
 			var view = sinon.spy();
 			AdminController.index(null, {
 				view: view
 			});
 			assert.ok(view.called);
+		});
+
+		it('should redirect to login page if called by a non admin', function(done) {
+			login.demo(request(sails.hooks.http.app))
+			.then(function (loginAgent) {
+				var req = request(sails.hooks.http.app).get('/admin/index');
+				loginAgent.attachCookies(req);
+				req.expect(302)
+					 .expect('location', '/session/new', done);
+			});
+		});
+
+		it('should redirect to login page if called by unknown', function(done) {
+				request(sails.hooks.http.app)
+				.get('/admin/index')
+				.expect(302)
+				.expect('location', '/session/new', done);
 		});
 	});
 
@@ -80,12 +105,50 @@ describe('The Admin Controller', function () {
 		});
 	});
 
-	describe('when recreate-index action is called', function () {
+	describe('when resetIndices action is called', function () {
+
+		beforeEach(function(done) {
+			request(sails.hooks.http.app)
+        .get('/session/destroy')
+        .expect(302)
+				.expect('location', '/', done);
+		});
 
 		afterEach(function () {
 			// Restores mock to the original service
 			sails.services.elasticservice.resetIndices.restore();
-		})
+		});
+
+		it('should redirect to login page if called by a non admin', function(done) {
+			// Mocking elasticService
+			var reset = sinon.stub(sails.services.elasticservice, 'resetIndices', function() {
+				return new promise(function(resolve, reject){
+					resolve();
+				});
+			});
+
+			login.demo(request(sails.hooks.http.app))
+			.then(function (loginAgent) {
+				var req = request(sails.hooks.http.app).get('/admin/resetIndices');
+				loginAgent.attachCookies(req);
+				req.expect(302)
+					 .expect('location', '/session/new', done);
+				});
+		});
+
+		it('should redirect to login page if called by unknown', function(done) {
+			// Mocking elasticService
+			var reset = sinon.stub(sails.services.elasticservice, 'resetIndices', function() {
+				return new promise(function(resolve, reject){
+					resolve();
+				});
+			});
+
+			request(sails.hooks.http.app)
+			.get('/admin/resetIndices')
+			.expect(302)
+			.expect('location', '/session/new', done);
+		});
 
 		it ('should call Elasticservice.resetIndices', function (done) {
 			// Mocking elasticService
