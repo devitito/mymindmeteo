@@ -5,12 +5,13 @@ before(function (done) {
   // Lift Sails with test database
   Sails.lift({
     log: {
-      level: 'error'
+      level: 'info'
     },
- /*   models: {
+    models: {
       connection: 'mindMeteoDb',
-      migrate: 'drop'
-    }*/
+      migrate: 'alter'
+    },
+		crsf : false
   }, function(err, server) {
 		sails = server;
     if (err)
