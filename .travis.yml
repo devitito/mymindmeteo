@@ -2,5 +2,8 @@ language: node_js
 node_js:
   - "0.10"
 before_install: npm install -g grunt-cli
-before_script: grunt build
+before_script:
+  - "mysql -uroot -e \"CREATE DATABASE IF NOT EXISTS mymeteo_test DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;\""
+	- "cat test/mysql_add_user.sql | mysql -uroot"
+	- grunt build
 script: grunt test

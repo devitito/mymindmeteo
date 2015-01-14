@@ -52,6 +52,18 @@ module.exports.connections = {
     collation : 'utf8_unicode_ci'
   },
 
+	mindMeteoDbTest: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    port     : 3306,
+    user: 'mymeteo_app',
+    password: 'supersecret',
+    database: 'mymeteo_test',
+
+    charset   : 'utf8',
+    collation : 'utf8_unicode_ci'
+  },
+
   /***************************************************************************
   *                                                                          *
   * MongoDB is the leading NoSQL database.                                   *

@@ -8,7 +8,7 @@ before(function (done) {
       level: 'info'
     },
     models: {
-      connection: 'mindMeteoDb',
+      connection: 'mindMeteoDbTest',
       migrate: 'alter'
     },
 		crsf : false
