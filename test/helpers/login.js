@@ -17,6 +17,7 @@ exports.admin = function (request, done) {
     .send(admin)
     .end(function (err, res) {
       if (err) {
+				console.log(err);
 				deferred.reject(err);
         throw err;
       }
