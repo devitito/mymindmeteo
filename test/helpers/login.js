@@ -17,10 +17,11 @@ exports.admin = function (request, done) {
     .send(admin)
     .end(function (err, res) {
       if (err) {
-				console.log(err);
+				console.log('error : ' + err);
 				deferred.reject(err);
         throw err;
       }
+			console.log('logged in as admin. Cookie : ' + res);
       agent.saveCookies(res);
 			deferred.resolve(agent);
       if (done != undefined) done(agent);
@@ -38,6 +39,7 @@ exports.demo = function (request, done) {
 				deferred.reject(err);
         throw err;
       }
+			console.log('logged in as demo. Cookie : ' + res);
       agent.saveCookies(res);
 			deferred.resolve(agent);
       if (done != undefined) done(agent);
