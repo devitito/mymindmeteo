@@ -70,8 +70,6 @@ describe('The Admin Controller', function () {
 				agent.attachCookies(req);
 				req.expect(200)
 					.end(function(err, res) {
-					console.log(err);
-					console.log(res);
 						if(err) return done(err);
 						should(res.body).have.properties({
 							'id': '2',
