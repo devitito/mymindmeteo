@@ -31,7 +31,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "debug": "node debug app.js"
+    "debug": "node debug app.js",
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
   },
   "main": "app.js",
   "repository": {
@@ -54,6 +55,7 @@
     "karma-coverage": "^0.2.7",
     "karma-firefox-launcher": "^0.1.3",
     "karma-jasmine": "^0.3.2",
+    "karma-phantomjs-launcher": "^0.1.4",
     "mocha": "^2.0.1",
     "rewire": "^2.1.3",
     "should": "^4.5.1",
