@@ -11,4 +11,6 @@ before_script:
   - 'cat test/mysql_add_user.sql | mysql -uroot'
   - 'bower install'
   - grunt build
-script: grunt test
+script:
+  - grunt test
+  - npm test
