@@ -31,6 +31,14 @@ module.exports = function(grunt) {
 				src: ['**/*'],
 				dest: 'www'
 			}]
+		},
+		fonts: {
+			files: [{
+				expand: true,
+				cwd: '.tmp/public/bower_components/bootstrap/fonts',
+				src: ['**/*'],
+				dest: '.tmp/public/fonts'
+			}]
 		}
 	});
 
