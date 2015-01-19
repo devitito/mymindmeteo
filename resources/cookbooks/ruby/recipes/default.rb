@@ -7,9 +7,17 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute "install ruby-install" do
+execute "download ruby-install" do
   command "wget -O ruby-install-0.5.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.5.0.tar.gz"
+	action :run
+end
+
+execute "unpack ruby-install" do
 	command "tar -xzvf ruby-install-0.5.0.tar.gz"
+	action :run
+end
+
+execute "install ruby-install" do
 	command "cd ruby-install-0.5.0/"
 	command "make install"
 	action :run
