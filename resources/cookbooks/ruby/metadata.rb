@@ -7,3 +7,4 @@ long_description 'Installs/Configures ruby'
 version          '0.1.0'
 
 depends "apt"
+depends "ruby_install"
