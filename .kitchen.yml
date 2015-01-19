@@ -68,7 +68,36 @@ suites:
             subject: "[monit] $SERVICE $EVENT on $HOST"
             message: "$SERVICE $ACTION: $DESCRIPTION"
             
-  - name: node
+  - name: node-dev
+    run_list:
+    - recipe[apt]
+    - recipe[build-essential]
+    - recipe[networking_basic]
+    - recipe[mymeteodb]
+    - recipe[ruby]
+    - recipe[mm-elasticsearch]
+    - recipe[js::sails]
+    - recipe[js::bower]
+    attributes:
+      kibana:
+        version: 3.0.0
+        apache:
+          port: 82
+      java:
+        jdk_version: 7
+      elasticsearch:
+        version: 1.3.4
+        mlockall: false
+        nginx:
+          allow_cluster_api : true
+        monit:
+          notify_email : julien_desbois@hotmail.com
+          mail_format  :
+            from: monit@mindmeteo.com
+            subject: "[monit] $SERVICE $EVENT on $HOST"
+            message: "$SERVICE $ACTION: $DESCRIPTION"
+
+  - name: node-prod
     run_list: 
     - recipe[apt]
     - recipe[build-essential]
@@ -81,6 +110,9 @@ suites:
 		- recipe[aws::default]
     - recipe[aws::codedeploy-agent]
     attributes: 
+      ruby_install:
+        version: 0.5.0
+        checksum: d1f62539db82b51da84bda2f4885db5e847db8389183be41389efd0ae6edab94
       kibana:
         version: 3.0.0
         apache:
