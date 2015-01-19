@@ -9,8 +9,13 @@
 
 include_recipe 'ruby_install::default'
 
-execute "install ruby 2.0 into /usr/local" do
-  command "ruby-install --system ruby 2.0.0-p481"
+execute "apt-get install -f" do
+  command "apt-get -f install"
+	action :run
+end
+
+execute "install ruby 2.0" do
+  command "ruby-install ruby 2.0"
 	action :run
 end
 
