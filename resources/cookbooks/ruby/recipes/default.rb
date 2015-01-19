@@ -9,13 +9,13 @@
 
 include_recipe 'ruby_install::default'
 
-execute "apt-get install -f" do
-  command "apt-get -f install"
+execute "install ruby 2.0" do
+  command "ruby-install ruby 2.0"
 	action :run
 end
 
-execute "install ruby 2.0" do
-  command "ruby-install ruby 2.0"
+execute "apt-get install -f" do
+  command "apt-get -f install"
 	action :run
 end
 
