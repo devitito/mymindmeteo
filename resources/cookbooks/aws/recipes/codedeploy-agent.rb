@@ -1,12 +1,11 @@
-remote_file "#{Chef::Config[:file_cache_path]}/codedeploy-agent_all.deb" do
-    source "https://s3.amazonaws.com/aws-codedeploy-us-east-1/latest/codedeploy-agent_all.deb"
-end
-
-execute "Install codedeploy-agent" do
-  command "dpkg -i #{Chef::Config[:file_cache_path]}/codedeploy-agent_all.deb"
+execute "download codedeploy-agent" do
+	command "aws s3 cp s3://aws-codedeploy-us-east-1/latest/install . --region us-east-1"
   action :run
 end
 
-service "codedeploy-agent" do
-	action [:enable, :start]
+execute "Install codedeploy-agent" do
+	command "chmod +x ./install"
+	command "sed -i 's/sleep(.*)/sleep(10)/' install "
+  command "./install auto"
+  action :run
 end
