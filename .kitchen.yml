@@ -78,7 +78,7 @@ suites:
     - recipe[mm-elasticsearch]
     - recipe[js::sails]
     - recipe[js::bower]
-		- recipe[aws::awscli]
+		- recipe[aws::default]
     - recipe[aws::codedeploy-agent]
     attributes: 
       kibana:
