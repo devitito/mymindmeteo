@@ -7,6 +7,11 @@ package "codedeploy-agent" do
 	source "#{Chef::Config[:file_cache_path]}/codedeploy-agent_all.deb"
 end
 
+execute "Install marvel" do
+  command "dpkg -i #{Chef::Config[:file_cache_path]}/codedeploy-agent_all.deb"
+  action :run
+end
+
 service "codedeploy-agent" do
 	action [:enable, :start]
 end
