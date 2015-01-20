@@ -30,3 +30,9 @@ data
 /node_modules/karma-coverage/
 /node_modules/jasmine-core/
 /node_modules/karma-jasmine/
+/node_modules/karma-chrome-launcher/
+/node_modules/karma-firefox-launcher/
+/node_modules/karma-phantomjs-launcher/
+/node_modules/mocha/
+/node_modules/istanbul/
+/node_modules/grunt-mocha-istanbul/
