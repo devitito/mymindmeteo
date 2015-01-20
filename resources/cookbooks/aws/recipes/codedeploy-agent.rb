@@ -7,6 +7,6 @@ end
 execute "Install codedeploy-agent" do
 	command "chmod +x ./install"
 	command "sed -i 's/sleep(.*)/sleep(10)/' install "
-  command "sudo ./install auto"
+  command "./install auto"
   action :run
 end
