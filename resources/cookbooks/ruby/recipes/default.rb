@@ -29,6 +29,16 @@ execute "create link to ruby 2.0" do
 	action :run
 end
 
+execute "remove link to ruby" do
+	command "rm /usr/bin/ruby"
+	action :run
+end
+
+execute "create link to ruby" do
+	command "ln -s /usr/bin/ruby2.0 /usr/bin/ruby"
+	action :run
+end
+
 execute "apt-get install -f" do
   command "apt-get -f install"
 	action :run
