@@ -3,12 +3,3 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/mindmeteo
-hoocks:
-  BeforeInstall:
-	  - location: scripts/stopforever.sh
-      runas: root
-    - location: scripts/cleanBeforeInstall.sh
-      runas: root
-  AfterInstall:
-    - location: scripts/restartforever.sh
-      runas: root
