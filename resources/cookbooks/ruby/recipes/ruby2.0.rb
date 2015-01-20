@@ -10,7 +10,7 @@
 include_recipe 'ruby_install::default'
 
 execute "install gem" do
-  command "apt-get install zlib1g-dev libopenssl-ruby1.9.1 libssl-dev libyaml-0-2 libxslt-dev libxml2-dev libreadline-gplv2-dev libncurses5-dev file git --yes --fix-missing"
+  command "apt-get install zlib1g-dev libopenssl-ruby1.9.1 libssl-dev libyaml-0-2 libxslt-dev libxml2-dev libreadline-gplv2-dev libncurses5-dev file git ruby2.0 --yes --fix-missing"
   action :run
 end
 
