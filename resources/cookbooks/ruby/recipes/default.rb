@@ -10,7 +10,8 @@
 include_recipe 'ruby_install::default'
 
 execute "install ruby 2.0" do
-  command "ruby-install ruby 2.0"
+  command "ruby-install -M https://ftp.ruby-lang.org/pub/ruby ruby 2.0.0-p576"
+	command "ln -s /opt/rubies/ruby-2.0.0-p576/bin/ruby /usr/bin/ruby2.0"
 	action :run
 end
 
