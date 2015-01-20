@@ -1,2 +1,2 @@
 #!/bin/bash
-forever start app.js --prod
+forever start /home/ubuntu/mindmeteo/app.js --prod

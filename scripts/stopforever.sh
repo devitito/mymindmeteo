@@ -1,2 +1,2 @@
 #!/bin/bash
-forever stop app.js
+forever stop /home/ubuntu/mindmeteo/app.js
