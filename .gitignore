@@ -26,3 +26,4 @@ data
 /node_modules/karma-brackets/
 /assets/coverage/
 /travis.log
+/node_modules/karma/
