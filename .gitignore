@@ -36,3 +36,9 @@ data
 /node_modules/mocha/
 /node_modules/istanbul/
 /node_modules/grunt-mocha-istanbul/
+/node_modules/supertest/
+/node_modules/superagent/
+/node_modules/rewire/
+/node_modules/sinon/
+/node_modules/assert/
+/node_modules/should/
