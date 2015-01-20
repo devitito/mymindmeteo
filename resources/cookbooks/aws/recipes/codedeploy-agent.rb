@@ -4,9 +4,9 @@ execute "download codedeploy-agent" do
 end
 
 execute "Install codedeploy-agent" do
-	command "chmod +x ./install"
+	command "chmod +x /home/ubuntu/install"
 	command "sed -i 's/sleep(.*)/sleep(10)/' install"
   command "apt-get -f install"
-  command "./install auto"
+  command "/home/ubuntu/install auto"
   action :run
 end
