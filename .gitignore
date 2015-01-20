@@ -28,3 +28,5 @@ data
 /travis.log
 /node_modules/karma/
 /node_modules/karma-coverage/
+/node_modules/jasmine-core/
+/node_modules/karma-jasmine/
