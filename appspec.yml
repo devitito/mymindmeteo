@@ -5,7 +5,7 @@ files:
     destination: /home/ubuntu/mindmeteo
 hoocks:
   BeforeInstall:
-	  - location: scripts/stopforever.sh
+    - location: scripts/stopforever.sh
       runas: root
     - location: scripts/cleanBeforeInstall.sh
       runas: root
