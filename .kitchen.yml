@@ -55,7 +55,7 @@ suites:
         apache:
           port: 82
       java: 
-        jdk_version: 7	
+        jdk_version: 7
       elasticsearch:
         version: 1.3.4 
         mlockall: false
@@ -107,7 +107,7 @@ suites:
     - recipe[mm-elasticsearch]
     - recipe[js::sails]
     - recipe[js::bower]
-		- recipe[aws::default]
+    - recipe[aws::default]
     - recipe[aws::codedeploy-agent]
     attributes: 
       ruby_install:
@@ -118,7 +118,7 @@ suites:
         apache:
           port: 82
       java: 
-        jdk_version: 7	
+        jdk_version: 7
       elasticsearch:
         version: 1.3.4 
         mlockall: false
