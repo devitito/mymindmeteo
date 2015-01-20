@@ -103,7 +103,7 @@ suites:
     - recipe[build-essential]
     - recipe[networking_basic]
     - recipe[mymeteodb]
-    - recipe[ruby]
+    - recipe[ruby::ruby2.0]
     - recipe[mm-elasticsearch]
     - recipe[js::sails]
     - recipe[js::bower]
