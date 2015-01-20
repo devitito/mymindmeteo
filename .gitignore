@@ -27,3 +27,4 @@ data
 /assets/coverage/
 /travis.log
 /node_modules/karma/
+/node_modules/karma-coverage/
