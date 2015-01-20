@@ -11,3 +11,10 @@ permissions:
      mode: 755
      type:
        - file
+hoocks:
+  BeforeInstall:
+	  - location: scripts/stopforever.sh
+      runas: root
+  AfterInstall:
+    - location: scripts/restartforever.sh
+      runas: root
