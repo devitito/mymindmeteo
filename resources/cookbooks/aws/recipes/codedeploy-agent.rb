@@ -1,6 +1,5 @@
 execute "download codedeploy-agent" do
-	command "cd /home/ubuntu/"
-	command "aws s3 cp s3://aws-codedeploy-us-east-1/latest/install . --region us-east-1"
+	command "aws s3 cp s3://aws-codedeploy-us-east-1/latest/install /home/ubuntu/ --region us-east-1"
   action :run
 end
 
