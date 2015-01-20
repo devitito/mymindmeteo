@@ -8,10 +8,17 @@ execute "chmod codedeploy-agent install file" do
   action :run
 end
 
+execute "hack to get the agent running faster" do
+	command "sed -i 's/sleep(.*)/sleep(10)/' #{Chef::Config[:file_cache_path]}/install"
+  action :run
+end
+
+execute "apt-get -f install" do
+  command "apt-get -f install"
+  action :run
+end
 
 execute "Install codedeploy-agent" do
-	command "sed -i 's/sleep(.*)/sleep(10)/' #{Chef::Config[:file_cache_path]}/install"
-  command "apt-get -f install"
   command "#{Chef::Config[:file_cache_path]}/install auto"
   action :run
 end
