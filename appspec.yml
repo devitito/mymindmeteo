@@ -4,12 +4,9 @@ files:
   - source: /
     destination: /home/ubuntu/mindmeteo
 hoocks:
-  ApplicationStop:
+  AfterInstall:
     - location: scripts/stopforever.sh
       runas: root
-  BeforeInstall:
-	  - location: scripts/cleanBeforeInstall.sh
-      runas: root
-  AfterInstall:
+  ApplicationStart:
     - location: scripts/restartforever.sh
       runas: root
