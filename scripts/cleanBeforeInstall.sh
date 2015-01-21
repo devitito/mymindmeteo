@@ -1,4 +1,4 @@
 #!/bin/bash
-echo 'called' > /home/ubuntu/test.out
-rm -rf /home/ubuntu/mindmeteo  > /home/ubuntu/cleanBeforeInstall.out 2>&1
+echo 'called' > /tmp/log/test.out 2>&1
+rm -rf /home/ubuntu/mindmeteo  > /tmp/log/cleanBeforeInstall.out 2>&1
 

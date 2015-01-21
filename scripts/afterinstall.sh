@@ -1,2 +1,2 @@
 #!/bin/bash
-echo 'afterinstall' > /home/ubuntu/afterinstall.out
+echo 'afterinstall' > /var/log/afterinstall.out 2>&1
