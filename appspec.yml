@@ -12,11 +12,12 @@ permissions:
     type:
       - file
 hoocks:
-  BeforeInstall:
+  ApplicationStop:
     - location: scripts/stopforever.sh
       runas: root
     - location: scripts/cleanBeforeInstall.sh
       runas: root
+  BeforeInstall:
   AfterInstall:
     - location: scripts/restartforever.sh
       runas: root
