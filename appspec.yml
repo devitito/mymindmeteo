@@ -3,6 +3,14 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/mindmeteo
+permissions:
+  - object: /home/ubuntu/mindmeteo/scripts
+     pattern: "**"
+     owner: root
+     group: root
+     mode: 755
+     type:
+       - file
 hoocks:
   BeforeInstall:
     - location: scripts/stopforever.sh
