@@ -11,7 +11,7 @@ permissions:
     mode: 755
     type:
        - file
-hoocks:
+hooks:
   ApplicationStop:
     - location: scripts/stopforever.sh
       runas: root
