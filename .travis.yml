@@ -19,9 +19,6 @@ deploy:
   access_key_id: AKIAJNGSIYB7XZROIG3A
   secret_access_key:
     secure: QfI8RHEsLcu0+fRys591FcerGQUAfHPzZ8NuMlgETyfxgPQPAKLkpmUKs34VO1XTn2aM77yqXpSYoTHEKhuwc76aZEyFbXt+DOMLJQYgbODZR/fmYAn3Nsp761oWipkCcwdrXyIITeDg3+zV0fPULUhBB2GCc8O7kkl8TbjUfqM=
-  bucket: ''
-  key: ''
-  bundle_type: ''
   application: MindMeteoProd
   deployment_group: MindMeteoProd
   on:
