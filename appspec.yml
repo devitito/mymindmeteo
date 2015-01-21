@@ -7,7 +7,6 @@ hoocks:
   ApplicationStop:
     - location: scripts/stopforever.sh
       runas: root
-  BeforeInstall:
     - location: scripts/cleanbeforeinstall.sh
       runas: root
   AfterInstall:

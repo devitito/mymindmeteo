@@ -1,2 +1,2 @@
 #!/bin/bash
-echo 'afterinstall' > /var/log/afterinstall.out 2>&1
+echo 'afterinstall' > /tmp/log/afterinstall.out 2>&1
