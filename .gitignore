@@ -42,3 +42,6 @@ data
 /node_modules/sinon/
 /node_modules/assert/
 /node_modules/should/
+/node_modules/.bin/_mocha
+/node_modules/.bin/istanbul
+/node_modules/.bin/mocha
