@@ -3,14 +3,6 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/mindmeteo
-permissions:
-  - object: /home/ubuntu/mindmeteo
-    pattern: "**"
-    owner: ubuntu
-    group: ubuntu
-    mode: 755
-    type:
-       - file
 hooks:
   ApplicationStop:
     - location: scripts/stopforever.sh
