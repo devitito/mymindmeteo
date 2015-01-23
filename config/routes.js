@@ -47,6 +47,7 @@ module.exports.routes = {
   ***************************************************************************/
 
 	'GET /administrator' : { controller: 'AdminController', action: 'index', locals: {layout: 'layouts/admin'}},
+	'GET /admin/stats/:graph': 'AdminsController.stats',
 	'GET /session/new' : 'SessionController.new',
 	'POST /session/create' : 'SessionController.create',
 	'GET /session/destroy' : 'SessionController.destroy',

@@ -9,7 +9,7 @@ adminServices.factory('statsFactory', ['$resource', function($resource){
 	var factory = {};
 
 	factory.query = function (deferred) {
-		$resource('/api/admin/stats/:graph', {}, {
+		$resource('/admin/stats/:graph', {}, {
 			query: {method:'GET', isArray:false}
 		}).query(
 			function(data){

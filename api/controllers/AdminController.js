@@ -22,6 +22,28 @@ module.exports = {
 		.catch(function (e) {
 			next(e);
 		});
+	},
+
+	'stats': function(req, res, next) {
+//		ElasticService.request('sensor-per-topic', {}, function graphValues(err, values) {
+	//		if (err) return next(err);
+			res.json({
+				'sensorPerTopic' : {'health': 10, 'love': 12, 'money': 11},
+				'mostPopularSensor' : [
+					{'1' : ['How is your caca?', '1021']},
+					{'2' : ['Did you run out of toilet paper today?', '543']},
+					{'3' : ['Did you quit your job today?', '521']},
+					{'4' : ['What\'s your plan for tonight?', '328']},
+					{'5' : ['Did you score yesterday?', '196']}
+				],
+				'testPerDay' : {'0': 5, '1': 2, '2': 5, '3': 9, '4': 5, '5':7, '6':6},
+				'testPerHour' : {}
+			});
+
+
+
+
+	//	});
 	}
 };
 
