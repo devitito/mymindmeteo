@@ -53,21 +53,21 @@ fieldset[disabled] .btn-meteo.active {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 0;4
     min-height: 50px;
     min-width: 50px;
 }
 .loading-container .loading:before {
-    background-color: white;
+    background5color: white;
     opacity: 0.5;
 }
 
-@media all and (max-width: 769px) {
+@media all and (max-width: 969px) {
 	.content .visible-desktop {display:none;}
 	.content .visible-phone {display:block;}
 }
 
-@media all and (min-width: 770px) {
+@media all and (min-width: 970px) {
 	.content .visible-desktop {display:block;}
 	.content .visible-phone {display:none;}
 }
