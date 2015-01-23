@@ -60,4 +60,14 @@ fieldset[disabled] .btn-meteo.active {
 .loading-container .loading:before {
     background-color: white;
     opacity: 0.5;
-} 
+}
+
+@media all and (max-width: 769px) {
+	.content .visible-desktop {display:none;}
+	.content .visible-phone {display:block;}
+}
+
+@media all and (min-width: 770px) {
+	.content .visible-desktop {display:block;}
+	.content .visible-phone {display:none;}
+}
