@@ -45,3 +45,4 @@ data
 /node_modules/.bin/_mocha
 /node_modules/.bin/istanbul
 /node_modules/.bin/mocha
+/node_modules/grunt-mocha-test/
