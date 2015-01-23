@@ -48,9 +48,9 @@ var indexAll = function() {
 
 	d.run(function() {
 		async.concat(indexableTable, indexTable, function(err, res) {
-			if (!_.isEmpty(res)) {
+			if (!_.isEmpty(err)) {
 				var error = new Error();
-				error.message = res.toString();
+				error.message = err;
 				return deferred.reject(error);
 			}
 			deferred.resolve(res);
@@ -78,13 +78,18 @@ var indexTable = function(indexableTable, next) {
 							cb();
 						}
 						else module.exports.index(indexableTable.table, indexable, function documentIndexed(err, res) {
-							if (err) errors.push(err.message);
+							if (err)
+							{
+								console.error(err.message);
+								return cb(err);
+								//errors.push(err.message);
+							}
 							cb();
 						});
 					});
 				},
 				function(err) {
-					next(errors)
+					next(err, errors)
 			});
 		});
 	} catch (e) {
@@ -122,34 +127,76 @@ module.exports.connect = function() {
 		if (!res) client.indices.create({index: 'mindmeteo'}, function indexCreated(err, res, status) {
 			if (err) return deferred.reject(err);
 
-			//add types and mappings
-			client.indices.putMapping({
-				index: 'mindmeteo',
-				type: 'sensors',
-				body: {
-			//		sensor: {
-						properties: {
-							'id' : {type: 'string', include_in_all: false},
-							'topic' : {type : 'string', include_in_all: true},
-							'label': {type: 'string', include_in_all: true},
-							'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
-							'meteologist' : {type : 'string', include_in_all : true},
-							'samples' : {
-								'type' : 'nested',
-								'properties' : {
-									'id' : {type : 'string', include_in_all : true},
-									'label' : {type : 'string', include_in_all : true},
-									'value' : {type : 'integer', include_in_all : true},
+			async.parallel( {
+				sensors: function (cb) {
+					client.indices.putMapping({
+						index: 'mindmeteo',
+						type: 'sensors',
+						body: {
+								properties: {
+									'id' : {type: 'string', include_in_all: false},
+									'topic' : {type : 'string', include_in_all: true},
+									'label': {type: 'string', include_in_all: true},
+									'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
+									'meteologist' : {type : 'string', include_in_all : true},
+									'samples' : {
+										'type' : 'nested',
+										'properties' : {
+											'id' : {type : 'string', include_in_all : true},
+											'label' : {type : 'string', include_in_all : true},
+											'value' : {type : 'integer', include_in_all : true},
+										}
+									}
 								}
-							}
 						}
-			//		}
+					}).then(function (mappingRes) {
+						cb(null, mappingRes);
+					}).catch(function (err) {
+						cb(err);
+					});
+				},
+				records: function (cb) {
+					client.indices.putMapping({
+						index: 'mindmeteo',
+						type: 'records',
+						body: {
+								properties: {
+									'id' : {type: 'string', include_in_all: false},
+									'topic' : {type : 'string', include_in_all: true},
+									'sample': {type : 'string', include_in_all: true},
+									'value': {type : 'integer', include_in_all: true},
+									'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
+									'day': {type : 'integer', include_in_all: true},
+									'hour': {type : 'integer', include_in_all: true},
+									'timezone': {type : 'string', include_in_all: true},
+									'mind': {
+										'type' : 'object',
+										'properties' : {
+											'name' : {type : 'string', include_in_all : true},
+											'email' : {type : 'string', include_in_all : true},
+											'joindate' : {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true}
+										}
+									},
+									'sensor' : {
+										'type' : 'object',
+										'properties' : {
+											'label' : {type : 'string', include_in_all : true},
+											'meteologist' : {type : 'string', include_in_all : true},
+										}
+									}
+								}
+						}
+					}).then(function (mappingRes) {
+						cb(null, mappingRes);
+					}).catch(function (err) {
+						cb(err);
+					});
 				}
-			}, function (err, mappingRes) {
+			},
+			function (err, results) {
 				if (err) return deferred.reject(err);
-				deferred.resolve(mappingRes);
+				else deferred.resolve(results);
 			});
-
 		});
 		else
 			deferred.resolve(res);
