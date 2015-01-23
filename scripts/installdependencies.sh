@@ -1,2 +1,2 @@
 #!/bin/bash
-npm install > /var/log/installdependencies.out
+( cd /home/ubuntu/mindmeteo/ && npm install) > /var/log/installdependencies.out
