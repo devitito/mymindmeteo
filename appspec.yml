@@ -9,6 +9,9 @@ hooks:
       runas: root
     - location: scripts/cleanbeforeinstall.sh
       runas: root
+  AfterInstall:
+    - location: scripts/installdependencies.sh
+      runas: root
   ApplicationStart:
     - location: scripts/restartforever.sh
       runas: root
