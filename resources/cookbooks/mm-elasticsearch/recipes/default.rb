@@ -14,14 +14,15 @@ include_recipe 'elasticsearch::nginx'
 include_recipe 'elasticsearch::proxy'
 include_recipe 'elasticsearch::monit'
 
-#execuute : 
 execute "Install marvel" do
-  command "cd /usr/local/bin"
-	command "plugin -i elasticsearch/marvel/latest"
-	command "service elasticsearch restart"
+	command "/usr/local/bin/plugin -i elasticsearch/marvel/latest"
   action :run
 end
 
+execute "Restart Elasticsearch service" do
+	command "service elasticsearch restart"
+  action :run
+end
 
 execute "remove ngninx default site" do
   command "rm /etc/nginx/sites-enabled/default"
