@@ -76,7 +76,7 @@ module.exports = {
 					label: sensor.label,
 					status: sensor.status,
 					meteologist: sensor.meteologist,
-					tstamp: moment().format('YYYY-MM-DD HH:MM:ss'),
+					tstamp: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
 					samples: samples
 				});
 			});
