@@ -24,11 +24,10 @@ module.exports.query = function(options) {
 };
 
 module.exports.parse = function(result) {
-	var res = [];
+	var res = {};
 
 	result.aggregations.records_by_hour.buckets.forEach(function(entry) {
-		res[eval(entry.key)] = entry.doc_count;
-		//eval("res."+entry.key+" = " + entry.doc_count);
+		res[entry.key] = entry.doc_count;
 	});
 	return res;
 };
