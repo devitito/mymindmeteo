@@ -235,10 +235,17 @@ module.exports.index = function (type, document, next) {
 	* Issue a request
 	*/
 module.exports.request = function(request, options, next) {
+	var deferred = promise.defer();
 	var adapter = require('./requests/'+request+'.js');
 
 	client.search(adapter.query(options), function (err, res) {
-		if (err) return next(err);
-		next(null, adapter.parse(res));
+		if (err)
+		{
+			deferred.reject(err);
+			if (next) return next(err);
+		}
+		deferred.resolve(adapter.parse(res));
+		if (next) next(null, adapter.parse(res));
 	});
+	return deferred.promise;
 };
