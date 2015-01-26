@@ -62,12 +62,12 @@ fieldset[disabled] .btn-meteo.active {
     opacity: 0.5;
 }
 
-@media all and (max-width: 969px) {
+@media all and (max-width: 991px) {
 	.content .visible-desktop {display:none;}
 	.content .visible-phone {display:block;}
 }
 
-@media all and (min-width: 970px) {
+@media all and (min-width: 992px) {
 	.content .visible-desktop {display:block;}
 	.content .visible-phone {display:none;}
 }

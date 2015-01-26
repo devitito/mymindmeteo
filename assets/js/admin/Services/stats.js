@@ -40,7 +40,7 @@ adminServices.factory('statsFactory', ['$resource', function($resource){
 		switch (stat) {
 			case 'sensorPerTopic':
 				return {
-			        'title': 'Sensor per topic',
+			     //   'title': 'Sensor per topic',
 			        'is3D':true,
 			        colors: ['#FF0000', '#00ADEF', '#85bb65'],
 			        fontSize: 14,
@@ -49,7 +49,7 @@ adminServices.factory('statsFactory', ['$resource', function($resource){
 
 			case 'testPerDay':
 				return {
-			        'title': 'Number of test completed per day of the week',
+			     //   'title': 'Number of test completed per day of the week',
 			        'is3D':true,
 			        fontSize: 14,
 			        colors : ['#00ADEF'],
@@ -59,7 +59,7 @@ adminServices.factory('statsFactory', ['$resource', function($resource){
 
 			case 'testPerHour':
 				return {
-			        'title': 'Most popular hours of the day to complete test',
+			  //      'title': 'Most popular hours of the day to complete test',
 			        'is3D':true,
 			        fontSize: 14,
 			        colors : ['#00ADEF'],
