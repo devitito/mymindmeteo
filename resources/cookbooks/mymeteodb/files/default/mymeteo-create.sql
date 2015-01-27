@@ -39,8 +39,7 @@ CREATE TABLE mymeteo.samples (
   topic varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   value int(11) NOT NULL,
   PRIMARY KEY (id),
-  KEY IDX_19925777A247991F (sensor_id),
-  CONSTRAINT FK_19925777A247991F FOREIGN KEY (sensor_id) REFERENCES sensors (id) ON DELETE CASCADE
+  KEY FK_19925777A247991F_idx (sensor_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE mymeteo.records (
@@ -52,9 +51,7 @@ CREATE TABLE mymeteo.records (
   PRIMARY KEY (id),
   KEY UNIQ_9C9D584653B01993 (mind_id),
   KEY UNIQ_9C9D5846A247991F (sensor_id),
-  KEY UNIQ_9C9D58461B1FEA20 (sample_id),
-  CONSTRAINT FK_9C9D58461B1FEA20 FOREIGN KEY (sample_id) REFERENCES samples (id),
-  CONSTRAINT FK_9C9D5846A247991F FOREIGN KEY (sensor_id) REFERENCES sensors (id)
+  KEY UNIQ_9C9D58461B1FEA20 (sample_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone, locale, role ) VALUES ( '1', 'demo', 'demo@mindmeteo.com', '$2a$10$TLlpkWTS.7g8drPVwJMNeeLJ.sMIGJEbobkGi7lMM018awn7N2Z7O', '2015-01-12T00:00:00.000Z', 'Europe/Paris', 'fr_FR', 'demo');
