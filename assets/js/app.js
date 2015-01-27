@@ -1,9 +1,32 @@
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment']);
+
+
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment']);
+
+var guestServices = angular.module('guestServices', ['ngResource']);
+var guestControllers = angular.module('guestControllers', []);
 
 mindmeteo.config(['$routeProvider',
 function($routeProvider) {
   $routeProvider.
-  	when('/', {
+  	/*when('/', {
+      templateUrl: '/js/admin/partials/admin/dashboard.html',
+      controller: 'dashboardCtrl',
+			resolve: {
+				identity: function(identityService, $q) {
+					var deferred = $q.defer();
+					return identityService.get(deferred);
+				}
+			}
+    }).*/
+		when('/', {
+      templateUrl: '/js/guest/partials/homepage.html',
+      controller: 'homepageCtrl'
+    }).
+		when('/session/new', {
+			templateUrl: '/js/guest/partials/session/new.html',
+      controller: 'newSessionCtrl'
+		}).
+		when('/administrator', {
       templateUrl: '/js/admin/partials/admin/dashboard.html',
       controller: 'dashboardCtrl',
 			resolve: {

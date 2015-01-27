@@ -8,28 +8,12 @@
 var bcrypt = require('bcrypt');
 
 module.exports = {
-	'new': function (req, res) {
-		res.view();
-	},
-
 	create: function(req, res, next) {
 
 		// Check for email and password in params sent via the form, if none
 		// redirect the browser back to the sign-in form.
 		if (!req.param('nameoremail') || !req.param('password')) {
-
-			var usernamePasswordRequiredError = [{
-				name: 'usernamePasswordRequired',
-				message: 'You must enter both a name or email and password.'
-			}]
-
-			// Remember that err is the object being passed down (a.k.a. flash.err), whose value is another object with
-			// the key of usernamePasswordRequiredError
-			req.session.flash = {
-				err: usernamePasswordRequiredError
-			}
-
-			res.redirect('/session/new');
+			res.send(403, "You must enter both a name or email and password.");
 			return;
 		}
 
@@ -38,14 +22,7 @@ module.exports = {
 
 			// If no mind is found...
 			if (!mind) {
-				var noAccountError = [{
-					name: 'noAccount',
-					message: 'The mind ' + req.param('nameoremail') + ' is not found.'
-				}]
-				req.session.flash = {
-					err: noAccountError
-				}
-				res.redirect('/session/new');
+				res.send(403, 'The mind ' + req.param('nameoremail') + ' is not found.');
 				return;
 			}
 
@@ -55,14 +32,7 @@ module.exports = {
 
 				// If the password from the form doesn't match the password from the database...
 				if (!valid) {
-					var usernamePasswordMismatchError = [{
-						name: 'usernamePasswordMismatch',
-						message: 'Invalid mind and password combination.'
-					}]
-					req.session.flash = {
-						err: usernamePasswordMismatchError
-					}
-					res.redirect('/session/new');
+					res.send(403, 'Invalid mind and password combination.');
 					return;
 				}
 
@@ -70,10 +40,7 @@ module.exports = {
 				req.session.authenticated = true;
 				req.session.Mind = mind;
 
-				if (mind.role == 'admin')
-						res.redirect('/administrator/');
-				else
-						res.redirect('/mind/dashboard/' + mind.name);
+				res.send(mind);
         });
 		};
 

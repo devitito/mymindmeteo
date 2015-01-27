@@ -32,6 +32,25 @@ var jsFilesToInject = [
   'bower_components/jquery/dist/jquery.min.js',
   'bower_components/bootstrap/dist/js/bootstrap.min.js',
   'bower_components/angular/angular.min.js',
+	'bower_components/angular-route/angular-route.min.js',
+	'bower_components/angular-resource/angular-resource.min.js',
+	'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+	'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+	'bower_components/ng-table/ng-table.js',
+	'bower_components/angular-google-chart/ng-google-chart.js',
+
+	'bower_components/moment/moment.js',
+	'bower_components/angular-moment/angular-moment.js',
+	'bower_components/moment/locale/fr.js',
+	'bower_components/moment/locale/es.js',
+	'js/app.js',
+	'js/admin/adminController.js',
+	'js/admin/adminServices.js',
+	'js/admin/adminDirectives.js',
+	'js/admin/Controller/**/*.js',
+	'js/admin/Services/**/*.js',
+	'js/guest/**/*.js',
+
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files

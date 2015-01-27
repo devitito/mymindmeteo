@@ -17,7 +17,7 @@ module.exports = function (config) {
 					'assets/bower_components/moment/moment.js',
 					'assets/bower_components/angular-moment/angular-moment.js',
 
-					'assets/js/admin/app.js',
+					'assets/js/app.js',
 					'assets/js/admin/adminServices.js',
 					'assets/js/admin/Services/identity.js',
 					'assets/js/admin/Services/lang.js',
@@ -27,13 +27,17 @@ module.exports = function (config) {
 					'assets/js/admin/adminController.js',
 					'assets/js/admin/adminDirectives.js',
 					'assets/js/admin/**/*.js',
+					'assets/js/guest/**/*.js',
+					'assets/js/specs/**/*.js',
 				],
         reporters: ['progress', 'brackets', 'coverage'],
 
 				preprocessors: {
 					// do not include tests or libraries
 					// (these files will be instrumented by Istanbul)
-					'assets/js/admin/**/!(*.spec).js': ['coverage']
+					'assets/js/admin/**/!(*.spec).js': ['coverage'],
+					'assets/js/guest/**/!(*.spec).js': ['coverage'],
+					'assets/js/app.js': ['coverage']
 				},
 
 				coverageReporter: {
