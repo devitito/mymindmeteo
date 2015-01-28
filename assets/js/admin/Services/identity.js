@@ -71,6 +71,10 @@ adminServices.factory('identityService', ['$resource', /*'$cacheFactory',*/ '$ro
 		cache.put('timezone', data.timezone);*/
 	};
 
+	factory.remove = function () {
+		localStorageService.remove('identity');
+	};
+
 	factory.isSelf = function (id) {
 		if (id == factory.getId())
 			return true;

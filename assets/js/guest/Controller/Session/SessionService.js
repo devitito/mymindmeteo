@@ -22,5 +22,20 @@ guestServices.factory('sessionFactory', ['$resource', '$q', 'identityService', f
 		return deferred.promise;
 	};
 
+	factory.destroy = function () {
+		var deferred = $q.defer();
+
+		resource.destroy().$promise
+		.then(function(success) {
+			identityService.remove();
+			deferred.resolve(success);
+		})
+		.catch(function (error) {
+			deferred.reject(error);
+		});
+
+		return deferred.promise;
+	};
+
 	return factory;
 }]);

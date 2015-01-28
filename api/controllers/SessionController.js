@@ -56,8 +56,7 @@ module.exports = {
 	destroy: function(req, res, next) {
 		// Wipe out the session (log out)
 		req.session.destroy();
-		// Redirect the browser to the landing page
-		res.redirect('/');
+		res.send(200);
 	}
 };
 

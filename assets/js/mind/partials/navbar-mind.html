@@ -30,7 +30,10 @@
 		          </ul>
 		        </li>
 		        <li>
-		          <a href="#" class="glyphicon glyphicon-map-marker tooltip-link" id="sensor-test-button" data-toggle="tooltip" data-placement="left" title="Record meteo data of your mind"></a>
+							<div class="navbar-btn clickable">
+								<span ng-click="record()" class="navbar-btn glyphicon glyphicon-map-marker tooltip-link"  data-toggle="tooltip" data-placement="left" title="Record meteo data of your mind"></span>
+							</div>
+		          <!--a href="#" class="glyphicon glyphicon-map-marker tooltip-link" id="sensor-test-button" data-toggle="tooltip" data-placement="left" title="Record meteo data of your mind"></a-->
 		        </li>
 		        <li>
 		          <a href="#" class="glyphicon glyphicon-envelope tooltip-link"  data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
@@ -39,7 +42,13 @@
 							<a href='mind/profile/{{identity.id}}'>{{identity.name}}</a>
 						</li>
 		        <li>
-		          <a href="/session/destroy" class="glyphicon glyphicon-log-out"></a>
+		          <!--a href="/session/destroy" class="glyphicon glyphicon-log-out"></a-->
+							<div class="navbar-btn clickable">
+								<span ng-click="logout()" class="navbar-btn glyphicon glyphicon-log-out"></span>
+							</div>
+							<!--button type="button" class="glyphicon glyphicon-log-out 	navbar-btn">Sign in</button-->
+
+
 		        </li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
