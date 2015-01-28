@@ -24,21 +24,21 @@ describe('The Admin Controller', function () {
 			assert.ok(view.called);
 		});
 
-		it('should redirect to login page if called by a non admin', function(done) {
+		it('should return 403 error code if called by a non admin', function(done) {
 			login.demo(request(sails.hooks.http.app))
 			.then(function (loginAgent) {
 				var req = request(sails.hooks.http.app).get('/admin/index');
 				loginAgent.attachCookies(req);
-				req.expect(302)
-					 .expect('location', '/session/new', done);
+				req.expect(403)
+					 .expect('You must be an admin.', done);
 			});
 		});
 
-		it('should redirect to login page if called by unknown', function(done) {
+		it('should return 403 error code if called by unknown', function(done) {
 				request(sails.hooks.http.app)
 				.get('/admin/index')
-				.expect(302)
-				.expect('location', '/session/new', done);
+				.expect(403)
+				.expect('You must be an admin.', done);
 		});
 	});
 
@@ -85,22 +85,22 @@ describe('The Admin Controller', function () {
     	});
 		});
 
-		it('should redirect to login page if the mind is not identified', function (done) {
+		it('should return 403 error code if the mind is not identified', function (done) {
 			request(sails.hooks.http.app)
         .get('/admin/online')
-        .expect(302)
-				.expect('location', '/session/new', done);
+        .expect(403)
+				.expect('You must be an admin.', done);
 		});
 
-		it('should redirect to login page if the mind is not admin role', function (done) {
+		it('should return 403 error code if the mind is not admin role', function (done) {
 			login.demo(request(sails.hooks.http.app))
 			.then(function (loginAgent) {
       	agent = loginAgent;
 
 				var req = request(sails.hooks.http.app).get('/admin/online');
 				agent.attachCookies(req);
-				req.expect(302)
-					 .expect('location', '/session/new', done);
+				req.expect(403)
+				.expect('You must be an admin.', done);
 				});
 		});
 	});
@@ -119,7 +119,7 @@ describe('The Admin Controller', function () {
 			sails.services.elasticservice.resetIndices.restore();
 		});
 
-		it('should redirect to login page if called by a non admin', function(done) {
+		it('should return 403 error code if called by a non admin', function(done) {
 			// Mocking elasticService
 			var reset = sinon.stub(sails.services.elasticservice, 'resetIndices', function() {
 				return new promise(function(resolve, reject){
@@ -131,12 +131,12 @@ describe('The Admin Controller', function () {
 			.then(function (loginAgent) {
 				var req = request(sails.hooks.http.app).get('/admin/resetIndices');
 				loginAgent.attachCookies(req);
-				req.expect(302)
-					 .expect('location', '/session/new', done);
-				});
+				req.expect(403)
+				.expect('You must be an admin.', done);
+			});
 		});
 
-		it('should redirect to login page if called by unknown', function(done) {
+		it('should return 403 error code if called by unknown', function(done) {
 			// Mocking elasticService
 			var reset = sinon.stub(sails.services.elasticservice, 'resetIndices', function() {
 				return new promise(function(resolve, reject){
@@ -146,8 +146,8 @@ describe('The Admin Controller', function () {
 
 			request(sails.hooks.http.app)
 			.get('/admin/resetIndices')
-			.expect(302)
-			.expect('location', '/session/new', done);
+			.expect(403)
+			.expect('You must be an admin.', done);
 		});
 
 		it ('should call Elasticservice.resetIndices', function (done) {

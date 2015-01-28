@@ -16,18 +16,18 @@ exports.admin = function (request, done) {
 	request
 		.post('/session/create')
 		.send(admin)
-		.expect(302)
+		.expect(200)
 		.end(function (err, res) {
-		if (err) {
-			deferred.reject(err);
-			throw err;
-		}
-		console.log('logged in as admin.');
-		// Set cookie for the agent (browsers do this automatically)
-		agent.saveCookies(res);
-		deferred.resolve(agent);
-		if (done != undefined) done(agent);
-	});
+			if (err) {
+				deferred.reject(err);
+				throw err;
+			}
+			console.log('logged in as admin.');
+			// Set cookie for the agent (browsers do this automatically)
+			agent.saveCookies(res);
+			deferred.resolve(agent);
+			if (done) done(agent);
+		});
 	return deferred.promise;
 };
 
