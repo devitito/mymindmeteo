@@ -12,8 +12,7 @@ describe('The Admin Controller', function () {
 		beforeEach(function(done) {
 			request(sails.hooks.http.app)
         .get('/session/destroy')
-        .expect(302)
-				.expect('location', '/', done);
+        .expect(200, done);
 		});
 
 		it ('should render the view', function () {
@@ -100,8 +99,7 @@ describe('The Admin Controller', function () {
 		beforeEach(function(done) {
 			request(sails.hooks.http.app)
         .get('/session/destroy')
-        .expect(302)
-				.expect('location', '/', done);
+        .expect(200, done);
 		});
 
 		afterEach(function () {
