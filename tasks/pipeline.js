@@ -44,6 +44,7 @@ var jsFilesToInject = [
 	'bower_components/moment/locale/fr.js',
 	'bower_components/moment/locale/es.js',
 	'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
+	'bower_components/angular-ui-router/release/angular-ui-router.min.js',
 	'js/app.js',
 	'js/admin/adminController.js',
 	'js/admin/adminServices.js',
