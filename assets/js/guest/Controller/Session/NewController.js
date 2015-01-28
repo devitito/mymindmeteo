@@ -12,7 +12,7 @@ var newSessionCtrl = guestControllers.controller('newSessionCtrl', ['$scope', '$
 		};
 
 		$scope.new = function () {
-			sessionFactory.create({}, {nameoremail: $scope.nameoremail, password: $scope.password}).$promise
+			sessionFactory.create({nameoremail: $scope.nameoremail, password: $scope.password})
 			.then(function(success) {
 				if (success.role == 'admin')
 						$scope.go('/administrator/');

@@ -15,6 +15,7 @@ describe("Mind.EditController", function() {
 		module('adminServices');
 		module('angularMoment');
 		module('ui.bootstrap');
+		module('LocalStorageModule');
 	});
 
 	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$location_, _flash_, _lang_, _identityService_) {

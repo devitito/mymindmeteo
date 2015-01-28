@@ -42,7 +42,7 @@ describe('The Admin Controller', function () {
 		});
 	});
 
-	describe('when online action is called', function () {
+	/*describe('when online action is called', function () {
 
 		beforeEach(function(done) {
 			request(sails.hooks.http.app)
@@ -52,16 +52,6 @@ describe('The Admin Controller', function () {
 		});
 
 		it ('should return the mind datas in json, if the mind is admin role', function (done) {
-			//var mind = {id: 'anid', name: 'a name'};
-			/*var json = sinon.spy();
-			AdminController.online({
-				session: {Mind: mind}
-			}, {
-				json: json
-			});
-			assert(json.called);
-			assert(json.calledWith(mind));*/
-
 			login.admin(request(sails.hooks.http.app))
 			.then(function (loginAgent) {
       	agent = loginAgent;
@@ -103,7 +93,7 @@ describe('The Admin Controller', function () {
 				.expect('You must be an admin.', done);
 				});
 		});
-	});
+	});*/
 
 	describe('when resetIndices action is called', function () {
 

@@ -16,6 +16,7 @@ module.exports = function (config) {
 					'assets/bower_components/angular-google-chart/ng-google-chart.js',
 					'assets/bower_components/moment/moment.js',
 					'assets/bower_components/angular-moment/angular-moment.js',
+					'assets/bower_components/angular-local-storage/dist/angular-local-storage.js',
 
 					'assets/js/app.js',
 					'assets/js/admin/adminServices.js',

@@ -6,9 +6,6 @@
  */
 
 module.exports = {
-	'new': function (req, res) {
-		res.view();
-	},
 	
 	create: function(req, res, next) {
 		var adminCreate = function (req, res, next) {
@@ -44,20 +41,14 @@ module.exports = {
 
 				// If there's an error
 				if (err) {
-					console.log(err);
-					req.session.flash = {
-						err: err.ValidationError
-					}
-
-					// If error redirect back to sign-up page
-					return res.redirect('/mind/new');
+					return res.send(500, err);
 				}
 
 				// Log mind in
 				req.session.authenticated = true;
 				req.session.Mind = mind;
 
-				res.redirect('/mind/dashboard/' + mind.name);
+				res.send(200, mind);
 			});
 		};
 

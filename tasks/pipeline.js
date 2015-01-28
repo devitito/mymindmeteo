@@ -43,6 +43,7 @@ var jsFilesToInject = [
 	'bower_components/angular-moment/angular-moment.js',
 	'bower_components/moment/locale/fr.js',
 	'bower_components/moment/locale/es.js',
+	'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
 	'js/app.js',
 	'js/admin/adminController.js',
 	'js/admin/adminServices.js',
@@ -50,6 +51,7 @@ var jsFilesToInject = [
 	'js/admin/Controller/**/*.js',
 	'js/admin/Services/**/*.js',
 	'js/guest/**/*.js',
+	'js/mind/**/*.js',
 
   'js/dependencies/**/*.js',
 

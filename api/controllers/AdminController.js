@@ -10,9 +10,9 @@ module.exports = {
 		res.view();
 	},
 
-	'online': function(req, res) {
+	/*'online': function(req, res) {
 		res.json(req.session.Mind);
-	},
+	},*/
 
 	'resetIndices': function(req, res, next) {
 		ElasticService.resetIndices()

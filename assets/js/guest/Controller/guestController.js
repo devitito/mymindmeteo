@@ -1,10 +1,20 @@
 
 
-var homepageCtrl = adminControllers.controller('homepageCtrl', ['$scope', '$sce', '$location',
-    function ($scope, $sce, $location) {
-	//			$scope.partial.navbar-logged-out.htmlSafe = $sce.trustAsHtml(preview_data.preview.embed.html);
+var homepageCtrl = adminControllers.controller('homepageCtrl', ['$scope', '$location', 'sessionFactory', 'flash',
+    function ($scope, $location, sessionFactory, flash) {
 			$scope.go = function (url) {
 				$location.path(url);
+			};
+
+			$scope.takeTourNow = function () {
+				sessionFactory.create({nameoremail: 'demo', password: 'demodemo'})
+				.then(function(success) {
+					$scope.go('/mind/dashboard/' + success.name);
+				})
+				.catch(function(error) {
+					flash.setMessage(error.data);
+					$location.path('/session/new');
+				});
 			};
 }]);
 
