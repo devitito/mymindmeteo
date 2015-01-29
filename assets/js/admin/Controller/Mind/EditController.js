@@ -6,10 +6,22 @@
  */
 
 var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$rootScope', '$location', '$modal', 'flash', 'mind', 'roles', 'lang', 'timezones', 'identity', 'identityService',
-    function ($scope, $rootScope, $location, $modal, flash, mind, roles, lang, timezones, identity, identityService) {
+  function ($scope, $rootScope, $location, $modal, flash, mind, roles, lang, timezones, identity, identityService) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
+
+	/*	$rootScope.$on("$routeChangeError", function () {
+
+			$location.path('/');
+		});*/
+
+		$rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
+    console.log("failed to change routes");
+		console.log(current);
+		console.log(event);
+		//$location.path('/');
+  });
 
 		$scope.update = function() {
 			$scope.mind.$update(
@@ -92,7 +104,11 @@ EditMindCtrl.resolve = {
 		return deferred.promise;*/
 
   },
-  identity: function(identityService) {
-		return identityService.get();
+  identity: function(identityService, $location) {
+		var identityRequest = identityService.get();
+		identityRequest.catch(function(reason) {
+			$location.path('/');
+		});
+		return identityRequest;
   }
 };

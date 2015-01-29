@@ -49,12 +49,12 @@ describe("admin routes", function() {
 
 		beforeEach(function() {
 			expect($location.path()).toBe( '' );
-			$location.path('/minds/edit/2');
+			$location.path('/administrator/minds/edit/2');
 			$rootScope.$digest();
 		});
 
 		it('should be defined', function() {
-			expect($location.path()).toBe( '/minds/edit/2' );
+			expect($location.path()).toBe( '/administrator/minds/edit/2' );
 			expect($route.current.controller).toBe('EditMindCtrl');
 			expect($route.current.templateUrl).toEqual('/js/admin/partials/mind/edit.html');
 		});
@@ -115,12 +115,14 @@ describe("admin routes", function() {
 			}
 		};
 
-		var getIdentityWithSuccess = function(deferred) {
+		var getIdentityWithSuccess = function() {
+			var deferred = $q.defer();
 			deferred.resolve('an identity');
 			return deferred.promise;
 		};
 
-		var getIdentityWithError = function(deferred) {
+		var getIdentityWithError = function() {
+			var deferred = $q.defer();
 			deferred.reject('a reason');
 			return deferred.promise;
 		};
@@ -140,15 +142,15 @@ describe("admin routes", function() {
 				return getMindWithError(id, success, error);
 			});
 
-			spyOn(identityService, 'get').and.callFake(function (deferred) {
-				return getIdentityWithSuccess(deferred);
+			spyOn(identityService, 'get').and.callFake(function () {
+				return getIdentityWithSuccess();
 			});
 
 			expect($location.path()).toBe( '' );
-			$location.path('/minds/edit/2');
+			$location.path('/administrator/minds/edit/2');
 			$rootScope.$digest();
 
-			expect($location.path()).toBe( '/result/minds/0/1' );
+			expect($location.path()).toBe( '/administrator/result/minds/0/1' );
 
 			$rootScope.$on('$routeChangeSuccess', function () {
 				expect(flash.getMessage()).toBe('an error message');
@@ -160,20 +162,19 @@ describe("admin routes", function() {
 		});
 
 		it("identity Should logout", function() {
-			$httpBackend.expectGET('/js/admin/partials/admin/error.html').respond(200);
+			$httpBackend.expectGET('/js/guest/partials/homepage.html').respond(200);
 			spyOn(mindFactory, 'get').and.callFake(function (id, success, error) {
 				return getMindWithSuccess(id, success, error);
 			});
 
-			spyOn(identityService, 'get').and.callFake(function (deferred) {
-				return getIdentityWithError(deferred);
+			spyOn(identityService, 'get').and.callFake(function () {
+				return getIdentityWithError();
 			});
 
 			expect($location.path()).toBe( '' );
-			$location.path('/minds/edit/2');
+			$location.path('/administrator/minds/edit/2');
 			$rootScope.$digest();
-
-			expect($location.path()).toBe( '/error' );
+			expect($location.path()).toBe( '/' );
 		});
 	});
 

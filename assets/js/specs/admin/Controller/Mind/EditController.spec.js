@@ -84,7 +84,7 @@ describe("Mind.EditController", function() {
 		it("should redirect to the result page", function(done) {
 			$scope.update();
 			//$rootScope.$digest();
-			expect($location.path()).toBe( '/result/minds/46-89/1' );
+			expect($location.path()).toBe( '/administrator/result/minds/46-89/1' );
 
 			$rootScope.$on('$routeChangeSuccess', function () {
 				expect(flash.getMessage()).toBe('Mind updated successfully!');
@@ -120,7 +120,7 @@ describe("Mind.EditController", function() {
 		it("should redirect to the result page in case of error", function() {
 			mockMindFactory.response = 'error';
 			$scope.update();
-			expect($location.path()).toBe( '/result/minds/46-89/0' );
+			expect($location.path()).toBe( '/administrator/result/minds/46-89/0' );
 		});
 
 		it("should parse a well formated error message", function(done) {

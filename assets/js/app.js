@@ -43,8 +43,12 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/admin/partials/admin/dashboard.html',
 		controller: 'dashboardCtrl',
 		resolve: {
-			identity : function(identityService) {
-				return identityService.get();
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
 			}
 		}
 	}).
@@ -52,8 +56,12 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/admin/partials/admin/dashboard.html',
 		controller: 'dashboardCtrl',
 		resolve: {
-			identity : function(identityService) {
-				return identityService.get();
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
 			}
 		}
 	}).
@@ -65,8 +73,12 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 				var deferred = $q.defer();
 				return statsFactory.query(deferred);
 			},
-			identity : function(identityService) {
-				return identityService.get();
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
 			}
 		}
 	}).
@@ -88,8 +100,12 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 				});
 				return deferred.promise;*/
 			},
-			identity : function(identityService) {
-				return identityService.get();
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
 			}
 		}
 	}).
@@ -107,8 +123,12 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 					});
 				return deferred.promise;
 			},
-			identity : function(identityService) {
-				return identityService.get();
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
 			}
 		}
 	}).
@@ -120,8 +140,12 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/mind/partials/dashboard.html',
 		controller: 'mindDashboardCtrl',
 		resolve: {
-			identity : function(identityService) {
-				return identityService.get();
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
 			}
 		}
 	}).
@@ -129,8 +153,12 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/admin/partials/mind/new.html',
 		controller: 'NewMindCtrl',
 		resolve: {
-			identity : function(identityService) {
-				return identityService.get();
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
 			}
 		}
 	}).
@@ -160,8 +188,15 @@ mindmeteo.value('googleChartApiConfig', {
     }
 });
 
-mindmeteo.run(function($http) {
+mindmeteo.run(function($http/*, $rootScope, $location*/) {
     $http.get('/csrfToken').success(function(data){
         $http.defaults.headers.common['x-csrf-token'] = data._csrf;
     });
+
+	/*$rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
+    console.log("failed to change routes");
+		console.log(	eventObj);
+		console.log(event);
+		//$location.path('/');
+  });*/
 });

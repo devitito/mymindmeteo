@@ -17,6 +17,7 @@ module.exports = function (config) {
 					'assets/bower_components/moment/moment.js',
 					'assets/bower_components/angular-moment/angular-moment.js',
 					'assets/bower_components/angular-local-storage/dist/angular-local-storage.js',
+					'assets/bower_components/angular-ui-router/release/angular-ui-router.min.js',
 
 					'assets/js/app.js',
 					'assets/js/admin/adminServices.js',
