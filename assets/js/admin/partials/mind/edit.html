@@ -1,33 +1,48 @@
-	<p>{{flash.getMessage()}}</p>
-	<div class="col-lg-5" ng-hide="flash.getMessage().length">
-	 <form>
-		<h1>Edit mind ({{mind.name}})</h1>
-			<div class="from-group">
-				<label class="form-label">Join date : </label>
-				<span id="joindate">{{mind.joindate | amDateFormat:'LL'}}</span>
-			</div>
-			<div class="from-group">
-				<label class="form-label" for="email">Email : </label>
-				<input class="form-control input-lg" id="email" type="email" required="true" ng-model="mind.email"></input>
-			</div>
-			<div class="from-group">
-				<label class="form-label" for="role">Role : </label>
-				<select class="form-control input-lg" id="role" required="true" ng-model="mind.role" ng-options="role.code as role.name for role in roles"></select>
-			</div>
-			<div class="from-group">
-				<label class="form-label" for="lang">Language : </label>
-				<select class="form-control input-lg" id="locale" required="true" ng-model="mind.locale" ng-options="lang.code as lang.name for lang in langs"></select>
-			</div>
-			<div class="from-group">
-				<label class="form-label" for="timezone">Timezone : </label>
-				<select class="form-control input-lg" id="timezone" required="true" ng-model="mind.timezone" ng-options="timezone for timezone in timezones"></select>
-			</div>
-		<br>
-		<div class="form-actions">
-			<button ng-click="go('/minds')" class="btn btn-default">Cancel</button>
-			<button ng-click="update()" class="btn btn-meteo">Update Mind</button>
-			<button ng-hide="isSelf" ng-click="delete()" class="btn btn-warning">Delete Mind</button>
-		</div>
-	</form>
+<div ng-controller="adminNavBarCtrl" ng-include src="'js/admin/partials/admin/navbar-admin.html'"></div>
+<div class="row content">
+	<div class="col-lg-2 col-md-2 visible-desktop">
+		<ul class="nav nav-pills nav-stacked" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
 	</div>
-	<button ng-show="flash.getMessage().length" ng-click="go('/minds')" class="btn btn-default pull-right">Return</button>
+	<div class="visible-phone">
+		<ul class="nav nav-pills" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+	</div>
+	<div class="col-lg-10 col-md-10">
+
+
+		<p>{{flash.getMessage()}}</p>
+		<div class="col-lg-5" ng-hide="flash.getMessage().length">
+		 <form>
+			<h1>Edit mind ({{mind.name}})</h1>
+				<div class="from-group">
+					<label class="form-label">Join date : </label>
+					<span id="joindate">{{mind.joindate | amDateFormat:'LL'}}</span>
+				</div>
+				<div class="from-group">
+					<label class="form-label" for="email">Email : </label>
+					<input class="form-control input-lg" id="email" type="email" required="true" ng-model="mind.email"></input>
+				</div>
+				<div class="from-group">
+					<label class="form-label" for="role">Role : </label>
+					<select class="form-control input-lg" id="role" required="true" ng-model="mind.role" ng-options="role.code as role.name for role in roles"></select>
+				</div>
+				<div class="from-group">
+					<label class="form-label" for="lang">Language : </label>
+					<select class="form-control input-lg" id="locale" required="true" ng-model="mind.locale" ng-options="lang.code as lang.name for lang in langs"></select>
+				</div>
+				<div class="from-group">
+					<label class="form-label" for="timezone">Timezone : </label>
+					<select class="form-control input-lg" id="timezone" required="true" ng-model="mind.timezone" ng-options="timezone for timezone in timezones"></select>
+				</div>
+			<br>
+			<div class="form-actions">
+				<button ng-click="go('/administrator/minds')" class="btn btn-default">Cancel</button>
+				<button ng-click="update()" class="btn btn-meteo">Update Mind</button>
+				<button ng-hide="isSelf" ng-click="delete()" class="btn btn-warning">Delete Mind</button>
+			</div>
+		</form>
+		</div>
+		<button ng-show="flash.getMessage().length" ng-click="go('/administrator/minds')" class="btn btn-default pull-right">Return</button>
+
+
+	</div>
+</div>

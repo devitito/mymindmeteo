@@ -1,5 +1,14 @@
-<div class="col-lg-12">
-<form class="form-horizontal" novalidate name="newMindForm" autocomplete="off">
+<div ng-controller="adminNavBarCtrl" ng-include src="'js/admin/partials/admin/navbar-admin.html'"></div>
+<div class="row content">
+	<div class="col-lg-2 col-md-2 visible-desktop">
+		<ul class="nav nav-pills nav-stacked" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+	</div>
+	<div class="visible-phone">
+		<ul class="nav nav-pills" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+	</div>
+	<div class="col-lg-10 col-md-10">
+
+		<form class="form-horizontal" novalidate name="newMindForm" autocomplete="off">
 		<h1>Create a new mind</h1>
 			<div class="from-group row" ng-class="{'has-error': newMindForm.$dirty && newMindForm.name.$invalid, 'has-success': newMindForm.name.$valid}">
 				<div class="row">
@@ -104,8 +113,11 @@
 			</div>
 		<br>
 		<div class="form-group">
-			<button ng-click="go('/minds')" class="btn btn-default">Cancel</button>
+			<button ng-click="go('/administrator/minds')" class="btn btn-default">Cancel</button>
 			<button ng-click="create()" class="btn btn-meteo" ng-disabled="newMindForm.$invalid">Create</button>
 		</div>
 	</form>
+
+
+	</div>
 </div>

@@ -5,8 +5,8 @@
  *
  */
 
-var guestRegistrationCtrl = guestControllers.controller('guestRegistrationCtrl', ['$scope', '$location', 'mindFactory',
-    function ($scope, $location, mindFactory) {
+var guestRegistrationCtrl = guestControllers.controller('guestRegistrationCtrl', ['$scope', '$location', 'mindFactory', 'sessionFactory',
+    function ($scope, $location, mindFactory, sessionFactory) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -15,10 +15,14 @@ var guestRegistrationCtrl = guestControllers.controller('guestRegistrationCtrl',
 		$scope.new = function () {
 			mindFactory.save({}, $scope.mind).$promise
 			.then(function(success) {
-				if (success.role == 'admin')
-						$scope.go('/administrator/');
-				else
-						$scope.go('/mind/dashboard/' + success.name);
+				sessionFactory.create({nameoremail: $scope.mind.name, password: $scope.mind.password})
+				.then(function(success) {
+					$scope.go('/mind/dashboard/' + success.name);
+				})
+				.catch(function(error) {
+					flash.setMessage(error.data);
+					$location.path('/session/new');
+				});
 			})
 			.catch(function(error) {
 				try {

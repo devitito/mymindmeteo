@@ -16,7 +16,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 				function(success) {
 					$rootScope.$broadcast('mind.post.edit', mind);
 					flash.setMessage('Mind updated successfully!');
-					$location.path('/result/minds/'+$scope.mind.id+'/1');
+					$location.path('/administrator/result/minds/'+$scope.mind.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -27,7 +27,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 					} catch (e) {
 						flash.setMessage('An error occured while applying the changes');
 					}
-					$location.path('/result/minds/'+$scope.mind.id+'/0');
+					$location.path('/administrator/result/minds/'+$scope.mind.id+'/0');
 				}
 			);
 		};
@@ -36,7 +36,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 			$scope.mind.$delete(
 				function(success) {
 					flash.setMessage('Mind deleted successfully!');
-					$location.path('/result/minds/'+$scope.mind.id+'/1');
+					$location.path('/administrator/result/minds/'+$scope.mind.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -47,7 +47,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 					} catch (e) {
 						flash.setMessage('An error occured while deleting the mind');
 					}
-					$location.path('/result/minds/'+$scope.mind.id+'/0');
+					$location.path('/administrator/result/minds/'+$scope.mind.id+'/0');
 				}
 			);
 		}
@@ -77,7 +77,7 @@ EditMindCtrl.resolve = {
 		var mindRequest = mindFactory.get({id:$route.current.params.mindId}).$promise;
 		mindRequest.catch(function(reason) {
 			flash.setMessage(reason.data);
-			$location.path('/result/minds/0/1');
+			$location.path('/administrator/result/minds/0/1');
 		});
 		return mindRequest;
 
@@ -92,13 +92,7 @@ EditMindCtrl.resolve = {
 		return deferred.promise;*/
 
   },
-  identity: function(identityService, $q, $location) {
-		var deferred = $q.defer();
-		var identityRequest = identityService.get(deferred);
-		identityRequest.catch(function(reason) {
-			//flash.setMessage(reason.data);
-			$location.path('/error');
-		});
-		return identityRequest;
+  identity: function(identityService) {
+		return identityService.get();
   }
 };

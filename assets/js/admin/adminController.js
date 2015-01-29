@@ -7,8 +7,8 @@ var ResultCtrl = adminControllers.controller('ResultCtrl', ['$scope', '$location
 		};
 
 		$scope.result = $routeParams.result;
-		$scope.returnRoute = '/' + $routeParams.object +'/edit/' + $routeParams.id;
-		$scope.finishRoute = '/' + $routeParams.object;
+		$scope.returnRoute = '/administrator/' + $routeParams.object +'/edit/' + $routeParams.id;
+		$scope.finishRoute = '/administrator/' + $routeParams.object;
 		$scope.flash = flash;
 }]);
 

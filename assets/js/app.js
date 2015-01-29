@@ -6,18 +6,31 @@ var guestServices = angular.module('guestServices', ['ngResource']);
 var guestControllers = angular.module('guestControllers', []);
 var mindControllers = angular.module('mindControllers', []);
 
-mindmeteo.config(function($routeProvider, localStorageServiceProvider) {
-  $routeProvider.
-  	/*when('/', {
-      templateUrl: '/js/admin/partials/admin/dashboard.html',
-      controller: 'dashboardCtrl',
+mindmeteo.config(function($routeProvider, $stateProvider, localStorageServiceProvider) {
+
+
+	/*$stateProvider
+    .state('admin', {
+      url: "/administrator",
+			views: {
+        "menu": { templateUrl: "/js/admin/partials/admin/admin.menu.html" },
+        "dashboard": { templateUrl: "/js/admin/partials/admin/dashboard.html" }
+      }
+    });*/
+
+	/*$stateProvider
+    .state('dashboard', {
+      url: "/administrator#/dash",
+      templateUrl: "/js/admin/partials/admin/dashboard.html",
+			controller: 'dashboardCtrl',
 			resolve: {
-				identity: function(identityService, $q) {
-					var deferred = $q.defer();
-					return identityService.get(deferred);
+				identity : function(identityService) {
+					return identityService.get();
 				}
 			}
-    }).*/
+    });*/
+
+  $routeProvider.
 	when('/', {
 		templateUrl: '/js/guest/partials/homepage.html',
 		controller: 'homepageCtrl'
@@ -61,25 +74,26 @@ mindmeteo.config(function($routeProvider, localStorageServiceProvider) {
 		templateUrl: '/js/admin/partials/admin/sensors.html',
 		controller: 'sensorsCtrl'
 	}).
-	when('/sensors/edit/:sensorId', {
+	when('/administrator/sensors/edit/:sensorId', {
 		templateUrl: '/js/admin/partials/sensor/edit.html',
 		controller: 'EditSensorCtrl',
 		resolve: {
-			sensor: function(sensorFactory, $q, $route) {
-				var deferred = $q.defer();
-				sensorFactory.get({id:$route.current.params.sensorId}, function(data){
-					deferred	.resolve(data);
+			sensor: function(sensorFactory, /*$q,*/ $route) {
+				//var deferred = $q.defer();
+				return sensorFactory.get({id:$route.current.params.sensorId}).$promise;
+				/*, function(data){
+					deferred.resolve(data);
 				}, function(errorData) {
 					deferred.resolve('An error occured while retreiving the requested data');
 				});
-				return deferred.promise;
+				return deferred.promise;*/
 			},
 			identity : function(identityService) {
 				return identityService.get();
 			}
 		}
 	}).
-	when('/minds', {
+	when('/administrator/minds', {
 		templateUrl: '/js/admin/partials/admin/minds.html',
 		controller: 'mindsCtrl',
 		resolve: {
@@ -98,9 +112,6 @@ mindmeteo.config(function($routeProvider, localStorageServiceProvider) {
 			}
 		}
 	}).
-	when('/error', {
-		templateUrl: '/js/admin/partials/admin/error.html',
-	}).
 	when('/mind/new', {
 		templateUrl: '/js/guest/partials/mind/new.html',
 		controller: 'guestRegistrationCtrl'
@@ -114,7 +125,7 @@ mindmeteo.config(function($routeProvider, localStorageServiceProvider) {
 			}
 		}
 	}).
-	when('/minds/new', {
+	when('/administrator/minds/new', {
 		templateUrl: '/js/admin/partials/mind/new.html',
 		controller: 'NewMindCtrl',
 		resolve: {
@@ -123,12 +134,12 @@ mindmeteo.config(function($routeProvider, localStorageServiceProvider) {
 			}
 		}
 	}).
-	when('/minds/edit/:mindId', {
+	when('/administrator/minds/edit/:mindId', {
 		templateUrl: '/js/admin/partials/mind/edit.html',
 		controller: 'EditMindCtrl',
 		resolve: EditMindCtrl.resolve
 	}).
-	when('/result/:object/:id/:result', {
+	when('/administrator/result/:object/:id/:result', {
 		templateUrl: '/js/admin/partials/admin/edited.html',
 		controller: 'ResultCtrl'
 	}).

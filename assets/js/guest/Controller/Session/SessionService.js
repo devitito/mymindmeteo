@@ -1,5 +1,5 @@
 
-guestServices.factory('sessionFactory', ['$resource', '$q', 'identityService', function($resource, $q, identityService){
+guestServices.factory('sessionFactory', ['$resource', '$q', '$http', 'identityService', function($resource, $q, $http, identityService){
 	var factory = {};
 
 	var resource = $resource('/session', {}, {
@@ -28,7 +28,11 @@ guestServices.factory('sessionFactory', ['$resource', '$q', 'identityService', f
 		resource.destroy().$promise
 		.then(function(success) {
 			identityService.remove();
-			deferred.resolve(success);
+			$http.get('/csrfToken').success(function(data){
+        $http.defaults.headers.common['x-csrf-token'] = data._csrf;
+				deferred.resolve(success);
+    	});
+
 		})
 		.catch(function (error) {
 			deferred.reject(error);

@@ -7,7 +7,7 @@
 
 adminServices.factory("sensorsCache", function($cacheFactory) {
 	var factory = {};
-	var cache = $cacheFactory('sesnors');
+	var cache = $cacheFactory('sensors');
 
 	factory.get = function(obj) {
 		return cache.get(obj);

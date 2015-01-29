@@ -21,7 +21,7 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 			mindFactory.save($scope.mind,
 				function(success) {
 					flash.setMessage('Mind created successfully!');
-					$location.path('/result/minds/'+success.id+'/1');
+					$location.path('/administrator/result/minds/'+success.id+'/1');
 				},
 				function(errors) {
 					try {
@@ -32,7 +32,7 @@ var NewMindCtrl = adminControllers.controller('NewMindCtrl', ['$scope', '$locati
 					} catch (e) {
 						flash.setMessage('An error occured while creating the mind.');
 					}
-					$location.path('/result/minds/0/1');
+					$location.path('/administrator/result/minds/0/1');
 			});
 		};
 }]);
