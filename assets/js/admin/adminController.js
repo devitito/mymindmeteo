@@ -1,4 +1,4 @@
-var adminControllers = angular.module('adminControllers', []);
+
 
 var ResultCtrl = adminControllers.controller('ResultCtrl', ['$scope', '$location', 'flash', '$routeParams',
     function ($scope, $location, flash, $routeParams) {

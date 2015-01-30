@@ -1,4 +1,4 @@
-var adminDirectives = angular.module('adminDirectives', []);
+
 
 adminDirectives.directive('ngUnique', ['$http', function ($http) {
 	return {
