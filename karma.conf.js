@@ -20,16 +20,11 @@ module.exports = function (config) {
 					'assets/bower_components/angular-ui-router/release/angular-ui-router.min.js',
 
 					'assets/js/app.js',
-					'assets/js/admin/adminServices.js',
-					'assets/js/admin/Services/identity.js',
-					'assets/js/admin/Services/lang.js',
-					'assets/js/admin/Services/flash.js',
-					'assets/js/admin/Services/stats.js',
-					'assets/js/admin/Services/cache.js',
-					'assets/js/admin/adminController.js',
-					'assets/js/admin/adminDirectives.js',
+					'assets/js/Services/**/*.js',
+					'assets/js/Directives/**/*.js',
 					'assets/js/admin/**/*.js',
 					'assets/js/guest/**/*.js',
+					'assets/js/mind/**/*.js',
 					'assets/js/specs/**/*.js',
 				],
         reporters: ['progress', 'brackets', 'coverage'],
@@ -37,9 +32,7 @@ module.exports = function (config) {
 				preprocessors: {
 					// do not include tests or libraries
 					// (these files will be instrumented by Istanbul)
-					'assets/js/admin/**/!(*.spec).js': ['coverage'],
-					'assets/js/guest/**/!(*.spec).js': ['coverage'],
-					'assets/js/app.js': ['coverage']
+					'assets/js/**/!(*.spec).js': ['coverage']
 				},
 
 				coverageReporter: {
