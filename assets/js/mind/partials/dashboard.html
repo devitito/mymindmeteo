@@ -1,3 +1,428 @@
 <div ng-include src="'js/mind/partials/navbar-mind.html'"></div>
 
-index page for normal mind
+<!-- Sensor Modal -->
+<div style="display: none;" id="sensormodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="sensorModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+      <div id="sensormodal-content" class="modal-content">
+
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<!-- Test Modal -->
+<div style="display: none;" id="measurementmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="measurementModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+      <div id="measurementmodal-content" class="modal-content">
+
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<!-- Analyse Modal -->
+<div style="display: none;" id="analysemodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="analyseModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+      <div id="analysemodal-content" class="modal-content">
+
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<!-- Please wait modal -->
+<div style="display: none;" id="waitmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+      <div class="modal-content">
+      	<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+		    <h4 class="modal-title" id="waitModalLabel">We are processing your request</h4>
+		</div>
+		<div class="modal-body">
+			<div>Please wait...</div>
+		</div>
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="container">
+	<div class="row">
+	    <div class="col-md-3">
+	        <a href="'/mind/account' ?>">
+	        	<img alt="" height="230" width="230" src="/images/placeholder.png">
+	        </a>
+			<br><br>
+			<table class="table">
+				<tr>
+					<h4 id="mindname">{{identity.name}}</h4>
+				</tr>
+				<tr>
+					<td>
+						<span class="glyphicon glyphicon-time"></span>
+						<span>Joined on </span>
+						<time>{{identity.joindate | amDateFormat:'LL'}}</time>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="row">
+						<div class="col-md-2">
+					    	<p><span id="nbtest" class="badge">-</span></p>
+					    	<p><span id="nbsunny" class="badge">-</span></p>
+					    	<p><span id="nbrainy" class="badge">-</span></p>
+					    </div>
+					    <div class="col-md-10">
+					    	<p>Test completed </p>
+					    	<p>Sunny days </p>
+					    	<p>Rainy days </p>
+					    </div>
+					</div>
+					</td>
+				</tr>
+
+			</table>
+	    </div>
+
+	    <div class="col-md-9">
+
+				<tabset justified="true">
+					<tab heading="Climat"><div ng-include="'js/mind/partials/climat.html'"></div></tab>
+					<tab heading="Reports"><div ng-include="'js/mind/partials/reports-list.html'"></div></tab>
+					<tab heading="Measurements"><p>meteo raw data questions already answered (with answer and date)</p></tab>
+					<tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
+		      	<p>(storms, take a day off: great sun)</p></tab>
+					<tab heading="Similar minds"><p>friends (following the same meteo trends) Similar meteo systems</p></tab>
+				</tabset>
+
+		     <!--ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
+		      <li class="active"><a href="#climat" role="tab" data-toggle="tab">Climat</a></li>
+		      <li class=""><a href="#/mind/dashboard/reports" role="tab" data-toggle="tab">Reports</a></li>
+		      <li class=""><a href="#data" role="tab" data-toggle="tab">Measurements</a></li>
+		      <li class=""><a href="#alerts" role="tab" data-toggle="tab">Alerts</a></li>
+		      <li class=""><a href="#friends" role="tab" data-toggle="tab">Similar minds</a></li>
+		    </ul>
+		    <div id="myTabContent" class="tab-content">
+		      <div class="tab-pane fade active in text-center" id="climat">
+		      		<br>
+		      		<span class="glyphicon glyphicon-refresh spin loading-indicator"></span><span class="loading-indicator">  Loading...</span>
+					<div id="meteochart" style="height: 400px;"></div>
+		      </div>
+		      <div class="tab-pane fade" id="reports" ng-include src="'js/mind/partials/reports-list.html'"></div>
+		      <div class="tab-pane fade" id="data">
+		      	<p>meteo raw data questions already answered (with answer and date)</p>
+		      </div>
+		       <div class="tab-pane fade" id="alerts">
+		      	<p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
+		      	<p>(storms, take a day off: great sun)</p>
+		      </div>
+		      <div class="tab-pane fade" id="friends">
+		      	<p>friends (following the same meteo trends) Similar meteo systems</p>
+		      </div>
+		    </div-->
+      	</div>
+	</div>
+</div>
+
+<script>
+/*
+function updateNbCompletedTest()
+{
+	$.ajax({
+    	type: 'GET',
+        url: "/mind/sensors/completed/count",
+        cache: false,
+        success: function(msg){
+        	$('#nbtest').text(msg)
+        },
+        error: function(xhr, status, error) {
+        	$('#nbtest').text('-')
+        }
+    });
+}
+
+function updateNbSunnyDays()
+{
+	$.ajax({
+    	type: 'GET',
+        url: "/mind/days/sunny",
+        cache: false,
+        success: function(msg){
+        	$('#nbsunny').text(msg)
+        },
+        error: function(xhr, status, error) {
+        	$('#nbsunny').text('-')
+        }
+    });
+}
+
+function updateNbRainyDays()
+{
+	$.ajax({
+    	type: 'GET',
+        url: "/mind/days/rainy",
+        cache: false,
+        success: function(msg){
+        	$('#nbrainy').text(msg)
+        },
+        error: function(xhr, status, error) {
+        	$('#nbrainy').text('-')
+        }
+    });
+}
+
+function errorModal(msg)
+{
+	return "<div class='modal-header'><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button>"
+	+ "<h4 class='modal-title'>Error</h4><div class='modal-body'>"+ msg + "</div><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></div>"
+}
+
+function updateMeteoChart()
+{
+	$.ajax({
+    	type: 'GET',
+        url: "/mind/meteochart",
+        data: $("#mindname").text(),
+        cache: false,
+        beforeSend: function(xhr,opt){
+        	$('.loading-indicator').show();
+        	$('.loading-indicator').addClass('spin');
+        	$('#meteochart').empty();
+        },
+        success: function(msg){
+            if ($.isEmptyObject(msg)) {
+                $('#meteochart').html('<h2>No meteo data captured.</h2>');
+            }
+            else {
+	        	new Morris.Line({
+	      		  // ID of the element in which to draw the chart.
+	      		  element: 'meteochart',
+	      		  // Chart data records -- each entry in this array corresponds to a point on
+	      		  // the chart.
+	      		  data: msg,
+	      		  // The name of the data record attribute that contains x-values.
+	      		  xkey: 'days',
+	      		  // A list of names of data record attributes that contain y-values.
+	      		  ykeys: ['love', 'health', 'money', 'mood'],
+	      		  // Labels for the ykeys -- will be displayed when you hover over the
+	      		  // chart.
+	      		  labels: ['Love', 'Health', 'Money', 'Mood'],
+	      		  lineColors: ['#FF0000', '#00ADEF', '#85bb65', 'yellow'],
+	      		  hideHover: true,
+	      		  parseTime: false
+	      		});
+
+	       	}
+            updateNbSunnyDays();
+        	updateNbRainyDays();
+            $('.loading-indicator').removeClass('spin');
+        	$('.loading-indicator').hide();
+        },
+        error: function(xhr, status, error) {
+        	$('#meteochart').html(xhr.responseText);
+        	$('.loading-indicator').removeClass('spin');
+        	$('.loading-indicator').hide();
+        }
+    });
+
+}
+
+$(document).ready(function() {
+	$( ".jscroll-inner" ).on( "click", ".accordion-toggle", function() {
+		$(this).find("span").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+	});
+
+	$( ".jscroll-inner" ).on( "mouseover", ".item", function() {
+		$(this).css("background-color","#f2f1f0");
+	});
+
+	$( ".jscroll-inner" ).on( "mouseout", ".item", function() {
+		$(this).css("background-color","white");
+	});
+
+	$('[data-ui="jscroll-default"]').jscroll({
+		autoTrigger: false,
+		debug: false,
+		});
+
+	updateNbCompletedTest();
+	updateMeteoChart();
+
+	//Destroy modal content after hiding
+	$('body').on('hidden.bs.modal', '.modal', function () {
+	    $(this).removeData('bs.modal').find(".modal-content").empty();
+	    updateNbCompletedTest();
+	    updateMeteoChart();
+	});
+
+	//record the sample
+	$( "#measurementmodal" ).on( "click", ".btn-meteo", function() {
+		$('.btn-meteo').attr('disabled', 'disabled');
+		$('.btn-default').attr('disabled', 'disabled');
+        $.ajax({
+            type: "GET",
+            url: '/sensor/record/'+$(this).find('.sensorid').val()+'/'+$(this).find('.sampleid').val(),
+            cache: false,
+            //data: $('form.sensor').serialize(),
+            success: function(msg){
+            	$("#measurementmodal").find('.modal-content').html(msg);
+            	$('.btn-meteo').removeAttr("disabled");
+            	$('.btn-default').removeAttr("disabled");
+            },
+            error: function(xhr, status, error) {
+            	 $("#measurementmodal").find('#errormsg').html(xhr.responseText);
+            	 $('.btn-meteo').removeAttr("disabled");
+            	 $('.btn-default').removeAttr("disabled");
+            }
+        });
+	});
+
+	//sensor contribution form request
+	$( "#sensor-contribution-button" ).on( "click", function(e) {
+		e.preventDefault();
+	//	$('#waitmodal').modal('show');
+		$( "#sensormodal-content" ).load('/sensor/add', function( response, status, xhr ) {
+			if ( status == "error" )
+				$("#sensormodal").find('.modal-content').html(errorModal(xhr.responseText));
+			//$('#waitmodal').modal('hide');
+			$( "#sensormodal" ).modal('show');
+			});
+		$( "#sensormodal" ).modal('toggle');
+	});
+
+	//sensor test request
+	$( "#sensor-test-button" ).on( "click", function(e) {
+		e.preventDefault();
+		$( "#measurementmodal-content" ).load('/sensor/get/random', function( response, status, xhr ) {
+			if ( status == "error" )
+				$("#measurementmodal").find('.modal-content').html(errorModal(xhr.responseText));
+			$( "#measurementmodal" ).modal('show');
+			});
+		$( "#measurementmodal" ).modal('toggle');
+	});
+
+	//weather ananylse contribution form request
+	$( "#anaylse-contribution-button" ).on( "click", function(e) {
+		e.preventDefault();
+		$( "#analysemodal-content" ).load('/analyze/add', function( response, status, xhr ) {
+			if ( status == "error" )
+				$("#analysemodal").find('.modal-content').html(errorModal(xhr.responseText));
+			$( "#analysemodal" ).modal('show');
+			});
+		$( "#analysemodal" ).modal('toggle');
+	});
+
+	//skip the test
+	$( "#measurementmodal" ).on( "click", ".skip", function() {
+		$('.btn-meteo').attr('disabled', 'disabled');
+		$('.btn-default').attr('disabled', 'disabled');
+        $.ajax({
+            type: "GET",
+            url: '/sensor/get/random',
+            cache: false,
+            success: function(msg){
+            	$("#measurementmodal").find('.modal-content').html(msg);
+            	$('.btn-meteo').removeAttr("disabled");
+            	$('.btn-default').removeAttr("disabled");
+            },
+            error: function(xhr, status, error) {
+            	 $("#measurementmodal").find('#errormsg').html(xhr.responseText);
+            	 $('.btn-meteo').removeAttr("disabled");
+            	 $('.btn-default').removeAttr("disabled");
+            }
+        });
+	});
+
+	//Activate the slider when the modal "sensor is loaded
+	$('body').on('show.bs.modal', '#sensormodal', function() {
+		$(this).find('.slider').slider({ value : 0});
+
+		$('form.sensor').bootstrapValidator({
+			//submitButtons: 'input[name="submitsensor"]',
+			submitHandler: function(validator, form, submitButton) {
+				$.ajax({
+			    	type: 'POST',
+			        url: "/sensor/add",
+			        data: $(form).serialize(),
+			        success: function(msg){
+			           	$("#sensormodal").find('.modal-content').html(msg);
+			        },
+			        error: function(xhr, status, error) {
+			           	 $("#sensormodal").find('#errormsg').html(xhr.responseText);
+			           	 $('#submitsensor').removeAttr("disabled");
+			        }
+			    });
+			    return false;
+ 			},
+	    	feedbackIcons: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	label: {
+	                message: 'The test of the sensor is not valid',
+	                validators: {
+	        			notEmpty: {
+	            			message: 'Your test is required'
+	        			},
+	        			stringLength: {
+	                        max: 128,
+	                        message: 'Your test must be less than 128 characters'
+	                    },
+	                }
+	            },
+	            topic: {
+	            	message: 'The topic of the sensor is not valid',
+	                validators: {
+		            	callback: {
+							message : 'You should choose a topic',
+		                    callback: function(value, validator) {
+			                    if (value == 'unpicked')
+				                    return false;
+			                    else
+				                    return true;
+		                    }
+	                    },
+	                }
+		        },
+		        answerPositive: {
+		        	message: 'The positive sample is not valid',
+	                validators: {
+	                	notEmpty: {
+	            			message: 'Your positive sample is required'
+	        			},
+	        			stringLength: {
+	                        max: 32,
+	                        message: 'Your positive sample must be less than 32 characters'
+	                    },
+	                    different: {
+	                         field: 'answerNegative',
+	                         message: "The negative and negative sample can't be the same"
+	                     },
+	                }
+			    },
+			    answerNegative: {
+		        	message: 'The negative sample is not valid',
+	                validators: {
+	                	notEmpty: {
+	            			message: 'Your negative sample is required'
+	        			},
+	        			stringLength: {
+	                        max: 32,
+	                        message: 'Your negative sample must be less than 32 characters'
+	                    },
+	                    different: {
+	                         field: 'answerPositive',
+	                         message: "The positive and negative sample can't be the same"
+	                     },
+	                }
+			    },
+	        }
+	    });
+
+	});
+});*/
+</script>
+
+
+
+
+
