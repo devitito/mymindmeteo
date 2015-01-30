@@ -1,4 +1,4 @@
-var adminServices = angular.module('adminServices', ['ngResource']);
+
 
 adminServices.factory('mindFactory', ['$resource', function($resource){
 	return $resource('/mind/:id', {id: '@id'}, {

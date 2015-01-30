@@ -45,14 +45,31 @@ var jsFilesToInject = [
 	'bower_components/moment/locale/es.js',
 	'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
 	'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-	'js/app.js',
+
+	/*	'js/app.js',
 	'js/admin/adminController.js',
 	'js/admin/adminServices.js',
-	'js/admin/adminDirectives.js',
-	'js/admin/Controller/**/*.js',
-	'js/admin/Services/**/*.js',
-	'js/guest/**/*.js',
-	'js/mind/**/*.js',
+	'js/admin/adminDirectives.js',*/
+	//'js/admin/Controller/**/*.js',
+/*	'js/admin/Controller/Sensor/SensorsController.js',
+  'js/admin/Controller/Sensor/EditController.js',
+	'js/admin/Controller/Mind/EditController.js',
+	'js/admin/Controller/Mind/MindsController.js',
+	'js/admin/Controller/Mind/NewController.js',
+	'js/admin/Controller/ConfirmModalController.js',*/
+
+	//'js/guest/**/*.js',
+	/*'js/guest/Controller/guestController.js',
+	'js/guest/Controller/Session/NewController.js',*/
+
+	//'js/admin/Services/**/*.js',
+/*	'js/admin/Services/cache.js',
+	'js/admin/Services/flash.js',
+	'js/admin/Services/identity.js',
+	'js/admin/Services/lang.js',
+	'js/admin/Services/stats.js',
+	'js/guest/Controller/Session/NewService.js',
+*/
 
   'js/dependencies/**/*.js',
 

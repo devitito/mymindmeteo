@@ -2,6 +2,7 @@
 
 var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router']);
 
+var adminServices = angular.module('adminServices', ['ngResource']);
 var guestServices = angular.module('guestServices', ['ngResource']);
 var guestControllers = angular.module('guestControllers', []);
 var mindControllers = angular.module('mindControllers', []);
@@ -134,7 +135,7 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 	}).
 	when('/mind/new', {
 		templateUrl: '/js/guest/partials/mind/new.html',
-		controller: 'guestRegistrationCtrl'
+		controller: 'guestRegCtrl'
 	}).
 	when('/mind/dashboard/:mindname', {
 		templateUrl: '/js/mind/partials/dashboard.html',

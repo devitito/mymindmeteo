@@ -1,6 +1,5 @@
 
-
-var homepageCtrl = adminControllers.controller('homepageCtrl', ['$scope', '$location', 'sessionFactory', 'flash',
+var homepageCtrl = guestControllers.controller('homepageCtrl', ['$scope', '$location', 'sessionFactory', 'flash',
     function ($scope, $location, sessionFactory, flash) {
 			$scope.go = function (url) {
 				$location.path(url);

@@ -5,7 +5,7 @@
  *
  */
 
-var guestRegistrationCtrl = guestControllers.controller('guestRegistrationCtrl', ['$scope', '$location', 'mindFactory', 'sessionFactory',
+var guestRegistrationCtrl = guestControllers.controller('guestRegCtrl', ['$scope', '$location', 'mindFactory', 'sessionFactory',
     function ($scope, $location, mindFactory, sessionFactory) {
 		$scope.go = function (url) {
 			$location.path(url);
