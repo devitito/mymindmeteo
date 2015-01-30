@@ -39,43 +39,53 @@ var jsFilesToInject = [
 	'bower_components/ng-table/ng-table.min.js',
 	'bower_components/angular-google-chart/ng-google-chart.js',
 
-	'bower_components/moment//min/moment.min.js',
+	'bower_components/moment/min/moment-with-locales.min.js',
 	'bower_components/angular-moment/angular-moment.min.js',
-	'bower_components/moment/locale/fr.js',
-	'bower_components/moment/locale/es.js',
+	//'bower_components/moment/locale/fr.js',
+	//'bower_components/moment/locale/es.js',
 	'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
 	'bower_components/angular-ui-router/release/angular-ui-router.min.js',
 
-	/*	'js/app.js',
-	'js/admin/adminController.js',
-	'js/admin/adminServices.js',
-	'js/admin/adminDirectives.js',*/
-	//'js/admin/Controller/**/*.js',
-/*	'js/admin/Controller/Sensor/SensorsController.js',
+	//'js/app.js',
+	//'js/Services/**/*.js',
+	/*'js/Services/adminServices.js',
+	'js/Services/cache.js',
+	'js/Services/flash.js',
+	'js/Services/identity.js',
+	'js/Services/lang.js',
+	'js/Services/stats.js',
+	'js/Services/session.js',*/
+
+
+	//'js/Directives/**/*.js',
+	//'js/Directives/adminDirectives.js',
+
+	//'js/admin/**/*.js',
+	/*'js/admin/adminController.js',
+	'js/admin/Controller/Sensor/SensorsController.js',
   'js/admin/Controller/Sensor/EditController.js',
 	'js/admin/Controller/Mind/EditController.js',
 	'js/admin/Controller/Mind/MindsController.js',
 	'js/admin/Controller/Mind/NewController.js',
-	'js/admin/Controller/ConfirmModalController.js',*/
+	'js/admin/Controller/ConfirmModalController.js',
+	'js/admin/Controller/Mind/NewController.js',
+	'js/admin/Controller/Mind/EditController.js',
+  'js/admin/Controller/Mind/MindsController.js',
+	'js/admin/Controller/NavBar/NavBarController.js',*/
 
 	//'js/guest/**/*.js',
 	/*'js/guest/Controller/guestController.js',
-	'js/guest/Controller/Session/NewController.js',*/
+	'js/guest/Controller/Session/NewController.js',
+	'js/guest/Controller/Mind/NewController.js',*/
 
-	//'js/admin/Services/**/*.js',
-/*	'js/admin/Services/cache.js',
-	'js/admin/Services/flash.js',
-	'js/admin/Services/identity.js',
-	'js/admin/Services/lang.js',
-	'js/admin/Services/stats.js',
-	'js/guest/Controller/Session/NewService.js',
-*/
+	//'js/mind/**/*.js',
+	//'js/mind/Controller/DashboardController.js',
 
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  //'js/**/*.js'
+  //'js/**/!(*.spec).js'
 ];
 
 
