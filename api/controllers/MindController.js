@@ -77,9 +77,9 @@ module.exports = {
     });
   },
 
-	dashboard: function(req, res, next) {
+	/*dashboard: function(req, res, next) {
 		res.view();
-	},
+	},*/
 
 	'validate-name': function(req, res, next) {
 		Mind.findOneByName(req.param('name'), function(err, mind) {
@@ -104,5 +104,25 @@ module.exports = {
 				res.json({valid: false});
 		});
 	},
+
+	'climate': function(req, res, next) {
+			res.send(
+				[
+					{
+						"date": "2014-06-04T00:00:00Z",
+						"love" : 5,
+						"money" : -2,
+						"health": 6,
+						"mood": 3
+					},
+					{
+						"date": "2014-06-11T00:00:00Z",
+						"love" : 5,
+						"money" : -2,
+						"health": 6,
+						"mood": 3
+					}
+				]);
+		}
 };
 

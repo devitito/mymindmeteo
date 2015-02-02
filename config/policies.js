@@ -28,10 +28,10 @@ module.exports.policies = {
 
    '*': 'flash',
     mind: {
-        'new': "flash",
-        create: "flash",
+        create: true,
 				'validate-*': true,
 				'dashboard': ["sessionAuth", "mindCanSeeProfile"],
+				'climate': ["sessionAuth"],
         '*': "admin"
     },
 		sensor: {

@@ -47,7 +47,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-	'GET /administrator' : { controller: 'AdminController', action: 'index', locals: {layout: 'layouts/admin'}},
+	//'GET /administrator' : { controller: 'AdminController', action: 'index', locals: {layout: 'layouts/admin'}},
 	'GET /admin/stats/:graph': 'AdminsController.stats',
 	'POST /session/create' : 'SessionController.create',
 	'GET /session/destroy' : 'SessionController.destroy',
@@ -57,7 +57,5 @@ module.exports.routes = {
 	//'POST /mind' : 'MindController.create',
 	//Can't do it because the built-in crsfToken route wouldn't be matched
 	//'GET/:mindname': 'MindController.dashboard',
-	'GET /mind/dashboard/:mindname' : 'MindController.dashboard'
-
-
+	//'GET /mind/dashboard/:mindname' : 'MindController.dashboard'
 };

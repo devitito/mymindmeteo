@@ -149,6 +149,9 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 					$location.path('/');
 				});
 				return identityRequest;
+			},
+			climat: function (statsFactory) {
+				return statsFactory.climate(1);
 			}
 		}
 	}).

@@ -5,7 +5,7 @@
  *
  */
 
-adminServices.factory('statsFactory', ['$resource', function($resource){
+adminServices.factory('statsFactory', ['$resource', '$q', function($resource, $q){
 	var factory = {};
 
 	factory.query = function (deferred) {
@@ -17,6 +17,21 @@ adminServices.factory('statsFactory', ['$resource', function($resource){
     		}, function(errorData) {
     			deferred.resolve('An error occured while retreiving the stats');
     		});
+		return deferred.promise;
+	};
+
+	factory.climate = function (id) {
+	var deferred = $q.defer();
+		$resource('/mind/climate/:id', {}, {
+			climate: {method:'GET', params:{id:id}, isArray:true}
+		}).climate().$promise
+		.then(function(data) {
+			console.log(data);
+			deferred.resolve(data);
+		})
+		.catch(function (data) {
+			deferred.reject(data);
+		});
 		return deferred.promise;
 	};
 

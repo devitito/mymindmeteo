@@ -30,8 +30,10 @@ guestServices.factory('sessionFactory', ['$resource', '$q', '$http', 'identitySe
 			identityService.remove();
 			$http.get('/csrfToken').success(function(data){
         $http.defaults.headers.common['x-csrf-token'] = data._csrf;
-				deferred.resolve(success);
-    	});
+				deferred.resolve();
+    	}).error(function(data) {
+				deferred.resolve(data);
+			});
 
 		})
 		.catch(function (error) {

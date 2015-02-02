@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', 'identity', 'flash', 'sessionFactory',
-    function ($scope, $location, identity, flash, sessionFactory) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', 'identity', 'flash', 'sessionFactory', 'climat',
+    function ($scope, $location, identity, flash, sessionFactory, climat) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -23,120 +23,50 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				});
 			};
 
-			$scope.chartObject = {
-  "type": "LineChart",
-  "displayed": true,
-  "data": {
-    "cols": [
-      {
-        "id": "month",
-        "label": "Month",
-        "type": "string",
-        "p": {}
-      },
-      {
-        "id": "laptop-id",
-        "label": "Laptop",
-        "type": "number",
-        "p": {}
-      },
-      {
-        "id": "desktop-id",
-        "label": "Desktop",
-        "type": "number",
-        "p": {}
-      },
-      {
-        "id": "server-id",
-        "label": "Server",
-        "type": "number",
-        "p": {}
-      },
-      {
-        "id": "cost-id",
-        "label": "Shipping",
-        "type": "number"
-      }
-    ],
-    "rows": [
-      {
-        "c": [
-          {
-            "v": "January"
-          },
-          {
-            "v": 19,
-            "f": "42 items"
-          },
-          {
-            "v": 12,
-            "f": "Ony 12 items"
-          },
-          {
-            "v": 7,
-            "f": "7 servers"
-          },
-          {
-            "v": 4
-          }
-        ]
-      },
-      {
-        "c": [
-          {
-            "v": "February"
-          },
-          {
-            "v": 13
-          },
-          {
-            "v": 1,
-            "f": "1 unit (Out of stock this month)"
-          },
-          {
-            "v": 12
-          },
-          {
-            "v": 2
-          }
-        ]
-      },
-      {
-        "c": [
-          {
-            "v": "March"
-          },
-          {
-            "v": 24
-          },
-          {
-            "v": 5
-          },
-          {
-            "v": 11
-          },
-          {
-            "v": 6
-          }
-        ]
-      }
-    ]
-  },
-  "options": {
-    "title": "Sales per month",
-    "isStacked": "true",
-    "fill": 20,
-    "displayExactValues": true,
-    "vAxis": {
-      "title": "Sales unit",
-      "gridlines": {
-        "count": 10
-      }
-    },
-    "hAxis": {
-      "title": "Date"
-    }
-  },
-  "formatters": {}
-}
+/*				graph.options = {
+				'is3D':true,
+				fontSize: 14,
+				colors : ['#FF0000', '#00ADEF', '#85bb65', 'yellow'],
+				legend : {position: 'none'},
+				'hAxis': {format: 'dd/MM/yyyy'}
+			};
+			*/
+
+			var convertToDataTable = function (json){
+      	var d= {};
+      	d.rows = json.map(function(item){
+      	  return {
+        		"c": [{
+        			"v":new Date(item.date)
+        		},
+        		{
+        			"v": item.love
+        		},
+        		{
+        			"v": item.health
+        		},
+						{
+        			"v": item.money
+        		},
+						{
+        			"v": item.mood
+        		}]
+        	}
+      	});
+      	d.cols =  [{ label: "Days", type: "date"},
+					{ label: "Love", type: "number"},
+					{ label: "Health", type: "number"},
+					{ label: "Money", type: "number"},
+					{ label: "Mood", type: "number"}, ];
+      	d.p = null;
+
+        return d;
+     }
+
+			var climate = {};
+			climate.type = 'LineChart';
+			climate.data = convertToDataTable(climat);
+
+
+			$scope.climate = climate;
 }]);
