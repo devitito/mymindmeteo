@@ -58,4 +58,5 @@ module.exports.routes = {
 	//Can't do it because the built-in crsfToken route wouldn't be matched
 	//'GET/:mindname': 'MindController.dashboard',
 	//'GET /mind/dashboard/:mindname' : 'MindController.dashboard'
+	'GET /mind/climate/:id' : 'MindController.climate'
 };

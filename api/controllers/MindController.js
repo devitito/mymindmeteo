@@ -106,23 +106,13 @@ module.exports = {
 	},
 
 	'climate': function(req, res, next) {
-			res.send(
-				[
-					{
-						"date": "2014-06-04T00:00:00Z",
-						"love" : 5,
-						"money" : -2,
-						"health": 6,
-						"mood": 3
-					},
-					{
-						"date": "2014-06-11T00:00:00Z",
-						"love" : 5,
-						"money" : -2,
-						"health": 6,
-						"mood": 3
-					}
-				]);
-		}
+
+		ElasticService.request('climate-chart', {id: req.param('id')})
+		.then(function (climate) {
+			res.send(climate);
+		}).catch(function (err) {
+			res.send(500, err);
+		});
+	}
 };
 

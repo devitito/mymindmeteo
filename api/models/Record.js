@@ -61,7 +61,7 @@ module.exports = {
 					id: record.id,
 					topic: sensor.topic,
 					value: sample.value,
-					mind: {name: mind.name, email: mind.email, joindate: moment.utc(mind.joindate).format('YYYY-MM-DD HH:mm:ss')},
+					mind: {name: mind.name, id: mind.id, email: mind.email, joindate: moment.utc(mind.joindate).format('YYYY-MM-DD HH:mm:ss')},
 					sensor: {label: sensor.label, meteologist: sensor.meteologist},
 					sample: sample.label,
 					tstamp: moment.utc(record.date).format('YYYY-MM-DD HH:mm:ss'),

@@ -150,8 +150,8 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 				});
 				return identityRequest;
 			},
-			climat: function (statsFactory) {
-				return statsFactory.climate(1);
+			climat: function (statsFactory, $route) {
+				return statsFactory.climate($route.current.params.mindname);
 			}
 		}
 	}).

@@ -173,6 +173,7 @@ module.exports.connect = function() {
 										'type' : 'object',
 										'properties' : {
 											'name' : {type : 'string', include_in_all : true},
+											'id' : {type : 'integer', include_in_all : true},
 											'email' : {type : 'string', include_in_all : true},
 											'joindate' : {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true}
 										}
