@@ -111,7 +111,7 @@ module.exports = {
 		.then(function (climate) {
 			res.send(climate);
 		}).catch(function (err) {
-			res.send(500, err);
+			res.json(500, {error: err});
 		});
 	}
 };

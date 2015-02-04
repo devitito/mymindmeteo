@@ -59,7 +59,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 					if (angular.isArray(climat))
 						$scope.message = 'No meteo data captured.';
 					else
-						$scope.message = climat.data;
+						$scope.message = climat.error;
 				}
 				else {
 					var climate = {};
@@ -80,10 +80,11 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 						},
 						vAxis : {
 							//gridlines: { count : 2},
-							ticks: [{v:-10, f:'Devastation'}, {v:-5, f:'Wind and rain'}, {v:0, f:'Not sunny Not raining'}, {v:5, f:'Spring impression'}, {v:10, f:'T shirt and bermuda'}],
+							//ticks: [{v:-10, f:'Devastation'}, {v:-5, f:'Wind and rain'}, {v:0, f:'Not sunny Not raining'}, {v:5, f:'Spring impression'}, {v:10, f:'T shirt and bermuda'}],
+							ticks: [{v:-10, f:':(('}, {v:-5, f:':('}, {v:0, f:':|'}, {v:5, f:':)'}, {v:10, f:':))'}],
 							maxValue : 10,
 							minValue : -10,
-							textPosition : 'in',
+							//textPosition : 'in',
 						},
 					};
 					climate.type = 'LineChart';

@@ -81,7 +81,7 @@ describe("Mind Dashboard Controller", function() {
 			identity: {id: 'anid'},
 			flash: flash,
 			sessionFactory: sessionFactory,
-			climat: {data: 'an error'},
+			climat: {error: 'an error'},
 			moment: moment
 		});
 		expect($scope.message).toBe('an error');

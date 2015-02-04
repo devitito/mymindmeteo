@@ -39,13 +39,14 @@
 		          <a href="#" class="glyphicon glyphicon-envelope tooltip-link"  data-toggle="tooltip" data-placement="left" title="Generate a weather report of your mind"></a>
 		        </li-->
 						<li>
-							<!--a href='mind/profile/{{identity.id}}'>{{identity.name}}</a-->{{identity.name}}
+							<!--a href='mind/profile/{{identity.id}}'>{{identity.name}}</a--><p class="navbar-text">{{identity.name}}</p>
 						</li>
 		        <li>
 		          <!--a href="/session/destroy" class="glyphicon glyphicon-log-out"></a-->
 							<div class="navbar-btn clickable">
-								<span ng-click="logout()" class="navbar-btn glyphicon glyphicon-log-out"></span>
+								<span ng-click="logout()" class="navbar-btn navbar-link glyphicon glyphicon-log-out"></span>
 							</div>
+
 							<!--button type="button" class="glyphicon glyphicon-log-out 	navbar-btn">Sign in</button-->
 
 
