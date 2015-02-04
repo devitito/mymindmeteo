@@ -44,7 +44,12 @@ module.exports.query = function(options) {
 };
 
 module.exports.parse = function(result) {
-	var res = [];
+	var res = {
+		info: {},
+		data: []
+	};
+	var sunny = 0
+	var rainy = 0;
 
 	result.aggregations.meteo_over_time.buckets.forEach(function(entry) {
 		var tab = {};
@@ -54,8 +59,14 @@ module.exports.parse = function(result) {
 			avg += meteo.avg_value.value;
 		});
 		tab.mood = avg/entry.meteo.buckets.length;
-		res.push({"date": entry.key_as_string, "love": tab.love, "money": tab.money, "health": tab.health, "mood": tab.mood});
+
+		if (tab.mood >= 0) sunny++;
+		else rainy++;
+
+		res.data.push({"date": entry.key_as_string, "love": tab.love, "money": tab.money, "health": tab.health, "mood": tab.mood});
 	});
 
+
+	res.info = {"total": result.hits.total, "sunny": sunny, "rainy": rainy};
 	return res;
 };

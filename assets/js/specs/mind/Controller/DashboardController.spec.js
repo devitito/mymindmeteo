@@ -34,7 +34,9 @@ describe("Mind Dashboard Controller", function() {
 			identity: {id: 'anid'},
 			flash: flash,
 			sessionFactory: sessionFactory,
-			climat: [
+			climat: {
+				info: {total:2, sunny:2, rainy:0},
+				data: [
 				{
 					"date": "2014-06-04T00:00:00Z",
 					"love" : 5,
@@ -49,13 +51,17 @@ describe("Mind Dashboard Controller", function() {
 					"health": 6,
 					"mood": 3
 				 }
-			],
+				]
+			},
 			moment: moment
 		});
 		expect($scope.message).toBe(undefined);
 		expect($scope.climate.options).not.toBeUndefined();
 		expect($scope.climate.type).toBe('LineChart');
 		expect(angular.isObject($scope.climate.data)).toBe(true);
+		expect($scope.total).toBe(2);
+		expect($scope.sunny).toBe(2);
+		expect($scope.rainy).toBe(0);
 	});
 
 	it("should replace the climate graph with a message if there is no climate data for the currently logged in mind", function () {
@@ -66,10 +72,16 @@ describe("Mind Dashboard Controller", function() {
 			identity: {id: 'anid'},
 			flash: flash,
 			sessionFactory: sessionFactory,
-			climat: [],
+			climat: {
+				info: {total:'tot', sunny:'sun', rainy:'rain'},
+				data: []
+			},
 			moment: moment
 		});
 		expect($scope.message).toBe('No meteo data captured.');
+		expect($scope.total).toBe('tot');
+		expect($scope.sunny).toBe('sun');
+		expect($scope.rainy).toBe('rain');
 		expect($scope.climate).toBe(undefined);
 	});
 
@@ -86,6 +98,9 @@ describe("Mind Dashboard Controller", function() {
 		});
 		expect($scope.message).toBe('an error');
 		expect($scope.climate).toBe(undefined);
+		expect($scope.total).toBe('-');
+		expect($scope.sunny).toBe('-');
+		expect($scope.rainy).toBe('-');
 	});
 
 	it("should forward a default message if it couldn't fetch mind's climate and the server didn't reply with a well formated error message", function () {

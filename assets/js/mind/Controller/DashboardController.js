@@ -55,11 +55,17 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
      }
 
 			try {
-				if (!climat.length) {
-					if (angular.isArray(climat))
-						$scope.message = 'No meteo data captured.';
-					else
-						$scope.message = climat.error;
+				if (climat.error) {
+					$scope.message = climat.error;
+					$scope.total = '-';
+					$scope.sunny = '-';
+					$scope.rainy = '-';
+				}
+				else if (!climat.data.length) {
+					$scope.message = 'No meteo data captured.';
+					$scope.total = climat.info.total;
+					$scope.sunny = climat.info.sunny;
+					$scope.rainy = climat.info.rainy;
 				}
 				else {
 					var climate = {};
@@ -88,8 +94,12 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 						},
 					};
 					climate.type = 'LineChart';
-					climate.data = convertToDataTable(climat);
+					climate.data = convertToDataTable(climat.data);
 					$scope.climate = climate;
+
+					$scope.total = climat.info.total;
+					$scope.sunny = climat.info.sunny;
+					$scope.rainy = climat.info.rainy;
 				};
 			} catch (e) {
 				$scope.message = "We couldn't retrieve your climate data. Please try again";
