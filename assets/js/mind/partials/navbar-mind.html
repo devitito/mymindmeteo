@@ -31,7 +31,13 @@
 		        </li-->
 		        <!--li>
 							<div class="navbar-btn clickable">
-								<span ng-click="record()" id="sensor-test-button" class="navbar-btn glyphicon glyphicon-map-marker tooltip-link"  data-toggle="tooltip" data-placement="left" title="Record meteo data of your mind"></span>
+								<span ng-click="record()"
+											class="navbar-btn navbar-link glyphicon glyphicon-map-marker"
+											popover="Record the state of your mind"
+											popover-trigger="mouseenter"
+											popover-placement="bottom"
+											popover-append-to-body="true">
+								</span>
 							</div>
 
 		        </li-->
@@ -44,7 +50,12 @@
 		        <li>
 		          <!--a href="/session/destroy" class="glyphicon glyphicon-log-out"></a-->
 							<div class="navbar-btn clickable">
-								<span ng-click="logout()" class="navbar-btn navbar-link glyphicon glyphicon-log-out"></span>
+								<span ng-click="logout()"
+											class="navbar-btn navbar-link glyphicon glyphicon-log-out"
+											popover="Logout"
+											popover-trigger="mouseenter"
+											popover-placement="bottom">
+								</span>
 							</div>
 
 							<!--button type="button" class="glyphicon glyphicon-log-out 	navbar-btn">Sign in</button-->
