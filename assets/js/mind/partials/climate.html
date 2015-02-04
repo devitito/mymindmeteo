@@ -3,6 +3,7 @@
 	<!--div class="panel-heading"></div-->
 	<!--div class="panel-body"-->
 
-		<div google-chart chart="climate" style="height:500px; width:100%; margin-top:2px;"></div>
+		<div ng-hide="message" google-chart chart="climate" style="height:500px; width:100%; margin-top:2px;"></div>
+		<div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>
 	<!--/div>
 </div-->

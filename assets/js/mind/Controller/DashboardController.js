@@ -54,31 +54,43 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
         return d;
      }
 
-			var climate = {};
-			climate.options = {
-				'is3D':true,
-				fontSize: 14,
-				colors : ['#FF0000', '#00ADEF', '#85bb65', 'yellow'],
-				legend : {position: 'bottom'},
-				chartarea: {left:0,top:0,width:'100%',height:'100%'},
-				pointSize : 4,
-				curveType: 'function',
-				'hAxis': {
-					format: 'yyyy-MM-dd',
-					slantedText: false,
-					textPosition : 'none',
-					viewWindowMode: 'maximized',
+			try {
+				if (!climat.length) {
+					if (angular.isArray(climat))
+						$scope.message = 'No meteo data captured.';
+					else
+						$scope.message = climat.data;
+				}
+				else {
+					var climate = {};
+					climate.options = {
+						'is3D':true,
+						fontSize: 14,
+						colors : ['#FF0000', '#00ADEF', '#85bb65', 'yellow'],
+						legend : {position: 'bottom'},
+						chartarea: {left:0,top:0,width:'100%',height:'100%'},
+						pointSize : 4,
+						curveType: 'function',
+						'hAxis': {
+							format: 'yyyy-MM-dd',
+							slantedText: false,
+							textPosition : 'none',
+							viewWindowMode: 'maximized',
 
-				},
-				vAxis : {
-					//gridlines: { count : 2},
-					ticks: [{v:-10, f:'Devastation'}, {v:-5, f:'Wind and rain'}, {v:0, f:'Not sunny Not raining'}, {v:5, f:'Spring impression'}, {v:10, f:'T shirt and bermuda'}],
-					maxValue : 10,
-					minValue : -10,
-					textPosition : 'in',
-				},
+						},
+						vAxis : {
+							//gridlines: { count : 2},
+							ticks: [{v:-10, f:'Devastation'}, {v:-5, f:'Wind and rain'}, {v:0, f:'Not sunny Not raining'}, {v:5, f:'Spring impression'}, {v:10, f:'T shirt and bermuda'}],
+							maxValue : 10,
+							minValue : -10,
+							textPosition : 'in',
+						},
+					};
+					climate.type = 'LineChart';
+					climate.data = convertToDataTable(climat);
+					$scope.climate = climate;
+				};
+			} catch (e) {
+				$scope.message = "We couldn't retrieve your climate data. Please try again";
 			};
-			climate.type = 'LineChart';
-			climate.data = convertToDataTable(climat);
-			$scope.climate = climate;
 }]);
