@@ -23,7 +23,7 @@ adminServices.factory('statsFactory', ['$resource', '$q', function($resource, $q
 	factory.climate = function (id) {
 		var deferred = $q.defer();
 		$resource('/mind/climate/:id', {}, {
-			climate: {method:'GET', params:{id:id}, isArray:true}
+			climate: {method:'GET', params:{id:id}, isArray:false}
 		}).climate().$promise
 		.then(function(data) {
 			console.log(data);
