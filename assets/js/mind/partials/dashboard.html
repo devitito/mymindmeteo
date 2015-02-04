@@ -45,78 +45,98 @@
 
 <div class="container">
 	<!--div class="row"-->
-	    <div class="col-md-3">
-	        <a href="'/mind/account' ?>">
-	        	<img alt="" height="230" width="230" src="/images/placeholder.png">
-	        </a>
-			<br><br>
-			<table class="table">
-				<tr>
-					<h4 id="mindname">{{identity.name}}</h4>
-				</tr>
-				<tr>
-					<td>
-						<span class="glyphicon glyphicon-time"></span>
-						<span>Joined on </span>
-						<time>{{identity.joindate | amDateFormat:'LL'}}</time>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="row">
-						<div class="col-md-2 col-xs-2">
-					    	<p><span id="nbtest" class="badge">-</span></p>
-					    	<p><span id="nbsunny" class="badge">-</span></p>
-					    	<p><span id="nbrainy" class="badge">-</span></p>
-					    </div>
-					    <div class="col-md-10 col-xs-10">
-					    	<p>Test completed </p>
-					    	<p>Sunny days </p>
-					    	<p>Rainy days </p>
-					    </div>
+	<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+		<!--a href="/mind/account">
+			<img class="img-responsive" src="/images/placeholder.png">
+		</a>
+		<br><br>
+		<table class="table">
+		<tr>
+			<h4 id="mindname">{{identity.name}}</h4>
+		</tr>
+		<tr>
+			<td>
+				<span class="glyphicon glyphicon-time"></span>
+				<span>Joined on </span>
+				<time>{{identity.joindate | amDateFormat:'LL'}}</time>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="row">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						<p><span id="nbtest" class="badge">-</span></p>
+						<p><span id="nbsunny" class="badge">-</span></p>
+						<p><span id="nbrainy" class="badge">-</span></p>
 					</div>
-					</td>
-				</tr>
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<p>Test completed </p>
+						<p>Sunny days </p>
+						<p>Rainy days </p>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table-->
 
-			</table>
-	    </div>
+		<a href="/mind/account">
+			<img class="img-responsive center-block" src="/images/placeholder.png">
+		</a>
 
-	    <div class="col-md-9">
+		<table class="table">
+		<tr>
+			<h4 id="mindname" class="text-center">{{identity.name}}</h4>
+		</tr>
+		<tr>
+			<td>
+				<span class="glyphicon glyphicon-time"></span>
+				<span>Joined on </span>
+				<time>{{identity.joindate | amDateFormat:'LL'}}</time>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="row">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						<p><span id="nbtest" class="badge">-</span></p>
+					</div>
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<p>Test completed </p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						<p><span id="nbsunny" class="badge">-</span></p>
+					</div>
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<p>Sunny days </p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						<p><span id="nbrainy" class="badge">-</span></p>
+					</div>
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<p>Rainy days </p>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	</div>
+
+
+	    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
 
 				<tabset justified="true">
 					<tab heading="Climate"><div ng-include="'js/mind/partials/climate.html'"></div></tab>
 					<tab heading="Reports"><div ng-include="'js/mind/partials/reports-list.html'"></div></tab>
-					<tab heading="Measurements"><p>meteo raw data questions already answered (with answer and date)</p></tab>
-					<tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
+					<tab heading="Measurements"><div ng-include="'js/mind/partials/measurements.html'"></tab>
+					<!--tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
 		      	<p>(storms, take a day off: great sun)</p></tab>
-					<tab heading="Similar minds"><p>friends (following the same meteo trends) Similar meteo systems</p></tab>
+					<tab heading="Similar minds"><p>friends (following the same meteo trends) Similar meteo systems</p></tab-->
 				</tabset>
-
-		     <!--ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
-		      <li class="active"><a href="#climat" role="tab" data-toggle="tab">Climat</a></li>
-		      <li class=""><a href="#/mind/dashboard/reports" role="tab" data-toggle="tab">Reports</a></li>
-		      <li class=""><a href="#data" role="tab" data-toggle="tab">Measurements</a></li>
-		      <li class=""><a href="#alerts" role="tab" data-toggle="tab">Alerts</a></li>
-		      <li class=""><a href="#friends" role="tab" data-toggle="tab">Similar minds</a></li>
-		    </ul>
-		    <div id="myTabContent" class="tab-content">
-		      <div class="tab-pane fade active in text-center" id="climat">
-		      		<br>
-		      		<span class="glyphicon glyphicon-refresh spin loading-indicator"></span><span class="loading-indicator">  Loading...</span>
-					<div id="meteochart" style="height: 400px;"></div>
-		      </div>
-		      <div class="tab-pane fade" id="reports" ng-include src="'js/mind/partials/reports-list.html'"></div>
-		      <div class="tab-pane fade" id="data">
-		      	<p>meteo raw data questions already answered (with answer and date)</p>
-		      </div>
-		       <div class="tab-pane fade" id="alerts">
-		      	<p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
-		      	<p>(storms, take a day off: great sun)</p>
-		      </div>
-		      <div class="tab-pane fade" id="friends">
-		      	<p>friends (following the same meteo trends) Similar meteo systems</p>
-		      </div>
-		    </div-->
       	</div>
 	<!--/div-->
 </div>
