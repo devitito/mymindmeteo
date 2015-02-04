@@ -26,10 +26,6 @@ describe("Mind Dashboard Controller", function() {
 		moment = _moment_;
 	}));
 
-	/*it("should call MindFactory.climate to fetch the mind climate's data", function () {
-
-	});*/
-
 	it("should forward a linechart object if the climate data is fetched without error", function () {
 		$scope = {};
 		DashboardController = $controller('mindDashboardCtrl', {
