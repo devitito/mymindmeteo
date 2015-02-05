@@ -46,6 +46,7 @@
 		<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
 			<p><h1>Hi {{identity.name}}!</h1></p>
 			<p><h3>How are you today? <button class="btn btn-meteo" ng-click="record()">Let's find out!</button></h3></p>
+			<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>
 		</div>
 	</div>
 
@@ -137,8 +138,11 @@
 
 				<br>
 				<tabset justified="true">
-					<tab heading="Climate"><div ng-include="'js/mind/partials/climate.html'"></div></tab>
-					<tab heading="Reports"><div ng-include="'js/mind/partials/reports-list.html'"></div></tab>
+					<tab heading="Your climate"><div ng-include="'js/mind/partials/climate.html'"></div></tab>
+					<tab ng-click="openReportList()">
+						<tab-heading>Your reports <span ng-show="newReports" class="text-danger"> --New reports ready!--</span></tab-heading>
+						<div ng-include="'js/mind/partials/reports-list.html'"></div>
+					</tab>
 					<!--tab heading="Raw Data"><div ng-include="'js/mind/partials/measurements.html'"></tab>
 					<tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
 		      	<p>(storms, take a day off: great sun)</p></tab>

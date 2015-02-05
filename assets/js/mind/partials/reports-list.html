@@ -1,87 +1,28 @@
 <!-- cf http://www.doctrine-project.org/jira/browse/DDC-2190 -->
-<h3 class="text-center">The recent weather reports of your mind</h3>
+<!--<h3 class="text-center">The recent weather reports of your mind</h3>-->
 
-<div class="text-center" ><h4>Not available yet.</h4></div>
-<!--div class="scroll" data-ui="jscroll-default">
-	<div class="jscroll-inner">
-			<div class="item" style="padding-left: 5px;">
-				<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg1">
-					<div class="col-md-2">
-						Mama
-					</div>
-					<div class="col-md-5">
-						It's all right ma, I'm only bleeding
-					</div>
-					<div class="col-md-2">
-						12 June 2014
-					</div>
-					<div class="col-md-2">
-						An independant meteologist
-					</div>
-					<div class="col-md-1">
-						<span class="glyphicon glyphicon-chevron-down"></span>
-					</div>
-					<br>
-				</div>
-				<div class="row" style="padding-left: 20px; padding-right: 20px;">
-					<div class="accordian-body collapse" id="msg1">
-						<br>Mimimi, mimii miii mii mimii ...
-						<hr>
-			        </div>
-	    		</div>
-    		</div>
-    		<div class="item" style="padding-left: 5px;">
-	    		<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg2">
-					<div class="col-md-2">
-						A friend
-					</div>
-					<div class="col-md-5">
-						Dude you'll never guess who exciting is my life
-					</div>
-					<div class="col-md-2">
-						12 June 2014
-					</div>
-					<div class="col-md-2">
-						MindMeteo
-					</div>
-					<div class="col-md-1">
-						<span class="glyphicon glyphicon-chevron-down"></span>
-					</div>
-				</div>
-				<div class="row" style="padding-left: 20px; padding-right: 20px;">
-					<div class="accordian-body collapse" id="msg2">
-						<br>Mimimi, mimii miii mii mimii Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii ...<br>
-			                	Mimimi, mimii miii mii mimii ....
-			            <hr>
-			        </div>
-	    		</div>
-    		</div>
-    		<div class="item" style="padding-left: 5px;">
-	    		<div class="row accordion-toggle" data-toggle="collapse" data-target="#msg3">
-					<div class="col-md-2">
-						Mama
-					</div>
-					<div class="col-md-5">
-						More news for you. I'm a great son isn't it?
-					</div>
-					<div class="col-md-2">
-						13 June 2014
-					</div>
-					<div class="col-md-2">
-						Mad Meteo
-					</div>
-					<div class="col-md-1">
-						<span class="glyphicon glyphicon-chevron-down"></span>
-					</div>
-				</div>
-				<div class="row" style="padding-left: 20px; padding-right: 20px;">
-					<div class="accordian-body collapse" id="msg3">
-						<br>Mimimi, mimii miii mii mimii Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii .Mimimi, mimii miii mii mimii ...<br>
-			                	Mimimi, mimii miii mii mimii ....
-			            <hr>
-			        </div>
-	    		</div>
-    		</div>
-	    	<div class="next text-center"><a href="/page2.html">next</a></div>
-	</div>
-</div-->
+<!--<div class="text-center" ><h4>Not available yet.</h4></div>-->
+
+<!--<div class="clearfix"></div>-->
+
+<div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>
+<div ng-show="tableParams.data.length" loading-container="tableParams.settings().$loading">
+
+	<table  ng-table="tableParams" class="table table-hover">
+		<tr class="clickable" ng-repeat="report in $data" ng-click="">
+			<td data-title="'Title'" style="with:20%;">
+				<span>{{report.title}}</span>
+			</td>
+			<td data-title="'Category'">
+				<span>{{report.category}}</span>
+			</td>
+			<td data-title="'Created On'">
+				<span>{{report.createdOn | amDateFormat:'LL'}}</span>
+			</td>
+			<td data-title="'Meteologist'">
+				<span>{{report.meteologist}}</span>
+			</td>
+		</tr>
+	</table>
+
+</div>

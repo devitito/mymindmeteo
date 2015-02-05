@@ -1,10 +1,11 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router']);
 
 var adminServices = angular.module('adminServices', ['ngResource']);
 var adminControllers = angular.module('adminControllers', []);
 var guestServices = angular.module('guestServices', ['ngResource']);
+var mindServices = angular.module('mindServices', ['ngResource']);
 var guestControllers = angular.module('guestControllers', []);
 var mindControllers = angular.module('mindControllers', []);
 var adminDirectives = angular.module('adminDirectives', []);

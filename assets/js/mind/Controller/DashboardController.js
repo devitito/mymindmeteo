@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment',
-    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment', 'ngTableParams', 'reportsFactory',
+    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment, ngTableParams, reportsFactory) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -24,19 +24,50 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			};
 
 			$scope.record = function () {
-			/*	var modalInstance = $modal.open({
+				var modalInstance = $modal.open({
 					templateUrl: '/js/components/modals/record/record.html',
 					controller: 'RecordModalCtrl',
 				});
 
 				modalInstance.result
-				.then(function () {
+				.then(function (newRecords) {
 					console.log('closed');
+					if (newRecords) {
+						$scope.processing = true;
+						setTimeout(function(){
+							$scope.$apply(function () {
+								$scope.processing = false;
+								$scope.newReports = true;
+							});
+						}, 3000);
+					}
 				})
 				.catch(function () {
 					console.log('dismissed');
-				});*/
+				});
 			};
+
+			$scope.openReportList = function () {
+				$scope.newReports = false;
+				$scope.tableParams.reload();
+			};
+
+			$scope.tableParams = new ngTableParams({
+				page: 0,            // show saved page
+				count: 10,           // count per page
+			}, {
+				counts: [], // hide page counts control
+				total:0, // length of data
+				getData: function($defer, params) {
+					reportsFactory.query($scope.identity.id)
+					.then(function (reports) {
+						// update table params
+							params.total(reports.length);
+							// set new data
+							$defer.resolve(reports);
+					})
+				}
+			});
 
 			var convertToDataTable = function (json){
       	var d= {};
