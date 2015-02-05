@@ -12,6 +12,7 @@ describe("Mind Dashboard Controller", function() {
 		module('guestServices');
 		module('angularMoment');
 		module('LocalStorageModule');
+		module('ui.bootstrap');
 	});
 
 	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$location_, _flash_, _lang_, _identityService_, _sessionFactory_, _moment_) {

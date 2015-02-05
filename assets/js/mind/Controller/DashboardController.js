@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', 'identity', 'flash', 'sessionFactory', 'climat', 'moment',
-    function ($scope, $location, identity, flash, sessionFactory, climat, moment) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment',
+    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -23,6 +23,21 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				});
 			};
 
+			$scope.record = function () {
+			/*	var modalInstance = $modal.open({
+					templateUrl: '/js/components/modals/record/record.html',
+					controller: 'RecordModalCtrl',
+				});
+
+				modalInstance.result
+				.then(function () {
+					console.log('closed');
+				})
+				.catch(function () {
+					console.log('dismissed');
+				});*/
+			};
+
 			var convertToDataTable = function (json){
       	var d= {};
       	d.rows = json.map(function(item){
@@ -30,7 +45,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
         		"c": [{
         			"v": moment(item.date).format('YYYY-MMM-D')
         		},
-        		{
+        	/*	{
         			"v": item.love
         		},
         		{
@@ -38,16 +53,16 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
         		},
 						{
         			"v": item.money
-        		},
+        		},*/
 						{
         			"v": item.mood
         		}]
         	}
       	});
       	d.cols =  [{ label: "Days", type: "string"},
-					{ label: "Love", type: "number"},
+					/*{ label: "Love", type: "number"},
 					{ label: "Health", type: "number"},
-					{ label: "Money", type: "number"},
+					{ label: "Money", type: "number"},*/
 					{ label: "Mood", type: "number"}, ];
       	d.p = null;
 
@@ -72,8 +87,8 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 					climate.options = {
 						'is3D':true,
 						fontSize: 14,
-						colors : ['#FF0000', '#00ADEF', '#85bb65', 'yellow'],
-						legend : {position: 'bottom'},
+						colors : [/*'#FF0000',*/ '#00ADEF'/*, '#85bb65', 'yellow'*/],
+						legend : {position: 'none'},
 						chartarea: {left:0,top:0,width:'100%',height:'100%'},
 						pointSize : 4,
 						curveType: 'function',

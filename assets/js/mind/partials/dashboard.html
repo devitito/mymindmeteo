@@ -9,15 +9,6 @@
 	</div><!-- /.modal-dialog -->
 </div>
 
-<!-- Test Modal -->
-<div style="display: none;" id="measurementmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="measurementModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-      <div id="measurementmodal-content" class="modal-content">
-
-      </div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div>
-
 <!-- Analyse Modal -->
 <div style="display: none;" id="analysemodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="analyseModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -44,8 +35,23 @@
 
 
 <div class="container">
+
+	<div class="row">
+		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+			<a href="/mind/account">
+				<img class="img-responsive center-block" src="/images/placeholder.png">
+			</a>
+		</div>
+
+		<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+			<p><h1>Hi {{identity.name}}!</h1></p>
+			<p><h3>How are you today? <button class="btn btn-meteo" ng-click="record()">Let's find out!</button></h3></p>
+		</div>
+	</div>
+
 	<!--div class="row"-->
-	<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+	<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+		<br>
 		<!--a href="/mind/account">
 			<img class="img-responsive" src="/images/placeholder.png">
 		</a>
@@ -79,61 +85,62 @@
 		</tr>
 	</table-->
 
-		<a href="/mind/account">
+	<!--	<a href="/mind/account">
 			<img class="img-responsive center-block" src="/images/placeholder.png">
-		</a>
+		</a>-->
 
-		<table class="table">
-		<tr>
+	<!--	<table class="table">-->
+		<!--<tr>
 			<h4 id="mindname" class="text-center">{{identity.name}}</h4>
-		</tr>
-		<tr>
+		</tr>-->
+		<!--<tr>
 			<td>
 				<span class="glyphicon glyphicon-time"></span>
 				<span>Joined on </span>
 				<time>{{identity.joindate | amDateFormat:'LL'}}</time>
 			</td>
-		</tr>
-		<tr>
-			<td>
+		</tr>-->
+<!--		<tr>
+			<td>-->
 				<div class="row">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 						<p><span id="nbtest" class="badge">{{total}}</span></p>
 					</div>
-					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-						<p>Test completed </p>
+					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+						<p>Records</p>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 						<p><span id="nbsunny" class="badge">{{sunny}}</span></p>
 					</div>
-					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-						<p>Sunny days </p>
+					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+						<p>Sunny days</p>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 						<p><span id="nbrainy" class="badge">{{rainy}}</span></p>
 					</div>
-					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-						<p>Rainy days </p>
+					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+						<p>Rainy days</p>
 					</div>
 				</div>
-			</td>
+		<!--	</td>
 		</tr>
-	</table>
+	</table>-->
 
 	</div>
 
 
-	    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+	    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
 
+				<br>
 				<tabset justified="true">
 					<tab heading="Climate"><div ng-include="'js/mind/partials/climate.html'"></div></tab>
 					<tab heading="Reports"><div ng-include="'js/mind/partials/reports-list.html'"></div></tab>
-					<tab heading="Measurements"><div ng-include="'js/mind/partials/measurements.html'"></tab>
-					<!--tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
+					<!--tab heading="Raw Data"><div ng-include="'js/mind/partials/measurements.html'"></tab>
+					<tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
 		      	<p>(storms, take a day off: great sun)</p></tab>
 					<tab heading="Similar minds"><p>friends (following the same meteo trends) Similar meteo systems</p></tab-->
 				</tabset>
@@ -143,50 +150,6 @@
 
 <script>
 /*
-function updateNbCompletedTest()
-{
-	$.ajax({
-    	type: 'GET',
-        url: "/mind/sensors/completed/count",
-        cache: false,
-        success: function(msg){
-        	$('#nbtest').text(msg)
-        },
-        error: function(xhr, status, error) {
-        	$('#nbtest').text('-')
-        }
-    });
-}
-
-function updateNbSunnyDays()
-{
-	$.ajax({
-    	type: 'GET',
-        url: "/mind/days/sunny",
-        cache: false,
-        success: function(msg){
-        	$('#nbsunny').text(msg)
-        },
-        error: function(xhr, status, error) {
-        	$('#nbsunny').text('-')
-        }
-    });
-}
-
-function updateNbRainyDays()
-{
-	$.ajax({
-    	type: 'GET',
-        url: "/mind/days/rainy",
-        cache: false,
-        success: function(msg){
-        	$('#nbrainy').text(msg)
-        },
-        error: function(xhr, status, error) {
-        	$('#nbrainy').text('-')
-        }
-    });
-}
 
 function errorModal(msg)
 {
