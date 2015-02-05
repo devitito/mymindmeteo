@@ -134,7 +134,7 @@ module.exports.connect = function() {
 						type: 'sensors',
 						body: {
 								properties: {
-									'id' : {type: 'string', include_in_all: false},
+									'id' : {type: 'integer', include_in_all: false},
 									'topic' : {type : 'string', include_in_all: true},
 									'label': {type: 'string', include_in_all: true},
 									'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},

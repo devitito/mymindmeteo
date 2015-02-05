@@ -7,34 +7,18 @@
 
 mindServices.factory('sensorsFactory', ['$resource', '$q', function($resource, $q){
 	var factory = {};
-
-	/*factory.query = function (deferred) {
-		$resource('/admin/stats/:graph', {}, {
-			query: {method:'GET', isArray:false}
-		}).query(
-			function(data){
-    			deferred.resolve(data);
-    		}, function(errorData) {
-    			deferred.resolve('An error occured while retreiving the stats');
-    		});
-		return deferred.promise;
-	};*/
+	var resource = $resource('/sensor/:id', {id:'@id'}, {
+		random: {method:'GET', url: '/sensor/random', isArray:false}
+	});
 
 	factory.getRandom = function () {
 		var deferred = $q.defer();
-		deferred.resolve({
-			label: 'a label ' + Math.random(),
-			id : Math.random(),
-			samples: {
-				pos: {
-					label: 'pos label '+ Math.random(),
-					id: Math.random()
-				},
-				neg: {
-					label: 'neg label '+ Math.random(),
-					id: Math.random()
-				}
-			}
+		resource.random().$promise
+		.then(function (sensor) {
+			deferred.resolve(sensor);
+		})
+		.catch(function (error) {
+			deferred.reject(error);
 		});
 		return deferred.promise;
 	}

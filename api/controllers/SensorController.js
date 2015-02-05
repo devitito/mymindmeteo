@@ -20,6 +20,20 @@ module.exports = {
 			if (err) return next(err);
 			res.json(list);
 		});
+	},
+
+	random: function(req, res, next) {
+
+		Sensor.count()
+		.then(function (count) {
+			ElasticService.request('get-random-sensor', {count: count})
+			.then (function (sensor) {
+				res.send(sensor);
+			})
+			.catch(function (err) {
+				res.json(500, err);
+			});
+		});
 	}
 };
 
