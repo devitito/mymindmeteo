@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment', 'ngTableParams', 'reportsFactory',
-    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment, ngTableParams, reportsFactory) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment', 'ngTableParams', 'reportsFactory', 'statsFactory', 'recordsFactory',
+    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment, ngTableParams, reportsFactory, statsFactory, recordsFactory) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -27,23 +27,42 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				var modalInstance = $modal.open({
 					templateUrl: '/js/components/modals/record/record.html',
 					controller: 'RecordModalCtrl',
+					resolve: {
+						identity: function(identityService, $location) {
+							var identityRequest = identityService.get();
+							identityRequest.catch(function(reason) {
+								$location.path('/');
+							});
+							return identityRequest;
+						}
+					}
 				});
 
 				modalInstance.result
-				.then(function (newRecords) {
-					console.log('closed');
-					if (newRecords) {
+				.then(function (records) {
+					if (records.length) {
 						$scope.processing = true;
-						setTimeout(function(){
-							$scope.$apply(function () {
-								$scope.processing = false;
-								$scope.newReports = true;
+
+						recordsFactory.save({id:$scope.identity.id}, records)
+						.then(function (success) {
+							//re calculate the climate
+							statsFactory.climate($scope.identity.name)
+							.then(function (climat) {
+								loadClimateChart(climat);
+								setTimeout(function () {
+
+									$scope.processing = false;
+									$scope.$apply(function () {
+										$scope.newReports = true;
+									});
+								}, 5000);
 							});
-						}, 3000);
+						})
+						.catch(function (error) {
+							$scope.error = true;
+							//todo alert error transmitting records
+						});
 					}
-				})
-				.catch(function () {
-					console.log('dismissed');
 				});
 			};
 
@@ -100,7 +119,8 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
         return d;
      }
 
-			try {
+			var loadClimateChart = function(climat) {
+				try {
 				if (climat.error) {
 					$scope.message = climat.error;
 					$scope.total = '-';
@@ -150,4 +170,9 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			} catch (e) {
 				$scope.message = "We couldn't retrieve your climate data. Please try again";
 			};
+			};
+
+			$scope.processing = false;
+			$scope.error = false;
+			loadClimateChart(climat);
 }]);

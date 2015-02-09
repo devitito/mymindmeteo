@@ -79,6 +79,21 @@ module.exports = {
 
 	beforeCreate: function(values, next) {
 	  values.id = uuid.v4();
+		values.date = moment.utc().toDate();
+
 		next();
-  }
+  },
+
+	afterCreate: function(createdRecord, cb) {
+		Record.toIndexable(createdRecord, function(err, indexable) {
+			if (err) return cb(err);
+
+			ElasticService.index('records', indexable, function IndexedRecord(err, res) {
+				if (err) return cb(err);
+
+				console.log('index updated record in elasticsearch');
+				cb();
+			});
+		});
+	},
 };

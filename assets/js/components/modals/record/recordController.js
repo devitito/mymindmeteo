@@ -1,6 +1,6 @@
-mindControllers.controller('RecordModalCtrl', function ($scope, $modalInstance, sensorsFactory) {
+mindControllers.controller('RecordModalCtrl', function ($scope, $modalInstance, sensorsFactory, identity) {
   $scope.close = function () {
-    $modalInstance.close($scope.newRecords);
+    $modalInstance.close($scope.records);
   };
 
 	var getNextRandomSensor = function () {
@@ -20,13 +20,10 @@ mindControllers.controller('RecordModalCtrl', function ($scope, $modalInstance, 
   };
 
 	$scope.record = function (sensorId, sampleId) {
-		console.log(sensorId);
-		console.log(sampleId);
-		$scope.newRecords = true;
-
+		$scope.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sampleId});
 		getNextRandomSensor();
 	};
 
-	$scope.newRecords = false;
+	$scope.records = [];
 	getNextRandomSensor();
 });
