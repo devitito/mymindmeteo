@@ -178,9 +178,47 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/admin/partials/admin/edited.html',
 		controller: 'ResultCtrl'
 	}).
+	when('/administrator/reports', {
+		templateUrl: '/js/admin/Reports/list/list.html',
+		controller: 'ReportListCtrl',
+		resolve: {
+			reports: function(reportsFactory, $q) {
+				var deferred = $q.defer();
+				reportsFactory.query(
+					function(data){
+						deferred.resolve(data);
+					}, function(errorData) {
+						deferred.resolve('An error occured while retreiving the list of reports');
+					});
+				return deferred.promise;
+			},
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
+			}
+		}
+	}).
+	when('/administrator/reports/new', {
+		templateUrl: '/js/admin/Reports/new/new.html',
+		controller: 'NewReportCtrl',
+		resolve: {
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
+			}
+		}
+	}).
 	otherwise({
 		redirectTo: '/'
 	});
+
+
 
 	localStorageServiceProvider
 	.setPrefix('mindmeteo')

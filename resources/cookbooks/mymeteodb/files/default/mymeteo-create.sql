@@ -54,8 +54,26 @@ CREATE TABLE mymeteo.records (
   KEY UNIQ_9C9D58461B1FEA20 (sample_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone, locale, role ) VALUES ( '1', 'demo', 'demo@mindmeteo.com', '$2a$10$TLlpkWTS.7g8drPVwJMNeeLJ.sMIGJEbobkGi7lMM018awn7N2Z7O', '2015-01-12T00:00:00.000Z', 'Europe/Paris', 'fr_FR', 'demo');
-INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone, locale, role ) VALUES ( '2', 'admin', 'admin@mindmeteo.com', '$2a$10$OXxj/V2urwpGMr6KeeNzI..pyCKTC8MxKu/XgnB4GEA13wpN3eOva', '2015-01-12T00:00:00.000Z', 'Europe/Paris', 'fr_FR', 'admin');
+CREATE TABLE mymeteo.reports (
+  title varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  template longtext COLLATE utf8_unicode_ci NOT NULL,
+  category varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  range varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  status varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  meteologist_id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
+  createdAt datetime DEFAULT NULL,
+  updatedAt datetime DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY title (title)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone, locale, role ) VALUES ( '1', 'demo', 'demo@mindmeteo.net', '$2a$10$TLlpkWTS.7g8drPVwJMNeeLJ.sMIGJEbobkGi7lMM018awn7N2Z7O', '2015-01-12T00:00:00.000Z', 'Europe/Paris', 'fr_FR', 'demo');
+INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone, locale, role ) VALUES ( '2', 'admin', 'admin@mindmeteo.net', '$2a$10$OXxj/V2urwpGMr6KeeNzI..pyCKTC8MxKu/XgnB4GEA13wpN3eOva', '2015-01-12T00:00:00.000Z', 'Europe/Paris', 'fr_FR', 'admin');
+INSERT INTO mymeteo.minds ( id, name, email, password, joindate, timezone, locale, role ) VALUES ( '3', 'MindMeteo', 'mindmeteo@mindmeteo.net', '$2a$10$OXxj/V2urwpGMr6KeeNzI..pyCKTC8MxKu/XgnB4GEA13wpN3eOva', '2015-01-12T00:00:00.000Z', 'Europe/Paris', 'fr_FR', 'meteologist');
 
 INSERT INTO mymeteo.sensors (id,label,img,topic,meteologist,status) VALUES (1,'Did you wash your teeth this morning?',NULL,'love','Mind Meteo','');
 INSERT INTO mymeteo.sensors (id,label,img,topic,meteologist,status) VALUES (2,'Did you eat garlig today?',NULL,'love','Mind Meteo','');
@@ -510,3 +528,12 @@ INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('545cc
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('545cc4756e2f2','1',50,'545b89031b877','2014-11-07 13:09:09');
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('545cc4848fb17','1',41,'5459ebc40bbde','2014-11-07 13:09:24');
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('545cc48c63666','1',38,'54577b9bf2a61','2014-11-07 13:09:32');
+
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('About my salary raise','Give me i\'m low','pro','low','approved','3',1,'2015-02-09 14:48:24','2015-02-09 14:48:24');
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('Hello!','hello!','friends','zero','approved','3',2,'2015-02-09 14:51:48','2015-02-09 14:51:48');
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('Here are the news flash you are all waiting for','bonjour','family','zero','approved','3',3,'2015-02-09 14:52:12','2015-02-09 14:52:12');
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('Mimimi','mimimimim','lover','zero','approved','3',4,'2015-02-09 14:52:33','2015-02-09 14:52:33');
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('Holiday request','holiday','pro','low','approved','3',5,'2015-02-09 14:53:05','2015-02-09 14:53:05');
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('High five dude!','high','friends','hight','approved','3',7,'2015-02-09 14:53:34','2015-02-09 14:53:34');
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('I can\'t come for the next family meeting','no','family','zero','approved','3',8,'2015-02-09 14:53:57','2015-02-09 14:53:57');
+INSERT INTO mymeteo.reports (title,template,category,range,status,meteologist_id,id,createdAt,updatedAt) VALUES ('Baybay! You are ying I am yang','yingyang','lover','zero','approved','3',9,'2015-02-09 14:54:21','2015-02-09 14:54:21');

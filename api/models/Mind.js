@@ -71,6 +71,14 @@ module.exports = {
 			collection: 'Record',
 			via: 'mind_id'
 		},
+		statements: {
+			collection: 'Statement',
+			via: 'mind_id'
+		},
+		reports: {
+			collection: 'Report',
+			via: 'meteologist_id'
+		},
 	  
 	  toJSON: function() {
 		  var obj = this.toObject();
