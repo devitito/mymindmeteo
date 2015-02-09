@@ -71,3 +71,11 @@ fieldset[disabled] .btn-meteo.active {
 	.content .visible-desktop {display:block;}
 	.content .visible-phone {display:none;}
 }
+
+.read {
+	font-weight: normal;
+}
+
+.not-read {
+	font-weight: bold;
+}

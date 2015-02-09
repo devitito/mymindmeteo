@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment', 'ngTableParams', 'reportsFactory', 'statsFactory', 'recordsFactory',
-    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment, ngTableParams, reportsFactory, statsFactory, recordsFactory) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment', 'ngTableParams', 'statementsFactory', 'statsFactory', 'recordsFactory',
+    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment, ngTableParams, statementsFactory, statsFactory, recordsFactory) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -45,22 +45,35 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 
 						recordsFactory.save({id:$scope.identity.id}, records)
 						.then(function (success) {
-							//re calculate the climate
+							//update the climate
 							statsFactory.climate($scope.identity.name)
 							.then(function (climat) {
 								loadClimateChart(climat);
-								setTimeout(function () {
-
+								//Generate the reports
+								statementsFactory.generate($scope.identity.id)
+								.then(function (reports) {
+								//	$scope.tableParams.data.unshift(reports);
+									//$scope.tableParams.reload();
+								//	$scope.processing = false;
+								//	$scope.$apply(function () {
+								//		$scope.newReports = true;
+								//	});
+									setTimeout(function() {
+										$scope.processing = false;
+										$scope.$apply(function () {
+											$scope.newReports = true;
+										});
+									}, 5000);
+								})
+								.catch(function (error) {
 									$scope.processing = false;
-									$scope.$apply(function () {
-										$scope.newReports = true;
-									});
-								}, 5000);
+									$scope.error = error;
+								});
 							});
 						})
-						.catch(function (error) {
-							$scope.error = true;
-							//todo alert error transmitting records
+						.catch(function (err) {
+							$scope.processing = false;
+							$scope.error = err.error;
 						});
 					}
 				});
@@ -78,7 +91,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				counts: [], // hide page counts control
 				total:0, // length of data
 				getData: function($defer, params) {
-					reportsFactory.query($scope.identity.id)
+					statementsFactory.query($scope.identity.id)
 					.then(function (reports) {
 						// update table params
 							params.total(reports.length);
@@ -173,6 +186,5 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			};
 
 			$scope.processing = false;
-			$scope.error = false;
 			loadClimateChart(climat);
 }]);

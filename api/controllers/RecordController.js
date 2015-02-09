@@ -14,7 +14,7 @@ module.exports = {
 				res.send(200);
 			})
 			.catch(function (error) {
-				res.json(500, {error: error});
+				res.json(500, {error: "Sorry, our meteologist couldn't receive this new set of data. Please try again later..."});
 			});
 		});
 	},

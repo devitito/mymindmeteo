@@ -47,7 +47,7 @@
 			<p><h1>Hi {{identity.name}}!</h1></p>
 			<p><h3>How are you today? <button class="btn btn-meteo" ng-click="record()">Let's find out!</button></h3></p>
 			<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>
-			<alert ng-show="error" type="alert"><h4>Sorry, our meteologist couldn't receive this new set of data. Please try again later...</h4></alert>
+			<alert ng-show="error" type="alert"><h4>{{error}}</h4></alert>
 		</div>
 	</div>
 

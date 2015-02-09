@@ -52,7 +52,7 @@ adminControllers.controller('EditSensorCtrl', ['$scope', '$location', 'sensor', 
 
 		$scope.delete = function () {
 			var modalInstance = $modal.open({
-			      templateUrl: '/js/admin/partials/modals/confirm.html',
+			      templateUrl: '/js/components/modals/confirm/confirm.html',
 			      controller: 'ConfirmModalCtrl',
 			    });
 
