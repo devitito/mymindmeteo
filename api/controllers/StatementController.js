@@ -33,16 +33,9 @@ module.exports = {
 	},
 
 	generate: function(req, res, next) {
-		Statement.create(
-			{
-				body: 'a body',
-				notread: true,
-				mind: 1,
-				report: 1
-			}
-		)
-		.then(function(statements) {
-			res.send(statements);
+		StatementGenerator.generate(req.param(('id')))
+		.then(function(statement) {
+			res.send(statement);
 		})
 		.catch(function(err) {
 			res.json(500, {error: err});
