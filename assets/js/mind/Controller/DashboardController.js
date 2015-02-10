@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', 'moment', 'ngTableParams', 'statementsFactory', 'statsFactory', 'recordsFactory',
-    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, moment, ngTableParams, statementsFactory, statsFactory, recordsFactory) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', '$filter', 'identity', 'flash', 'sessionFactory', 'climat', 'moment', 'ngTableParams', 'statementsFactory', 'statsFactory', 'recordsFactory',
+    function ($scope, $location, $modal, $filter, identity, flash, sessionFactory, climat, moment, ngTableParams, statementsFactory, statsFactory, recordsFactory) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -82,6 +82,9 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			$scope.tableParams = new ngTableParams({
 				page: 0,            // show saved page
 				count: 10,           // count per page
+				sorting: {
+            createdAt: 'desc'     // initial sorting
+        }
 			}, {
 				counts: [], // hide page counts control
 				total:0, // length of data
@@ -89,9 +92,11 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 					statementsFactory.bymind({id:$scope.identity.id}).$promise
 					.then(function (reports) {
 						// update table params
-							params.total(reports.length);
-							// set new data
-							$defer.resolve(reports);
+						params.total(reports.length);
+						// use build-in angular filter
+						var orderedReports = params.sorting() ? $filter('orderBy')(reports, params.orderBy()) : reports;
+						// set new data
+						$defer.resolve(orderedReports);
 					})
 				}
 			});
