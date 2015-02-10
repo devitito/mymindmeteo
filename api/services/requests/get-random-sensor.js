@@ -7,9 +7,7 @@
 
 function randomIntFromInterval(min,max)
 {
-	var nb = Math.floor(Math.random()*(max-min+1)+min);
-	console.log(nb);
-	return nb;
+	return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 module.exports.query = function(options) {
