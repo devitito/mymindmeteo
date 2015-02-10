@@ -15,7 +15,6 @@ module.exports = {
 	  title: {
 		  type: 'string',
 		  size: 128,
-		  unique: true,
 		  required: true,
 		  notNull: true,
 		  maxLength: 128
@@ -44,7 +43,7 @@ module.exports = {
 		  size: 32,
 			notNull: true,
 	  },
-		meteologist_id: {
+		meteologist: {
 		  notNull: true,
 			model: 'Mind'
 	  },

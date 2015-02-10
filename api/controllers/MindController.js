@@ -113,6 +113,16 @@ module.exports = {
 		}).catch(function (err) {
 			res.json(500, {error: err});
 		});
+	},
+
+	fetchByRole: function(req, res, next) {
+		Mind.find({role: req.param('role')})
+		.then(function(minds) {
+			res.send(minds);
+		})
+		.catch(function(err) {
+			res.send(500, [err]);
+		});
 	}
 };
 

@@ -25,11 +25,11 @@ module.exports = {
 			size: 32,
 			notNull: true,
 		},
-		mind_id: {
+		mind: {
 			notNull: true,
 			model: 'Mind'
 		},
-		report_id: {
+		report: {
 			notNull: true,
 			model: 'Report'
 		},

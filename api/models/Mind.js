@@ -73,11 +73,11 @@ module.exports = {
 		},
 		statements: {
 			collection: 'Statement',
-			via: 'mind_id'
+			via: 'mind'
 		},
 		reports: {
 			collection: 'Report',
-			via: 'meteologist_id'
+			via: 'meteologist'
 		},
 	  
 	  toJSON: function() {

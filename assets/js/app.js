@@ -211,6 +211,9 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 					$location.path('/');
 				});
 				return identityRequest;
+			},
+			meteologistList: function(mindFactory) {
+				return mindFactory.fetchByRole({role: 'meteologist'}).$promise;
 			}
 		}
 	}).

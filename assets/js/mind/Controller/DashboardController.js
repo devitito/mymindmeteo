@@ -23,6 +23,10 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				});
 			};
 
+			$scope.ViewStatement = function(statementId) {
+				//open modal & mark as read
+			};
+
 			$scope.record = function () {
 				var modalInstance = $modal.open({
 					templateUrl: '/js/components/modals/record/record.html',
@@ -50,20 +54,20 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 							.then(function (climat) {
 								loadClimateChart(climat);
 								//Generate the reports
-								statementsFactory.generate($scope.identity.id)
+								statementsFactory.generate({id: $scope.identity.id}).$promise
 								.then(function (reports) {
 								//	$scope.tableParams.data.unshift(reports);
-									//$scope.tableParams.reload();
-								//	$scope.processing = false;
+									$scope.tableParams.reload();
+									$scope.processing = false;
 								//	$scope.$apply(function () {
-								//		$scope.newReports = true;
+										$scope.newReports = true;
 								//	});
-									setTimeout(function() {
+								/*	setTimeout(function() {
 										$scope.processing = false;
 										$scope.$apply(function () {
 											$scope.newReports = true;
 										});
-									}, 5000);
+									}, 5000);*/
 								})
 								.catch(function (error) {
 									$scope.processing = false;
@@ -91,7 +95,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				counts: [], // hide page counts control
 				total:0, // length of data
 				getData: function($defer, params) {
-					statementsFactory.query($scope.identity.id)
+					statementsFactory.bymind({id:$scope.identity.id}).$promise
 					.then(function (reports) {
 						// update table params
 							params.total(reports.length);

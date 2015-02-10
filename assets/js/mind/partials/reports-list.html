@@ -9,18 +9,18 @@
 <div ng-show="tableParams.data.length" loading-container="tableParams.settings().$loading">
 
 	<table  ng-table="tableParams" class="table table-hover">
-		<tr class="clickable" ng-repeat="statement in $data" ng-click="">
+		<tr class="clickable" ng-repeat="statement in $data" ng-click="ViewStatement(statement.id)">
 			<td data-title="'Title'" style="with:20%;">
-				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.title}}</span>
+				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.report.title}}</span>
 			</td>
 			<td data-title="'Category'">
-				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.category}}</span>
+				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.report.category}}</span>
 			</td>
 			<td data-title="'Created On'">
-				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.createdOn | amDateFormat:'LL'}}</span>
+				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.createdAt | amDateFormat:'LL'}}</span>
 			</td>
 			<td data-title="'Meteologist'">
-				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.meteologist}}</span>
+				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.report.meteologist.name}}</span>
 			</td>
 		</tr>
 	</table>

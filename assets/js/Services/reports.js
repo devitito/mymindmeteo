@@ -18,9 +18,9 @@ adminServices.factory('reportCategories', [function(){
 }]);
 
 adminServices.factory('reportRanges', [function(){
-		return [{code:'highest', name:'Highest'},
-		        {code:'hight', name:'High'},
-		        {code:'zero', name:'Zero'},
-		        {code:'low', name:'Low'},
-					 	{code:'lowest', name:'Lowest'}];
+		return [{code:'highest', name:'Highest', value:{min: 3.00, max: 10}},
+		        {code:'hight', name:'High', value:{min: 0.50, max: 2.99}},
+		        {code:'zero', name:'Zero', value:{min: -0.50, max: 0.49}},
+		        {code:'low', name:'Low', value:{min: -3.00, max: -0.51}},
+					 	{code:'lowest', name:'Lowest', value:{min: -10, max: -3.01}}];
 }]);

@@ -7,9 +7,12 @@
 
 
 mindServices.factory('statementsFactory', ['$resource', '$q', function($resource, $q){
-	var factory = {};
+	var factory = $resource('/statement/:id', {id:'@id'}, {
+		bymind: {method: 'GET', url: '/statement/bymind', isArray: true},
+		generate: {method: 'GET', url: '/statement/generate'}
+	});
 
-	factory.query = function (id) {
+	/*factory.query = function (id) {
 		var deferred = $q.defer();
 		if (id == 1)
 			deferred.resolve([
@@ -125,7 +128,7 @@ mindServices.factory('statementsFactory', ['$resource', '$q', function($resource
 		}, 5000);
 
 		return deferred.promise;
-	};
+	};*/
 
 	return factory;
 }]);
