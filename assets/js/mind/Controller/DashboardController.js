@@ -76,7 +76,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 
 			$scope.openReportList = function () {
 				$scope.newReports = false;
-				$scope.tableParams.reload();
+				//$scope.tableParams.reload();
 			};
 
 			$scope.tableParams = new ngTableParams({
