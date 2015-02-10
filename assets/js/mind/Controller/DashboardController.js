@@ -56,18 +56,9 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 								//Generate the reports
 								statementsFactory.generate({id: $scope.identity.id}).$promise
 								.then(function (reports) {
-								//	$scope.tableParams.data.unshift(reports);
 									$scope.tableParams.reload();
 									$scope.processing = false;
-								//	$scope.$apply(function () {
-										$scope.newReports = true;
-								//	});
-								/*	setTimeout(function() {
-										$scope.processing = false;
-										$scope.$apply(function () {
-											$scope.newReports = true;
-										});
-									}, 5000);*/
+									$scope.newReports = true;
 								})
 								.catch(function (error) {
 									$scope.processing = false;
