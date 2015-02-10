@@ -77,7 +77,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 						})
 						.catch(function (err) {
 							$scope.processing = false;
-							$scope.error = err.error;
+							$scope.error = err.data;
 						});
 					}
 				});
