@@ -58,16 +58,24 @@ CREATE TABLE mymeteo.reports (
   title varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   template longtext COLLATE utf8_unicode_ci NOT NULL,
   category varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  range varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `range` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   status varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  meteologist_id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  meteologist varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   id int(11) NOT NULL AUTO_INCREMENT,
   createdAt datetime DEFAULT NULL,
   updatedAt datetime DEFAULT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY title (title)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE mymeteo.statements (
+  body longtext COLLATE utf8_unicode_ci NOT NULL,
+  notread varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  mind varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  report int(11) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
+  createdAt datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
