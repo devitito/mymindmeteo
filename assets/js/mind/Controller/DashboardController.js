@@ -80,7 +80,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			};
 
 			$scope.tableParams = new ngTableParams({
-				page: 0,            // show saved page
+				page: 1,            // show saved page
 				count: 10,           // count per page
 				sorting: {
             createdAt: 'desc'     // initial sorting
@@ -89,12 +89,12 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				counts: [], // hide page counts control
 				total:0, // length of data
 				getData: function($defer, params) {
-					statementsFactory.bymind({id:$scope.identity.id}).$promise
+					statementsFactory.bymind({id:$scope.identity.id, page: params.page(), count: params.count()}).$promise
 					.then(function (reports) {
 						// update table params
-						params.total(reports.length);
+						params.total(reports.total);
 						// use build-in angular filter
-						var orderedReports = params.sorting() ? $filter('orderBy')(reports, params.orderBy()) : reports;
+						var orderedReports = params.sorting() ? $filter('orderBy')(reports.data, params.orderBy()) : reports.data;
 						// set new data
 						$defer.resolve(orderedReports);
 					})

@@ -7,7 +7,7 @@
 
 module.exports = {
 	bymind : function(req, res, next) {
-		Statement.find({mind: req.param('id')}).populate('report')
+		Statement.find({mind: req.param('id')}).sort('createdAt DESC').populate('report')
 		.then(function(statements) {
 			var reports = _.map(statements, function(statement) {
 				return statement.report;
@@ -25,10 +25,12 @@ module.exports = {
 				statement.report.meteologist = {id: meteologists[statement.report.meteologist].id, name: meteologists[statement.report.meteologist].name} ;
 				return statement;
 			});
-			res.send(statements);
+			var page = req.param('page');
+			var count = req.param('count');
+			res.send({total: statements.length, data: statements.slice((page-1) * count, page * count)});
 		})
 		.catch(function(err) {
-			res.send(500, [err]);
+			res.send(500, err);
 		});
 	},
 
