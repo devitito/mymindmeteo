@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', '$filter', 'identity', 'flash', 'sessionFactory', 'climat', /*'moment',*/ 'ngTableParams', 'statementsFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper',
-    function ($scope, $location, $modal, $filter, identity, flash, sessionFactory, climat, /*moment,*/ ngTableParams, statementsFactory, statsFactory, recordsFactory, climateChartHelper) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', /*'moment',*/ 'statementsFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper',
+    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, /*moment,*/ statementsFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -80,27 +80,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				//$scope.tableParams.reload();
 			};
 
-			$scope.tableParams = new ngTableParams({
-				page: 1,            // show saved page
-				count: 10,           // count per page
-				sorting: {
-            createdAt: 'desc'     // initial sorting
-        }
-			}, {
-				counts: [], // hide page counts control
-				total:0, // length of data
-				getData: function($defer, params) {
-					statementsFactory.bymind({id:$scope.identity.id, page: params.page(), count: params.count()}).$promise
-					.then(function (reports) {
-						// update table params
-						params.total(reports.total);
-						// use build-in angular filter
-						var orderedReports = params.sorting() ? $filter('orderBy')(reports.data, params.orderBy()) : reports.data;
-						// set new data
-						$defer.resolve(orderedReports);
-					})
-				}
-			});
+			$scope.tableParams = tableHelper.new('statements-list', {id:$scope.identity.id});
 
 			$scope.processing = false;
 			climateChartHelper.load($scope, climat);
