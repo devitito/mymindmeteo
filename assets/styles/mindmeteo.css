@@ -79,3 +79,25 @@ fieldset[disabled] .btn-meteo.active {
 .not-read {
 	font-weight: bold;
 }
+
+.panel-statement {
+  border-color: #ddd;
+	margin-top: 5px;
+	margin-right: 15px;
+	margin-left: 15px;
+}
+.panel-statement > .panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+.panel-statement > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #ddd;
+}
+.panel-statement > .panel-heading .badge {
+  color: #f5f5f5;
+  background-color: #333;
+}
+.panel-statement > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #ddd;
+}

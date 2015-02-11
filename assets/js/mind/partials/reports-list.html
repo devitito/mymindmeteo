@@ -5,12 +5,63 @@
 
 <!--<div class="clearfix"></div>-->
 
+<div ng-show="sentConfirm">
+	<alert type="info" style="margin-top:5px;">{{sentConfirm}}</alert>
+</div>
+
+<div ng-show="editedStatement" class="row content">
+	<!--<div class="visible-desktop">-->
+	<section class="panel panel-statement">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
+					<span class="pull-right">From: </span>
+				</div>
+				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
+					<span>{{identity.email}}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
+					<span class="pull-right">To: </span>
+				</div>
+				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
+					<input class="form-control input-sm"></input>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
+					<span class="pull-right">Subject: </span>
+				</div>
+				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
+					<span>{{editedStatement.report.title}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<form role="form">
+    		<div class="form-group">
+					<textarea class="form-control" rows="3">{{editedStatement.body}}</textarea>
+				</div>
+
+			</form>
+				<button ng-click="sendStatement()" class="btn btn-meteo pull-right">Send!</button>
+		</div>
+	</div>
+
+
+	</section>
+<!--	<div class="visible-phone">
+	</div>-->
+</div>
+
+
 <div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>
 <div ng-show="tableParams.data.length" loading-container="tableParams.settings().$loading">
 
 	<table  ng-table="tableParams" class="table table-hover">
-		<tr class="clickable" ng-repeat="statement in $data" ng-click="ViewStatement(statement.id)">
-			<td data-title="'Title'" style="with:20%;">
+		<tr class="clickable" ng-repeat="statement in $data" ng-click="ViewStatement(statement)">
+			<td data-title="'Title'">
 				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.report.title}}</span>
 			</td>
 			<td data-title="'Category'">

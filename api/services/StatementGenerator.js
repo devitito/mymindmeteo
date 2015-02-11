@@ -25,13 +25,12 @@ var save = function (deferred, statement) {
 var processTemplate = function(deferred, report, mindid) {
 	console.log(report.template);
 	//todo: transform template into plain text
-	var statement = {
+	return {
 		body: report.template,
 		notread: true,
 		mind: mindid,
 		report: report.id
 	};
-	return statement;
 };
 
 module.exports.generate = function(mindid) {

@@ -23,8 +23,20 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				});
 			};
 
-			$scope.ViewStatement = function(statementId) {
+			$scope.ViewStatement = function(statement) {
+				statement.notread = false;
+				$scope.editedStatement = statement;
 				//open modal & mark as read
+			};
+
+			$scope.sendStatement = function() {
+				$scope.editedStatement = undefined;
+				$scope.sentConfirm = 'Message sent successfully!';
+				setTimeout(function () {
+					$scope.$apply( function () {
+					$scope.sentConfirm = undefined;
+					});
+				}, 3000);
 			};
 
 			$scope.record = function () {
