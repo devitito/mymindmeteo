@@ -101,3 +101,84 @@ fieldset[disabled] .btn-meteo.active {
 .panel-statement > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ddd;
 }
+
+.panel-love {
+  border-color: #FF69B4;
+	margin-top: 15px;
+	margin-left: 0px;
+}
+.panel-love > .panel-heading {
+  color: #f5f5f5;
+  background-color: #FF69B4;
+  border-color: #FF69B4;
+	font-weight: bold;
+}
+.panel-love > .panel-body {
+  color: #FF69B4;
+	font-weight: bold;
+	font-size: 20px;
+}
+.panel-love > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #FF69B4;
+}
+.panel-love > .panel-heading .badge {
+  color: #f5f5f5;
+  background-color: #333;
+}
+.panel-love > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #FF69B4;
+}
+
+.panel-health {
+  border-color: #4169E1;
+	margin-top: 15px;
+	margin-left: 0px;
+}
+.panel-health > .panel-heading {
+  color: #f5f5f5;
+  background-color: #4169E1;
+  border-color: #4169E1;
+	font-weight: bold;
+}
+.panel-health > .panel-body {
+  color: #4169E1;
+	font-weight: bold;
+	font-size: 20px;
+}
+.panel-health > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #4169E1;
+}
+.panel-health > .panel-heading .badge {
+  color: #f5f5f5;
+  background-color: #333;
+}
+.panel-health > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #4169E1;
+}
+
+.panel-money {
+  border-color: #008000;
+	margin-top: 15px;
+	margin-left: 0px;
+}
+.panel-money > .panel-heading {
+  color: #f5f5f5;
+  background-color: #008000;
+  border-color: #008000;
+	font-weight: bold;
+}
+.panel-money > .panel-body {
+  color: #008000;
+	font-weight: bold;
+	font-size: 20px;
+}
+.panel-money > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #008000;
+}
+.panel-money > .panel-heading .badge {
+  color: #008000;
+  background-color: #333;
+}
+.panel-money > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #008000;
+}

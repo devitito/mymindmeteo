@@ -44,8 +44,10 @@
 		</div>
 
 		<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-			<p><h1>Hi {{identity.name}}!</h1></p>
-			<p><h3>How are you today? <button class="btn btn-meteo" ng-click="record()">Let's find out!</button></h3></p>
+			<div class="row"><h1>Hi {{identity.name}}!</h1></div>
+			<div class="row">
+				<h3>How are you today? <button class="btn btn-meteo" ng-click="record()">Let's find out!</button></h3>
+			</div>
 			<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>
 			<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
 		</div>
@@ -128,6 +130,12 @@
 						<p>Rainy days</p>
 					</div>
 				</div>
+
+		<!--<ul class="nav nav-pills nav-stacked">
+			<li><a href='/#/administrator/dash'>Your climate</a></li>
+			<li><a href='/#/administrator/minds'>Your reports</a></li>
+		</ul>-->
+
 		<!--	</td>
 		</tr>
 	</table>-->
@@ -138,7 +146,7 @@
 	    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
 
 				<br>
-				<tabset justified="true">
+				<tabset justified="true" >
 					<tab heading="Your climate"><div ng-include="'js/mind/partials/climate.html'"></div></tab>
 					<tab ng-click="openReportList()">
 						<tab-heading>Your reports <span ng-show="newReports" class="text-danger"> --New reports ready!--</span></tab-heading>

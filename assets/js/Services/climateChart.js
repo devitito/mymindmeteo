@@ -30,7 +30,8 @@ mindServices.factory("climateChartHelper", function() {
 				colors : [/*'#FF0000',*/ '#00ADEF'/*, '#85bb65', 'yellow'*/],
 				legend : {position: 'none'},
 				chartarea: {left:0,top:0,width:'100%',height:'100%'},
-				pointSize : 4,
+				pointSize : 6,
+				lineWidth: 3,
 				curveType: 'function',
 				'hAxis': {
 					format: 'yyyy-MM-dd',
@@ -42,6 +43,7 @@ mindServices.factory("climateChartHelper", function() {
 					//gridlines: { count : 2},
 					//ticks: [{v:-10, f:'Devastation'}, {v:-5, f:'Wind and rain'}, {v:0, f:'Not sunny Not raining'}, {v:5, f:'Spring impression'}, {v:10, f:'T shirt and bermuda'}],
 					ticks: [{v:-10, f:':(('}, {v:-5, f:':('}, {v:0, f:':|'}, {v:5, f:':)'}, {v:10, f:':))'}],
+					textStyle: { fontSize: 20, bold: true, color: '#808080'},
 					maxValue : 10,
 					minValue : -10,
 					//textPosition : 'in',
