@@ -5,7 +5,7 @@
  *
  */
 
-mindServices.factory("climateChartHelper", function() {
+mindServices.factory("climateChartHelper", function(emociconeService) {
 	var factory = {};
 
 	factory.load = function ($scope, climat) {
@@ -50,7 +50,7 @@ mindServices.factory("climateChartHelper", function() {
 				},
 			};
 			climate.type = 'LineChart';
-			climate.data = convertToDataTable(climat.data);
+			climate.data = convertToDataTable(climat.data, $scope);
 			$scope.climate = climate;
 
 			$scope.total = climat.info.total;
@@ -62,9 +62,15 @@ mindServices.factory("climateChartHelper", function() {
 	};
 };
 
-var convertToDataTable = function (json){
+var convertToDataTable = function (json, $scope){
 	var d= {};
+	var newestItem = {};
+	newestItem.date = moment('2014-06-01');
 	d.rows = json.map(function(item){
+		//Get the newest item in order to set the emocicones
+		if (moment(item.date).isAfter(moment(newestItem.date)))
+			newestItem = item;
+
 		return {
 			"c": [{
 				"v": moment(item.date).format('YYYY-MMM-D')
@@ -89,6 +95,13 @@ var convertToDataTable = function (json){
 					{ label: "Money", type: "number"},*/
 						 { label: "Mood", type: "number"}, ];
 	d.p = null;
+
+	//Set the emocicones
+	console.log(newestItem.date);
+	$scope.emocicone = {};
+	$scope.emocicone.love = emociconeService.eval(newestItem.love);
+	$scope.emocicone.health = emociconeService.eval(newestItem.health);
+	$scope.emocicone.money = emociconeService.eval(newestItem.money);
 
 	return d;
 };
