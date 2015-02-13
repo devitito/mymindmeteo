@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', '$timeout', 'identity', 'flash', 'sessionFactory', 'climat', 'statementsFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper',
-    function ($scope, $location, $modal, $timeout, identity, flash, sessionFactory, climat, statementsFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', /*'$modal',*/ '$timeout', 'identity', /*'flash',*/ 'sessionFactory', 'climat',/* 'statementsFactory', 'statsFactory',*/ 'recordsFactory', 'climateChartHelper', 'tableHelper',
+    function ($scope, $location,/* $modal,*/ $timeout, identity, /*flash,*/ sessionFactory, climat, /*statementsFactory, statsFactory,*/ recordsFactory, climateChartHelper, tableHelper) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -37,51 +37,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			};
 
 			$scope.record = function () {
-				var modalInstance = $modal.open({
-					templateUrl: '/js/components/modals/record/record.html',
-					controller: 'RecordModalCtrl',
-					resolve: {
-						identity: function(identityService, $location) {
-							var identityRequest = identityService.get();
-							identityRequest.catch(function(reason) {
-								$location.path('/');
-							});
-							return identityRequest;
-						}
-					}
-				});
-
-				modalInstance.result
-				.then(function (records) {
-					if (records.length) {
-						$scope.processing = true;
-
-						recordsFactory.save({id:$scope.identity.id}, records)
-						.then(function (success) {
-							//update the climate
-							statsFactory.climate($scope.identity.name)
-							.then(function (climat) {
-								climateChartHelper.load($scope, climat);
-								//loadClimateChart(climat);
-								//Generate the reports
-								statementsFactory.generate({id: $scope.identity.id}).$promise
-								.then(function (reports) {
-									$scope.tableParams.reload();
-									$scope.processing = false;
-									$scope.newReports = true;
-								})
-								.catch(function (error) {
-									$scope.processing = false;
-									$scope.error = error;
-								});
-							});
-						})
-						.catch(function (err) {
-							$scope.processing = false;
-							$scope.error = err.data;
-						});
-					}
-				});
+				recordsFactory.launch($scope);
 			};
 
 			$scope.openReportList = function () {
