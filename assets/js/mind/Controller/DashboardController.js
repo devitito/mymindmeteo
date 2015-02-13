@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', 'identity', 'flash', 'sessionFactory', 'climat', /*'moment',*/ 'statementsFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper',
-    function ($scope, $location, $modal, identity, flash, sessionFactory, climat, /*moment,*/ statementsFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$modal', '$timeout', 'identity', 'flash', 'sessionFactory', 'climat', 'statementsFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper',
+    function ($scope, $location, $modal, $timeout, identity, flash, sessionFactory, climat, statementsFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -26,16 +26,13 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			$scope.ViewStatement = function(statement) {
 				statement.notread = false;
 				$scope.editedStatement = statement;
-				//open modal & mark as read
 			};
 
 			$scope.sendStatement = function() {
 				$scope.editedStatement = undefined;
 				$scope.sentConfirm = 'Message sent successfully!';
-				setTimeout(function () {
-					$scope.$apply( function () {
+				$timeout(function () {
 					$scope.sentConfirm = undefined;
-					});
 				}, 3000);
 			};
 
@@ -90,8 +87,8 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			$scope.openReportList = function () {
 				$scope.show = 'reports';
 				$scope.newReports = false;
-				//$scope.tableParams.reload();
 			};
+
 			$scope.openClimate = function () {
 				$scope.show = 'climate';
 			};

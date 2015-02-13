@@ -56,6 +56,7 @@ mindServices.factory("climateChartHelper", function(emociconeService) {
 			$scope.total = climat.info.total;
 			$scope.sunny = climat.info.sunny;
 			$scope.rainy = climat.info.rainy;
+			$scope.message = undefined;
 		};
 	} catch (e) {
 		$scope.message = "We couldn't retrieve your climate data. Please try again";
