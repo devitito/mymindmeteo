@@ -97,7 +97,6 @@ var convertToDataTable = function (json, $scope){
 	d.p = null;
 
 	//Set the emocicones
-	console.log(newestItem.date);
 	$scope.emocicone = {};
 	$scope.emocicone.love = emociconeService.eval(newestItem.love);
 	$scope.emocicone.health = emociconeService.eval(newestItem.health);

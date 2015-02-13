@@ -1,27 +1,35 @@
 <div class="clearfix"></div>
 <div ng-hide="message">
-	<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-		<div google-chart chart="climate" style="height:400px; width:125%; margin-left:-60px;"></div>
+	<div class="row" >
+		<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+			<div google-chart chart="climate" style="height:400px; width:105%; margin-left:-25px;"></div>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+			<section class="panel panel-love">
+				<div class="panel-heading text-center">Love</div>
+				<div class="panel-body text-center">{{emocicone.love}}</div>
+			</section>
+		</div>
+		<div class="col-sm-1"></div>
+		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+			<section class="panel panel-health">
+				<div class="panel-heading text-center">Health</div>
+				<div class="panel-body text-center">{{emocicone.health}}</div>
+			</section>
+		</div>
+		<div class="col-sm-1"></div>
+		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+			<section class="panel panel-money">
+				<div class="panel-heading text-center">Money</div>
+				<div class="panel-body text-center">{{emocicone.money}}</div>
+			</section>
+		</div>
 	</div>
-	<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-		<section class="panel panel-love">
-			<div class="panel-heading text-center">Love</div>
-			<div class="panel-body text-center">{{emocicone.love}}</div>
-		</section>
+	<div class="row footer">
+		<span><i>Based on <span style="font-size:20px;"><b>{{total}}</b></span> records submitted in the last 30 days.</i></span>
 	</div>
-	<div class="col-sm-1"></div>
-	<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-		<section class="panel panel-health">
-			<div class="panel-heading text-center">Health</div>
-			<div class="panel-body text-center">{{emocicone.health}}</div>
-		</section>
-	</div>
-	<div class="col-sm-1"></div>
-	<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-		<section class="panel panel-money">
-			<div class="panel-heading text-center">Money</div>
-			<div class="panel-body text-center">{{emocicone.money}}</div>
-		</section>
+	<div class="row footer">
+		<span><i>Since your records are collected, our meteologists have counted a total of <span style="font-size:20px;"><b>{{sunny}}</b></span> sunny day(s) and <span style="font-size:20px;"><b>{{rainy}}</b></span> rainy day(s).</i></span>
 	</div>
 </div>
 <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>

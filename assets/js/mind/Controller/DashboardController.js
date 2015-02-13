@@ -88,12 +88,17 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			};
 
 			$scope.openReportList = function () {
+				$scope.show = 'reports';
 				$scope.newReports = false;
 				//$scope.tableParams.reload();
+			};
+			$scope.openClimate = function () {
+				$scope.show = 'climate';
 			};
 
 			$scope.tableParams = tableHelper.new('statements-list', {id:$scope.identity.id});
 
+			$scope.show = 'climate';
 			$scope.processing = false;
 			climateChartHelper.load($scope, climat);
 }]);

@@ -182,3 +182,10 @@ fieldset[disabled] .btn-meteo.active {
 .panel-money > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #008000;
 }
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #fff;
+  background-color: #00ADEF;
+}
