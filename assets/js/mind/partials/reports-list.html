@@ -13,7 +13,7 @@
 	<!--<div class="visible-desktop">-->
 	<section class="panel panel-statement">
 		<div class="panel-heading">
-			<div class="row">
+			<!--<div class="row">
 				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
 					<span class="pull-right">From: </span>
 				</div>
@@ -28,11 +28,11 @@
 				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
 					<input class="form-control input-sm"></input>
 				</div>
-			</div>
+			</div>-->
 			<div class="row">
-				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
+				<!--<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
 					<span class="pull-right">Subject: </span>
-				</div>
+				</div>-->
 				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
 					<span>{{editedStatement.report.title}}</span>
 				</div>
@@ -45,7 +45,8 @@
 				</div>
 
 			</form>
-				<button ng-click="sendStatement()" class="btn btn-meteo pull-right">Send!</button>
+			<!--<button ng-click="sendStatement()" class="btn btn-meteo pull-right">Send!</button>-->
+			<button ng-click="close()" class="btn btn-meteo pull-right">Close</button>
 		</div>
 	</div>
 

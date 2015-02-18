@@ -36,6 +36,10 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				}, 3000);
 			};
 
+			$scope.close = function() {
+				$scope.editedStatement = undefined;
+			};
+
 			$scope.record = function () {
 				recordsFactory.launch($scope);
 			};
