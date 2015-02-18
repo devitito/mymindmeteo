@@ -281,6 +281,65 @@ div.container a.brand {
     background-color: #888;
 }
 
+.intro {
+		display: table;
+    height: 100vh;
+    padding: 0 0 0 0;
+	}
+
+.intro .intro-body {
+    display: table-cell;
+    /*vertical-align: middle;*/
+}
+
+.content-section {
+    padding-top: 15%;
+}
+
+.btn-circle {
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    padding: 7px 16px;
+    border: 2px solid #00ADEF;
+    border-radius: 35px;
+    font-size: 40px;
+    color: #00ADEF;
+    background: 0 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.landing-anchor {
+	padding-top: 10%;
+}
+
+.btn-circle:hover,
+.btn-circle:focus {
+    outline: 0;
+    background: #00ADEF;
+    color: #fff;
+}
+
+.btn-circle i.animated {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+}
+
+.btn-circle:hover i.animated {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+}
+
 /* Large devices */
 @media (min-width: 768px) {
     .vertical-align {
@@ -308,61 +367,33 @@ div.container a.brand {
 
 	.intro h2 {
 		font-size: 16px;
+		margin-bottom: 5px;
+		margin-top: 5px;
 	}
 
-}
-
-.intro {
-		display: table;
-    height: 100vh;
-    padding: 0 0 0 0;
+	.intro img {
+		height: 175px;
+		width: auto;
 	}
 
-.intro .intro-body {
-    display: table-cell;
-    vertical-align: middle;
+	.intro .btn-lg,
+	.intro .btn-group-lg > .btn {
+		padding: 6px 12px;
+		font-size: 14px;
+		line-height: 1.42857143;
+		border-radius: 4px;
+	}
+
+	.landing-anchor {
+		padding-top: 0;
+	}
+
+	.btn-circle {
+    width: 50px;
+    height: 50px;
+    margin-top: 20px;
+    font-size: 25px;
+	}
 }
 
-.content-section {
-    padding-top: 15%;
-}
 
-.btn-circle {
-    width: 70px;
-    height: 70px;
-    margin-top: 15px;
-    padding: 7px 16px;
-    border: 2px solid #00ADEF;
-    border-radius: 35px;
-    font-size: 40px;
-    color: #00ADEF;
-    background: 0 0;
-    -webkit-transition: background .3s ease-in-out;
-    -moz-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
-}
-
-.btn-circle:hover,
-.btn-circle:focus {
-    outline: 0;
-    background: #00ADEF;
-    color: #fff;
-}
-
-.btn-circle i.animated {
-    -webkit-transition-property: -webkit-transform;
-    -webkit-transition-duration: 1s;
-    -moz-transition-property: -moz-transform;
-    -moz-transition-duration: 1s;
-}
-
-.btn-circle:hover i.animated {
-    -webkit-animation-name: pulse;
-    -moz-animation-name: pulse;
-    -webkit-animation-duration: 1.5s;
-    -moz-animation-duration: 1.5s;
-    -webkit-animation-iteration-count: infinite;
-    -moz-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-timing-function: linear;
-}

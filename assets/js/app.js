@@ -236,10 +236,12 @@ mindmeteo.value('googleChartApiConfig', {
     }
 });
 
-mindmeteo.run(function($http/*, $rootScope, $location*/) {
+mindmeteo.run(function($http, $anchorScroll/*, $rootScope, $location*/) {
     $http.get('/csrfToken').success(function(data){
         $http.defaults.headers.common['x-csrf-token'] = data._csrf;
     });
+
+		$anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
 
 	/*$rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
     console.log("failed to change routes");
