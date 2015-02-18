@@ -330,8 +330,8 @@ div.container a.brand {
 .btn-circle:hover,
 .btn-circle:focus {
     outline: 0;
-    color: #00ADEF;
-    background: rgba(255,255,255,.1);
+    background: #00ADEF;
+    color: #fff;
 }
 
 .btn-circle i.animated {
