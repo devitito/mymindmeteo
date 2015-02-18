@@ -282,7 +282,7 @@ div.container a.brand {
 }
 
 /* Large devices */
-@media (min-width: 440px) {
+@media (min-width: 768px) {
     .vertical-align {
         display: flex;
         align-items: center;
@@ -293,6 +293,21 @@ div.container a.brand {
     /*height: auto;*/
     padding: 100px 0 100px;
     text-align: center;
+	}
+
+}
+
+@media (max-width: 767px) {
+	.featurette-image {
+		display:none;
+	}
+
+	.intro h1 {
+		font-size: 22px;
+	}
+
+	.intro h2 {
+		font-size: 16px;
 	}
 
 }
