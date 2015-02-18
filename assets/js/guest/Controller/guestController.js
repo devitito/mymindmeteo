@@ -1,6 +1,6 @@
 
-var homepageCtrl = guestControllers.controller('homepageCtrl', ['$scope', '$location', 'sessionFactory', 'flash',
-    function ($scope, $location, sessionFactory, flash) {
+var homepageCtrl = guestControllers.controller('homepageCtrl', ['$scope', '$location', '$anchorScroll', 'sessionFactory', 'flash',
+    function ($scope, $location, $anchorScroll, sessionFactory, flash) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -15,5 +15,17 @@ var homepageCtrl = guestControllers.controller('homepageCtrl', ['$scope', '$loca
 					$location.path('/session/new');
 				});
 			};
+
+			$scope.gotoAnchor = function(id) {
+				if ($location.hash() !== id) {
+					// set the $location.hash to `newHash` and
+					// $anchorScroll will automatically scroll to it
+					$location.hash(id);
+				} else {
+					// call $anchorScroll() explicitly,
+					// since $location.hash hasn't changed
+					$anchorScroll();
+				}
+    };
 }]);
 

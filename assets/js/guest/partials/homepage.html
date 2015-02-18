@@ -2,63 +2,89 @@
 <link type="text/css" href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet'/>
 
 <!--'%- partial ('partials/navbar-logged-out.ejs')%-->
-<div ng-include src="'js/guest/partials/navbar-logged-out.html'"></div>
-<div class="site-wrapper">
-	<div class="container text-center">
+<div ng-include src="'js/guest/partials/navbar-landing.html'"></div>
 
-	   <p style="font-family: 'Gloria Hallelujah', cursive; font-size:40px;">
-	   	Spend more time enjoying yourself and less time trying to make your life interesting.<br> We do it for you!
-	   </p>
-	   <p style="font-family: 'Gloria Hallelujah', cursive; font-size:55px;">
-	   	Based on a true story: your life!
-	   	</p>
-	    <img src="/images/logo.png">
-	    <br> <br>
-	    <p style="font-family: 'Gloria Hallelujah', cursive; font-size:20px;">
-	    	Our fully qualified meteorologsits will issue reports for you, and then... just address them to whoever you want:<br>your lover,<br>your mama,<br> your friends,<br>your boss....
-	    </p>
-	   <br>
-			<button name="submitlogin" ng-click="takeTourNow()" class="btn btn-meteo btn-lg">Take a tour now!</button>
-		<hr class="featurette-divider">
-	   <div class="row featurette">
-         <div class="col-md-8">
-          <h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">1. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Let our sensor mesure the meteo inside your mind</span></h2>
-          <p class="lead">Answer a couple of our offbeat questions with our application. It is really easy to use. Soon it's sense of humour will make it your best friend!
-          <br>And hey! We are so cool that we let you use our questions during your dinner in town: success garantee and free of royalties.
-          <br>Thanks who?!</p>
-        </div>
-         <div class="col-md-1"></div>
-        <div class="col-md-3">
-          <img src="/images/placeholder.png" class="featurette-image">
-        </div>
-      </div>
+<header id="top" class="intro">
+	<div class="intro-body">
+		<div class="container">
+			<div class="row vertical-align">
+				<!--<p style="font-family: 'Gloria Hallelujah', cursive; font-size:40px;">
+				Spend more time enjoying yourself and less time trying to make your life interesting.<br> We do it for you!
+				</p>-->
+			 <!--<p style="font-family: 'Gloria Hallelujah', cursive; font-size:55px;">
+				Based on a true story: your life!
+				</p>-->
+				<div class="col-md-4 col-xs-12 text-center">
+					<img src="/images/logo.png">
+				</div>
+				<!--<p style="font-family: 'Gloria Hallelujah', cursive; font-size:20px;">
+					Our fully qualified meteorologsits will issue reports for you, and then... just address them to whoever you want:<br>your lover,<br>your mama,<br> your friends,<br>your boss....
+				</p>-->
+			 	<div class="col-md-8 col-xs-12 text-center">
+					<h1 style="font-family: 'Gloria Hallelujah', cursive;">Discover the meteo of your mind.</h1>
+					<h2 style="font-family: 'Gloria Hallelujah', cursive;">Measure, Amaze, Enjoy!</h2>
+					<br>
+					<button name="submitlogin" ng-click="takeTourNow()" class="btn btn-meteo btn-lg">Take a tour now!</button>
+			 	</div>
+			</div>
 
-       <div class="row featurette">
-        <div class="col-md-3">
-        	<img src="/images/placeholder.png" class="featurette-image img-responsive" data-src="holder.js/300x300/auto" alt="300x300">
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-           <h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">2. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Our meteologists will cook a weather report for whoever you want</span></h2>
-           <p class="lead">Our team of dedicated meteo specialists will analyse your data and show your life in a new light.
-           <br>You think nothing happens in your life? Trust our scientifics, they are scientifics, they'll extract a gold mine of informations from irrelevant facts.
-           <br>You think this is the job of your life? You can join them!
-          <br>Thanks who?!</p>
-        </div>
-      </div>
-
-        <div class="row featurette">
-         <div class="col-md-8">
-          <h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">3. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Enjoy!!</span></h2>
-          <p class="lead">Everybody wants to be your friend, everybody wants to hangout with a guy that have a thousand adventure a day.
-          <br>Your mama is happy, girls love you, you are popular and it didn't cost you a penny and it took the time to click on a button. What a ROI for answering a couple of questions a day!
-          <br>Thanks who?!</p>
-        </div>
-         <div class="col-md-1"></div>
-        <div class="col-md-3">
-          <img src="/images/placeholder.png" class="featurette-image">
-        </div>
-      </div>
-
+			<div class="row text-center" style="padding-top:10%">
+				<a href="" ng-click="gotoAnchor('measure')" class="btn btn-circle">
+					<i class="fa fa-angle-double-down animated"></i>
+				</a>
+			</div>
+		</div>
 	</div>
-</div>
+</header>
+
+<section id="measure" class="container content-section text-center" style="height:100%">
+	<div class="row featurette">
+		<div class="col-md-8">
+			<h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">1. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Let our sensor mesure the meteo inside your mind</span></h2>
+			<p class="lead">Answer a couple of our offbeat questions with our application. It is really easy to use. Soon it's sense of humour will make it your best friend!
+				<br>And hey! We are so cool that we let you use our questions during your dinner in town: success garantee and free of royalties.
+				<br>Thanks who?!</p>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-3">
+			<img src="/images/placeholder.png" class="featurette-image">
+		</div>
+	</div>
+</section>
+
+<section id="amaze" class="container content-section text-center" style="height:100%">
+	<div class="row featurette">
+		<div class="col-md-3">
+			<img src="/images/placeholder.png" class="featurette-image img-responsive" data-src="holder.js/300x300/auto" alt="300x300">
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-8">
+			<h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">2. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Our meteologists will cook a weather report for whoever you want</span></h2>
+			<p class="lead">Our team of dedicated meteo specialists will analyse your data and show your life in a new light.
+				<br>You think nothing happens in your life? Trust our scientifics, they are scientifics, they'll extract a gold mine of informations from irrelevant facts.
+				<br>You think this is the job of your life? You can join them!
+				<br>Thanks who?!</p>
+		</div>
+	</div>
+</section>
+
+<section id="enjoy" class="container content-section text-center" style="height:100%">
+	<div class="row featurette">
+		<div class="col-md-8">
+			<h2 class="featurette-heading" style="font-family: 'Gloria Hallelujah', cursive;">3. <span class="text-muted" style="font-family: 'Gloria Hallelujah', cursive;">Enjoy!!</span></h2>
+			<p class="lead">Everybody wants to be your friend, everybody wants to hangout with a guy that have a thousand adventure a day.
+				<br>Your mama is happy, girls love you, you are popular and it didn't cost you a penny and it took the time to click on a button. What a ROI for answering a couple of questions a day!
+				<br>Thanks who?!</p>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-3">
+			<img src="/images/placeholder.png" class="featurette-image">
+		</div>
+	</div>
+
+	<div class="row text-center" style="padding-top:10%">
+		<a href="" ng-click="gotoAnchor('top')" class="btn btn-circle">
+			<i class="fa fa-angle-double-up animated"></i>
+		</a>
+	</div>
+</section>

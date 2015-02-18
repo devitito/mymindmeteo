@@ -44,6 +44,64 @@ fieldset[disabled] .btn-meteo.active {
   background-color: #FFFFFF; 
 }
 
+.btn-mindmeteo-inverse {
+  color: #00ADEF;
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+	text-transform: uppercase;
+}
+
+.btn-mindmeteo-inverse:hover,
+.btn-mindmeteo-inverse:focus,
+.btn-mindmeteo-inverse:active,
+.btn-mindmeteo-inverse.active,
+.open .dropdown-toggle.btn-mindmeteo-inverse {
+  color: #FFFFFF;
+  background-color: #00ADEF;
+  border-color: #FFFFFF;
+	text-transform: uppercase;
+}
+
+.btn-mindmeteo-inverse:active,
+.btn-mindmeteo-inverse.active,
+.open .dropdown-toggle.btn-mindmeteo-inverse {
+  background-image: none;
+	text-transform: uppercase;
+}
+
+.btn-mindmeteo-inverse.disabled,
+.btn-mindmeteo-inverse[disabled],
+fieldset[disabled] .btn-mindmeteo-inverse,
+.btn-mindmeteo-inverse.disabled:hover,
+.btn-mindmeteo-inverse[disabled]:hover,
+fieldset[disabled] .btn-mindmeteo-inverse:hover,
+.btn-mindmeteo-inverse.disabled:focus,
+.btn-mindmeteo-inverse[disabled]:focus,
+fieldset[disabled] .btn-mindmeteo-inverse:focus,
+.btn-mindmeteo-inverse.disabled:active,
+.btn-mindmeteo-inverse[disabled]:active,
+fieldset[disabled] .btn-mindmeteo-inverse:active,
+.btn-mindmeteo-inverse.disabled.active,
+.btn-mindmeteo-inverse[disabled].active,
+fieldset[disabled] .btn-mindmeteo-inverse.active {
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+	text-transform: uppercase;
+}
+
+.btn-mindmeteo-inverse .badge {
+  color: #FFFFFF;
+  background-color: #00ADEF;
+	text-transform: uppercase;
+}
+
+.navbar-landing {
+    font-size: 14px;
+    background-color: #fff;
+    border-width: 0px;
+    border-radius: 0px;
+}
+
 .loading-container {
     position: relative;
 }
@@ -188,4 +246,97 @@ fieldset[disabled] .btn-meteo.active {
 .nav-pills > li.active > a:focus {
   color: #fff;
   background-color: #00ADEF;
+}
+
+.navbar-landing {
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 1);
+    border-width: 0px;
+    border-radius: 0px;
+}
+
+.navbar-landing .navbar-toggle {
+    border-color: #ddd;
+}
+.navbar-landing .navbar-toggle:hover,
+.navbar-landing .navbar-toggle:focus {
+    background-color: #ddd;
+}
+.navbar-landing .navbar-toggle .icon-bar {
+    background-color: #888;
+}
+.navbar-landing .navbar-toggle:hover .icon-bar,
+.navbar-landing .navbar-toggle:focus .icon-bar {
+    background-color: #888;
+}
+
+/* Large devices */
+@media (min-width: 440px) {
+    .vertical-align {
+        display: flex;
+        align-items: center;
+    }
+
+	.intro {
+    width: 100%;
+    /*height: auto;*/
+    padding: 100px 0 100px;
+    text-align: center;
+	}
+
+}
+
+.intro {
+		display: table;
+    height: 100vh;
+    padding: 0 0 0 0;
+	}
+
+.intro .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.content-section {
+    padding-top: 15%;
+}
+
+.btn-circle {
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    padding: 7px 16px;
+    border: 2px solid #00ADEF;
+    border-radius: 35px;
+    font-size: 40px;
+    color: #00ADEF;
+    background: 0 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.btn-circle:hover,
+.btn-circle:focus {
+    outline: 0;
+    color: #00ADEF;
+    background: rgba(255,255,255,.1);
+}
+
+.btn-circle i.animated {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+}
+
+.btn-circle:hover i.animated {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
 }
