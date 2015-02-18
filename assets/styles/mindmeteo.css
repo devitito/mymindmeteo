@@ -1,3 +1,8 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
 .btn-meteo { 
   color: #FFFFFF; 
   background-color: #00ADEF; 
@@ -100,6 +105,12 @@ fieldset[disabled] .btn-mindmeteo-inverse.active {
     background-color: #fff;
     border-width: 0px;
     border-radius: 0px;
+}
+
+div.container a.brand {
+    background: url("/images/bluebubble-regular.png") no-repeat scroll 0 7px transparent;
+    margin-left: 0;
+    padding: 8px 25px 34px 25px;
 }
 
 .loading-container {
