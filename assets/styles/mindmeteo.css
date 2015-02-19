@@ -289,7 +289,7 @@ div.container a.brand {
 
 .intro .intro-body {
     display: table-cell;
-    /*vertical-align: middle;*/
+    vertical-align: middle;
 }
 
 .content-section {
@@ -359,6 +359,32 @@ div.container a.brand {
 @media (max-width: 767px) {
 	.featurette-image {
 		display:none;
+	}
+
+	.intro h1 {
+		font-size: 22px;
+	}
+
+	.intro h2 {
+		font-size: 16px;
+		margin-bottom: 5px;
+		margin-top: 5px;
+	}
+
+	.intro img {
+		height: 175px;
+		width: auto;
+	}
+}
+
+@media (max-width: 359px) {
+	.featurette-image {
+		display:none;
+	}
+
+	.intro .intro-body {
+    display: table-cell;
+    vertical-align: top;
 	}
 
 	.intro h1 {
