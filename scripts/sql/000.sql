@@ -1,7 +1,7 @@
-/*
 ALTER TABLE `mymeteo`.`samples`
 ADD COLUMN `report_format` VARCHAR(128) NULL DEFAULT NULL AFTER `sensor_id` ;
-*/
+
+
 update mymeteo.samples set report_format='I like to be clean, that\'s why I cleaned my teeth in the morning.' where id='54353cacaf2aa';
 update mymeteo.samples set report_format='Do you think cleaning my teeth is my priority? No! I have other things to do in life!' where id='54353cacaf337';
 update mymeteo.samples set report_format='Despite all the bad press around it garlig is healthy and I like it, so I ate some lately' where id='54353cc690402';
