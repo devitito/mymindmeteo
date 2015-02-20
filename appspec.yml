@@ -12,6 +12,8 @@ hooks:
   AfterInstall:
     - location: scripts/installdependencies.sh
       runas: root
+    - location: scripts/runsql.sh
+      runas: root
   ApplicationStart:
     - location: scripts/restartforever.sh
       runas: root
