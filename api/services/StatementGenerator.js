@@ -6,13 +6,14 @@
  */
 
 var promise = require('bluebird');
+var Readable = require('stream').Readable
 
 function randomIntFromInterval(min,max)
 {
 	return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-var save = function (deferred, statement) {
+function save (deferred, statement) {
 	Statement.create(statement)
 	.then(function(createdStatement) {
 		deferred.resolve(createdStatement);
@@ -22,15 +23,38 @@ var save = function (deferred, statement) {
 	});
 };
 
-var processTemplate = function(deferred, report, mindid) {
-	console.log(report.template);
-	//todo: transform template into plain text
-	return {
-		body: report.template,
-		notread: true,
-		mind: mindid,
-		report: report.id
-	};
+function processTemplate(deferred, report, mindid) {
+	//Convert report.template into stream
+	var input = new Readable;
+	input.setEncoding('utf8');
+	input.push(report.template)
+	input.push(null)      // indicates end-of-file basically - the end of the stream
+
+	//Throw report.template through the report parser
+	var parser = ReportParser.new({decodeStrings: false});
+	input.pipe(parser);
+
+	//collect the output stream in a string
+	var body = '';
+	parser.on('data', function(chunk) {
+  	body += chunk;
+	});
+
+	//Handle streams events
+	parser.on('end', function() {
+		var statement = {
+			body: body,
+			notread: true,
+			mind: mindid,
+			report: report.id
+		};
+
+		save(deferred, statement);
+	});
+
+	parser.on('error', function(err) {
+		deferred.reject(err);
+	});
 };
 
 module.exports.generate = function(mindid) {
@@ -45,8 +69,7 @@ module.exports.generate = function(mindid) {
 			//pick a random report from this list and generate statement
 			Report.findOneById(randomIntFromInterval(1, count+1))
 			.then(function (report) {
-				var statement = processTemplate(deferred, report, mindid);
-				save(deferred, statement);
+				processTemplate(deferred, report, mindid);
 			});
 		});
 	})

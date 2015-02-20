@@ -32,7 +32,7 @@ module.exports.query = function(options) {
 				}*/
 				query: {
 					match: {
-						id: randomIntFromInterval(1, options.count)
+						id: randomIntFromInterval(1, options.count+1)
 					}
 				}
 			}
