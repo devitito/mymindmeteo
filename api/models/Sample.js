@@ -45,6 +45,13 @@ module.exports = {
 			required: true,
 			notNull: true
 		},
+		report_format: {
+			type: 'string',
+			size: 128,
+			maxLength: 32,
+			DefaultTo: null
+			//model: 'Label'
+		},
 		sensor_id: {
 			//notNull: true,
 			//required: true,
@@ -59,5 +66,6 @@ module.exports = {
 	beforeCreate: function(values, next) {
 	  values.id = uuid.v4();
 		next();
-  }
+  },
+
 };

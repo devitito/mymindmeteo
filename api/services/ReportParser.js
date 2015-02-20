@@ -48,7 +48,6 @@ parser.prototype._transform = function(data, encoding, done) {
 			anchors.forEach(function(anchor) {
 				replaced = replaced.replace(anchor.raw, anchor.answer.en);
 			});
-			console.log(replaced);
 			context.push(replaced);
 			done();
 		}

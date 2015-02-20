@@ -145,6 +145,7 @@ module.exports.connect = function() {
 											'id' : {type : 'string', include_in_all : true},
 											'label' : {type : 'string', include_in_all : true},
 											'value' : {type : 'integer', include_in_all : true},
+											'report_format': {type : 'string', include_in_all : true},
 										}
 									}
 								}
