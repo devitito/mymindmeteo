@@ -63,7 +63,7 @@ module.exports = {
 					value: sample.value,
 					mind: {name: mind.name, id: mind.id, email: mind.email, joindate: moment.utc(mind.joindate).format('YYYY-MM-DD HH:mm:ss')},
 					sensor: {label: sensor.label, meteologist: sensor.meteologist},
-					sample: sample.label,
+					sample: {label: sample.label, report_format: sample.report_format},
 					tstamp: moment.utc(record.date).format('YYYY-MM-DD HH:mm:ss'),
 					day: moment.utc(record.date).tz(mind.timezone).day(),
 					hour: moment.utc(record.date).tz(mind.timezone).hour(),

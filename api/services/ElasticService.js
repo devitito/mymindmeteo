@@ -164,7 +164,13 @@ module.exports.connect = function() {
 								properties: {
 									'id' : {type: 'string', include_in_all: false},
 									'topic' : {type : 'string', include_in_all: true},
-									'sample': {type : 'string', include_in_all: true},
+									'sample': {
+										'type' : 'object',
+										'properties' : {
+											'label' : {type : 'string', include_in_all: true},
+											'report_format' : {type : 'string', include_in_all: true},
+										}
+									},
 									'value': {type : 'integer', include_in_all: true},
 									'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
 									'day': {type : 'integer', include_in_all: true},

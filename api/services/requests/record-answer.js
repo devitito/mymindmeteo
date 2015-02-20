@@ -70,13 +70,20 @@ module.exports.query = function(options) {
 
 module.exports.parse = function(result) {
 	var hits = result.hits.hits;
-	hits.forEach(function(hit) {
-		console.log(hit._source.sample);
-	});
-	return {
-		en: 'an answer',
-		fr: 'une réponse',
-		es: 'una respuesta'
-	};
-
+	try {
+		/*hits.forEach(function(hit) {
+			console.log(hit._source.sample.report_format);
+		});*/
+		return {
+			en: hits[0]._source.sample.report_format,
+			fr: '',
+			es: ''
+		};
+	} catch (e) {
+		return {
+			en: 'censored for technical reasons',
+			fr: 'censuré pour des raisons techniques',
+			es: ''
+		};
+	}
 };
