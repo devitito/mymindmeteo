@@ -56,7 +56,13 @@ module.exports = {
 		records: {
 			collection: 'Record',
 			via: 'sensor_id'
-		}
+		},
+
+		toJSON: function() {
+      var obj = this.toObject();
+      delete obj.records;
+      return obj;
+    }
   },
 
 	toIndexable: function (options, cb) {
