@@ -31,7 +31,7 @@ function processTemplate(deferred, report, mindid) {
 	input.push(null)      // indicates end-of-file basically - the end of the stream
 
 	//Throw report.template through the report parser
-	var parser = ReportParser.new({decodeStrings: false});
+	var parser = ReportParser.new({decodeStrings: false, mindid: mindid});
 	input.pipe(parser);
 
 	//collect the output stream in a string

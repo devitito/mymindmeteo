@@ -17,12 +17,13 @@ module.exports.new = function(options)
 };
 
 function parser(options)
-	{
-  	if (!(this instanceof parser))
-			return new parser(options);
+{
+	this.mindid = options.mindid;
+	if (!(this instanceof parser))
+		return new parser(options);
 
-		Transform.call(this, options);
-	};
+	Transform.call(this, options);
+};
 
 
 parser.prototype._transform = function(data, encoding, done) {
@@ -31,7 +32,8 @@ parser.prototype._transform = function(data, encoding, done) {
 	var context = this;
 
 	async.each(anchors, function(anchor, callback) {
-		ElasticService.request('record-answer', {id: "1", topic:anchor.topic, range:anchor.range})
+		console.log("mindid : " + context.mindid);
+		ElasticService.request('record-answer', {id: context.mindid, topic:anchor.topic, range:anchor.range})
 		.then(function(answer) {
 			anchor.answer = answer;
 			callback();
@@ -48,7 +50,6 @@ parser.prototype._transform = function(data, encoding, done) {
 			anchors.forEach(function(anchor) {
 				replaced = replaced.replace(anchor.raw, anchor.answer.en);
 			});
-			context.push(replaced);
 			done();
 		}
 	});
