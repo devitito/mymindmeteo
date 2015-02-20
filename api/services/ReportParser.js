@@ -50,6 +50,7 @@ parser.prototype._transform = function(data, encoding, done) {
 			anchors.forEach(function(anchor) {
 				replaced = replaced.replace(anchor.raw, anchor.answer.en);
 			});
+			context.push(replaced);
 			done();
 		}
 	});
