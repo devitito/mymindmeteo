@@ -38,6 +38,7 @@ CREATE TABLE mymeteo.samples (
   img varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   topic varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   value int(11) NOT NULL,
+	report_format varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (id),
   KEY FK_19925777A247991F_idx (sensor_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -141,6 +142,7 @@ INSERT INTO mymeteo.sensors (id,label,img,topic,meteologist,status) VALUES (55,'
 INSERT INTO mymeteo.sensors (id,label,img,topic,meteologist,status) VALUES (56,'Did you take your car to go to work this morning?',NULL,'money','Mind Meteo','approved');
 INSERT INTO mymeteo.sensors (id,label,img,topic,meteologist,status) VALUES (57,'Did you recycle the garbage yesterday?',NULL,'health','Mind Meteo','approved');
 
+/*
 INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('54353cacaf2aa',1,'Yes',NULL,'love',0);
 INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('54353cacaf337',1,'No',NULL,'love',-3);
 INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('54353cc690402',2,'Yes',NULL,'love',-5);
@@ -254,7 +256,122 @@ INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('545cc3
 INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('545cc43c08da7',56,'I cannot do without!',NULL,'money',-7);
 INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('545cc43c08e1f',56,'No car for me today!',NULL,'money',4);
 INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('545cc4fb53874',57,'I always do',NULL,'health',2);
-INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('545cc4fb538f9',57,'I put everything in the same bag',NULL,'health',-3);
+INSERT INTO mymeteo.samples (id,sensor_id,label,img,topic,value) VALUES ('545cc4fb538f9',57,'I put everything in the same bag',NULL,'health',-3);*/
+
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353cacaf2aa','Yes',NULL,'love',0,NULL,1);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353cacaf337','No',NULL,'love',-3,NULL,1);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353cc690402','Yes',NULL,'love',-5,NULL,2);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353cc69048f','No',NULL,'love',0,NULL,2);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353d35dbf12','Yes',NULL,'health',-3,NULL,3);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353d35dbf9f','No',NULL,'health',0,NULL,3);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353d7e0e378','F***k you! No!',NULL,'health',-5,'God damn. I wasted I don\'t know how many hours to find a parking spot!',4);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353d7e0e404','Yes what a luck!','','health',7,'I was so lucky thansks god, I found a parking spot immediately',4);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353da6d5b73','Yes',NULL,'money',-6,NULL,5);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353da6d5bff','No',NULL,'money',0,NULL,5);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353dc6698ca','Yes',NULL,'health',-6,NULL,6);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353dc669954','No',NULL,'health',0,NULL,6);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353de177f64','Yes',NULL,'money',-1,NULL,7);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353de177ff0','No',NULL,'money',2,NULL,7);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e1b60e7e','Yes',NULL,'love',-2,NULL,8);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e1b60f08','No',NULL,'love',0,NULL,8);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e4067385','Yes',NULL,'love',-10,NULL,9);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e4067411','No',NULL,'love',5,NULL,9);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e5ee0579','Yes',NULL,'health',-5,NULL,10);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e5ee0607','No',NULL,'health',0,NULL,10);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e8ea0538','Soft and good',NULL,'health',5,'My poo is perfect. I\'m in good condition',11);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353e8ea05c5','Hard or liquid','','health',-5,'I\'m not feeling too good. My poo is not nice to see...',11);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353ea94cb90','Yes',NULL,'money',-1,NULL,12);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353ea94cc24','No',NULL,'money',0,NULL,12);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353ed5e4e39','Yes',NULL,'health',5,NULL,13);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353ed5e4ec6','No',NULL,'health',-1,NULL,13);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353f03cff1b','Yes',NULL,'health',2,NULL,14);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353f03cffa9','No',NULL,'health',-3,NULL,14);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353f3f3fd2a','Yes',NULL,'health',-5,NULL,15);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353f3f3fdb4','No',NULL,'health',3,NULL,15);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353f65a14f8','Yes',NULL,'health',10,NULL,16);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353f65a1588','No',NULL,'health',-3,NULL,16);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353fc080854','Yes I have to go there!',NULL,'money',-5,NULL,17);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54353fc0808e1','Nothing new for a while',NULL,'money',5,NULL,17);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543540318251b','Yes',NULL,'money',-3,NULL,18);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54354031825a6','No',NULL,'money',2,NULL,18);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c0365d65a','Yes',NULL,'love',0,NULL,19);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c0365d6ea','No',NULL,'love',-5,NULL,19);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c05f0c0b8','Cat',NULL,'money',3,NULL,20);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c05f0c147','Dog',NULL,'money',-3,NULL,20);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c08d1b5bf','Big time!',NULL,'health',10,'I scored yesterday! And I didn\'t pay a penny!',21);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c08d1b64e','Nop...','','health',-5,'I didn\'t score but I didn\'t spend a penny either...',21);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c0c545603','Bar',NULL,'money',-5,NULL,22);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c0c5456d8','Exercice',NULL,'money',5,NULL,22);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c0f7045b1','A new pair of socks',NULL,'money',-1,'I only need a new pair of socks',23);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c0f704647','A new trowser','','money',-5,'I really need a new trouser. It will cost me all my economies',23);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c12a92160','Yes',NULL,'health',-3,NULL,24);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5437c12a921f1','No',NULL,'health',3,NULL,24);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543d141bb0ec1','Yes',NULL,'money',-1,NULL,25);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543d141bb0f45','No',NULL,'money',1,NULL,25);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543d14cd0aa1b','On your way back from the pub',NULL,'money',-5,'I met my neighboor after an evening at the pub. Their eyes were guns!',26);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543d14cd0aaa3','After running an hour','','money',5,'My neighboor are lucky to have me. I\'m the perfect neighboor.',26);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543f90402ac15','Yes',NULL,'money',-3,NULL,27);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543f90402ad2b','No',NULL,'money',3,NULL,27);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543f912a7be95','Oups... Yes :)',NULL,'love',-5,'Don\'t repeat but I farted in bed. ',28);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543f912a7bf51','Nooo!','','love',5,'I\'m proud to say that I didn\'t fart in bed.',28);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543fbe3aeafb5','Yes sorry...',NULL,'love',-3,NULL,29);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543fbe3aeb047','Pfff! No! I aimed in target!',NULL,'love',1,NULL,29);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543fbe6adf2e3','Of course!',NULL,'love',3,NULL,30);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('543fbe6adf369','Oups... I was in a hurry!',NULL,'love',-3,NULL,30);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('544104a9595cb','Definit-ly!',NULL,'love',2,'I was a wonderfull day for my hair. They obey!',31);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('544104a959de0','I want to be bold!',NULL,'love',-3,'I wished I was bold. My hair were having a revolution... ',31);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b54e8b7f6','Yeah! Like a fireman doc!',NULL,'health',-5,'I smoked like a fireman.',32);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b54e8b854','Uh Uh no mama!',NULL,'health',5,'I didn\'t smoke.',32);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b60fe4807','Yes! I\'m free man',NULL,'health',5,NULL,33);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b60fe4863','I can\'t! I\'ve to pay the bills!',NULL,'health',-5,NULL,33);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b64cc791b','Kebab/Hamburger/pizza',NULL,'health',-7,NULL,34);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b64cc7975','Salad',NULL,'health',7,NULL,34);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b67a11912','I was fired... OMG!',NULL,'money',-10,NULL,35);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5453b67a1196b','Not this time!',NULL,'money',3,NULL,35);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577b0e6007a','Yes! A year ago!',NULL,'love',-3,'last time I was at the hairdresser was a year ago!',36);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577b0e600fd','Less than a week ago!',NULL,'love',3,'I cut my hair and I look better!',36);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577b601df2d','They made the looser that I am!',NULL,'love',-6,'If I\'m not well in my skin it is because my parents didn\'t let me watch tv when I was younger',37);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577b601dfb1','Not at all! This is the past!',NULL,'love',8,'Despite the fact that my parents didn\'t let me watch tv when I was kid, I\'m a fine adult now!',37);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577b9bf296f','Every day dear!',NULL,'health',3,'as usual my compost basket is smelly and the meeting point of all the flies in the neigborhood.',38);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577b9bf2a61','What\'s compost? Is it eatable?',NULL,'health',-3,'somebody well informed told me about compost today. I\'ll think about it next time.',38);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577becc5a82','She is green like the amazonian!',NULL,'love',5,'I take care of everything. My plant is green like the amazonian forest',39);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('54577becc5f10','Oh! That\'s why it\'s all yellow!',NULL,'love',-7,'I can\'t even take care of my green plant. It is all dry and yellow...',39);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459eb5f8a4be','I always do!',NULL,'money',-2,'I always leave a tip',40);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459eb5f8a543','No! A penny is a penny!','','money',1,'I never leave a tip',40);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ebc40bbde','Not more than 5 minutes',NULL,'health',5,NULL,41);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ebc40bcd4','I wasted too much time there...',NULL,'health',-3,NULL,41);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ec0ff24cb','I have 2 legs to use them! ',NULL,'health',7,'since I have 2 legs I walked my 30 minutes a day',42);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ec0ff25d7','I\'ve a car to use it! You fart!',NULL,'health',-5,'since I have a car I used it instead of my 2 legs',42);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ece28489e','I needed to know...',NULL,'love',-9,NULL,43);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ece284923','No! We are in harmony!',NULL,'love',10,NULL,43);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ed2511db0','More than one!',NULL,'health',3,'I had several coffee breaks. It is important to slow down!',44);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ed2511e43','No time!',NULL,'health',-3,'I had no time to take a coffee break. I\'m very stressed!',44);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ed5fdf779','Yes!',NULL,'health',3,NULL,45);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459ed5fdf7fe','No, it was crap!',NULL,'health',-3,NULL,45);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459eda7cdc25','Yeah! I was dancing :)',NULL,'health',6,'I was dancing on one of my favorite song',46);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459eda7cdcdd','Only crap...',NULL,'health',-3,'I hear only crapy songs.',46);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459f6b3e73a5','I\'m preoccupied you know...',NULL,'money',-2,'One more time I throw a roll of toilet paper in the bowl full of crap... I had to take it back. Beurk!',47);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459f6b3e74ac','Com\'on! I\'m sharp like brus Lee!',NULL,'money',2,'I\'m not the kind of person to drop a roll of toilet paper in a bowl full of crap!',47);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459f7a645724','Yes! My Baby can take a shower!',NULL,'love',5,'I cleaned the bathroom and the shower. No mushroom farm there! It is shining and fresh!',48);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459f7a6457a6','What for?',NULL,'love',-5,'I like my bathroom with mushrom.',48);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459f7e7c406e','Yes! My Baby can jump in!',NULL,'love',7,'I changed my bed sheets. It smells so good!',49);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('5459f7e7c4164','What for?',NULL,'love',-5,'I was thinking to change my bed sheets but then I thought: why would I do that?!',49);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b89031b877','Yes and even more!!',NULL,'health',5,'I\'m eating well, I ate my 5 vegetables a day, and they were not even in can!',50);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b89031b8fd','I\'m carnivore!',NULL,'health',-3,'Screw what they say on tv. I won\'t eat 5 vegetables a day. I like meat and basta!',50);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b895955868','Yes, for our own sake',NULL,'love',-10,NULL,51);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b8959558f1','I accept the differences',NULL,'love',10,NULL,51);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b89be0bf6e','Yes, again...',NULL,'love',-5,NULL,52);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b89be0bff0','My baybay accepts me like I am!',NULL,'love',10,NULL,52);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b8a289f511','Yes. I was fair but firm',NULL,'love',5,'I had to say no to my Baby. I was firm but fair as usual.',53);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b8a289f5bd','I do what I\'m asked...',NULL,'love',-10,'My Baybay ask me to jump the bridge I jump the bridge! I\'m in love you know...',53);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b9890df424','hum... Actually yes!',NULL,'love',10,'I made a new friend!',54);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545b9890df52d','Not that I know of...',NULL,'love',-1,'No new friend on sight. Still hanging with the same old gang',54);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545cc3f76bd9b','Yeap! Cooked it yesterday!',NULL,'money',5,'I had my lunch box today. I saved lots of cash!',55);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545cc3f76be1e','I\'ll go to the restaurant!',NULL,'money',-3,'I didn\'t have my lunch box so I had to spend half of my salary in the restaurant',55);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545cc43c08da7','I cannot do without!',NULL,'money',-7,NULL,56);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545cc43c08e1f','No car for me today!',NULL,'money',4,NULL,56);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545cc4fb53874','I always do',NULL,'health',2,NULL,57);
+INSERT INTO `mymeteo.samples` (`id`,`label`,`img`,`topic`,`value`,`report_format`,`sensor_id`) VALUES ('545cc4fb538f9','I put everything in the same bag',NULL,'health',-3,NULL,57);
 
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('543542433bb5d','1',2,'54353cc69048f','2014-10-08 13:55:15');
 INSERT INTO mymeteo.records (id,mind_id,sensor_id,sample_id,date) VALUES ('5435424787f05','1',1,'54353cacaf337','2014-10-08 13:55:19');
