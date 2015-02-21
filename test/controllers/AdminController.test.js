@@ -7,7 +7,7 @@ var AdminController = require('../../api/controllers/AdminController'),
 		should = require('should');
 
 describe('The Admin Controller', function () {
-	describe('when index action is called', function () {
+	/*describe('when index action is called', function () {
 
 		beforeEach(function(done) {
 			request(sails.hooks.http.app)
@@ -39,7 +39,7 @@ describe('The Admin Controller', function () {
 				.expect(403)
 				.expect('You must be an admin.', done);
 		});
-	});
+	});*/
 
 	/*describe('when online action is called', function () {
 
