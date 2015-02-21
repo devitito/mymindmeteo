@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	index: function(req, res, next) {
+	query: function(req, res, next) {
 		var request = (req.param('filter') === undefined) ? 'sensor-list' : 'sensor-list-filter';
 
 		ElasticService.request(request, {count: req.param('count'), page: req.param('page'), filter: req.param('filter')}, function sensorList(err, list) {
