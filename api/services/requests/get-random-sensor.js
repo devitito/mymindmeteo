@@ -7,7 +7,12 @@
 
 function randomIntFromInterval(min,max)
 {
-	return Math.floor(Math.random()*(max-min+1)+min);
+	var val = 58;
+	while ((val >= 58) && (val < 64)) {
+		val = Math.floor(Math.random()*(max-min+1)+min);
+	}
+
+	return val;
 }
 
 module.exports.query = function(options) {
