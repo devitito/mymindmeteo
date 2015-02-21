@@ -47,8 +47,7 @@ module.exports = {
 		},
 		report_format: {
 			type: 'string',
-			size: 128,
-			maxLength: 32,
+			size: 256,
 			DefaultTo: null
 			//model: 'Label'
 		},
