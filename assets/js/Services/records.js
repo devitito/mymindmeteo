@@ -41,32 +41,39 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal',  'statement
 
 		modalInstance.result
 		.then(function (records) {
-			if (records.length) {
-				scope.processing = true;
+			if (angular.isUndefined(records))
+			{
+				scope.processing = false;
+			}
+			else
+			{
+				if (records.length) {
+					scope.processing = true;
 
-				factory.save({id:scope.identity.id}, records)
-				.then(function (success) {
-					//update the climate
-					statsFactory.climate(scope.identity.name)
-					.then(function (climat) {
-						climateChartHelper.load(scope, climat);
-						//Generate the reports
-						statementsFactory.generate({id: scope.identity.id}).$promise
-						.then(function (reports) {
-							scope.tableParams.reload();
-							scope.processing = false;
-							scope.newReports = true;
-						})
-						.catch(function (error) {
-							scope.processing = false;
-							scope.error = error;
+					factory.save({id:scope.identity.id}, records)
+					.then(function (success) {
+						//update the climate
+						statsFactory.climate(scope.identity.name)
+						.then(function (climat) {
+							climateChartHelper.load(scope, climat);
+							//Generate the reports
+							statementsFactory.generate({id: scope.identity.id}).$promise
+							.then(function (reports) {
+								scope.tableParams.reload();
+								scope.processing = false;
+								scope.newReports = true;
+							})
+							.catch(function (error) {
+								scope.processing = false;
+								scope.error = error;
+							});
 						});
+					})
+					.catch(function (err) {
+						scope.processing = false;
+						scope.error = err.data;
 					});
-				})
-				.catch(function (err) {
-					scope.processing = false;
-					scope.error = err.data;
-				});
+				}
 			}
 		});
 	};
