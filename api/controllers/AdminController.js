@@ -6,9 +6,9 @@
  */
 
 module.exports = {
-	index: function(req, res, next) {
+/*	index: function(req, res, next) {
 		res.view();
-	},
+	},*/
 
 	/*'online': function(req, res) {
 		res.json(req.session.Mind);

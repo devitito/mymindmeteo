@@ -2,10 +2,10 @@
 
 var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router']);
 
-var adminServices = angular.module('adminServices', ['ngResource']);
-var adminControllers = angular.module('adminControllers', []);
 var guestServices = angular.module('guestServices', ['ngResource']);
 var mindServices = angular.module('mindServices', ['ngResource']);
+var adminServices = angular.module('adminServices', ['ngResource']);
+var adminControllers = angular.module('adminControllers', []);
 var guestControllers = angular.module('guestControllers', []);
 var mindControllers = angular.module('mindControllers', []);
 var adminDirectives = angular.module('adminDirectives', []);
@@ -89,6 +89,22 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 	when('/administrator/sensors', {
 		templateUrl: '/js/admin/partials/admin/sensors.html',
 		controller: 'sensorsCtrl'
+	}).
+	when('/administrator/sensors/new', {
+		templateUrl: '/js/admin/partials/sensor/new.html',
+		controller: 'NewSensorCtrl',
+		resolve: {
+			identity : function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
+			},
+			meteologistList: function(mindFactory) {
+				return mindFactory.fetchByRole({role: 'meteologist'}).$promise;
+			}
+		}
 	}).
 	when('/administrator/sensors/edit/:sensorId', {
 		templateUrl: '/js/admin/partials/sensor/edit.html',

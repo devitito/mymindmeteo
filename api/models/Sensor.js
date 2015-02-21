@@ -89,6 +89,19 @@ module.exports = {
 		})
 	},
 
+	afterCreate: function(createdRecord, cb) {
+		Sensor.toIndexable(createdRecord, function(err, indexable) {
+			if (err) return cb(err);
+
+			ElasticService.index('sensors', indexable, function IndexedSensor(err, res) {
+				if (err) return cb(err);
+
+				console.log('new sensor indexed in elasticsearch');
+				cb();
+			});
+		});
+	},
+
 	afterUpdate: function(updatedRecord, cb) {
 		Sensor.toIndexable(updatedRecord, function(err, indexable) {
 			if (err) return cb(err);

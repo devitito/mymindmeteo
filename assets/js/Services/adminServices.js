@@ -7,14 +7,6 @@ adminServices.factory('mindFactory', ['$resource', function($resource){
     });
 }]);
 
-adminServices.factory('sensorFactory', ['$resource', function($resource){
-	return $resource('/sensor/:id', {id: '@id'}, {
-		query: {method:'GET', isArray:false},
-		update: {method:'PUT'},
-		suggest: {method:'GET', url:'/sensor/suggest', isArray:true}
-	});
-}]);
-
 adminServices.factory('roles', [function(){
 		return [{code:'guest', name:'Guest'},
 		        {code:'demo', name:'Demo'},
@@ -22,12 +14,6 @@ adminServices.factory('roles', [function(){
 		        {code:'meteologist', name:'Meteologist'},
 		        {code:'validator', name:'Validator'},
 		        {code:'admin', name:'Administrator'}];
-}]);
-
-adminServices.factory('sensorStatus', [function(){
-	return [{code:'unapproved', name:'Unapproved'},
-	        {code:'approved', name:'Approved'},
-	        {code:'assigned', name:'Assigned'}];
 }]);
 
 adminServices.factory('timezones', [function(){

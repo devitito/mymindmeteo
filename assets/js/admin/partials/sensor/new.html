@@ -1,0 +1,74 @@
+<div ng-controller="adminNavBarCtrl" ng-include src="'js/admin/partials/admin/navbar-admin.html'"></div>
+<div class="row content">
+	<div class="col-lg-2 col-md-2 visible-desktop">
+		<ul class="nav nav-pills nav-stacked" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+	</div>
+	<div class="visible-phone">
+		<ul class="nav nav-pills" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+	</div>
+	<div class="col-lg-10 col-md-10">
+
+		<div ng-hide="error">
+		 <form novalidate>
+			<h1>Create a new sensor</h1>
+				<div class="row">
+					<div class="from-group col-lg-6">
+						<label class="form-label" for="status">Status : </label>
+						<select class="form-control input-lg" id="status" required="true" ng-model="sensor.status" ng-options="status.code as status.name for status in statusList"></select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="from-group col-lg-6">
+						<label class="form-label" for="meteologist">Meteologist : </label>
+						<select class="form-control input-lg"
+										id="meteologist"
+										name="meteologist"
+										required
+										ng-model="sensor.meteologist"
+										ng-options="meteologist.name as meteologist.name for meteologist in meteologistList"></select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="from-group col-lg-6">
+						<label class="form-label" for="label">Topic : </label>
+						<select class="form-control input-lg" id="topic" required="true" ng-model="sensor.topic" ng-options="topic.code as topic.name for topic in topicList"></select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="from-group col-lg-6">
+						<label class="form-label" for="label">Label : </label>
+						<textarea class="form-control input-lg" id="label" required="true" ng-model="sensor.label"></textarea>
+					</div>
+				</div>
+				<h2>Samples</h2>
+				<div class="row">
+					<div class="from-group col-lg-6">
+						<label class="form-label">Sample label : </label>
+						<input class="form-control input-lg" type="text" required="true" ng-model="sample1.label"></input>
+						<label class="form-label">Sample value : </label>
+						<input class="form-control input-lg" type="text" required="true" ng-model="sample1.value"></input>
+						<label class="form-label">Report format (en) : </label>
+						<!--<input class="form-control input-lg" type="hidden" required="true" ng-model="sample.report_format" ng-init="sample.report_format = [{lang: 'en', translation: null}]"></input>-->
+						<input class="form-control input-lg" type="text" required="true" ng-model="sample1.report_format"></input>
+					</div>
+					<div class="from-group col-lg-6">
+						<label class="form-label">Sample label : </label>
+						<input class="form-control input-lg" type="text" required="true" ng-model="sample2.label"></input>
+						<label class="form-label">Sample value : </label>
+						<input class="form-control input-lg" type="text" required="true" ng-model="sample2.value"></input>
+						<label class="form-label">Report format (en) : </label>
+						<!--<input class="form-control input-lg" type="hidden" required="true" ng-model="sample.report_format" ng-init="sample.report_format = [{lang: 'en', translation: null}]"></input>-->
+						<input class="form-control input-lg" type="text" required="true" ng-model="sample2.report_format"></input>
+					</div>
+				</div>
+				<br>
+				<div class="form-actions">
+					<button ng-click="go('/administrator/sensors')" class="btn btn-default">Cancel</button>
+					<button ng-click="create()" class="btn btn-meteo">Create</button>
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+</div>
