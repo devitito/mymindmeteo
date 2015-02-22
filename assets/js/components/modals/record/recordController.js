@@ -3,6 +3,10 @@ var RecordModalCtrl = mindControllers.controller('RecordModalCtrl', function ($s
     $modalInstance.close($scope.records);
   };
 
+	/**
+	 * Return the index in sensorList for the next sensor
+	 * Return -1 if all the index have been used (=all questions have been asked)
+	 */
 	var getNextRandomSensorIndex = function() {
 		var index = -1;
 

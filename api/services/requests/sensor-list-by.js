@@ -18,9 +18,11 @@ module.exports.query = function(options) {
 	}
 
 	return {
-		index: 'mindmeteo',
-		type: 'sensors',
-		searchType: 'query_and_fetch',
+		index: "mindmeteo",
+		type: "sensors",
+		trackScores: false,
+		searchType: "query_and_fetch",
+		_source: [ "id", "label", "samples.label", "samples.id" ],
 		body: {
 			query: query
 			}
