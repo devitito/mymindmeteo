@@ -69,7 +69,24 @@ module.exports.generate = function(mindid) {
 			//pick a random report from this list and generate statement
 			Report.findOneById(randomIntFromInterval(1, count))
 			.then(function (report) {
+				if (_.isUndefined(report)) {
+					deferred.reject("Our meteologist are too busy currently. There is an hurrican somewhere. You are not the center of the world. Try again later.");
+					return;
+				}
 				processTemplate(deferred, report, mindid);
+
+				/*var domain = require('domain');
+				var d = domain.create();
+				// Domain emits 'error' when it's given an unhandled error
+				d.on('error', function(err) {
+					var error = new Error();
+					error.message = err.message;
+					deferred.reject(error);
+				});
+
+				d.run(function() {
+					processTemplate(deferred, report, mindid);
+				});*/
 			});
 		});
 	})

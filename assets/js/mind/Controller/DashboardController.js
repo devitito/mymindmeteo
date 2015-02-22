@@ -40,6 +40,14 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				$scope.editedStatement = undefined;
 			};
 
+			$scope.showError = function (error) {
+				$scope.processing = false;
+				$scope.error = error;
+				$timeout(function() {
+					$scope.error = undefined;
+				}, 5000);
+			};
+
 			$scope.record = function () {
 				recordsFactory.launch($scope);
 			};

@@ -5,8 +5,8 @@
  *
  */
 
-mindServices.factory('recordsFactory', ['$resource', '$q', '$modal',  'statementsFactory', 'statsFactory', 'climateChartHelper', 'sensorsFactory',
-	function($resource, $q, $modal,  statementsFactory, statsFactory, climateChartHelper, sensorsFactory){
+mindServices.factory('recordsFactory', ['$resource', '$q', '$modal', 'statementsFactory', 'statsFactory', 'climateChartHelper', 'sensorsFactory',
+	function($resource, $q, $modal, statementsFactory, statsFactory, climateChartHelper, sensorsFactory){
 	var factory = {};
 	var resource = $resource('/record/:id', {id:'@id'}, {
 		saveBulk: {method: 'POST', url: '/record/saveBulk'}
@@ -68,14 +68,16 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal',  'statement
 								scope.newReports = true;
 							})
 							.catch(function (error) {
-								scope.processing = false;
-								scope.error = error;
+								try {
+									scope.showError(error.data.error);
+								} catch (e) {
+									scope.showError("Our meteologist are too busy currently. There is an hurrican somewhere. You are not the center of the world. Try again later.");
+								}
 							});
 						});
 					})
 					.catch(function (err) {
-						scope.processing = false;
-						scope.error = err.data;
+						scope.showError(err.data);
 					});
 				}
 			}
