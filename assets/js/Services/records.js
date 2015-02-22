@@ -5,7 +5,8 @@
  *
  */
 
-mindServices.factory('recordsFactory', ['$resource', '$q', '$modal',  'statementsFactory', 'statsFactory', 'climateChartHelper', function($resource, $q, $modal,  statementsFactory, statsFactory, climateChartHelper){
+mindServices.factory('recordsFactory', ['$resource', '$q', '$modal',  'statementsFactory', 'statsFactory', 'climateChartHelper', 'sensorsFactory',
+	function($resource, $q, $modal,  statementsFactory, statsFactory, climateChartHelper, sensorsFactory){
 	var factory = {};
 	var resource = $resource('/record/:id', {id:'@id'}, {
 		saveBulk: {method: 'POST', url: '/record/saveBulk'}
@@ -35,6 +36,9 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal',  'statement
 						$location.path('/');
 					});
 					return identityRequest;
+				},
+				sensorList : function (sensorsFactory) {
+					return sensorsFactory.listBy(/*{field: "status", value: "approved"}*/);
 				}
 			}
 		});

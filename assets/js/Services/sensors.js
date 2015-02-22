@@ -23,16 +23,16 @@ adminServices.factory('sensorStatus', [function(){
 mindServices.factory('sensorsFactory', ['$resource', '$q', function($resource, $q){
 	var factory = {};
 	var resource = $resource('/sensor/:id', {id:'@id'}, {
-		random: {method:'GET', url: '/sensor/random', isArray:false}
+		listBy: {method:'GET', url: '/sensor/listBy', isArray:true}
 	});
 
 	factory.resource = function () {
 		return resource;
 	}
 
-	factory.getRandom = function () {
+	factory.listBy = function () {
 		var deferred = $q.defer();
-		resource.random().$promise
+		resource.listBy().$promise
 		.then(function (sensor) {
 			deferred.resolve(sensor);
 		})

@@ -1,29 +1,45 @@
-mindControllers.controller('RecordModalCtrl', function ($scope, $modalInstance, sensorsFactory, identity) {
+var RecordModalCtrl = mindControllers.controller('RecordModalCtrl', function ($scope, $modalInstance, sensorList, identity) {
   $scope.close = function () {
     $modalInstance.close($scope.records);
   };
 
-	var getNextRandomSensor = function () {
-		sensorsFactory.getRandom()
-		.then(function (sensor) {
-			 $scope.sensor = sensor;
-		})
-		.catch(function (error) {
-			$modalInstance.close();
-		});
+	var getNextRandomSensorIndex = function() {
+		var index = -1;
+
+		if (indexlist.length == sensorList.length)
+			return -1;
+
+		while (index == -1 || indexlist.indexOf(index) != -1) {
+			index = randomIntFromInterval(0, sensorList.length-1);
+		};
+
+		indexlist.push(index);
+		return index;
 	};
 
   $scope.puhlease = function () {
-    //$modalInstance.dismiss();
 		//skype this test
-		getNextRandomSensor();
+		sensorIndex = getNextRandomSensorIndex();
+		console.log(sensorIndex);
+		if (sensorIndex == -1)
+			$scope.end = true;
+		else
+			$scope.sensor = sensorList[sensorIndex]._source;
   };
 
 	$scope.record = function (sensorId, sampleId) {
 		$scope.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sampleId});
-		getNextRandomSensor();
+		$scope.puhlease();
 	};
 
+	var indexlist = [];
+	var sensorIndex = getNextRandomSensorIndex();
+	$scope.end = false;
 	$scope.records = [];
-	getNextRandomSensor();
+	$scope.sensor = sensorList[sensorIndex]._source;
 });
+
+function randomIntFromInterval(min,max)
+{
+	return Math.floor(Math.random()*(max-min+1)+min);
+}

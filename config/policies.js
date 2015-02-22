@@ -38,7 +38,7 @@ module.exports.policies = {
 			//create: 'meteologist',
 			index : ['admin', 'replaceSpaceByAND'],
 			suggest : ['admin', 'replaceSpaceByAND'],
-			random: ["sessionAuth"],
+			listBy: ["sessionAuth"],
 			'*': 'admin'
 		},
 		admin: {
