@@ -26,7 +26,8 @@ module.exports.parse = function(result) {
 	var res = {};
 
 	result.aggregations.sensor_by_topic.buckets.forEach(function(entry) {
-		eval("res."+entry.key+" = " + entry.doc_count);
+		res[entry.key] = entry.doc_count
+	//	eval("res."+entry.key+" = " + entry.doc_count);
 	});
 	return (res);
 };
