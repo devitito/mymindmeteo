@@ -67,7 +67,7 @@ module.exports.generate = function(mindid) {
 		Report.count()
 		.then(function(count) {
 			//pick a random report from this list and generate statement
-			Report.findOneById(randomIntFromInterval(1, count+1))
+			Report.findOneById(randomIntFromInterval(1, count))
 			.then(function (report) {
 				processTemplate(deferred, report, mindid);
 			});
