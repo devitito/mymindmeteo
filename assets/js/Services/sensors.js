@@ -30,9 +30,9 @@ mindServices.factory('sensorsFactory', ['$resource', '$q', function($resource, $
 		return resource;
 	}
 
-	factory.listBy = function () {
+	factory.listBy = function (options) {
 		var deferred = $q.defer();
-		resource.listBy().$promise
+		resource.listBy(options).$promise
 		.then(function (sensor) {
 			deferred.resolve(sensor);
 		})

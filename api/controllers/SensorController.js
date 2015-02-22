@@ -23,7 +23,16 @@ module.exports = {
 	},
 
 	listBy: function(req, res, next) {
-		ElasticService.request('sensor-list-by', {field: "status", value: "approved"})
+		var field = req.query.field;
+		var value = req.query.value;
+		var options;
+
+		if ((field == undefined) || (value == undefined))
+			options = {};
+		else
+			options = {field: field, value: value};
+
+		ElasticService.request('sensor-list-by', options)
 		.then (function (sensors) {
 			res.send(sensors);
 		})

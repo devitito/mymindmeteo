@@ -38,7 +38,7 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal',  'statement
 					return identityRequest;
 				},
 				sensorList : function (sensorsFactory) {
-					return sensorsFactory.listBy(/*{field: "status", value: "approved"}*/);
+					return sensorsFactory.listBy({field: "status", value: "approved"});
 				}
 			}
 		});
