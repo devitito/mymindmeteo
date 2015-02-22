@@ -59,7 +59,13 @@ module.exports = {
 		records: {
 			collection: 'Record',
 			via: 'sample_id'
-		}
+		},
+
+		toJSON: function() {
+      var obj = this.toObject();
+      delete obj.records;
+      return obj;
+    }
 	},
 
 	beforeCreate: function(values, next) {
