@@ -9,6 +9,7 @@ before_script:
 - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS mymeteo_test DEFAULT CHARACTER SET
   utf8 COLLATE utf8_unicode_ci;'
 - cat test/mysql_add_user.sql | mysql -uroot
+- cat resources/cookbooks/mymeteodb/files/default/test-fixtures.sql | mysql -uroot
 - bower install
 - grunt build
 script:

@@ -1,7 +1,3 @@
-CREATE USER 'mymeteo_app'@'%' IDENTIFIED BY 'supersecret';
-GRANT ALL PRIVILEGES ON *.* TO 'mymeteo_app'@'%' WITH GRANT OPTION;
-
-/*
 CREATE TABLE mymeteo_test.minds (
   id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   name varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -47,4 +43,3 @@ INSERT INTO mymeteo_test.sensors (id,label,img,topic,meteologist,status) VALUES 
 
 INSERT INTO mymeteo_test.samples (id,label,img,topic,value,report_format,sensor_id) VALUES ('54353cacaf2aa','Yes',NULL,'love',0,'I like to be clean, that\'s why I cleaned my teeth in the morning.',1);
 INSERT INTO mymeteo_test.samples (id,label,img,topic,value,report_format,sensor_id) VALUES ('54353cacaf337','No',NULL,'love',-3,'Do you think cleaning my teeth is my priority? No! I have other things to do in life!',1);
-*/

@@ -5,6 +5,7 @@ default['mymeteodb']['database']['host'] = 'localhost'
 default['mymeteodb']['database']['username'] = 'root'
 default['mymeteodb']['database']['password'] = node['mysql']['server_root_password']
 default['mymeteodb']['database']['dbname'] = 'mymeteo'
+default['mymeteodb']['database']['dbname_test'] = 'mymeteo'
 
 default['mymeteodb']['server']['name'] = 'mymeteodbsrv'
 default['mymeteodb']['server']['port'] = 3306
