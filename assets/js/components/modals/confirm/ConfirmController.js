@@ -1,4 +1,4 @@
-adminControllers.controller('ConfirmModalCtrl', function ($scope, $modalInstance) {
+adminControllers.controller('ConfirmModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
   $scope.ok = function () {
     $modalInstance.close();
   };
@@ -6,4 +6,4 @@ adminControllers.controller('ConfirmModalCtrl', function ($scope, $modalInstance
   $scope.cancel = function () {
     $modalInstance.dismiss();
   };
-});
+}]);

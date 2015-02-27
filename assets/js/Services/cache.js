@@ -5,17 +5,18 @@
  *
  */
 
-adminServices.factory("sensorsCache", function($cacheFactory) {
-	var factory = {};
-	var cache = $cacheFactory('sensors');
+adminServices.factory("sensorsCache", ['$cacheFactory',
+	function($cacheFactory) {
+		var factory = {};
+		var cache = $cacheFactory('sensors');
 
-	factory.get = function(obj) {
-		return cache.get(obj);
-	};
+		factory.get = function(obj) {
+			return cache.get(obj);
+		};
 
-	factory.set = function(obj, value) {
-		cache.put(obj, value);
-	};
+		factory.set = function(obj, value) {
+			cache.put(obj, value);
+		};
 
-	return factory;
-});
+		return factory;
+}]);

@@ -30,16 +30,16 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal', 'statements
 			templateUrl: '/js/components/modals/record/record.html',
 			controller: 'RecordModalCtrl',
 			resolve: {
-				identity: function(identityService, $location) {
+				identity: ['identityService', '$location', function(identityService, $location) {
 					var identityRequest = identityService.get();
 					identityRequest.catch(function(reason) {
 						$location.path('/');
 					});
 					return identityRequest;
-				},
-				sensorList : function (sensorsFactory) {
+				}],
+				sensorList : ['sensorsFactory', function (sensorsFactory) {
 					return sensorsFactory.listBy({field: "status", value: "approved"});
-				}
+				}]
 			}
 		});
 

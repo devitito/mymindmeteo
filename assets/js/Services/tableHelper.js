@@ -5,7 +5,7 @@
  *
  */
 
-mindServices.factory("tableHelper", function($filter, ngTableParams, statementsFactory) {
+mindServices.factory("tableHelper", ['$filter', 'ngTableParams', 'statementsFactory', function($filter, ngTableParams, statementsFactory) {
 	var factory = {};
 
 	factory.new = function(table, options) {
@@ -35,4 +35,4 @@ mindServices.factory("tableHelper", function($filter, ngTableParams, statementsF
 	};
 
 	return factory;
-});
+}]);

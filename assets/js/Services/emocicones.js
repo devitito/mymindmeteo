@@ -5,7 +5,7 @@
  *
  */
 
-mindServices.factory("emociconeService", function(reportRanges) {
+mindServices.factory("emociconeService", ['reportRanges', function(reportRanges) {
 	var factory = {};
 	var ranger = {};
 
@@ -47,4 +47,4 @@ mindServices.factory("emociconeService", function(reportRanges) {
 	};
 
 	return factory;
-});
+}]);

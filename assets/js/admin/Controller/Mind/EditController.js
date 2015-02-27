@@ -85,7 +85,7 @@ var EditMindCtrl = adminControllers.controller('EditMindCtrl', ['$scope', '$root
 }]);
 
 EditMindCtrl.resolve = {
-  mind: function(mindFactory, $q, $route, $location, flash) {
+  mind: ['mindFactory', '$q', '$route', '$location', 'flash', function(mindFactory, $q, $route, $location, flash) {
 		var mindRequest = mindFactory.get({id:$route.current.params.mindId}).$promise;
 		mindRequest.catch(function(reason) {
 			flash.setMessage(reason.data);
@@ -103,12 +103,12 @@ EditMindCtrl.resolve = {
 		});
 		return deferred.promise;*/
 
-  },
-  identity: function(identityService, $location) {
+  }],
+  identity: ['identityService', '$location', function(identityService, $location) {
 		var identityRequest = identityService.get();
 		identityRequest.catch(function(reason) {
 			$location.path('/');
 		});
 		return identityRequest;
-  }
+  }]
 };

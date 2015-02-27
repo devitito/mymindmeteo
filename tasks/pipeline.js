@@ -46,46 +46,12 @@ var jsFilesToInject = [
 	'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
 	'bower_components/angular-ui-router/release/angular-ui-router.min.js',
 
-	//'js/app.js',
-	//'js/Services/**/*.js',
-	/*'js/Services/adminServices.js',
-	'js/Services/cache.js',
-	'js/Services/flash.js',
-	'js/Services/identity.js',
-	'js/Services/lang.js',
-	'js/Services/stats.js',
-	'js/Services/session.js',*/
-
-
-	//'js/Directives/**/*.js',
-	//'js/Directives/adminDirectives.js',
-
-	//'js/admin/**/*.js',
-	/*'js/admin/adminController.js',
-	'js/admin/Controller/Sensor/SensorsController.js',
-  'js/admin/Controller/Sensor/EditController.js',
-	'js/admin/Controller/Mind/EditController.js',
-	'js/admin/Controller/Mind/MindsController.js',
-	'js/admin/Controller/Mind/NewController.js',
-	'js/admin/Controller/ConfirmModalController.js',
-	'js/admin/Controller/Mind/NewController.js',
-	'js/admin/Controller/Mind/EditController.js',
-  'js/admin/Controller/Mind/MindsController.js',
-	'js/admin/Controller/NavBar/NavBarController.js',*/
-
-	//'js/guest/**/*.js',
-	/*'js/guest/Controller/guestController.js',
-	'js/guest/Controller/Session/NewController.js',
-	'js/guest/Controller/Mind/NewController.js',*/
-
-	//'js/mind/**/*.js',
-	//'js/mind/Controller/DashboardController.js',
-
+	'js/app.js',
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  //'js/**/!(*.spec).js'
+  'js/**/!(*.spec).js'
 ];
 
 

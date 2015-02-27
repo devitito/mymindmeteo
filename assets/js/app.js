@@ -10,7 +10,7 @@ var guestControllers = angular.module('guestControllers', []);
 var mindControllers = angular.module('mindControllers', []);
 var adminDirectives = angular.module('adminDirectives', []);
 
-mindmeteo.config(function($routeProvider, $stateProvider, localStorageServiceProvider) {
+mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvider', function($routeProvider, $stateProvider, localStorageServiceProvider) {
 
 
 	/*$stateProvider
@@ -47,43 +47,43 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/admin/partials/admin/dashboard.html',
 		controller: 'dashboardCtrl',
 		resolve: {
-			identity : function(identityService, $location) {
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			}
+			}]
 		}
 	}).
 	when('/administrator/dash', {
 		templateUrl: '/js/admin/partials/admin/dashboard.html',
 		controller: 'dashboardCtrl',
 		resolve: {
-			identity : function(identityService, $location) {
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			}
+			}]
 		}
 	}).
 	when('/administrator/stats', {
 		templateUrl: '/js/admin/partials/admin/stats.html',
 		controller: 'statsCtrl',
 		resolve : {
-			stats : function(statsFactory, $q) {
+			stats : ['statsFactory', '$q', function(statsFactory, $q) {
 				var deferred = $q.defer();
 				return statsFactory.query(deferred);
-			},
-			identity : function(identityService, $location) {
+			}],
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			}
+			}]
 		}
 	}).
 	when('/administrator/sensors', {
@@ -94,46 +94,39 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/admin/partials/sensor/new.html',
 		controller: 'NewSensorCtrl',
 		resolve: {
-			identity : function(identityService, $location) {
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			},
-			meteologistList: function(mindFactory) {
+			}],
+			meteologistList: ['mindFactory', function(mindFactory) {
 				return mindFactory.fetchByRole({role: 'meteologist'}).$promise;
-			}
+			}]
 		}
 	}).
 	when('/administrator/sensors/edit/:sensorId', {
 		templateUrl: '/js/admin/partials/sensor/edit.html',
 		controller: 'EditSensorCtrl',
 		resolve: {
-			sensor: function(sensorFactory, /*$q,*/ $route) {
-				//var deferred = $q.defer();
+			sensor: ['sensorFactory', '$route', function(sensorFactory, /*$q,*/ $route) {
 				return sensorFactory.get({id:$route.current.params.sensorId}).$promise;
-				/*, function(data){
-					deferred.resolve(data);
-				}, function(errorData) {
-					deferred.resolve('An error occured while retreiving the requested data');
-				});
-				return deferred.promise;*/
-			},
-			identity : function(identityService, $location) {
+			}],
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			}
+			}]
 		}
 	}).
 	when('/administrator/minds', {
 		templateUrl: '/js/admin/partials/admin/minds.html',
 		controller: 'mindsCtrl',
 		resolve: {
-			minds: function(mindFactory, $q) {
+			minds: ['mindFactory', '$q', function(mindFactory, $q) {
 				var deferred = $q.defer();
 				mindFactory.query(
 					function(data){
@@ -142,14 +135,14 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 						deferred.resolve('An error occured while retreiving the list of minds');
 					});
 				return deferred.promise;
-			},
-			identity : function(identityService, $location) {
+			}],
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			}
+			}]
 		}
 	}).
 	when('/mind/new', {
@@ -160,29 +153,29 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/mind/partials/dashboard.html',
 		controller: 'mindDashboardCtrl',
 		resolve: {
-			identity : function(identityService, $location) {
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			},
-			climat: function (statsFactory, $route) {
+			}],
+			climat: ['statsFactory', '$route', function (statsFactory, $route) {
 				return statsFactory.climate($route.current.params.mindname);
-			}
+			}]
 		}
 	}).
 	when('/administrator/minds/new', {
 		templateUrl: '/js/admin/partials/mind/new.html',
 		controller: 'NewMindCtrl',
 		resolve: {
-			identity : function(identityService, $location) {
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			}
+			}]
 		}
 	}).
 	when('/administrator/minds/edit/:mindId', {
@@ -198,7 +191,7 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 		templateUrl: '/js/admin/Reports/list/list.html',
 		controller: 'ReportListCtrl',
 		resolve: {
-			reports: function(reportsFactory, $q) {
+			reports: ['reportsFactory', '$q', function(reportsFactory, $q) {
 				var deferred = $q.defer();
 				reportsFactory.query(
 					function(data){
@@ -207,30 +200,30 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 						deferred.resolve('An error occured while retreiving the list of reports');
 					});
 				return deferred.promise;
-			},
-			identity : function(identityService, $location) {
+			}],
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			}
+			}]
 		}
 	}).
 	when('/administrator/reports/new', {
 		templateUrl: '/js/admin/Reports/new/new.html',
 		controller: 'NewReportCtrl',
 		resolve: {
-			identity : function(identityService, $location) {
+			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
 					$location.path('/');
 				});
 				return identityRequest;
-			},
-			meteologistList: function(mindFactory) {
+			}],
+			meteologistList: ['mindFactory', function(mindFactory) {
 				return mindFactory.fetchByRole({role: 'meteologist'}).$promise;
-			}
+			}]
 		}
 	}).
 	otherwise({
@@ -242,7 +235,7 @@ mindmeteo.config(function($routeProvider, $stateProvider, localStorageServicePro
 	localStorageServiceProvider
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
-});
+}]);
 
 mindmeteo.value('googleChartApiConfig', {
     version: '1',
@@ -252,7 +245,7 @@ mindmeteo.value('googleChartApiConfig', {
     }
 });
 
-mindmeteo.run(function($http, $anchorScroll/*, $rootScope, $location*/) {
+mindmeteo.run(['$http', '$anchorScroll', function($http, $anchorScroll/*, $rootScope, $location*/) {
     $http.get('/csrfToken').success(function(data){
         $http.defaults.headers.common['x-csrf-token'] = data._csrf;
     });
@@ -265,4 +258,4 @@ mindmeteo.run(function($http, $anchorScroll/*, $rootScope, $location*/) {
 		console.log(event);
 		//$location.path('/');
   });*/
-});
+}]);

@@ -5,7 +5,7 @@
  *
  */
 
-mindServices.factory("climateChartHelper", function(emociconeService) {
+mindServices.factory("climateChartHelper", ['emociconeService', function(emociconeService) {
 	var factory = {};
 
 	factory.load = function ($scope, climat) {
@@ -107,4 +107,4 @@ var convertToDataTable = function (json, $scope){
 };
 
 	return factory;
-});
+}]);

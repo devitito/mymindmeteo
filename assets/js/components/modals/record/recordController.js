@@ -1,4 +1,5 @@
-var RecordModalCtrl = mindControllers.controller('RecordModalCtrl', function ($scope, $modalInstance, sensorList, identity) {
+var RecordModalCtrl = mindControllers.controller('RecordModalCtrl', ['$scope', '$modalInstance', 'sensorList', 'identity',
+	function ($scope, $modalInstance, sensorList, identity) {
   $scope.close = function () {
     $modalInstance.close($scope.records);
   };
@@ -41,7 +42,7 @@ var RecordModalCtrl = mindControllers.controller('RecordModalCtrl', function ($s
 	$scope.end = false;
 	$scope.records = [];
 	$scope.sensor = sensorList[sensorIndex]._source;
-});
+}]);
 
 function randomIntFromInterval(min,max)
 {

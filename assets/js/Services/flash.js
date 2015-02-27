@@ -5,7 +5,7 @@
  *
  */
 
-adminServices.factory("flash", function($rootScope) {
+adminServices.factory("flash", ['$rootScope' ,function($rootScope) {
 	  var queue = [];
 	  var currentMessage = "";
 
@@ -21,4 +21,4 @@ adminServices.factory("flash", function($rootScope) {
 			  return currentMessage;
 		  }
 	  };
-});
+}]);
