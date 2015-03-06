@@ -13,7 +13,10 @@
     "bootstrap": "3.3.1",
     "angular-moment": "~0.8.2",
     "angular-local-storage": "~0.1.5",
-    "angular-ui-router": "~0.2.13"
+    "angular-ui-router": "~0.2.13",
+    "polymer": "Polymer/polymer#~0.5.5",
+    "google-chart": "GoogleWebComponents/google-chart#~0.2.1",
+    "core-media-query": "Polymer/core-media-query#~0.5.5"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.27"

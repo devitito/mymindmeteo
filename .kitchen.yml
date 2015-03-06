@@ -74,7 +74,6 @@ suites:
     - recipe[build-essential]
     - recipe[networking_basic]
     - recipe[mymeteodb]
-    - recipe[mymeteodb::test]
     - recipe[ruby]
     - recipe[mm-elasticsearch]
     - recipe[js::sails]
