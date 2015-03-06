@@ -1,0 +1,49 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/core-media-query/core-media-query.html">
+
+<polymer-element name="mood-bar" attributes="height">
+  <template>
+    <style>
+
+
+      :host {
+        display: block;
+				margin-left: 10px;
+				margin-right: 10px;
+      }
+
+			:host div ::content div {
+				box-sizing: border-box;
+				border:1px solid #000;
+			}
+
+			}
+    </style>
+
+		<core-media-query query="max-width: 991px" queryMatches="{{phoneScreen}}"></core-media-query>
+
+  	<div id="container" layout around-justified vertical?="{{!phoneScreen}}" horizontal?="{{phoneScreen}}">
+    	<content auto-vertical></content>
+		</div>
+
+  </template>
+  <script>
+    (function () {
+      Polymer({
+				height: "400px",
+				phoneScreen: false,
+
+				ready: function() {
+					this.$.container.style.height = this.height;
+				},
+
+				phoneScreenChanged: function(oldValue, newValue) {
+					if (!newValue)
+						this.$.container.style.height = this.height;
+					else
+						this.$.container.style.height = null;
+				},
+      });
+    })();
+  </script>
+</polymer-element>

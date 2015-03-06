@@ -1,0 +1,68 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/google-chart/google-chart.html">
+
+<polymer-element name="mood-chart" attributes="height data">
+  <template>
+    <style>
+      :host {
+        display: block;
+				height:{{height}};
+      }
+
+			:host google-chart {
+				height:{{height}};
+				width:105%;
+				margin-top:-15px;
+				margin-left:-15px;
+			}
+    </style>
+		<span id="loading">Loading...</span>
+		<google-chart
+				id="chart"
+				type='line'
+				options='{
+								 "is3D": true,
+								 "fontSize": 14,
+								 "colors" : ["#00ADEF"],
+								 "legend" : {"position": "none"},
+								 "chartarea" : {"left":0,"top":0,"width":"100%","height":"100%"},
+								 "pointSize" : 6,
+								 "lineWidth": 3,
+								 "curveType": "function",
+								 "hAxis": {
+								 	"textPosition" : "none"
+								 },
+								 "vAxis" : {
+									"ticks": [{"v":-10, "f":":(("}, {"v":-5, "f":":("}, {"v":0, "f":":|"}, {"v":5, "f":":)"}, {"v":10, "f":":))"}],
+									"textStyle": { "fontSize": 20, "bold": true, "color": "#808080"},
+									"maxValue" : 10,
+									"minValue" : -10
+								}
+				}'
+				data='{{data}}'>
+		</google-chart>
+  </template>
+  <script>
+
+    (function () {
+			Polymer({
+				height: "400px",
+
+				created: function() {
+					this.data = [[]];
+				},
+
+				ready: function () {
+					this.addEventListener('google-chart-render', function (e) {
+						this.$.loading.style.display = "none";
+					});
+				},
+
+				resize: function() {
+					this.$.chart.drawChart();
+				},
+
+			});
+		})();
+  </script>
+</polymer-element>

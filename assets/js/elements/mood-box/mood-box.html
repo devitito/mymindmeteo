@@ -1,0 +1,103 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<polymer-element name="mood-box" attributes="type">
+  <template>
+    <style>
+      :host {
+        display: block;
+				box-sizing: border-box;
+				border:1px solid transparent;
+				margin-left: 20px;
+				margin-right: 10px;
+				margin-bottom: 20px;
+				text-align: center;
+      }
+
+			:host .header {
+				padding: 10px 15px;
+				border-bottom: 1px solid transparent;
+				color: #f5f5f5;
+				font-weight: bold;
+			}
+
+			:host .body {
+				font-weight: bold;
+				font-size: 20px;
+				padding: 15px;
+			}
+
+			:host([type="love"]) {
+				border-color: #FF69B4;
+			}
+
+			:host([type="love"]) .header {
+				background-color: #FF69B4;
+  			border-color: #FF69B4;
+			}
+
+			:host([type="love"]) .body {
+				color: #FF69B4;
+			}
+
+			:host([type="health"]) {
+				border-color: #4169E1;
+			}
+
+			:host([type="health"]) .header {
+				background-color: #4169E1;
+  			border-color: #4169E1;
+			}
+
+			:host([type="health"]) .body {
+				color: #4169E1;
+			}
+
+			:host([type="money"]) {
+				border-color: #008000;
+			}
+
+			:host([type="money"]) .header {
+				background-color: #008000;
+  			border-color: #008000;
+			}
+
+			:host([type="money"]) .body {
+				color: #008000;
+			}
+    </style>
+
+		<div>
+			<div class="header">
+				{{label()}}
+			</div>
+			<div class="body">
+				 <content></content>
+			</div>
+		</div>
+
+  </template>
+  <script>
+    (function () {
+      Polymer({
+				label: function() {
+					switch (this.type) {
+						case 'love':
+							return 'Love';
+							break;
+
+						case 'health':
+							return 'Health';
+							break;
+
+						case 'money':
+							return 'Money';
+							break;
+
+						default:
+							break;
+					};
+				}
+      });
+    })();
+  </script>
+</polymer-element>

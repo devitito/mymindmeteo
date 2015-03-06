@@ -1,10 +1,14 @@
+<link rel="import" href="js/elements/mood-board/mood-board.html">
+
 <div class="clearfix"></div>
 <div ng-hide="message">
 	<div class="row" >
-		<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-			<div google-chart chart="climate" style="height:400px; width:105%; margin-left:-25px;"></div>
-		</div>
-		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+		<mood-board data="{{climate.data}}" height="400px" boxes="{'love':'{{emocicone.love}}', 'money':'{{emocicone.money}}', 'health': '{{emocicone.health}}'}">
+			<!--<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">-->
+				<!--<div google-chart chart="climate" style="height:400px; width:105%; margin-left:-25px;"></div>-->
+			<!--</div>-->
+		</mood-board>
+		<!--<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 			<section class="panel panel-love">
 				<div class="panel-heading text-center">Love</div>
 				<div class="panel-body text-center">{{emocicone.love}}</div>
@@ -23,7 +27,7 @@
 				<div class="panel-heading text-center">Money</div>
 				<div class="panel-body text-center">{{emocicone.money}}</div>
 			</section>
-		</div>
+		</div>-->
 	</div>
 	<div class="row footer">
 		<span><i>Based on <span style="font-size:20px;"><b>{{total}}</b></span> records submitted in the last 30 days.</i></span>
