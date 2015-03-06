@@ -3,7 +3,10 @@
 <div class="clearfix"></div>
 <div ng-hide="message">
 	<div class="row" >
-		<mood-board data="{{climate.data}}" height="400px" boxes="{'love':'{{emocicone.love}}', 'money':'{{emocicone.money}}', 'health': '{{emocicone.health}}'}">
+		<mood-board data="{{climate.data}}"
+								height="400px"
+								boxes="{'love':'{{emocicone.love}}', 'money':'{{emocicone.money}}', 'health': '{{emocicone.health}}'}"
+								metrics="{'total':'{{total}}', 'sunny':'{{sunny}}', 'rainy':'{{rainy}}'}">
 			<!--<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">-->
 				<!--<div google-chart chart="climate" style="height:400px; width:105%; margin-left:-25px;"></div>-->
 			<!--</div>-->
@@ -29,11 +32,11 @@
 			</section>
 		</div>-->
 	</div>
-	<div class="row footer">
+	<!--<div class="row footer">
 		<span><i>Based on <span style="font-size:20px;"><b>{{total}}</b></span> records submitted in the last 30 days.</i></span>
 	</div>
 	<div class="row footer">
 		<span><i>Since your records are collected, our meteologists have counted a total of <span style="font-size:20px;"><b>{{sunny}}</b></span> sunny day(s) and <span style="font-size:20px;"><b>{{rainy}}</b></span> rainy day(s).</i></span>
-	</div>
+	</div>-->
 </div>
 <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>

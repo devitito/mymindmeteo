@@ -4,7 +4,7 @@
 <link rel="import" href="../mood-box/mood-box.html">
 <link rel="import" href="../../../bower_components/core-media-query/core-media-query.html">
 
-<polymer-element name="mood-board" attributes="data height boxes">
+<polymer-element name="mood-board" attributes="data height boxes metrics">
   <template>
     <style>
       :host {
@@ -15,10 +15,10 @@
 
 		<core-media-query query="max-width: 991px" queryMatches="{{phoneScreen}}"></core-media-query>
 		<div layout vertical?="{{phoneScreen}}" horizontal?="{{!phoneScreen}}">
-			<div flex five>
-				<mood-chart id="chart" flex five height={{height}} data={{data}} unresolved></mood-chart>
+			<div auto-vertical flex five>
+				<mood-chart id="chart" height={{height}} data={{data}} unresolved></mood-chart>
 			</div>
-			<div flex>
+			<div auto-vertical flex>
 				<mood-bar height={{height}}>
 					<mood-box type="love">{{boxes.love}}</mood-box>
 					<mood-box type="health">{{boxes.health}}</mood-box>
@@ -26,6 +26,17 @@
 				</mood-bar>
 			</div>
 		</div>
+
+		<div>
+				<span><i>Based on <span style="font-size:20px;"><b>{{metrics.total}}</b></span> records submitted in the last 30 days.</i></span>
+			</div>
+			<div>
+			<span><i>Since your records are collected, our meteologists have counted a total of
+				<span style="font-size:20px;"><b>{{metrics.sunny}}</b></span> sunny day(s) and
+				<span style="font-size:20px;"><b>{{metrics.rainy}}</b></span> rainy day(s).</i></span>
+		</div>
+
+
   </template>
 
   <script>
@@ -36,6 +47,11 @@
 						"love": "-",
 						"money": "-",
 						"health": "-"
+					};
+					this.metrics = {
+						total: '-',
+						sunny: '-',
+						rainy: '-',
 					};
 					this.data = [[]];
 				},
