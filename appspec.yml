@@ -12,6 +12,7 @@ hooks:
   AfterInstall:
     - location: scripts/installdependencies.sh
       runas: root
+    - location: scripts/installclientdep.sh
     - location: scripts/runsql.sh
       runas: root
   ApplicationStart:
