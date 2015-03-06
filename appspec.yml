@@ -13,6 +13,7 @@ hooks:
     - location: scripts/installdependencies.sh
       runas: root
     - location: scripts/installclientdep.sh
+      runas: root
     - location: scripts/runsql.sh
       runas: root
   ApplicationStart:
