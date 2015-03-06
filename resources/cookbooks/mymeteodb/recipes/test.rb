@@ -29,11 +29,11 @@ mysql_database_user node['mymeteodb']['database']['app']['username'] do
   password node['mymeteodb']['database']['app']['password']
   database_name node['mymeteodb']['database']['dbname_test']
   host '%'
-  action [:grant]
+  action [:create, :grant]
 end
 
 # Write schema seed file to filesystem
-cookbook_file node['mymeteodb']['database']['seed_file'] do
+cookbook_file node['mymeteodb']['database']['seed_test_file'] do
   source 'test-fixtures.sql'
   owner 'root'
   group 'root'
@@ -42,6 +42,6 @@ end
 
 # Seed database with test data
 execute 'initialize mymeteo_test database' do
-  command "mysql -h #{node['mymeteodb']['database']['host']} -u #{node['mymeteodb']['database']['app']['username']} -p#{node['mymeteodb']['database']['app']['password']} -D #{node['mymeteodb']['database']['dbname_test']} < #{node['mymeteodb']['database']['seed_file']}"
+  command "mysql -h #{node['mymeteodb']['database']['host']} -u #{node['mymeteodb']['database']['app']['username']} -p#{node['mymeteodb']['database']['app']['password']} -D #{node['mymeteodb']['database']['dbname_test']} < #{node['mymeteodb']['database']['seed_test_file']}"
   not_if  "mysql -h #{node['mymeteodb']['database']['host']} -u #{node['mymeteodb']['database']['app']['username']} -p#{node['mymeteodb']['database']['app']['password']} -D #{node['mymeteodb']['database']['dbname_test']} -e 'describe users;'"
 end

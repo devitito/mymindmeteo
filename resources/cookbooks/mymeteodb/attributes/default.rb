@@ -16,3 +16,4 @@ default['mymeteodb']['database']['app']['username'] = 'mymeteo_app'
 default['mymeteodb']['database']['app']['password'] = 'supersecret'
 
 default['mymeteodb']['database']['seed_file'] = '/tmp/mymeteo-create.sql'
+default['mymeteodb']['database']['seed_test_file'] = '/tmp/test-fixtures.sql'
