@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', /*'$modal',*/ '$timeout', 'identity', /*'flash',*/ 'sessionFactory', 'climat',/* 'statementsFactory', 'statsFactory',*/ 'recordsFactory', 'climateChartHelper', 'tableHelper',
-    function ($scope, $location,/* $modal,*/ $timeout, identity, /*flash,*/ sessionFactory, climat, /*statementsFactory, statsFactory,*/ recordsFactory, climateChartHelper, tableHelper) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'climat', 'recordsFactory', 'climateChartHelper', 'tableHelper',
+    function ($scope, $location, $timeout, identity, sessionFactory, climat, recordsFactory, climateChartHelper, tableHelper) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
