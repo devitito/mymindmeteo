@@ -3,11 +3,14 @@
  *
  */
 describe("routes", function() {
-	beforeEach(module('mindmeteo'));
+	beforeEach(function () {
+		module('mindmeteo');
+		module('angularSpinner');
+	});
 
 	var $location, $route, $rootScope, $q, $httpBackend, $injector, $scope, flash;
 
-	beforeEach(inject(function(_$location_, _$route_, _$rootScope_, _$q_, _$httpBackend_, _$injector_, _flash_){
+	beforeEach(inject(function(_$location_, _$route_, _$rootScope_, _$q_, _$httpBackend_, _$injector_, _flash_) {
 		$location = _$location_;
 		$route = _$route_;
 		$rootScope = _$rootScope_;
@@ -180,7 +183,7 @@ describe("routes", function() {
 
 	describe("/mind/dashboard", function() {
 
-		var getClimateWithSuccess = function (id, success, error) {
+		/*var getClimateWithSuccess = function (id, success, error) {
 			//Handle both callbacks and promise
 			if (angular.isDefined(success))
 				//statsFactory.climate called with callback
@@ -204,7 +207,7 @@ describe("routes", function() {
 				climateDeferred.reject({data: 'an error'});
 				return climateDeferred.promise;
 			};
-		};
+		};*/
 
 		beforeEach(inject(
 			function(_statsFactory_, _identityService_) {
@@ -227,7 +230,7 @@ describe("routes", function() {
 			$rootScope.$digest();
 		});
 
-		it("should resolve climate", function () {
+		/*it("should resolve climate", function () {
 			var resolvedClimate;
 
 			spyOn(statsFactory, 'climate').and.callFake(function (id, success, error) {
@@ -261,7 +264,7 @@ describe("routes", function() {
 			// Propagate promise resolution to 'then' functions using $apply().
 			$rootScope.$apply();
 			expect(rejectedClimate).toEqual({data: 'an error'});
-		});
+		});*/
 	});
 
 });

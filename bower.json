@@ -16,7 +16,8 @@
     "angular-ui-router": "~0.2.13",
     "polymer": "Polymer/polymer#~0.5.5",
     "google-chart": "GoogleWebComponents/google-chart#~0.2.1",
-    "core-media-query": "Polymer/core-media-query#~0.5.5"
+    "core-media-query": "Polymer/core-media-query#~0.5.5",
+    "angular-spinner": "~0.6.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.27"

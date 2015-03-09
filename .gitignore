@@ -76,3 +76,5 @@ data
 /assets/bower_components/ng-table/
 /assets/bower_components/moment/
 /assets/bower_components/jquery/
+/assets/bower_components/angular-spinner/
+/assets/bower_components/spin.js/

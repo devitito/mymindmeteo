@@ -422,4 +422,11 @@ div.container a.brand {
 	}
 }
 
+.spinner {
+	padding-top: 10px;
+	position: relative;
+	left: 50%;
+	top: 40px;
+}
+
 

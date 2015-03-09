@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'climat', 'recordsFactory', 'climateChartHelper', 'tableHelper',
-    function ($scope, $location, $timeout, identity, sessionFactory, climat, recordsFactory, climateChartHelper, tableHelper) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService',
+    function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper, usSpinnerService) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -65,5 +65,19 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 
 			$scope.show = 'climate';
 			$scope.processing = false;
-			climateChartHelper.load($scope, climat);
+			$scope.spinneroff = false;
+
+			$timeout(function() {
+				statsFactory.climate(identity.name)
+				.then(function (climate) {
+					climateChartHelper.load($scope, climate);
+					usSpinnerService.stop('spinner');
+					$scope.spinneroff = true;
+				})
+				.catch(function (error) {
+					$scope.showError(error);
+				});
+			}, 1000);
+
+
 }]);

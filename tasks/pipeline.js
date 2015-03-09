@@ -47,8 +47,8 @@ var jsFilesToInject = [
 	//'bower_components/moment/locale/es.js',
 	'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
 	'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-
-
+	'bower_components/spin.js/spin.js',
+	'bower_components/angular-spinner/angular-spinner.js',
 
 	'js/app.js',
   'js/dependencies/**/*.js',

@@ -1,6 +1,6 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router', 'angularSpinner']);
 
 var guestServices = angular.module('guestServices', ['ngResource']);
 var mindServices = angular.module('mindServices', ['ngResource']);
@@ -160,9 +160,9 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 				});
 				return identityRequest;
 			}],
-			climat: ['statsFactory', '$route', function (statsFactory, $route) {
+			/*climat: ['statsFactory', '$route', function (statsFactory, $route) {
 				return statsFactory.climate($route.current.params.mindname);
-			}]
+			}]*/
 		}
 	}).
 	when('/administrator/minds/new', {

@@ -1,5 +1,5 @@
 describe("Mind Dashboard Controller", function() {
-	var DashboardController, flash, lang, identityService, moment;
+	var DashboardController, flash, lang, identityService, moment, usSpinnerService, statsFactory;
 	var $controller;
 	var $scope;
 	var $rootScope;
@@ -15,9 +15,10 @@ describe("Mind Dashboard Controller", function() {
 		module('LocalStorageModule');
 		module('ui.bootstrap');
 		module('ngTable');
+		module('angularSpinner');
 	});
 
-	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$location_, _flash_, _lang_, _identityService_, _sessionFactory_, _moment_) {
+	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$location_, _flash_, _lang_, _identityService_, _sessionFactory_, _moment_, _usSpinnerService_, _statsFactory_) {
 		$controller = _$controller_;
 		$rootScope = _$rootScope_;
 		$q = _$q_;
@@ -27,37 +28,81 @@ describe("Mind Dashboard Controller", function() {
 		identityService = _identityService_;
 		sessionFactory = _sessionFactory_;
 		moment = _moment_;
+		usSpinnerService = _usSpinnerService_;
+		statsFactory = _statsFactory_;
 	}));
+
+	var getClimateWithSuccess = function (id, success, climate) {
+		//Handle both callbacks and promise
+		if (angular.isDefined(success))
+			//statsFactory.climate called with callback
+			return success(climate);
+		else {
+			//statsFactory.climate called with promise
+			climateDeferred = $q.defer();
+			climateDeferred.resolve(climate);
+			return climateDeferred.promise;
+		};
+	};
+
+	var getClimateWithError = function (id, error, climate) {
+		//Handle both callbacks and promise
+		if (angular.isDefined(error))
+			//statsFactory.climate called with callback
+			return error(climate);
+		else {
+			//statsFactory.climate called with promise
+			climateDeferred = $q.defer();
+			climateDeferred.reject(climate);
+			return climateDeferred.promise;
+		};
+	};
+
+	var mockTimeout = function(cb, delay) {
+		cb();
+	};
 
 	it("should forward a linechart object if the climate data is fetched without error", function () {
 		$scope = {};
-		DashboardController = $controller('mindDashboardCtrl', {
-			$scope: $scope,
-			$location: $location,
-			identity: {id: 'anid'},
-			flash: flash,
-			sessionFactory: sessionFactory,
-			climat: {
-				info: {total:2, sunny:2, rainy:0},
-				data: [
+
+		var climate = {
+			info: {total:2, sunny:2, rainy:0},
+			data: [
 				{
 					"date": "2014-06-04T00:00:00Z",
 					"love" : 5,
 					"money" : -2,
 					"health": 6,
 					"mood": 3
-				 },
-				 {
+				},
+				{
 					"date": "2014-06-11T00:00:00Z",
 					"love" : 5,
 					"money" : -2,
 					"health": 6,
 					"mood": 3
-				 }
-				]
-			},
-			moment: moment
+				}
+			]
+		};
+
+		spyOn(statsFactory, 'climate').and.callFake(function (id, success, error) {
+			return getClimateWithSuccess(id, success, climate);
 		});
+
+		DashboardController = $controller('mindDashboardCtrl', {
+			$scope: $scope,
+			$location: $location,
+			identity: {id: 'anid'},
+			flash: flash,
+			sessionFactory: sessionFactory,
+			statsFactory: statsFactory,
+			moment: moment,
+			$timeout: mockTimeout
+		});
+
+		// Propagate promise resolution to 'then' functions using $apply().
+		$rootScope.$apply();
+
 		expect($scope.message).toBe(undefined);
 		expect($scope.climate.options).not.toBeUndefined();
 		expect($scope.climate.type).toBe('LineChart');
@@ -69,18 +114,30 @@ describe("Mind Dashboard Controller", function() {
 
 	it("should replace the climate graph with a message if there is no climate data for the currently logged in mind", function () {
 		$scope = {};
+
+		var climate = {
+			info: {total:'tot', sunny:'sun', rainy:'rain'},
+			data: []
+		};
+
+		spyOn(statsFactory, 'climate').and.callFake(function (id, success, error) {
+			return getClimateWithSuccess(id, success, climate);
+		});
+
 		DashboardController = $controller('mindDashboardCtrl', {
 			$scope: $scope,
 			$location: $location,
 			identity: {id: 'anid'},
 			flash: flash,
 			sessionFactory: sessionFactory,
-			climat: {
-				info: {total:'tot', sunny:'sun', rainy:'rain'},
-				data: []
-			},
-			moment: moment
+			statsFactory: statsFactory,
+			moment: moment,
+			$timeout: mockTimeout
 		});
+
+		// Propagate promise resolution to 'then' functions using $apply().
+		$rootScope.$apply();
+
 		expect($scope.message).toBe('No meteo data captured.');
 		expect($scope.total).toBe('tot');
 		expect($scope.sunny).toBe('sun');
@@ -90,15 +147,26 @@ describe("Mind Dashboard Controller", function() {
 
 	it("should forward the error if it couldn't fetch mind's climate and the server replied with a well formated error message", function () {
 		$scope = {};
+		var climate = {error: 'an error'};
+
+		spyOn(statsFactory, 'climate').and.callFake(function (id, success, error) {
+			return getClimateWithSuccess(id, error, climate);
+		});
+
 		DashboardController = $controller('mindDashboardCtrl', {
 			$scope: $scope,
 			$location: $location,
 			identity: {id: 'anid'},
 			flash: flash,
 			sessionFactory: sessionFactory,
-			climat: {error: 'an error'},
-			moment: moment
+			statsFactory: statsFactory,
+			moment: moment,
+			$timeout: mockTimeout
 		});
+
+		// Propagate promise resolution to 'then' functions using $apply().
+		$rootScope.$apply();
+
 		expect($scope.message).toBe('an error');
 		expect($scope.climate).toBe(undefined);
 		expect($scope.total).toBe('-');
@@ -108,16 +176,30 @@ describe("Mind Dashboard Controller", function() {
 
 	it("should forward a default message if it couldn't fetch mind's climate and the server didn't reply with a well formated error message", function () {
 		$scope = {};
+		var climate = 'not well formated error message';
+
+		spyOn(statsFactory, 'climate').and.callFake(function (id, success, error) {
+			return getClimateWithSuccess(id, error, climate);
+		});
+
 		DashboardController = $controller('mindDashboardCtrl', {
 			$scope: $scope,
 			$location: $location,
 			identity: {id: 'anid'},
 			flash: flash,
 			sessionFactory: sessionFactory,
-			climat: 'not well formated error message',
-			moment: moment
+			moment: moment,
+			$timeout: mockTimeout,
+			statsFactory: statsFactory
 		});
+
+		// Propagate promise resolution to 'then' functions using $apply().
+		$rootScope.$apply();
+
 		expect($scope.message).toBe("We couldn't retrieve your climate data. Please try again");
 		expect($scope.climate).toBe(undefined);
+	});
+
+	xit("should display an error message if the climate promise is rejected", function () {
 	});
 });
