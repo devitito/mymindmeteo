@@ -1,10 +1,9 @@
 describe("Mind Dashboard Controller", function() {
-	var DashboardController, flash, lang, identityService, moment, usSpinnerService, statsFactory;
+	var DashboardController, lang, identityService, statsFactory;
 	var $controller;
 	var $scope;
 	var $rootScope;
 	var $q;
-	var $location;
 
 	beforeEach(function () {
 		module('mindControllers');
@@ -18,17 +17,12 @@ describe("Mind Dashboard Controller", function() {
 		module('angularSpinner');
 	});
 
-	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$location_, _flash_, _lang_, _identityService_, _sessionFactory_, _moment_, _usSpinnerService_, _statsFactory_) {
+	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _lang_, _identityService_, _statsFactory_) {
 		$controller = _$controller_;
 		$rootScope = _$rootScope_;
 		$q = _$q_;
-		$location = _$location_;
-		flash = _flash_;
 		lang = _lang_;
 		identityService = _identityService_;
-		sessionFactory = _sessionFactory_;
-		moment = _moment_;
-		usSpinnerService = _usSpinnerService_;
 		statsFactory = _statsFactory_;
 	}));
 
@@ -58,9 +52,9 @@ describe("Mind Dashboard Controller", function() {
 		};
 	};
 
-	var mockTimeout = function(cb, delay) {
+	/*var mockTimeout = function(cb, delay) {
 		cb();
-	};
+	};*/
 
 	it("should forward a linechart object if the climate data is fetched without error", function () {
 		$scope = {};
@@ -91,13 +85,8 @@ describe("Mind Dashboard Controller", function() {
 
 		DashboardController = $controller('mindDashboardCtrl', {
 			$scope: $scope,
-			$location: $location,
 			identity: {id: 'anid'},
-			flash: flash,
-			sessionFactory: sessionFactory,
 			statsFactory: statsFactory,
-			moment: moment,
-			$timeout: mockTimeout
 		});
 
 		// Propagate promise resolution to 'then' functions using $apply().
@@ -126,13 +115,8 @@ describe("Mind Dashboard Controller", function() {
 
 		DashboardController = $controller('mindDashboardCtrl', {
 			$scope: $scope,
-			$location: $location,
 			identity: {id: 'anid'},
-			flash: flash,
-			sessionFactory: sessionFactory,
 			statsFactory: statsFactory,
-			moment: moment,
-			$timeout: mockTimeout
 		});
 
 		// Propagate promise resolution to 'then' functions using $apply().
@@ -155,13 +139,8 @@ describe("Mind Dashboard Controller", function() {
 
 		DashboardController = $controller('mindDashboardCtrl', {
 			$scope: $scope,
-			$location: $location,
 			identity: {id: 'anid'},
-			flash: flash,
-			sessionFactory: sessionFactory,
 			statsFactory: statsFactory,
-			moment: moment,
-			$timeout: mockTimeout
 		});
 
 		// Propagate promise resolution to 'then' functions using $apply().
@@ -184,12 +163,7 @@ describe("Mind Dashboard Controller", function() {
 
 		DashboardController = $controller('mindDashboardCtrl', {
 			$scope: $scope,
-			$location: $location,
 			identity: {id: 'anid'},
-			flash: flash,
-			sessionFactory: sessionFactory,
-			moment: moment,
-			$timeout: mockTimeout,
 			statsFactory: statsFactory
 		});
 
