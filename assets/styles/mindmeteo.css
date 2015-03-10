@@ -429,4 +429,12 @@ div.container a.brand {
 	top: 40px;
 }
 
+.mood-chart {
+	height:400px;
+	width:105%;
+	margin-left:-25px;
+}
 
+.homepage-title {
+	font-family: 'Gloria Hallelujah', cursive;
+}
