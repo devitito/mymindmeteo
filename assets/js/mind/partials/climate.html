@@ -1,7 +1,7 @@
 <!--<link rel="import" href="js/elements/mood-board/mood-board.html">-->
 
-<div class="clearfix"></div>
-<div ng-if="!message">
+<!--<div class="clearfix"></div>-->
+<div ng-hide="message">
 
 	<div ng-if="!spinneroff" class="row">
 		<span class="spinner" us-spinner="{radius:20, width:5, length: 10, color: '#00ADEF'}" spinner-key="spinner" spinner-start-active="true"></span>
@@ -17,7 +17,7 @@
 		</mood-board>-->
 
 			<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-				<div google-chart chart="climate" style="height:400px; width:105%; margin-left:-25px;"></div>
+				<div google-chart chart="climate" class="mood-chart"></div>
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 				<section class="panel panel-love">
@@ -50,4 +50,4 @@
 			</div>
 	</div>
 </div>
-<div ng-if="message" class="text-center" ><h4>{{message}}</h4></div>
+<div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>

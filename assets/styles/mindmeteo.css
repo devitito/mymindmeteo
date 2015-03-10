@@ -340,6 +340,12 @@ div.container a.brand {
     -moz-animation-timing-function: linear;
 }
 
+.mood-chart {
+		height:400px;
+		width:105%;
+		margin-left:-25px;
+}
+
 /* Large devices */
 @media (min-width: 768px) {
     .vertical-align {
@@ -353,7 +359,6 @@ div.container a.brand {
     padding: 100px 0 100px;
     text-align: center;
 	}
-
 }
 
 @media (max-width: 767px) {
@@ -420,6 +425,12 @@ div.container a.brand {
     margin-top: 20px;
     font-size: 25px;
 	}
+
+	.mood-chart {
+		height:300px;
+		width:105%;
+		margin-left:-25px;
+	}
 }
 
 .spinner {
@@ -427,12 +438,6 @@ div.container a.brand {
 	position: relative;
 	left: 50%;
 	top: 40px;
-}
-
-.mood-chart {
-	height:400px;
-	width:105%;
-	margin-left:-25px;
 }
 
 .homepage-title {

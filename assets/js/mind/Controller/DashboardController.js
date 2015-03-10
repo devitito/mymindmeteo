@@ -11,6 +11,19 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				$location.path(url);
 			};
 
+			statsFactory.climate(identity.name)
+			.then(function (climate) {
+				climateChartHelper.load($scope, climate);
+				//wait a bit for the graph to display on slow device
+				$timeout(function() {
+					usSpinnerService.stop('spinner');
+					$scope.spinneroff = true;
+				}, 1000);
+			})
+			.catch(function (error) {
+				$scope.showError(error);
+			});
+
 			$scope.identity = identity;
 
 			$scope.logout = function () {
@@ -67,17 +80,6 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			$scope.processing = false;
 			$scope.spinneroff = false;
 
-			statsFactory.climate(identity.name)
-			.then(function (climate) {
-				climateChartHelper.load($scope, climate);
-				//wait a bit for the graph to display on slow device
-				$timeout(function() {
-					usSpinnerService.stop('spinner');
-					$scope.spinneroff = true;
-				}, 1000);
-			})
-			.catch(function (error) {
-				$scope.showError(error);
-			});
+
 
 }]);
