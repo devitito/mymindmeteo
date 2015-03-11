@@ -13,7 +13,7 @@ var NewReportCtrl = adminControllers.controller('NewReportCtrl', ['$scope', '$lo
 			};
 
 			$scope.categories = reportCategories.categories;
-			$scope.ranges = reportRanges;
+			$scope.ranges = reportRanges.ranges;
 			$scope.statusList = sensorStatus;
 			$scope.meteologistList = meteologistList;
 

@@ -589,3 +589,9 @@ div.container a.brand {
 	width: 50px;
 	margin: 17px;
 }
+
+.emocicones {
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 25px;
+}

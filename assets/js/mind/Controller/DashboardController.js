@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService', 'reportCategories',
-    function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper, usSpinnerService, reportCategories) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService', 'reportCategories', 'emociconeService', 'reportRanges',
+    function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper, usSpinnerService, reportCategories, emociconeService, reportRanges) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -86,4 +86,22 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 				return img;
 				//return reportCategories.img(category);
 			};
+
+			$scope.getCategoryLabel = function(category) {
+				var label = reportCategories.label(category);
+				console.log(label);
+				return 'Category: ' + label;
+			};
+
+			$scope.getEmocicone = function (range) {
+				var img = emociconeService.range2img(range);
+				console.log(img);
+				return img;
+			};
+
+			$scope.getMoodRangeLabel = function(range) {
+				var label = reportRanges.label(range);
+				console.log(label);
+				return 'Mood: ' + label;
+			}
 }]);
