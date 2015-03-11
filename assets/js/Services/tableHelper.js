@@ -12,7 +12,7 @@ mindServices.factory("tableHelper", ['$filter', 'ngTableParams', 'statementsFact
 		if (table == 'statements-list') {
 			return new ngTableParams({
 				page: 1,            // show saved page
-				count: 10,           // count per page
+				count: 5,           // count per page
 				sorting: {
             createdAt: 'desc'     // initial sorting
         }

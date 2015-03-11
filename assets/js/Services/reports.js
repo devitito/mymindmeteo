@@ -11,10 +11,23 @@ adminServices.factory('reportsFactory', ['$resource', function($resource){
 }]);
 
 adminServices.factory('reportCategories', [function(){
-		return [{code:'pro', name:'Professional'},
-		        {code:'friends', name:'Friends'},
-		        {code:'family', name:'Family'},
-		        {code:'lover', name:'Lover'}];
+	var factory = {};
+
+	factory.img = function(category) {
+		for (var i = 0; i < this.categories.length; i++) {
+			if (this.categories[i].code == category) {
+				return this.categories[i].img;
+			}
+		}
+	};
+
+	factory.categories = [
+		{code:'pro', name:'Professional', img:'images/pro.png'},
+		{code:'friends', name:'Friends', img:'images/friends.png'},
+		{code:'family', name:'Family', img:'images/family.png'},
+		{code:'lover', name:'Lover', img:'images/lover.png'}];
+
+	return factory;
 }]);
 
 adminServices.factory('reportRanges', [function(){

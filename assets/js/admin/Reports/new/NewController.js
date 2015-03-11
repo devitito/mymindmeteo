@@ -12,7 +12,7 @@ var NewReportCtrl = adminControllers.controller('NewReportCtrl', ['$scope', '$lo
 				$location.path(url);
 			};
 
-			$scope.categories = reportCategories;
+			$scope.categories = reportCategories.categories;
 			$scope.ranges = reportRanges;
 			$scope.statusList = sensorStatus;
 			$scope.meteologistList = meteologistList;

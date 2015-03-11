@@ -56,13 +56,31 @@
 	</div>-->
 </div>
 
-
 <div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>
 <div ng-show="tableParams.data.length" loading-container="tableParams.settings().$loading">
 
-	<table  ng-table="tableParams" class="table table-hover">
-		<tr class="clickable" ng-repeat="statement in $data" ng-click="ViewStatement(statement)">
-			<td data-title="'Title'">
+	<table  ng-table="tableParams" class="table table-hover table-statement">
+		<tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
+			<td>
+				<div class="statement-wrapper">
+				<div class="row-fluid statement">
+					<div class="span2 statement-picture content-center">
+						<img ng-src='{{getImgByCategory(statement.report.category)}}'>
+					</div>
+					<div class="span2 content-center">{{statement.report.range}}</div>
+					<div class="span2">
+						<small>{{statement.createdAt | amDateFormat:'LL'}}</small>
+						<div>
+							<span>{{statement.report.meteologist.name}}</span>
+						</div>
+					</div>
+					<div class="span6">
+						<h2>{{statement.report.title}}</h2>
+					</div>
+				</div>
+				</div>
+			</td>
+			<!--<td data-title="'Title'">
 				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.report.title}}</span>
 			</td>
 			<td data-title="'Category'">
@@ -73,8 +91,11 @@
 			</td>
 			<td data-title="'Meteologist'">
 				<span ng-class="{'read': !statement.notread, 'not-read': statement.notread}">{{statement.report.meteologist.name}}</span>
-			</td>
+			</td>-->
 		</tr>
 	</table>
 
 </div>
+
+
+<!-- style="width:90%;height:75px;border:1px solid #000;" -->

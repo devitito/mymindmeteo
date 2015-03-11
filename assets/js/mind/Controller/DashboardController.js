@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService',
-    function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper, usSpinnerService) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService', 'reportCategories',
+    function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper, usSpinnerService, reportCategories) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -80,6 +80,10 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			$scope.processing = false;
 			$scope.spinneroff = false;
 
-
-
+			$scope.getImgByCategory = function (category) {
+				var img = reportCategories.img(category);
+				console.log(img);
+				return img;
+				//return reportCategories.img(category);
+			};
 }]);
