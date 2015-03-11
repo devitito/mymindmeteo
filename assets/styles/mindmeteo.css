@@ -601,3 +601,42 @@ div.container a.brand {
 	font-size: 20px;
 	margin-top: 25px;
 }
+
+@media (max-width: 629px) {
+	.row-fluid .span6,
+	.row-fluid .span7,
+	.row-fluid .span8,
+	.row-fluid .span9,
+	.row-fluid .span10,
+	.row-fluid .span11,
+	.row-fluid .span12
+	{
+		width:99.99999998999999%;
+		*width:99.94680850063828%
+	}
+
+	.row-fluid .span5{
+		width:82.97872339599999%;
+		*width:82.97872339599999%;
+	}
+
+	.row-fluid .span4{
+		width:65.95744680199999%;
+		*width:65.95744680199999%;
+	}
+
+	.row-fluid .span3{
+		width:48.93617020799999%;
+		*width:48.93617020799999%;
+	}
+
+	.row-fluid .span2{
+		width:31.914893614%;
+		*width:31.914893614%;
+	}
+
+	.row-fluid .span1{
+		width:14.89361702%;
+		*width:14.89361702%;
+	}
+}
