@@ -34,7 +34,7 @@
 		<div class="panel-body">
 			<form role="form">
     		<div class="form-group">
-					<textarea class="form-control" rows="3">{{editedStatement.body}}</textarea>
+					<textarea class="form-control" rows="15">{{editedStatement.body}}</textarea>
 				</div>
 
 			</form>
@@ -50,7 +50,7 @@
 </div>
 
 <div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>
-<div ng-show="tableParams.data.length" loading-container="tableParams.settings().$loading">
+<div ng-show="tableParams.data.length">
 
 	<table  ng-table="tableParams" class="table table-hover table-statement">
 		<tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
