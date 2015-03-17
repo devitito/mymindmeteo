@@ -29,7 +29,7 @@ var jsFilesToInject = [
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
 
-	'bower_components/webcomponentsjs/webcomponents.min.js',
+	//'bower_components/webcomponentsjs/webcomponents.min.js',
 
   // Dependencies like jQuery, or Angular are brought in here
   'bower_components/jquery/dist/jquery.min.js',
