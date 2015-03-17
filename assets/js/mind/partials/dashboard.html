@@ -1,10 +1,11 @@
 <!--<link type="text/css" href="bower_components/angular-snap/angular-snap.css" rel="stylesheet">-->
 
 <div id="shelf" snap-drawer="right" class="dialog-shelf">
-			<img class="img-responsive img-mind-profile center-block" src="/images/placeholder.png">
-			<p class="clickable mind-action-dialog">Hi! I'm a right-aligned drawer!</p>
-
-			<button ng-click="logout()" class="btn btn-meteo">Let me out of here!</button>
+			<img class="img-responsive img-mind-profile" src="/images/placeholder.png">
+			<p class="clickable speech" ng-click="record()">Measure my climate!</p>
+			<!--<p class="clickable speech" ng-click="logout()">Quick!<br>Get me a new report!!</p>-->
+			<p class="clickable speech" ng-click="logout()">Let me out of here!</p>
+			<!--<button  class="btn btn-meteo">Let me out of here!</button>-->
 </div>
 
 <snap-content id="content" snap-opt-disable="'left'">

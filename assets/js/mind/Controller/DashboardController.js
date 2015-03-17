@@ -5,8 +5,8 @@
  *
  */
 
-var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService', 'reportCategories', 'emociconeService', 'reportRanges', /*'snapRemote',*/
-    function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper, usSpinnerService, reportCategories, emociconeService, reportRanges/*, snapRemote*/) {
+var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', 'identity', 'sessionFactory', 'statsFactory', 'recordsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService', 'reportCategories', 'emociconeService', 'reportRanges', 'snapRemote',
+    function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, recordsFactory, climateChartHelper, tableHelper, usSpinnerService, reportCategories, emociconeService, reportRanges, snapRemote) {
 			$scope.go = function (url) {
 				$location.path(url);
 			};
@@ -62,6 +62,7 @@ var mindDashboardCtrl = mindControllers.controller('mindDashboardCtrl', ['$scope
 			};
 
 			$scope.record = function () {
+				snapRemote.close();
 				recordsFactory.launch($scope);
 			};
 

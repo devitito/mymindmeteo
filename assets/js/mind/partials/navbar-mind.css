@@ -1,0 +1,39 @@
+.navbar-mind {
+	height: 100px;
+	background-color: white;
+	border-color: #00ADEF;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	-ms-box-shadow:none;
+	box-shadow: none;
+	-webkit-background-image:none;
+	-moz-background-image:none;
+	-ms-background-image:none;
+	background-image: none;
+}
+
+.navbar-mind-text {
+	color: black;
+	font-size: 30px;
+	padding-left: 15px;
+}
+
+.navbar-mind .navbar-nav>li,
+.navbar-mind .navbar-nav {
+	float: left !important;
+}
+
+.navbar-mind .navbar-right {
+	float: right!important;
+}
+
+@media (max-width: 629px) {
+	.navbar-mind {
+		height: 80px;
+		padding-right: 10px;
+	}
+
+	.navbar-mind-text {
+		font-size: 20px;
+	}
+}

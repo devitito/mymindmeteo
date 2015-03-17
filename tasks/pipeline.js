@@ -17,7 +17,8 @@
 var cssFilesToInject = [
   'bower_components/bootstrap/dist/css/bootstrap.min.css',
   'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-  'styles/**/*.css'
+  'styles/**/*.css',
+	'js/**/*.css',
 ];
 
 
