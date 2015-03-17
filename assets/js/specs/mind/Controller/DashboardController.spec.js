@@ -15,6 +15,7 @@ describe("Mind Dashboard Controller", function() {
 		module('ui.bootstrap');
 		module('ngTable');
 		module('angularSpinner');
+		module('snap');
 	});
 
 	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _lang_, _identityService_, _statsFactory_) {

@@ -20,6 +20,7 @@ module.exports = function (config) {
 					'assets/bower_components/angular-ui-router/release/angular-ui-router.min.js',
 					'assets/bower_components/spin.js/spin.js',
 					'assets/bower_components/angular-spinner/angular-spinner.js',
+					'assets/bower_components/angular-snap/angular-snap.js',
 
 					'assets/js/app.js',
 					'assets/js/Services/**/*.js',
