@@ -49,6 +49,9 @@ var jsFilesToInject = [
 	'bower_components/angular-ui-router/release/angular-ui-router.min.js',
 	'bower_components/spin.js/spin.js',
 	'bower_components/angular-spinner/angular-spinner.js',
+	'bower_components/snapjs/snap.js',
+	'bower_components/angular-snap/angular-snap.js',
+
 
 	'js/app.js',
   'js/dependencies/**/*.js',

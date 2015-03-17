@@ -78,3 +78,5 @@ data
 /assets/bower_components/jquery/
 /assets/bower_components/angular-spinner/
 /assets/bower_components/spin.js/
+/assets/bower_components/angular-snap/
+/assets/bower_components/snapjs/
