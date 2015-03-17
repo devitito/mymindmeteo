@@ -26,6 +26,6 @@ var homepageCtrl = guestControllers.controller('homepageCtrl', ['$scope', '$loca
 					// since $location.hash hasn't changed
 					$anchorScroll();
 				}
-    };
+		};
 }]);
 

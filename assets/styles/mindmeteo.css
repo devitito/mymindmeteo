@@ -1,6 +1,7 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
+		min-width: 300px;
 }
 
 .btn-meteo { 
@@ -602,6 +603,26 @@ div.container a.brand {
 	margin-top: 25px;
 }
 
+.navbar-mind {
+	height: 100px;
+	background-color: white;
+	border-color: #00ADEF;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	-ms-box-shadow:none;
+	box-shadow: none;
+	-webkit-background-image:none;
+	-moz-background-image:none;
+	-ms-background-image:none;
+	background-image: none;
+}
+
+.navbar-mind-text {
+	color: black;
+	font-size: 30px;
+	padding-left: 15px;
+}
+
 @media (max-width: 629px) {
 	.row-fluid .span6,
 	.row-fluid .span7,
@@ -639,4 +660,152 @@ div.container a.brand {
 		width:14.89361702%;
 		*width:14.89361702%;
 	}
+
+	.navbar-mind {
+		height: 80px;
+		padding-right: 10px;
+	}
+
+	.navbar-mind-text {
+		font-size: 20px;
+	}
+}
+
+
+
+
+
+/*
+.navbar-mind .navbar-collapse.collapse {
+	display: block!important;
+}
+*/
+
+.navbar-mind .navbar-nav>li,
+.navbar-mind .navbar-nav {
+	float: left !important;
+}
+
+/*.navbar-mind .navbar-nav.navbar-right:last-child {
+	margin-right: -15px !important;
+}*/
+
+.navbar-mind .navbar-right {
+	float: right!important;
+}
+
+
+.img-mind-profile {
+	width: 90px;
+	height: 90px;
+	vertical-align: middle;
+
+}
+
+.mind-panel {
+	padding-top: 110px;
+}
+
+#content{
+    background: white;
+}
+
+/*.btn-dialog {
+	margin-top: 50px;
+	margin-right: 15px;
+}*/
+/*
+div[snap-content] {
+	position: static;
+}
+*/
+
+.dialog-shelf {
+	padding-left: 15px;
+	text-align: center;
+}
+
+.mind-action-dialog {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+snap-content,
+[snap\:content],
+[snap-content],
+[data-snap-content],
+[x-snap-content],
+.snap-content,
+.x-snap-content,
+snap-drawers,
+[snap\:drawers],
+[snap-drawers],
+[data-snap-drawers],
+[x-snap-drawers],
+.snap-drawers,
+.x-snap-drawers,
+.snap-drawers,
+.snap-content {
+  position: absolute;
+  height: auto;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  left: 0;
+  right: 0;
+}
+snap-drawer,
+[snap\:drawer],
+[snap-drawer],
+[data-snap-drawer],
+[x-snap-drawer],
+.snap-drawer,
+.x-snap-drawer,
+.snap-drawer {
+  position: absolute;
+  height: auto;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  -webkit-transition: top 0.2s linear;
+  -moz-transition: top 0.2s linear;
+  -o-transition: top 0.2s linear;
+  transition: top 0.2s linear;
+  -webkit-transition: bottom 0.2s linear;
+  -moz-transition: bottom 0.2s linear;
+  -o-transition: bottom 0.2s linear;
+  transition: bottom 0.2s linear;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  width: 265px;
+}
+.snap-content {
+  z-index: 2;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+.snap-drawer-left {
+  left: 0;
+  z-index: 1;
+}
+.snap-drawer-right {
+  right: 0;
+  z-index: 1;
+}
+.snapjs-left .snap-drawer-right,
+.snapjs-right .snap-drawer-left {
+  display: none;
+}
+.snapjs-expand-left .snap-drawer-left,
+.snapjs-expand-right .snap-drawer-right {
+  width: 100%;
 }

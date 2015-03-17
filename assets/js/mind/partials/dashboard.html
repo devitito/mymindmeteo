@@ -1,7 +1,30 @@
+<!--<link type="text/css" href="bower_components/angular-snap/angular-snap.css" rel="stylesheet">-->
+
+<div id="shelf" snap-drawer="right" class="dialog-shelf">
+			<img class="img-responsive img-mind-profile center-block" src="/images/placeholder.png">
+			<p class="clickable mind-action-dialog">Hi! I'm a right-aligned drawer!</p>
+
+			<button ng-click="logout()" class="btn btn-meteo">Let me out of here!</button>
+</div>
+
+<snap-content id="content" snap-opt-disable="'left'">
 <div ng-include src="'js/mind/partials/navbar-mind.html'"></div>
 
-<div class="container">
 
+
+
+
+
+	<div class="container mind-panel">
+
+
+
+	<div class="row">
+				<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>
+				<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
+			</div>
+
+<!--
 	<div class="row">
 		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 			<a href="/mind/account">
@@ -22,6 +45,7 @@
 	</div>
 
 	<br>
+-->
 
 	<div class="row">
 		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
@@ -45,8 +69,20 @@
 			</tabset>
 		</div>
 		<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-			<div ng-if="show == 'climate'" ng-include="'js/mind/partials/climate.html'"></div>
-			<div ng-show="show == 'reports'" ng-include="'js/mind/partials/reports-list.html'"></div>
+
+				<div ng-if="show == 'climate'" ng-include="'js/mind/partials/climate.html'"></div>
+				<div ng-show="show == 'reports'" ng-include="'js/mind/partials/reports-list.html'"></div>
 		</div>
 	</div>
+
+		<div class="row">
+		<hr>
+		<footer>
+			<p>&copy; developped by devitito</p>
+		</footer>
+	</div>
+
 </div>
+
+
+</snap-content>
