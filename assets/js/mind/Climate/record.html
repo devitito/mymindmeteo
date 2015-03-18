@@ -42,7 +42,7 @@
 		</div>
 	</div>
 
-	<div ng-if="end">
+	<div ng-if="end && !processing && !error">
 		<div class="row">
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 				<img src="images/meteologist.png" class="img-responsive img-meteologist">
@@ -62,7 +62,7 @@
 		</div>
 	</div>
 
-	<div ng-if="processing">
+	<div ng-if="processing && !error">
 		<div class="row">
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 				<img src="images/meteologist.png" class="img-responsive img-meteologist">
@@ -73,7 +73,7 @@
 		</div>
 	</div>
 
-	<div ng-if="error">
+	<div ng-if="error && !processing">
 		<div class="row">
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 				<img src="images/meteologist.png" class="img-responsive img-meteologist">
