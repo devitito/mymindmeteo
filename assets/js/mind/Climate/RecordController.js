@@ -22,43 +22,29 @@ mindControllers.controller('mindClimateRecordCtrl', [
 
 		$scope.identity = identity;
 
-		/*$scope.showError = function (error) {
+		$scope.showError = function (error) {
 			$scope.processing = false;
 			$scope.error = error;
 			$timeout(function() {
 				$scope.error = undefined;
+				$location.path('mind/dashboard/'+$scope.identity.name);
 			}, 5000);
-		};*/
+		};
 
 		$scope.close = function () {
-    	//$modalInstance.close($scope.records);
-			//if (angular.isUndefined($scope.records))
-			//{
-				//scope.processing = false;
-			//}
-			//else
-			//{
-				if ($scope.records.length) {
-					//scope.processing = true;
+			if ($scope.records.length) {
+				$scope.processing = true;
 
-					recordsFactory.save({id:$scope.identity.id}, $scope.records)
-					.then(function (success) {
-						$location.path('mind/dashboard/'+$scope.identity.name);
-						//update the climate
-						//statsFactory.climate(scope.identity.name)
-						//.then(function (climat) {
-						//	climateChartHelper.load(scope, climat);
-							//scope.processing = false;
-
-						//});
-					})
-					.catch(function (err) {
-						$scope.showError(err.data);
-					});
-				}
+				recordsFactory.save({id:$scope.identity.id}, $scope.records)
+				.then(function (success) {
+					$location.path('mind/dashboard/'+$scope.identity.name);
+				})
+				.catch(function (err) {
+					$scope.showError(err.data);
+				});
+			}
 			else
 				$location.path('mind/dashboard/'+$scope.identity.name);
-			//}
   	};
 
 		/**
