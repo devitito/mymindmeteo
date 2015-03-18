@@ -11,7 +11,7 @@
 	<div ng-include src="'js/mind/partials/navbar-mind.html'"></div>
 	<div class="container mind-panel">
 		<div class="row">
-			<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>
+			<!--<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>-->
 			<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
 		</div>
 
@@ -19,10 +19,10 @@
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 				<tabset vertical="true" type="pills">
 					<tab ng-click="openClimate()">
-						<tab-heading class="text-center">My climate</tab-heading>
+						<tab-heading class="text-center">Your climate</tab-heading>
 					</tab>
 					<tab ng-click="openReportList()">
-						<tab-heading>My reports <span ng-show="newReports" class="text-danger"> *</span></tab-heading>
+						<tab-heading>Your reports <span ng-show="newReports" class="text-danger"> *</span></tab-heading>
 					</tab>
 					<!--tab heading="Raw Data"><div ng-include="'js/mind/partials/measurements.html'"></tab>
 					<tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
