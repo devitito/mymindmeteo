@@ -10,13 +10,23 @@ var Readable = require('stream').Readable
 
 function randomIntFromInterval(min,max)
 {
-	return Math.floor(Math.random()*(max-min+1)+min);
+	var val = Math.floor(Math.random()*(max-min+1)+min);
+	console.log('report id: '+val);
+	return val;
 }
 
 function save (deferred, statement) {
 	Statement.create(statement)
-	.then(function(createdStatement) {
-		deferred.resolve(createdStatement);
+	.then(function(statement) {
+		return Statement.findOneById(statement.id).populate('report');
+	})
+	.then(function(statement) {
+		Mind.findOneById(statement.report.meteologist)
+		.then(function (meteologist) {
+			console.log(meteologist);
+			statement.report.meteologist = {id: meteologist.id, name: meteologist.name} ;
+			deferred.resolve(statement);
+		});
 	})
 	.catch(function(err) {
 		deferred.reject(err);

@@ -1,0 +1,11 @@
+.statement-panel {
+	padding-top: 60px;
+}
+
+@media (max-width: 629px) {
+	.statement-panel {
+		padding-top: 35px;
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+}
