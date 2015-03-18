@@ -206,4 +206,8 @@
 		border: 8px solid;
 		border-color:transparent transparent transparent #fff;
 	}
+
+	.right:hover:after {
+		border-color:transparent transparent transparent #00ADEF;
+	}
 }
