@@ -165,6 +165,22 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 			}]*/
 		}
 	}).
+	when('/mind/climate/record', {
+		templateUrl: '/js/mind/Climate/record.html',
+		controller: 'mindClimateRecordCtrl',
+		resolve: {
+			identity : ['identityService', '$location', function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
+			}],
+			sensorList : ['sensorsFactory', function (sensorsFactory) {
+				return sensorsFactory.listBy({field: "status", value: "approved"});
+			}]
+		}
+	}).
 	when('/administrator/minds/new', {
 		templateUrl: '/js/admin/partials/mind/new.html',
 		controller: 'NewMindCtrl',
@@ -186,6 +202,19 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 	when('/administrator/result/:object/:id/:result', {
 		templateUrl: '/js/admin/partials/admin/edited.html',
 		controller: 'ResultCtrl'
+	}).
+	when('/report/new', {
+		templateUrl: '/js/mind/Report/new/new.html',
+		controller: 'mindNewReportCtrl',
+		resolve: {
+			identity : ['identityService', '$location', function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
+			}]
+		}
 	}).
 	when('/administrator/reports', {
 		templateUrl: '/js/admin/Reports/list/list.html',

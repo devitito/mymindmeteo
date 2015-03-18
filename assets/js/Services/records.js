@@ -5,8 +5,8 @@
  *
  */
 
-mindServices.factory('recordsFactory', ['$resource', '$q', '$modal', 'statementsFactory', 'statsFactory', 'climateChartHelper', 'sensorsFactory',
-	function($resource, $q, $modal, statementsFactory, statsFactory, climateChartHelper, sensorsFactory){
+mindServices.factory('recordsFactory', ['$resource', '$q', /*'$modal', 'statementsFactory', 'statsFactory', 'climateChartHelper', 'sensorsFactory',*/
+	function($resource, $q/*, $modal, statementsFactory, statsFactory, climateChartHelper, sensorsFactory*/){
 	var factory = {};
 	var resource = $resource('/record/:id', {id:'@id'}, {
 		saveBulk: {method: 'POST', url: '/record/saveBulk'}
@@ -25,7 +25,7 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal', 'statements
 		return deferred.promise;
 	}
 
-	factory.launch = function (scope) {
+	/*factory.launch = function (scope) {
 		var modalInstance = $modal.open({
 			templateUrl: '/js/components/modals/record/record.html',
 			controller: 'RecordModalCtrl',
@@ -60,20 +60,8 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal', 'statements
 						statsFactory.climate(scope.identity.name)
 						.then(function (climat) {
 							climateChartHelper.load(scope, climat);
-							//Generate the reports
-							statementsFactory.generate({id: scope.identity.id}).$promise
-							.then(function (reports) {
-								scope.tableParams.reload();
-								scope.processing = false;
-								scope.newReports = true;
-							})
-							.catch(function (error) {
-								try {
-									scope.showError(error.data.error);
-								} catch (e) {
-									scope.showError("Our meteologist are too busy currently. There is an hurrican somewhere. You are not the center of the world. Try again later.");
-								}
-							});
+							scope.processing = false;
+
 						});
 					})
 					.catch(function (err) {
@@ -82,7 +70,7 @@ mindServices.factory('recordsFactory', ['$resource', '$q', '$modal', 'statements
 				}
 			}
 		});
-	};
+	};*/
 
 	return factory;
 }]);

@@ -1,0 +1,177 @@
+.sensor-panel {
+	padding-top: 60px;
+}
+
+.img-meteologist {
+	min-width: 75px;
+}
+
+.img-mind-answer {
+	display: table-cell;
+	vertical-align: middle;
+	max-width: 100px;
+}
+
+/* ============================================================================================================================
+== BUBBLE WITH A BORDER AND TRIANGLE
+** ============================================================================================================================ */
+
+/* THE SPEECH BUBBLE
+------------------------------------------------------------------------------------------------------------------------------- */
+
+.triangle-border {
+	text-align: center;
+  position:relative;
+  padding:15px;
+  //margin:1em 0 3em;
+	margin-top: 20px;
+	margin-right: 20px;
+  border:2px solid #00ADEF;
+  color:#333;
+  background:#fff;
+  /* css3 */
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+	font-size: 20px;
+	min-height: 40px;
+}
+
+/* Variant : for left positioned triangle
+------------------------------------------ */
+
+
+
+/* THE TRIANGLE
+------------------------------------------------------------------------------------------------------------------------------- */
+
+.triangle-border:before {
+  content:"";
+  position:absolute;
+  bottom:-20px; /* value = - border-top-width - border-bottom-width */
+  left:40px; /* controls horizontal position */
+  border-width:20px 20px 0;
+  border-style:solid;
+  border-color:#00ADEF transparent;
+  /* reduce the damage in FF3.0 */
+  display:block;
+  width:0;
+}
+
+/* creates the smaller  triangle */
+.triangle-border:after {
+  content:"";
+  position:absolute;
+  bottom:-13px; /* value = - border-top-width - border-bottom-width */
+  left:47px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+  border-width:13px 13px 0;
+  border-style:solid;
+  border-color:#fff transparent;
+  /* reduce the damage in FF3.0 */
+  display:block;
+  width:0;
+}
+
+/* Variant : left
+------------------------------------------ */
+
+/* creates the larger triangle */
+.triangle-border.left:before {
+  top: 9px; /* controls vertical position */
+  bottom:auto;
+  left:-34px; /* value = - border-left-width - border-right-width */
+  border: 17px solid;
+  border-color:transparent #00ADEF transparent transparent;
+}
+
+/* creates the smaller  triangle */
+.triangle-border.left:after {
+  top:11px; /* value = (:before top) + (:before border-top) - (:after border-top) */
+  bottom:auto;
+  left:-29px; /* value = - border-left-width - border-right-width */
+  border: 15px solid;
+  border-color:transparent #fff transparent transparent;
+}
+
+/* Variant : right
+------------------------------------------ */
+
+/* creates the larger triangle */
+.triangle-border.right:before {
+  top:9px; /* controls vertical position */
+  bottom:auto;
+  left:auto;
+  right:-34px; /* value = - border-left-width - border-right-width */
+  border:17px solid;
+  border-color: transparent transparent transparent #00ADEF;
+}
+
+/* creates the smaller  triangle */
+.triangle-border.right:after {
+  top:11px; /* value = (:before top) + (:before border-top) - (:after border-top) */
+  bottom:auto;
+  left:auto;
+  right:-29px; /* value = - border-left-width - border-right-width */
+  border: 15px solid;
+  border-color:transparent transparent transparent #fff;
+}
+
+@media (max-width: 629px) {
+	.sensor-panel {
+		padding-top: 35px;
+	}
+
+	.img-mind-answer {
+		margin-left: -35px;
+	}
+
+	.triangle-border
+	{
+		padding: 5px;
+		font-size: 14px;
+		margin: 15px 5px 5px 5px;
+		width: 85%;
+	}
+
+	.triangle-border.left {
+		margin-left:30px;
+	}
+
+	.triangle-border.right {
+		margin-right:30px;
+	}
+
+	.triangle-border.left:before {
+		top: 20%;
+		bottom:auto;
+		left:-24px;
+		border:12px solid;
+		border-color: transparent #00ADEF transparent transparent;
+	}
+
+	.triangle-border.left:after {
+		top: 30%;
+		bottom:auto;
+		left:-16px;
+		border: 8px solid;
+		border-color:transparent #fff transparent transparent;
+	}
+
+	.triangle-border.right:before {
+		top: 20%;
+		bottom:auto;
+		left:auto;
+		right:-24px;
+		border: 12px solid;
+		border-color:transparent transparent transparent #00ADEF;
+	}
+
+	.triangle-border.right:after {
+		top: 30%;
+		bottom:auto;
+		left:auto;
+		right: -16px;
+		border: 8px solid;
+		border-color:transparent transparent transparent #fff;
+	}
+}
