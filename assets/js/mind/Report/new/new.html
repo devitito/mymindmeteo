@@ -13,57 +13,47 @@
 
 <div class="container statement-panel">
 
-		<div class="row">
-			<alert ng-show="processing" type="info"><h4>Our meteologists are working on your request. Their reports will be ready in a minute...</h4></alert>
-			<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
-		</div>
+	<div class="row">
+		<alert ng-show="processing" type="info"><h4>Our meteologists are working on your request. Their reports will be ready in a minute...</h4></alert>
+		<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
+	</div>
 
-		<div ng-if="!editedStatement && !processing && !error" class="row">
-			<h2>Please explain what you need.</h2>
+	<div ng-if="!editedStatement && !processing" class="row">
+		<h3>Please explain what you need!</h3>
 
-		<form class="form-horizontal" novalidate name="newReportForm" autocomplete="off">
+		<div class="col-lg-6 col-md-6">
+			<form novalidate name="newReportForm" autocomplete="off">
 
-			<div class="from-group row" ng-class="{'has-error': newReportForm.$dirty && newReportForm.title.$invalid, 'has-success': newReportForm.title.$valid}">
-				<div class="row">
-					<div class="col-lg-5 col-md-5 col-sm-5">
-						<label class="control-label">Who is the lucky recipient of your thought?</label>
-						<input class="form-control input-lg" id="recipient" name="recipient" type="text" required
-							ng-maxlength="64"
-							ng-model="report.recipient">
-						</input>
+				<div class="from-group" ng-class="{'has-error': newReportForm.$dirty && newReportForm.recipient.$invalid, 'has-success': newReportForm.recipient.$valid}">
+					<label class="control-label">Who is the lucky recipient of your thought?</label>
+					<input class="form-control input-lg" id="recipient" name="recipient" type="text" required
+								 ng-maxlength="64"
+								 ng-model="report.recipient">
+					</input>
+					<div>
+						<span class="text-danger" ng-show="newReportForm.recipient.$error.maxlength">Too long</span>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-5 col-md-5 col-sm-5">
-			       	 	<span class="text-danger" ng-show="newReportForm.name.$error.maxlength">Too long</span>
-			       	 <!--	<span class="text-danger" ng-show="newReportForm.name.$error.pattern">The report title can consist of alphanumerical characters and dash only</span>-->
-					</div>
-			</div>
-			</div>
-			<div class="from-group row" ng-class="{'has-error': newReportForm.$dirty && newReportForm.category.$invalid, 'has-success': newReportForm.category.$valid}">
-				<div class="row">
-					<div class="col-lg-5 col-md-5 col-sm-5">
-						<label class="control-label" for="category">Which is... </label>
-						<select class="form-control input-lg" id="category" name="category" required ng-model="report.category" ng-options="category.code as category.name for category in categories">	</select>
-					</div>
+				<div class="from-group">
+					<label class="control-label" for="category">Which is... </label>
+						<select class="form-control input-lg" id="category" name="category" required
+										ng-model="report.category"
+										ng-options="category.code as category.name for category in categories">
+						</select>
 				</div>
-				<div class="row">
-					<div class="col-lg-5">
-					</div>
-				</div>
-			</div>
-		<br>
-		<div class="form-group">
-			<button ng-click="generate()" class="btn btn-meteo" ng-disabled="newReportForm.$invalid">Generate it!</button>
-			<button ng-click="go('/mind/dashboard/'+identity.name)" class="btn btn-default">Abort</button>
-		</div>
-	</form>
-		</div>
 
-	<div ng-if="editedStatement" class="row content">
-		<h3>Here are the conclusion of our meteologists</h3>
+				<br>
+				<button ng-click="generate()" type="button" class="btn btn-meteo" ng-disabled="newReportForm.$invalid">Generate it!</button>
+				<button ng-click="go('/mind/dashboard/'+identity.name)" type="button" class="btn btn-default">Abort</button>
 
-		<section class="panel panel-statement">
+			</form>
+	</div>
+</div>
+
+<div ng-if="editedStatement" class="row">
+	<h3>Here are the conclusion of our meteologists</h3>
+
+	<div class="panel panel-default">
 		<div class="panel-heading">
 			<!--<div class="row">
 				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
@@ -76,7 +66,7 @@
 
 			<div class="row">
 				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
-					<span class="pull-right">Title: </span>
+					<span class="pull-right"><b>Title: </b></span>
 				</div>
 				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
 					<span>{{editedStatement.report.title}}</span>
@@ -84,7 +74,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
-					<span class="pull-right">Author: </span>
+					<span class="pull-right"><b>Author: </b></span>
 				</div>
 				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
 					<span>{{editedStatement.report.meteologist.name}}</span>
@@ -92,23 +82,29 @@
 			</div>
 			<div class="row">
 					<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
-						<span class="pull-right">Range: </span>
+						<span class="pull-right"><b>Category: </b></span>
 					</div>
 					<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
-						<span>{{editedStatement.report.range}}</span>
+						<span>{{getCategoryLabel(editedStatement.report.category)}}</span>
 					</div>
-				</div>
+			</div>
+			<div class="row">
+					<div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
+						<span class="pull-right"><b>Range: </b></span>
+					</div>
+					<div class="col-lg-11 col-md-10 col-sm-10 col-xs-9">
+						<span>{{getEmocicone(editedStatement.report.range)}} &nbsp;&nbsp; {{getRangeLabel(editedStatement.report.range)}}</span>
+					</div>
+			</div>
 		</div>
 		<div class="panel-body">
-					<div rows="15">{{editedStatement.body}}</div>
+					<textarea style="width:100%;" readonly rows="15">{{editedStatement.body}}</textarea>
 		</div>
-		<br>
-		<button ng-click="go('/mind/dashboard/'+identity.name)" class="btn btn-meteo pull-right">Thanks!</button>
 	</div>
 
-		<div ng-if="error" class="row content">
-			<button ng-click="go('/mind/dashboard/'+identity.name)" class="btn btn-meteo pull-right">Ok...</button>
-		</div>
+	<br>
+	<button ng-click="go('/mind/dashboard/'+identity.name)" class="btn btn-meteo pull-right">Thanks!</button>
+</div>
 
 		<div class="row">
 			<hr>

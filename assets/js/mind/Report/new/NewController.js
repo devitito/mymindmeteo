@@ -56,6 +56,18 @@ mindControllers.controller('mindNewReportCtrl', [
 			$scope.editedStatement = statement;
 		};
 
+		$scope.getRangeLabel = function(range) {
+			return reportRanges.label(range);
+		}
+
+		$scope.getEmocicone = function (range) {
+			return emociconeService.range2img(range);
+		};
+
+		$scope.getCategoryLabel = function(category) {
+			return reportCategories.label(category);
+		};
+
 		$scope.generate = function(report) {
 			$scope.processing = true;
 			statementsFactory.generate({id: $scope.identity.id}).$promise
