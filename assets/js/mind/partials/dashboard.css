@@ -11,7 +11,7 @@
 	height: 90px;
 	vertical-align: middle;
 	margin-left: 15px;
-	margin-bottom: 15px;
+	margin-bottom: 30px;
 	min-width: 90px;
 }
 
@@ -23,12 +23,12 @@ p.speech
 	line-height: 25px;
 	background-color: #fff;
 	border: 2px solid #00ADEF;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 	margin-left: 5%;
 	margin-right: 5%;
-	margin-top: 30px;
+	margin-top: 15px;
 	font-size: 16px;
 	padding: 7px;
 }
@@ -42,7 +42,7 @@ p.speech:before
 	left: 30px;
 	top: -30px;
 	border: 15px solid;
-	border-color: transparent transparent #00ADEF #00ADEF;
+	border-color: transparent transparent #00ADEF transparent;
 }
 
 p.speech:after
@@ -54,7 +54,11 @@ p.speech:after
 	left: 32px;
 	top: -25px;
 	border: 13px solid;
-	border-color: transparent transparent #fff #fff;
+	border-color: transparent transparent #fff transparent;
+}
+
+p.speech:hover {
+	text-decoration: underline;
 }
 
 snap-content,
