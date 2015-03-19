@@ -9,6 +9,7 @@ mindControllers.controller('mindNewReportCtrl', [
 	'$scope',
 	'$location',
 	'$timeout',
+	'$sce',
 	'identity',
 	'sessionFactory',
 	'statsFactory',
@@ -17,8 +18,9 @@ mindControllers.controller('mindNewReportCtrl', [
 	'reportRanges',
 	'snapRemote',
 	'statementsFactory',
-  function ($scope, $location, $timeout, identity, sessionFactory, statsFactory, reportCategories, emociconeService, reportRanges, snapRemote, statementsFactory) {
+  function ($scope, $location, $timeout, $sce, identity, sessionFactory, statsFactory, reportCategories, emociconeService, reportRanges, snapRemote, statementsFactory) {
 		$scope.processing = false;
+		$scope.redirect = false;
 
 		$scope.go = function (url) {
 			$location.path(url);
@@ -38,9 +40,18 @@ mindControllers.controller('mindNewReportCtrl', [
 
 		$scope.showError = function (error) {
 			$scope.processing = false;
-			$scope.error = error;
+			try {
+				$scope.error = $sce.trustAsHtml(error.message);
+				if (error.name == 'NoRecentRecords')
+					$scope.redirect = true;
+			} catch (e) {
+				$scope.showError("Our meteologist are too busy currently. There is an hurrican somewhere.<br>You are not the center of the world.<br>Try again later.");
+			}
+			//$scope.error = $sce.trustAsHtml(error);
 			$timeout(function() {
 				$scope.error = undefined;
+				if ($scope.redirect)
+					$location.path('/mind/dashboard/'+$scope.identity.name);
 			}, 5000);
 		};
 

@@ -15,10 +15,10 @@
 
 	<div class="row">
 		<alert ng-show="processing" type="info"><h4>Our meteologists are working on your request. Their reports will be ready in a minute...</h4></alert>
-		<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
+		<alert ng-show="error" type="danger"><h4 ng-bind-html="error"></h4></alert>
 	</div>
 
-	<div ng-if="!editedStatement && !processing" class="row">
+	<div ng-if="!editedStatement && !processing && !redirect" class="row">
 		<h3>Please explain what you need!</h3>
 
 		<div class="col-lg-6 col-md-6">

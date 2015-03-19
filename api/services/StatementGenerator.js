@@ -72,14 +72,23 @@ module.exports.generate = function(mindid, options) {
 	//Get mind's mood
 	ElasticService.request('mind-mood', {id: mindid})
 	.then(function (moodrange) {
+		if (moodrange == undefined) {
+			var err = new Error();
+			err.message = "Our metelogists have not enough recent data about your mind to write their statement.<br>Measure the climate of your mind first.";
+			err.name = 'NoRecentRecords';
+			return deferred.reject(err);
+		}
+
 		return Report.find()
 			.where({category: options.category})
 			.where({range: moodrange});
 	})
 	.then(function (reports) {
 		if ((_.isUndefined(reports)) || (_.isEmpty(reports))) {
-			deferred.reject("Our meteologist are too busy currently. There is an hurrican somewhere. You are not the center of the world. Try again later.");
-			return;
+			var err = new Error();
+			err.message = "Our meteologist are too busy currently. There is an hurrican somewhere.<br>You are not the center of the world.<br>Try again later.";
+			err.name = 'Hurrican';
+			return deferred.reject(err);
 		}
 
 		//pick a random report from this list and generate statement
