@@ -76,7 +76,6 @@ module.exports.parse = function(result) {
 
 	for (var i = 0; i < ranges.length; i++) {
 		if ((mood >= ranges[i].value.min) && (mood <= ranges[i].value.max)) {
-			console.log(ranges[i].code);
 			return ranges[i].code;
 		}
 	}

@@ -19,6 +19,7 @@ module.exports.new = function(options)
 function parser(options)
 {
 	this.mindid = options.mindid;
+	this.recipient = options.recipient;
 	if (!(this instanceof parser))
 		return new parser(options);
 
@@ -32,15 +33,23 @@ parser.prototype._transform = function(data, encoding, done) {
 	var context = this;
 
 	async.each(anchors, function(anchor, callback) {
-		console.log("mindid : " + context.mindid);
-		ElasticService.request('record-answer', {id: context.mindid, topic:anchor.topic, range:anchor.range})
-		.then(function(answer) {
-			anchor.answer = answer;
+		//console.log("mindid : " + context.mindid);
+
+		if (_.isUndefined(anchor.meta)) {
+			ElasticService.request('record-answer', {id: context.mindid, topic:anchor.topic, range:anchor.range})
+			.then(function(answer) {
+				anchor.answer = answer;
+				callback();
+			})
+			.catch(function(err) {
+				callback(err);
+			});
+		}
+		else {
+			if (anchor.meta == 'recipient')
+				anchor.answer = context.recipient;
 			callback();
-		})
-		.catch(function(err) {
-			callback(err);
-		});
+		}
 	},
 	function (err) {
 		if (err) {
@@ -48,7 +57,10 @@ parser.prototype._transform = function(data, encoding, done) {
 		}
 		else {
 			anchors.forEach(function(anchor) {
-				replaced = replaced.replace(anchor.raw, anchor.answer.en);
+				if (_.isUndefined(anchor.meta))
+					replaced = replaced.replace(anchor.raw, anchor.answer.en);
+				else
+					replaced = replaced.replace(anchor.raw, anchor.answer);
 			});
 			context.push(replaced);
 			done();
@@ -63,7 +75,10 @@ function parseAnchors(data)
 	var samples = data.match(/{{([0-9a-zA-Z:]+)}}/g);
 	res = _.map(samples, function(sample) {
 		var anchor = sample.match(/([0-9a-zA-Z]+)/g);
-		return {raw: sample, topic: anchor[0], range: anchor[1]};
+		if (anchor[0] == 'meta')
+			return {raw: sample, meta: anchor[1]};
+		else
+			return {raw: sample, topic: anchor[0], range: anchor[1]};
 	});
 	return res;
 };

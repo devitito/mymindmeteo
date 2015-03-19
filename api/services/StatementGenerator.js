@@ -11,7 +11,7 @@ var Readable = require('stream').Readable
 function randomIntFromInterval(min,max)
 {
 	var val = Math.floor(Math.random()*(max-min+1)+min);
-	console.log('report index: '+val);
+	//console.log('report index: '+val);
 	return val;
 }
 
@@ -23,7 +23,6 @@ function save (deferred, statement) {
 	.then(function(statement) {
 		Mind.findOneById(statement.report.meteologist)
 		.then(function (meteologist) {
-			console.log(meteologist);
 			statement.report.meteologist = {id: meteologist.id, name: meteologist.name} ;
 			deferred.resolve(statement);
 		});
@@ -33,7 +32,7 @@ function save (deferred, statement) {
 	});
 };
 
-function processTemplate(deferred, report, mindid) {
+function processTemplate(deferred, report, mindid, recipient) {
 	//Convert report.template into stream
 	var input = new Readable;
 	input.setEncoding('utf8');
@@ -41,7 +40,7 @@ function processTemplate(deferred, report, mindid) {
 	input.push(null)      // indicates end-of-file basically - the end of the stream
 
 	//Throw report.template through the report parser
-	var parser = ReportParser.new({decodeStrings: false, mindid: mindid});
+	var parser = ReportParser.new({decodeStrings: false, mindid: mindid, recipient: recipient});
 	input.pipe(parser);
 
 	//collect the output stream in a string
@@ -85,7 +84,7 @@ module.exports.generate = function(mindid, options) {
 
 		//pick a random report from this list and generate statement
 		var i = randomIntFromInterval(0,reports.length-1);
-		processTemplate(deferred, reports[i], mindid);
+		processTemplate(deferred, reports[i], mindid, options.recipient);
 
 				/*var domain = require('domain');
 				var d = domain.create();
