@@ -63,7 +63,21 @@ module.exports.parse = function(result) {
 		entry.meteo.buckets.forEach(function (meteo) {
 			avg += meteo.avg_value.value;
 		});
-		mood = {mood: avg/entry.meteo.buckets.length};
+		mood = avg/entry.meteo.buckets.length;
 	});
-	return mood;
+
+	var ranges = [
+		{code:'highest', name:'Highest', value:{min: 3.00, max: 10}},
+		{code:'high', name:'High', value:{min: 0.50, max: 2.99}},
+		{code:'zero', name:'Neither high nor low', value:{min: -0.50, max: 0.49}},
+		{code:'low', name:'Low', value:{min: -3.00, max: -0.51}},
+		{code:'lowest', name:'Lowest', value:{min: -10, max: -3.01}}
+	];
+
+	for (var i = 0; i < ranges.length; i++) {
+		if ((mood >= ranges[i].value.min) && (mood <= ranges[i].value.max)) {
+			console.log(ranges[i].code);
+			return ranges[i].code;
+		}
+	}
 };

@@ -35,7 +35,7 @@ module.exports = {
 	},
 
 	generate: function(req, res, next) {
-		StatementGenerator.generate(req.param(('id')))
+		StatementGenerator.generate(req.param('id'), req.body)
 		.then(function(statement) {
 			res.send(statement);
 		})

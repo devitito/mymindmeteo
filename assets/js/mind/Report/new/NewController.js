@@ -68,9 +68,13 @@ mindControllers.controller('mindNewReportCtrl', [
 			return reportCategories.label(category);
 		};
 
-		$scope.generate = function(report) {
+		$scope.options = {};
+		$scope.generate = function() {
 			$scope.processing = true;
-			statementsFactory.generate({id: $scope.identity.id}).$promise
+			var statement = new statementsFactory();
+			statement.recipient = $scope.options.recipient;
+			statement.category = $scope.options.category;
+			statement.$generate({id: $scope.identity.id})
 			.then(function (statement) {
 				$scope.processing = false;
 				$scope.ViewStatement(statement);

@@ -28,7 +28,7 @@
 					<label class="control-label">Who is the lucky recipient of your thought?</label>
 					<input class="form-control input-lg" id="recipient" name="recipient" type="text" required
 								 ng-maxlength="64"
-								 ng-model="report.recipient">
+								 ng-model="options.recipient">
 					</input>
 					<div>
 						<span class="text-danger" ng-show="newReportForm.recipient.$error.maxlength">Too long</span>
@@ -37,7 +37,7 @@
 				<div class="from-group">
 					<label class="control-label" for="category">Which is... </label>
 						<select class="form-control input-lg" id="category" name="category" required
-										ng-model="report.category"
+										ng-model="options.category"
 										ng-options="category.code as category.name for category in categories">
 						</select>
 				</div>
