@@ -15,7 +15,6 @@
 .navbar-mind-text {
 	color: black;
 	font-size: 30px;
-	padding-left: 15px;
 }
 
 .navbar-mind .navbar-nav>li,
@@ -35,5 +34,6 @@
 
 	.navbar-mind-text {
 		font-size: 20px;
+		padding-left: 15px;
 	}
 }
