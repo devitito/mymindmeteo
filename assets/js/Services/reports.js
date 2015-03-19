@@ -43,11 +43,11 @@ adminServices.factory('reportRanges', [function(){
 	var factory = {};
 
 	factory.ranges = [
-		{code:'highest', name:'Highest', value:{min: 3.00, max: 10}},
-		{code:'high', name:'High', value:{min: 0.50, max: 2.99}},
-		{code:'zero', name:'Neither high nor low', value:{min: -0.50, max: 0.49}},
-		{code:'low', name:'Low', value:{min: -3.00, max: -0.51}},
-		{code:'lowest', name:'Lowest', value:{min: -10, max: -3.01}}
+		{code:'highest', name:'Highest', value:{min: 5.00, max: 10}},
+		{code:'high', name:'High', value:{min: 2.50, max: 4.99}},
+		{code:'zero', name:'Neither high nor low', value:{min: -2.50, max: 2.49}},
+		{code:'low', name:'Low', value:{min: -5.00, max: -2.51}},
+		{code:'lowest', name:'Lowest', value:{min: -10, max: -5.01}}
 	];
 
 	factory.label = function (range) {
