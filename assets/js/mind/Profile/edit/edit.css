@@ -4,3 +4,13 @@
 	line-height: 20px;
 	margin-bottom: 5px;
 }
+
+.thumbnail-profile img {
+	max-width: 100%;
+	max-height: auto;
+	vertical-align: middle;
+}
+
+.spaced {
+	margin-left: 5px;
+}
