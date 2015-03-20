@@ -14,6 +14,7 @@ mindServices.factory("emociconeService", ['reportRanges', function(reportRanges)
 	};
 
 	var getRange = function(value) {
+		ranger = {};
 		reportRanges.ranges.forEach(function(range) {
 			if (between(value, range.value.min, range.value.max)) {
 				ranger = range;
