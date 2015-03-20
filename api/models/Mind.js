@@ -28,6 +28,10 @@ module.exports = {
 		  notNull: true,
 		  maxLength: 10
 	  },
+		picture: {
+			type: 'text',
+			defaultsTo: '/images/placeholder.png'
+		},
 	  email : {
 		  type: 'string',
 		  size: 128,

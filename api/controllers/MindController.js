@@ -63,7 +63,8 @@ module.exports = {
 			 email: req.param('email'),
 			 role: req.param('role'),
 			 locale: req.param('locale'),
-			 timezone: req.param('timezone')
+			 timezone: req.param('timezone'),
+			 picture: req.param('picture')
 		}
 
     Mind.update(req.param('id'), mindObj, function mindUpdated(err, minds) {

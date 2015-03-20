@@ -31,8 +31,8 @@ module.exports.policies = {
         create: true,
 				'validate-*': true,
 				'dashboard': ["sessionAuth", "mindCanSeeProfile"],
-				'climate': ["sessionAuth"],
-        '*': "admin"
+				'*': ["sessionAuth"],
+        //'*': "admin"
     },
 		sensor: {
 			//create: 'meteologist',
