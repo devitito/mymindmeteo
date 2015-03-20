@@ -5,6 +5,13 @@
  *
  */
 
+function round(value) {
+	if (value == undefined)
+		return value;
+	else
+		return value.toFixed(2);
+};
+
 module.exports.query = function(options) {
 	return {
 		index: 'mindmeteo',
@@ -63,7 +70,13 @@ module.exports.parse = function(result) {
 		if (tab.mood >= 0) sunny++;
 		else rainy++;
 
-		res.data.push({"date": entry.key_as_string, "love": tab.love, "money": tab.money, "health": tab.health, "mood": tab.mood});
+		res.data.push({
+			"date": entry.key_as_string,
+			"love": round(tab.love),
+			"money": round(tab.money),
+			"health": round(tab.health),
+			"mood": round(tab.mood)
+		});
 	});
 
 
