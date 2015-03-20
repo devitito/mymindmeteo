@@ -31,6 +31,5 @@ module.exports.query = function(options) {
 };
 
 module.exports.parse = function(result) {
-	console.log(result.hits.hits.length);
 	return result.hits.hits;
 };
