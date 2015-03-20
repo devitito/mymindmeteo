@@ -2,11 +2,12 @@
 	<img class="img-responsive img-mind-profile" src="/images/placeholder.png">
 	<p class="clickable speech" ng-click="record()">Measure my climate!</p>
 	<p class="clickable speech" ng-click="generate()">Quick!<br>Get me a new report!!</p>
-	<!--<p class="clickable speech">I want to change something on my profile</p>
-	<p class="clickable speech">I have an idea!<br> I want to contribute.</p>-->
+	<p class="clickable speech" ng-click="go('/mind/profile/edit')">I want to change something on my profile...</p>
+ <!--<p class="clickable speech">I have an idea!<br> I want to contribute.</p>-->
 	<p class="clickable speech" ng-click="logout()">Let me out of here!</p>
 </div>
 
+<!--<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="10" min-scrollbar-length="20">-->
 <snap-content id="content" snap-opt-disable="'left'">
 	<div ng-include src="'js/mind/partials/navbar-mind.html'"></div>
 	<div class="container mind-panel">
@@ -50,3 +51,4 @@
 		</div>
 	</div>
 </snap-content>
+<!--</perfect-scrollbar>-->

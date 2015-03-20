@@ -1,6 +1,6 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router', 'angularSpinner', 'snap']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router', 'angularSpinner', 'snap'/*, 'perfect_scrollbar'*/]);
 
 var guestServices = angular.module('guestServices', ['ngResource']);
 var mindServices = angular.module('mindServices', ['ngResource']);
@@ -163,6 +163,19 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 			/*climat: ['statsFactory', '$route', function (statsFactory, $route) {
 				return statsFactory.climate($route.current.params.mindname);
 			}]*/
+		}
+	}).
+	when('/mind/profile/edit', {
+		templateUrl: '/js/mind/Profile/edit/edit.html',
+		controller: 'mindProfileEditCtrl',
+		resolve: {
+			identity : ['identityService', '$location', function(identityService, $location) {
+				var identityRequest = identityService.get();
+				identityRequest.catch(function(reason) {
+					$location.path('/');
+				});
+				return identityRequest;
+			}]
 		}
 	}).
 	when('/mind/climate/record', {
