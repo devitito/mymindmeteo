@@ -5,7 +5,6 @@
 describe("routes", function() {
 	beforeEach(function () {
 		module('mindmeteo');
-		module('angularSpinner');
 	});
 
 	var $location, $route, $rootScope, $q, $httpBackend, $injector, $scope, flash;

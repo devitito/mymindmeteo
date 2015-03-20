@@ -21,6 +21,7 @@ module.exports = function (config) {
 					'assets/bower_components/spin.js/spin.js',
 					'assets/bower_components/angular-spinner/angular-spinner.js',
 					'assets/bower_components/angular-snap/angular-snap.js',
+					'assets/bower_components/ng-flow/dist/ng-flow-standalone.js',
 
 					'assets/js/app.js',
 					'assets/js/Services/**/*.js',
