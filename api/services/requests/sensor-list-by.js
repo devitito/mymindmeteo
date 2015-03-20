@@ -21,7 +21,8 @@ module.exports.query = function(options) {
 		index: "mindmeteo",
 		type: "sensors",
 		trackScores: false,
-		searchType: "query_and_fetch",
+		//searchType: "query_and_fetch",
+		size: 500,
 		_source: [ "id", "label", "samples.label", "samples.id" ],
 		body: {
 			query: query
@@ -30,5 +31,6 @@ module.exports.query = function(options) {
 };
 
 module.exports.parse = function(result) {
+	console.log(result.hits.hits.length);
 	return result.hits.hits;
 };
