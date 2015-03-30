@@ -82,3 +82,5 @@ data
 /assets/bower_components/snapjs/
 /assets/bower_components/ng-flow/
 /assets/bower_components/flow.js/
+/node_modules/grunt-nodemon/
+/node_modules/connect-redis/
