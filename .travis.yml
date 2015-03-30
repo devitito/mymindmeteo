@@ -3,6 +3,7 @@ node_js:
 - '0.10'
 services:
 - elasticsearch
+- redis-server
 before_install:
 - npm install -g grunt-cli bower karma
 before_script:
