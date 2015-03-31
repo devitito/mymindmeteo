@@ -57,11 +57,19 @@ mindControllers.controller('mindProfileEditCtrl', [
 			image.onload = function() {
 
 				var canvas = document.createElement('canvas');
-				canvas.width = 90;
-				canvas.height = 90;
+
+                var ratio = image.height / image.width;
+                if (image.width >= 90 && ratio <= 1) {
+                    canvas.width = 90;
+                    canvas.height = 90 * ratio;
+                }
+                else if (image.height >= 90) {
+                    canvas.height = 90;
+                    canvas.width = 90 / ratio;
+                }
 
 				var ctx = canvas.getContext("2d");
-				ctx.drawImage(image, 0, 0, 90, 90);
+				ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 				var dataURL = canvas.toDataURL();
 
 				mindFactory.get({id:$scope.identity.id}).$promise
