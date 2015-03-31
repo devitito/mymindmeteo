@@ -58,15 +58,19 @@
 				<div class="statement-wrapper">
 				<div class="row-fluid statement">
 					<div class="span2 statement-picture content-center">
-						<img ng-src='{{getImgByCategory(statement.report.category)}}'
+						<img ng-src='{{getImgByCategory(statement.report.category)}}'>
+                        <!--<img ng-src='{{getImgByCategory(statement.report.category)}}'
 								 popover='{{getCategoryLabel(statement.report.category)}}'
-								 popover-trigger="mouseenter">
+								 popover-trigger="mouseenter">-->
 					</div>
-					<div class="span2 content-center emocicones"
+					<div class="span2 content-center emocicones">
+						{{getEmocicone(statement.report.range)}}
+					</div>
+                    <!--<div class="span2 content-center emocicones"
 							 popover='{{getMoodRangeLabel(statement.report.range)}}'
 							 popover-trigger="mouseenter">
 						{{getEmocicone(statement.report.range)}}
-					</div>
+					</div>-->
 					<div class="span2 statement-info">
 						<small>{{statement.createdAt | amDateFormat:'LL'}}</small>
 						<div>
