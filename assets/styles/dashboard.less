@@ -78,7 +78,10 @@ p.speech:after
 }
 
 p.speech:hover {
-	text-decoration: underline;
+	background-color: lighten(#00ADEF, 51%);
+    &:after {
+        border-color: transparent transparent lighten(#00ADEF, 51%) transparent;
+    }
 }
 
 snap-content,
