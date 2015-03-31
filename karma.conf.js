@@ -49,7 +49,7 @@ module.exports = function (config) {
         runnerPort: 9100,
         colors: true,
         autoWatch: true,
-        browsers: ['Chrome', 'Firefox', 'PhantomJS'],
+       // browsers: ['Chrome', 'Firefox', 'PhantomJS'],
         captureTimeout: 60000,
         singleRun: false
     });
