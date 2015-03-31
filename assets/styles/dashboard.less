@@ -7,17 +7,32 @@
 	padding-top: 110px;
 }
 
+.profile-corner {
+    background-color: lighten(#00ADEF, 51%);
+    border-bottom: 1px solid #00ADEF;
+    height: 100px;
+    margin-bottom: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    width: inherit;
+}
+
 .img-mind-profile {
 	width: auto;
 	height: auto;
 	vertical-align: middle;
 	margin-left: 15px;
-	margin-bottom: 30px;
-	min-width: 90px;
-    margin-top: 10px;
+	max-height: 90px;
     border: 5px solid #FFF;
     border-radius: 12px;
-    box-shadow: 3px 3px 3px #888;
+    box-shadow: 0px 1px 2px #888;
+    box-sizing: border-box;
+}
+
+.profile-separator {
+    border-top: 1px solid #00ADEF;
+    position: absolute;
+    top: 100px;
 }
 
 p.speech
@@ -26,7 +41,7 @@ p.speech
 	width: 90%;
 	text-align: center;
 	line-height: 25px;
-	background-color: lighten(#00ADEF, 51%);
+	background-color: #fff;
 	border: 2px solid #00ADEF;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -59,7 +74,7 @@ p.speech:after
 	left: 32px;
 	top: -25px;
 	border: 13px solid;
-	border-color: transparent transparent lighten(#00ADEF, 51%) transparent;
+	border-color: transparent transparent #fff transparent;
 }
 
 p.speech:hover {
@@ -136,7 +151,6 @@ snap-drawer,
 .snap-drawer-right {
   right: 0;
   z-index: 1;
-  background-color: lighten(#00ADEF, 51%);
 }
 .snapjs-left .snap-drawer-right,
 .snapjs-right .snap-drawer-left {
@@ -145,4 +159,23 @@ snap-drawer,
 .snapjs-expand-left .snap-drawer-left,
 .snapjs-expand-right .snap-drawer-right {
   width: 100%;
+}
+
+@media (max-width: 629px) {
+	.img-mind-profile {
+        border: 3px solid #FFF;
+        border-radius: 12px;
+        box-shadow: 0px 0px 1px #888;
+        max-height: 70px;
+        margin-left: 25px;
+    }
+
+    .profile-corner {
+        padding-top: 0px;
+        height: 80px;
+    }
+
+    .profile-separator {
+        margin-top: 4px;
+    }
 }
