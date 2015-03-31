@@ -84,3 +84,4 @@ data
 /assets/bower_components/flow.js/
 /node_modules/grunt-nodemon/
 /node_modules/connect-redis/
+/node_modules/grunt-karma/
