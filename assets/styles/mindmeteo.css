@@ -108,6 +108,10 @@ fieldset[disabled] .btn-mindmeteo-inverse.active {
     border-radius: 0px;
 }
 
+.clickable {
+	cursor: pointer;
+}
+
 div.container a.brand {
     background: url("/images/bluebubble-regular.png") no-repeat scroll 0 7px transparent;
     margin-left: 0;

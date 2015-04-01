@@ -1,0 +1,93 @@
+<nav class="navbar navbar-default navbar-fixed-top navbar-mind" role="navigation">
+	<div class="container">
+		<div>
+			<ul class="nav navbar-nav navbar-left">
+				<!--<li><img class="img-responsive img-mind-profile" src="/images/placeholder.png"></li>-->
+				<li>
+					<p class="navbar-mind-text">Please answer the questions of our Meteologists</p>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</nav>
+
+
+<div class="container sensor-panel">
+	<div ng-if="!end && !processing && !error">
+		<!--	<div class="row">
+				<alert ng-show="processing" type="info"><h4>Our meteologists are working on your request. Their reports will be ready in a minute...</h4></alert>
+				<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
+			</div>
+			-->
+		<div class="row">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<img src="../images/meteologist.png" class="img-responsive img-meteologist">
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<p class="triangle-border left">{{sensor.label}}</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+				<p class="triangle-border right clickable" ng-click="record(sensor.id, sensor.samples[0].id)">{{sensor.samples[0].label}}</p>
+				<p class="triangle-border right clickable" ng-click="record(sensor.id, sensor.samples[1].id)">{{sensor.samples[1].label}}</p>
+				<p class="triangle-border right clickable" ng-click="puhlease()" >Puh-lease!</p>
+				<p class="triangle-border right clickable" ng-click="close()">Leave me now</p>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+				<img class="img-responsive img-mind-answer" ng-src="{{identity.picture}}">
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="end && !processing && !error">
+		<div class="row">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<img src="../images/meteologist.png" class="img-responsive img-meteologist">
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<p class="triangle-border left">We have no more questions for you.<br>You can go on with your life now.</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+				<p class="triangle-border right clickable" ng-click="close()">Ok :(</p>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+				<img class="img-responsive img-mind-answer" src="/images/placeholder.png">
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="processing && !error">
+		<div class="row">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<img src="../images/meteologist.png" class="img-responsive img-meteologist">
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<p class="triangle-border left">Thank you for your collaboration.<br>I am transmitting your results to our meteo center.</p>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="error && !processing">
+		<div class="row">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<img src="../images/meteologist.png" class="img-responsive img-meteologist">
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<p class="triangle-border left">Oups I messed up... I lost your results.<br>Please try again and no need to mention it to my boss!</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<hr>
+		<footer>
+			<p>&copy; developped by devitito</p>
+		</footer>
+	</div>
+</div>

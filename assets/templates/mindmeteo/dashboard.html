@@ -1,0 +1,56 @@
+<div id="shelf" snap-drawer="right" class="dialog-shelf">
+    <div class="profile-corner">
+        <img class="img-responsive img-mind-profile" data-ng-src="{{identity.picture}}">
+    </div>
+	<p class="clickable speech" ng-click="record()">Measure my climate!</p>
+	<p class="clickable speech" ng-click="generate()">Quick!<br>Get me a new report!!</p>
+	<p class="clickable speech" ng-click="go('/profile/edit')">I want to change something on my profile...</p>
+ <!--<p class="clickable speech">I have an idea!<br> I want to contribute.</p>-->
+	<p class="clickable speech" ng-click="logout()">Let me out of here!</p>
+</div>
+
+<!--<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="10" min-scrollbar-length="20">-->
+<snap-content id="content" snap-opt-disable="'left'">
+	<div ng-include src="'../templates/mindmeteo/navbar-mind.html'"></div>
+	<div class="container mind-panel">
+		<div class="row">
+			<!--<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>-->
+			<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+				<tabset vertical="true" type="pills">
+					<tab ng-click="openClimate()">
+						<tab-heading class="text-center">Your climate</tab-heading>
+					</tab>
+					<tab ng-click="openReportList()">
+						<tab-heading>Your reports <span ng-show="newReports" class="text-danger"> *</span></tab-heading>
+					</tab>
+					<!--tab heading="Raw Data"><div ng-include="'js/mind/partials/measurements.html'"></tab>
+					<tab heading="Alerts"><p>List of marking events, or events to come in the agenda (big party, date, pay day...)</p>
+						<p>(storms, take a day off: great sun)</p></tab>
+					<tab heading="Similar minds"><p>friends (following the same meteo trends) Similar meteo systems</p></tab>
+					<tab ng-click="openReportList()">
+						<tab-heading>Your contributions</tab-heading>
+					</tab>
+					<tab ng-click="openReportList()">
+						<tab-heading>Your preferences</tab-heading>
+					</tab-->
+				</tabset>
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+					<div ng-if="show == 'climate'" ng-include="'../templates/mindmeteo/climate.html'"></div>
+					<div ng-show="show == 'reports'" ng-include="'../templates/mindmeteo/reports-list.html'"></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<hr>
+			<footer>
+				<p>&copy; developped by devitito</p>
+			</footer>
+		</div>
+	</div>
+</snap-content>
+<!--</perfect-scrollbar>-->

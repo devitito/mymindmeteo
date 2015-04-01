@@ -1,0 +1,51 @@
+<nav class="navbar navbar-default navbar-fixed-top navbar-mind" role="navigation">
+	<div class="container">
+		<div>
+			<ul class="nav navbar-nav navbar-left">
+				<li>
+					<p class="navbar-mind-text">Change your profile...</p>
+
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container statement-panel">
+
+	<div ng-if="!saved" class="row">
+		<div flow-init="saveImage($flow)" flow-files-submitted="saveImage($flow)" flow-file-success="saveImage($flow)" flow-attrs="{accept:'image/*'}">
+    	<div class="thumbnail-profile" ng-hide="$flow.files.length">
+				<img ng-src="{{identity.picture}}" />
+			</div>
+			<div class="thumbnail-profile" ng-show="$flow.files.length">
+				<img flow-img="$flow.files[0]" />
+			</div>
+			<div>
+				<div class="btn btn-meteo" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</div>
+				<div class="btn btn-default" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</div>
+				<div class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+					Remove
+				</div>
+			</div>
+			<p>
+				Only PNG,GIF,JPG files allowed.
+			</p>
+		</div>
+
+		<button ng-click="save()" class="btn btn-meteo pull-right spaced">Save changes</button>
+		<button ng-click="go('/dashboard/'+identity.name)" class="btn btn-default pull-right spaced">Cancel</button>
+	</div>
+
+	<div ng-if="saved" class="row">
+		<alert type="info"><h4>Change saved!</h4></alert>
+		<button ng-click="go('/dashboard/'+identity.name)" class="btn btn-meteo pull-right">Thanks!</button>
+	</div>
+
+	<div class="row">
+		<hr>
+		<footer>
+			<p>&copy; developped by devitito</p>
+		</footer>
+	</div>
+</div>

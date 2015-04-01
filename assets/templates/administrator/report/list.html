@@ -1,0 +1,41 @@
+<div ng-controller="adminNavBarCtrl" ng-include src="'../templates/administrator/navbar-admin.html'"></div>
+<div class="row content">
+	<div class="col-lg-2 col-md-2 visible-desktop">
+		<ul class="nav nav-pills nav-stacked" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
+	</div>
+	<div class="visible-phone">
+		<ul class="nav nav-pills" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
+	</div>
+	<div class="col-lg-10 col-md-10">
+		<br>
+		<a href="#/reports/new" type="button" class="btn btn-meteo">Create a new report template</a>
+		<hr>
+		<div ng-hide="error">
+			<table id="reportlist" class="table table-hover">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>CreateOn</th>
+						<th>Category</th>
+						<th>Range</th>
+						<th>Status</th>
+						<th>Meteologist</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="report in reports" ng-click="go('/reports/edit/'+ report.id)" class="clickable">
+						<td>{{report.title}}</td>
+						<td><span>{{report.createdAt | amDateFormat:'LL'}}</span></td>
+						<td>{{report.category}}</td>
+						<td>{{report.range}}</td>
+						<td>{{report.status}}</td>
+						<td>{{report.meteologist.name}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div ng-show="error">
+			<span>{{error}}</span>
+		</div>
+	</div>
+</div>

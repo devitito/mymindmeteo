@@ -1,0 +1,15 @@
+<div ng-controller="adminNavBarCtrl" ng-include src="'../templates/administrator/navbar-admin.html'"></div>
+<div class="row content">
+	<div class="col-lg-2 col-md-2 visible-desktop">
+		<ul class="nav nav-pills nav-stacked" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
+	</div>
+	<div class="visible-phone">
+		<ul class="nav nav-pills" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
+	</div>
+	<div class="col-lg-10 col-md-10">
+		<p>{{flash.getMessage()}}</p>
+		<br>
+		<button ng-show="result" ng-click="go(finishRoute)" class="btn btn-default pull-right">Finish</button>
+		<button ng-hide="result" ng-click="go(returnRoute)" class="btn btn-default pull-right">Return</button>
+	</div>
+</div>

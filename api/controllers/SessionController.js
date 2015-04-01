@@ -57,6 +57,13 @@ module.exports = {
 		// Wipe out the session (log out)
 		req.session.destroy();
 		res.send(200);
-	}
+	},
+
+    fetch: function(req, res, next) {
+      if (req.session.authenticated)
+        res.send(req.session.Mind);
+      else
+        res.send(500, 'No currently active session');
+    }
 };
 
