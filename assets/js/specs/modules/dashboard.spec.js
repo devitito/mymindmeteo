@@ -6,10 +6,9 @@ describe("Mind Dashboard Controller", function() {
 	var $q;
 
 	beforeEach(function () {
-		module('mindControllers');
-		module('adminServices');
-		module('guestServices');
-		module('mindServices');
+		module('session');
+		module('flashMsg');
+		module('stats');
 		module('angularMoment');
 		module('LocalStorageModule');
 		module('ui.bootstrap');

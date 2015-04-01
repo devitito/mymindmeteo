@@ -1,11 +1,7 @@
-/**
- * @project Mind meteo
- * @author devitito
- * @date
- *
- */
 
-mindServices.factory("emociconeService", ['reportRanges', function(reportRanges) {
+
+angular.module('emocicones', ['report'])
+.factory("emociconeService", ['reportRanges', function(reportRanges) {
 	var factory = {};
 	var ranger = {};
 

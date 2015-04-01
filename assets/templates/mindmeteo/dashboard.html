@@ -11,7 +11,7 @@
 
 <!--<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="10" min-scrollbar-length="20">-->
 <snap-content id="content" snap-opt-disable="'left'">
-	<div ng-include src="'js/mind/partials/navbar-mind.html'"></div>
+	<div ng-include src="'../templates/mindmeteo/navbar-mind.html'"></div>
 	<div class="container mind-panel">
 		<div class="row">
 			<!--<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>-->
@@ -40,8 +40,8 @@
 				</tabset>
 			</div>
 			<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
-					<div ng-if="show == 'climate'" ng-include="'js/mind/partials/climate.html'"></div>
-					<div ng-show="show == 'reports'" ng-include="'js/mind/partials/reports-list.html'"></div>
+					<div ng-if="show == 'climate'" ng-include="'../templates/mindmeteo/climate.html'"></div>
+					<div ng-show="show == 'reports'" ng-include="'../templates/mindmeteo/reports-list.html'"></div>
 			</div>
 		</div>
 

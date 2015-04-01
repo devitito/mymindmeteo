@@ -55,7 +55,7 @@ describe("routes", function() {
 			$rootScope.$digest();
 		});
 
-		it('should be defined', function() {
+		it.only('should be defined', function() {
 			expect($location.path()).toBe( '/administrator/minds/edit/2' );
 			expect($route.current.controller).toBe('EditMindCtrl');
 			expect($route.current.templateUrl).toEqual('/js/admin/partials/mind/edit.html');

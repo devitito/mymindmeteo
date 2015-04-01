@@ -1,11 +1,7 @@
-/**
- * @project Mind meteo
- * @author devitito
- * @date
- *
- */
 
-mindServices.factory("climateChartHelper", ['emociconeService', function(emociconeService) {
+
+angular.module('climate', ['emocicones'])
+.factory("climateChartHelper", ['emociconeService', function(emociconeService) {
 	var factory = {};
 
 	factory.load = function ($scope, climat) {

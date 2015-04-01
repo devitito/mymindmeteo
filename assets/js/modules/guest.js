@@ -40,9 +40,10 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 			.then(function(success) {
 				if (success.role == 'admin')
 						//$scope.go('/administrator/');
-                   $window.location.href = '/administrator/';
+                  $window.location.href = '/administrator/';
 				else
-						$scope.go('/mind/dashboard/' + success.name);
+                  $window.location.href = '/mind/#/dashboard/' + success.name;
+					//	$scope.go('/mind/dashboard/' + success.name);
 			})
 			.catch(function(error) {
 				$scope.error = error.data;
