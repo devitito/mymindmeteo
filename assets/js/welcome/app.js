@@ -1,6 +1,6 @@
 
 
-var welcome = angular.module('welcome', ['ngRoute', 'guest']);
+var welcome = angular.module('welcome', ['ngRoute', 'guest', 'LocalStorageModule']);
 
 welcome.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
   $routeProvider.

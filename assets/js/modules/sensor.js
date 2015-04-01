@@ -1,6 +1,6 @@
 
 
-angular.module('sensor', ['ngResource', 'ngTable', 'flashMsg'])
+angular.module('sensor', ['ngResource', 'ngTable', 'flashMsg', 'ui.bootstrap'])
 .controller('sensorsCtrl', ['$scope',  'ngTableParams', '$resource', '$timeout', '$location', 'sensorsCache', 'sensorFactory',
     function ($scope, ngTableParams, $resource, $timeout, $location, sensorsCache, sensorFactory) {
 			var timer;
@@ -96,6 +96,68 @@ angular.module('sensor', ['ngResource', 'ngTable', 'flashMsg'])
 					}
 					$location.path('/result/sensors/0/1');
 			});
+		};
+
+		$scope.go = function (url) {
+			$location.path(url);
+		};
+}])
+.controller('EditSensorCtrl', ['$scope', '$location', 'item', 'sensorStatus', 'flash', '$modal',
+    function ($scope, $location, item, sensorStatus, flash, $modal) {
+		$scope.statusList = sensorStatus;
+		$scope.sensor = item;
+
+		$scope.update = function() {
+			$scope.sensor.$update(
+				function(success) {
+					flash.setMessage('Sensor updated successfully!');
+					$location.path('/result/sensors/'+$scope.sensor.id+'/1');
+				},
+				function(errors) {
+					try {
+						var list = angular.fromJson(errors).data;
+						angular.forEach(list, function (key, value) {
+							flash.setMessage(angular.fromJson(key).recordFound);
+						}) ;
+					} catch (e) {
+						flash.setMessage('An error occured while applying the changes');
+					}
+					$location.path('/result/sensors/'+$scope.sensor.id+'/0');
+				}
+			);
+		};
+
+		var doDelete = function () {
+			$scope.sensor.$delete(
+				function(success) {
+					flash.setMessage('Sensor deleted successfully!');
+					$location.path('/result/sensors/'+$scope.sensor.id+'/1');
+				},
+				function(errors) {
+					try {
+						var list = angular.fromJson(errors).data;
+						angular.forEach(list, function (key, value) {
+							flash.setMessage(angular.fromJson(key).recordFound);
+						}) ;
+					} catch (e) {
+						flash.setMessage('An error occured while deleting the sensor');
+					}
+					$location.path('/result/sensors/'+$scope.sensor.id+'/0');
+				}
+			);
+		};
+
+		$scope.delete = function () {
+			var modalInstance = $modal.open({
+			      templateUrl: '/templates/administrator/modals/confirm/confirm.html',
+			      controller: 'ConfirmModalCtrl',
+			    });
+
+			modalInstance.result.then(function () {
+			      doDelete();
+			    }, function () {
+			      //nothing to do
+			    });
 		};
 
 		$scope.go = function (url) {

@@ -1,6 +1,6 @@
 
 
-var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind', 'sensor']);
+var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind', 'sensor', 'LocalStorageModule']);
 
 var mindServices = angular.module('mindServices', ['ngResource']);
 var mindControllers = angular.module('mindControllers', []);
@@ -59,11 +59,11 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 			}]
 		}
 	}).
-	/*when('/administrator/sensors/edit/:sensorId', {
-		templateUrl: '/js/admin/partials/sensor/edit.html',
+	when('/sensors/edit/:sensorId', {
+		templateUrl: '/templates/administrator/sensor/edit.html',
 		controller: 'EditSensorCtrl',
 		resolve: {
-			sensor: ['sensorFactory', '$route', function(sensorFactory, $q, $route) {
+			item: ['sensorFactory', '$route', function(sensorFactory, $route) {
 				return sensorFactory.get({id:$route.current.params.sensorId}).$promise;
 			}],
 			identity : ['identityService', '$location', function(identityService, $location) {
@@ -74,7 +74,7 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 				return identityRequest;
 			}]
 		}
-	}).*/
+	}).
 	when('/minds', {
 		templateUrl: '/templates/administrator/minds.html',
 		controller: 'mindListCtrl',
