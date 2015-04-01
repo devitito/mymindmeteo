@@ -1,10 +1,6 @@
 
 
-var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind', 'sensor', 'report', 'LocalStorageModule']);
-
-var mindServices = angular.module('mindServices', ['ngResource']);
-var mindControllers = angular.module('mindControllers', []);
-var adminDirectives = angular.module('adminDirectives', []);
+var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind', 'sensor', 'report', 'helper', 'LocalStorageModule']);
 
 administrator.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 

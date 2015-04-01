@@ -137,4 +137,23 @@ angular.module('mind', ['ngResource', 'i18n', 'flashMsg', 'i18n', 'timezone'])
 		        {code:'meteologist', name:'Meteologist'},
 		        {code:'validator', name:'Validator'},
 		        {code:'admin', name:'Administrator'}];
-}]);
+}])
+.directive('ngUnique', ['$http', function ($http) {
+	return {
+		require: 'ngModel',
+		link: function (scope, elem, attrs, ctrl) {
+			elem.on('blur', function (evt) {
+				scope.$apply(function () {
+					var val = elem.val();
+					var field = attrs.ngUnique;
+					var ajaxConfiguration = { method: 'POST', url: '/mind/validate-'+field, data: elem.serialize(), headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
+					$http(ajaxConfiguration)
+						.success(function(data, status, headers, config) {
+							ctrl.$setValidity('unique', angular.fromJson(data).valid);
+						});
+				});
+			});
+		}
+	}
+}
+]);
