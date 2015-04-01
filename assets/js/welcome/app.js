@@ -1,9 +1,9 @@
 
 
-var welcome = angular.module('welcome', ['ngRoute', 'guest', 'mindServices', 'adminServices']);
+var welcome = angular.module('welcome', ['ngRoute', 'guest'/*, 'mindServices', 'adminServices'*/]);
 
-var mindServices = angular.module('mindServices', ['ngResource']);
-var adminServices = angular.module('adminServices', ['ngResource']);
+/*var mindServices = angular.module('mindServices', ['ngResource']);
+var adminServices = angular.module('adminServices', ['ngResource']);*/
 
 welcome.config(['$routeProvider', function($routeProvider) {
 
