@@ -34,7 +34,13 @@ module.exports.routes = {
 
   '/': {
     //view: 'homepage'
-		view: 'homepage', locals: {layout: 'layouts/mindmeteo'}
+    view: 'welcome', locals: {layout: 'layouts/welcome'},
+  },
+  '/administrator': {
+    view: 'administrator', locals: {layout: 'layouts/administrator'},
+  },
+  '/mind': {
+    view: 'mind', locals: {layout: 'layouts/mind'},
   },
 
   /***************************************************************************

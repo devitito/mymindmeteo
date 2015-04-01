@@ -5,7 +5,8 @@
  *
  */
 
-adminServices.factory("flash", ['$rootScope' ,function($rootScope) {
+angular.module('flashMsg', [])
+  .factory("flash", ['$rootScope' ,function($rootScope) {
 	  var queue = [];
 	  var currentMessage = "";
 

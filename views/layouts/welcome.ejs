@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="welcome">
+  <head>
+    <title>Mind Meteo</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--<script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>-->
+    <!-- Default home page -->
+    <link type="text/css" href='http://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet'/>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/admin/main.css">
+    <link rel="stylesheet" href="/styles/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/mindmeteo.css">
+  </head>
+
+ 	<body id="top">
+      <div class="container">
+        <%- body %>
+      </div>
+
+
+    <!--
+        Client-side Templates
+        ========================
+
+        HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+        that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/templates` folder, then
+        include them here automatically (between TEMPLATES and TEMPLATES END).
+
+        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Import templates from other directories
+            + Use a different template engine (handlebars, jade, dust, etc.)
+            + Internationalize your client-side templates using a server-side
+              stringfile before they're served.
+    -->
+
+    <!--TEMPLATES-->
+    <script type="text/javascript" src="/jst.js"></script>
+    <!--TEMPLATES END-->
+
+      <script src="/js/dependencies/sails.io.js"></script>
+      <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+      <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="/bower_components/angular/angular.min.js"></script>
+      <script src="/bower_components/angular-route/angular-route.min.js"></script>
+      <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+      <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+      <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+      <script src="/bower_components/moment/min/moment-with-locales.min.js"></script>
+      <script src="/bower_components/angular-moment/angular-moment.min.js"></script>
+      <script src="/bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+      <script src="/js/welcome/app.js"></script>
+      <script src="/js/modules/guest.js"></script>
+      <script src="/js/modules/session.js"></script>
+      <script src="/js/modules/flashMsg.js"></script>
+      <script src="/js/Services/adminServices.js"></script>
+
+  </body>
+</html>

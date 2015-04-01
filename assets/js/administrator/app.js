@@ -1,48 +1,26 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule', 'ui.router', 'angularSpinner', 'snap', 'flow'/*, 'perfect_scrollbar'*/]);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule',/* 'ui.router',*/ 'angularSpinner', 'snap', 'flow'/*, 'perfect_scrollbar'*/]);
 
 var guestServices = angular.module('guestServices', ['ngResource']);
 var mindServices = angular.module('mindServices', ['ngResource']);
 var adminServices = angular.module('adminServices', ['ngResource']);
 var adminControllers = angular.module('adminControllers', []);
-var guestControllers = angular.module('guestControllers', []);
+//var guestControllers = angular.module('guestControllers', []);
 var mindControllers = angular.module('mindControllers', []);
 var adminDirectives = angular.module('adminDirectives', []);
 
 mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvider', function($routeProvider, $stateProvider, localStorageServiceProvider) {
 
-
-	/*$stateProvider
-    .state('admin', {
-      url: "/administrator",
-			views: {
-        "menu": { templateUrl: "/js/admin/partials/admin/admin.menu.html" },
-        "dashboard": { templateUrl: "/js/admin/partials/admin/dashboard.html" }
-      }
-    });*/
-
-	/*$stateProvider
-    .state('dashboard', {
-      url: "/administrator#/dash",
-      templateUrl: "/js/admin/partials/admin/dashboard.html",
-			controller: 'dashboardCtrl',
-			resolve: {
-				identity : function(identityService) {
-					return identityService.get();
-				}
-			}
-    });*/
-
   $routeProvider.
-	when('/', {
+	/*when('/', {
 		templateUrl: '/js/guest/partials/homepage.html',
 		controller: 'homepageCtrl'
 	}).
 	when('/session/new', {
 		templateUrl: '/js/guest/partials/session/new.html',
 		controller: 'newSessionCtrl'
-	}).
+	}).*/
 	when('/administrator', {
 		templateUrl: '/js/admin/partials/admin/dashboard.html',
 		controller: 'dashboardCtrl',
@@ -145,10 +123,10 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 			}]
 		}
 	}).
-	when('/mind/new', {
+	/*when('/mind/new', {
 		templateUrl: '/js/guest/partials/mind/new.html',
 		controller: 'guestRegCtrl'
-	}).
+	}).*/
 	when('/mind/dashboard/:mindname', {
 		templateUrl: '/js/mind/partials/dashboard.html',
 		controller: 'mindDashboardCtrl',
