@@ -9,12 +9,14 @@ describe("Mind Dashboard Controller", function() {
 		module('session');
 		module('flashMsg');
 		module('stats');
+        module('i18n');
 		module('angularMoment');
 		module('LocalStorageModule');
 		module('ui.bootstrap');
 		module('ngTable');
 		module('angularSpinner');
 		module('snap');
+        module('dashboard');
 	});
 
 	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _lang_, _identityService_, _statsFactory_) {

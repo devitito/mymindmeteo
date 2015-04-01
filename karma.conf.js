@@ -22,12 +22,11 @@ module.exports = function (config) {
 					'assets/bower_components/angular-spinner/angular-spinner.js',
 					'assets/bower_components/angular-snap/angular-snap.js',
 					'assets/bower_components/ng-flow/dist/ng-flow-standalone.js',
-
+                    'assets/js/modules/**/*.js',
 					'assets/js/welcome/app.js',
                     'assets/js/administrator/app.js',
-                    'assets/js/modules/**/*.js',
-					'assets/js/Services/**/*.js',
-					'assets/js/mind/**/*.js',
+                    'assets/js/mindmeteo/app.js',
+
 					'assets/js/specs/**/*.js',
 				],
         reporters: ['progress', 'brackets', 'coverage'],

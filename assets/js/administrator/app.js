@@ -119,10 +119,10 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
           });
           return mindRequest;
         }],
-        identity: ['identityService', '$location', function(identityService, $location) {
+        identity: ['identityService', '$window', function(identityService, $window) {
           var identityRequest = identityService.get();
           identityRequest.catch(function(reason) {
-            $location.path('/');
+            $window.location.href = '/';
           });
           return identityRequest;
         }]

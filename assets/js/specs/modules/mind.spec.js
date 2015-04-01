@@ -2,7 +2,7 @@
  *
  *
  */
-describe.only("Mind.EditController", function() {
+describe("Mind.EditController", function() {
 	var EditController, flash, lang, identityService;
 	var $controller;
 	var $scope;
@@ -12,7 +12,9 @@ describe.only("Mind.EditController", function() {
 
 	beforeEach(function () {
 		module('flashMsg');
+        module('i18n');
 		module('session');
+        module('mind');
 		module('angularMoment');
 		module('ui.bootstrap');
 		module('LocalStorageModule');
@@ -34,7 +36,7 @@ describe.only("Mind.EditController", function() {
 			return ['lang1', 'lang2'];
 		});
 
-		EditController = $controller('EditMindCtrl', { $scope: $scope, mind: {id:1, name:'a-name', email: 'anemail@somewhere.som'}, identity: {locale: 'a locale'}});
+		EditController = $controller('EditMindCtrl', { $scope: $scope, user: {id:1, name:'a-name', email: 'anemail@somewhere.som'}, identity: {locale: 'a locale'}});
 		expect(lang.list).toHaveBeenCalledWith('a locale');
 		expect($scope.langs).toEqual(['lang1', 'lang2']);
 	});
@@ -42,7 +44,7 @@ describe.only("Mind.EditController", function() {
 	it("should call the identityService in order to know if the user is editing himself", function() {
 		$scope = {};
 		spyOn(identityService, 'isSelf').and.returnValue(true);
-		EditController = $controller('EditMindCtrl', { $scope: $scope, mind: {id:'anid', name:'a-name', email: 'anemail@somewhere.som'}, identity: {locale: 'a locale'}});
+		EditController = $controller('EditMindCtrl', { $scope: $scope, user: {id:'anid', name:'a-name', email: 'anemail@somewhere.som'}, identity: {locale: 'a locale'}});
 		expect(identityService.isSelf).toHaveBeenCalledWith('anid');
 	});
 
@@ -65,7 +67,7 @@ describe.only("Mind.EditController", function() {
 			};
 
 			spyOn(mockMindFactory, '$update').and.callThrough();
-			EditController = $controller('EditMindCtrl', { $scope: $scope, mind: mockMindFactory, identity: {locale: 'locale'}});
+			EditController = $controller('EditMindCtrl', { $scope: $scope, user: mockMindFactory, identity: {locale: 'locale'}});
 		});
 
 		it("should call mindFactory.$update", function() {
@@ -114,7 +116,7 @@ describe.only("Mind.EditController", function() {
 				id: '46-89'
 			};
 			spyOn(mockMindFactory, '$update').and.callThrough();
-			EditController = $controller('EditMindCtrl', { $scope: $scope, mind: mockMindFactory, identity: {locale: 'fr_FR'}});
+			EditController = $controller('EditMindCtrl', { $scope: $scope, user: mockMindFactory, identity: {locale: 'fr_FR'}});
 		});
 
 		it("should redirect to the result page in case of error", function() {
