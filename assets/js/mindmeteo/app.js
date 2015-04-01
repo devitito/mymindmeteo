@@ -1,6 +1,6 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'session', 'dashboard', 'profile', 'LocalStorageModule', 'googlechart']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'session', 'dashboard', 'profile', 'statement', 'LocalStorageModule', 'googlechart']);
 
 mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 
@@ -47,9 +47,9 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
 			}]
 		}
 	}).
-	/*when('/report/new', {
-		templateUrl: '/js/mind/Report/new/new.html',
-		controller: 'mindNewReportCtrl',
+	when('/statement/new', {
+		templateUrl: '/templates/mindmeteo/statement/new.html',
+		controller: 'mindNewStatementCtrl',
 		resolve: {
 			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
@@ -59,7 +59,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
 				return identityRequest;
 			}]
 		}
-	}).*/
+	}).
 	otherwise({
 		redirectTo: '/'
 	});

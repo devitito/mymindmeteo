@@ -103,7 +103,7 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
 
 			$scope.generate = function () {
 				snapRemote.close();
-				$location.path('report/new');
+				$location.path('statement/new');
 			};
 
 			$scope.openReportList = function () {
