@@ -1,6 +1,6 @@
 
 
-var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind', 'sensor', 'LocalStorageModule']);
+var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind', 'sensor', 'report', 'LocalStorageModule']);
 
 var mindServices = angular.module('mindServices', ['ngResource']);
 var mindControllers = angular.module('mindControllers', []);
@@ -136,8 +136,8 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 		templateUrl: '/templates/administrator/edited.html',
 		controller: 'ResultCtrl'
 	}).
-	/*when('/administrator/reports', {
-		templateUrl: '/js/admin/Reports/list/list.html',
+	when('/reports', {
+		templateUrl: '/templates/administrator/report/list.html',
 		controller: 'ReportListCtrl',
 		resolve: {
 			reports: ['reportsFactory', '$q', function(reportsFactory, $q) {
@@ -159,7 +159,7 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 			}]
 		}
 	}).
-	when('/administrator/reports/new', {
+	/*when('/administrator/reports/new', {
 		templateUrl: '/js/admin/Reports/new/new.html',
 		controller: 'NewReportCtrl',
 		resolve: {
