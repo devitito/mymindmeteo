@@ -66,10 +66,10 @@ angular.module('report', ['session', 'i18n', 'ngResource', 'flashMsg', 'sensor']
 	};
 
 	factory.categories = [
-		{code:'pro', name:'Professional', img:'images/pro.png'},
-		{code:'friends', name:'Friends', img:'images/friends.png'},
-		{code:'family', name:'Family', img:'images/family.png'},
-		{code:'lover', name:'Lover', img:'images/lover.png'}
+		{code:'pro', name:'Professional', img:'../images/pro.png'},
+		{code:'friends', name:'Friends', img:'../images/friends.png'},
+		{code:'family', name:'Family', img:'../images/family.png'},
+		{code:'lover', name:'Lover', img:'../images/lover.png'}
 	];
 
 	return factory;
