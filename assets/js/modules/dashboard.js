@@ -97,7 +97,7 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
 
 			$scope.record = function () {
 				snapRemote.close();
-				$location.path('mind/climate/record');
+				$location.path('climate/record');
 				//recordsFactory.launch($scope);
 			};
 

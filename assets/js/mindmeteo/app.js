@@ -31,8 +31,8 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
 			}]
 		}
 	}).
-	/*when('/climate/record', {
-		templateUrl: '/js/mind/Climate/record.html',
+	when('/climate/record', {
+		templateUrl: '/templates/mindmeteo/climate/record.html',
 		controller: 'mindClimateRecordCtrl',
 		resolve: {
 			identity : ['identityService', '$location', function(identityService, $location) {
@@ -47,7 +47,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
 			}]
 		}
 	}).
-	when('/report/new', {
+	/*when('/report/new', {
 		templateUrl: '/js/mind/Report/new/new.html',
 		controller: 'mindNewReportCtrl',
 		resolve: {

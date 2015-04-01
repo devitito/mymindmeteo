@@ -1,11 +1,7 @@
-/**
- * @project Mind meteo
- * @author devitito
- * @date
- *
- */
 
-mindServices.factory('recordsFactory', ['$resource', '$q',
+
+angular.module('record', ['ngResource'])
+.factory('recordsFactory', ['$resource', '$q',
 	function($resource, $q){
 	var factory = {};
 	var resource = $resource('/record/:id', {id:'@id'}, {
