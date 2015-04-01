@@ -2,11 +2,7 @@
 
 var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind']);
 
-//var guestServices = angular.module('guestServices', ['ngResource']);
 var mindServices = angular.module('mindServices', ['ngResource']);
-var adminServices = angular.module('adminServices', ['ngResource']);
-var adminControllers = angular.module('adminControllers', []);
-//var guestControllers = angular.module('guestControllers', []);
 var mindControllers = angular.module('mindControllers', []);
 var adminDirectives = angular.module('adminDirectives', []);
 
@@ -102,8 +98,8 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 			}]
 		}
 	}).
-	/*when('/administrator/minds/new', {
-		templateUrl: '/js/admin/partials/mind/new.html',
+	when('/minds/new', {
+		templateUrl: '/templates/administrator/mind/new.html',
 		controller: 'NewMindCtrl',
 		resolve: {
 			identity : ['identityService', '$location', function(identityService, $location) {
@@ -115,16 +111,32 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 			}]
 		}
 	}).
-	when('/administrator/minds/edit/:mindId', {
-		templateUrl: '/js/admin/partials/mind/edit.html',
-		controller: 'EditMindCtrl',
-		resolve: EditMindCtrl.resolve
+	when('/minds/edit/:mindId', {
+      templateUrl: '/templates/administrator/mind/edit.html',
+      controller: 'EditMindCtrl',
+      resolve: {
+        user: ['mindFactory', '$q', '$route', '$location', 'flash', function(mindFactory, $q, $route, $location, flash) {
+          var mindRequest = mindFactory.get({id:$route.current.params.mindId}).$promise;
+          mindRequest.catch(function(reason) {
+            flash.setMessage(reason.data);
+            $location.path('/result/minds/0/1');
+          });
+          return mindRequest;
+        }],
+        identity: ['identityService', '$location', function(identityService, $location) {
+          var identityRequest = identityService.get();
+          identityRequest.catch(function(reason) {
+            $location.path('/');
+          });
+          return identityRequest;
+        }]
+      }
 	}).
-	when('/administrator/result/:object/:id/:result', {
-		templateUrl: '/js/admin/partials/admin/edited.html',
+	when('/result/:object/:id/:result', {
+		templateUrl: '/templates/administrator/edited.html',
 		controller: 'ResultCtrl'
 	}).
-	when('/administrator/reports', {
+	/*when('/administrator/reports', {
 		templateUrl: '/js/admin/Reports/list/list.html',
 		controller: 'ReportListCtrl',
 		resolve: {
