@@ -1,6 +1,6 @@
 
 
-angular.module('report', ['session', 'i18n', 'ngResource'])
+angular.module('report', ['session', 'i18n', 'ngResource', 'flashMsg', 'sensor'])
 .controller('ReportListCtrl', ['$scope', '$location', 'reports', 'lang', 'identity',
     function ($scope, $location, reports, lang, identity) {
 	    $scope.go = function (url) {
@@ -11,6 +11,36 @@ angular.module('report', ['session', 'i18n', 'ngResource'])
 				$scope.reports = reports;
 			else
 				$scope.error = reports;
+}])
+.controller('NewReportCtrl', ['$scope', '$location', '$q', 'flash', 'identity', 'reportsFactory', 'reportCategories', 'reportRanges', 'sensorStatus', 'meteologistList',
+    function ($scope, $location, $q, flash, identity, reportsFactory, reportCategories, reportRanges, sensorStatus, meteologistList) {
+			$scope.go = function (url) {
+				$location.path(url);
+			};
+
+			$scope.categories = reportCategories.categories;
+			$scope.ranges = reportRanges.ranges;
+			$scope.statusList = sensorStatus;
+			$scope.meteologistList = meteologistList;
+
+			$scope.create = function() {
+				reportsFactory.save($scope.report).$promise
+				.then (function(success) {
+						flash.setMessage('Report template created successfully!');
+						$location.path('/result/reports/'+success.id+'/1');
+				})
+				.catch(function(errors) {
+					try {
+						var list = angular.fromJson(errors).data;
+						angular.forEach(list, function (value) {
+							flash.setMessage(value);
+						}) ;
+					} catch (e) {
+						flash.setMessage('An error occured while creating the report template.');
+					}
+					$location.path('/result/reports/0/1');
+				});
+			};
 }])
 .factory('reportsFactory', ['$resource', function($resource){
 	var factory = $resource('/report/:id', {id:'@id'}, {});

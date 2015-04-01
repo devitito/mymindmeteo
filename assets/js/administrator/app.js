@@ -159,8 +159,8 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 			}]
 		}
 	}).
-	/*when('/administrator/reports/new', {
-		templateUrl: '/js/admin/Reports/new/new.html',
+	when('/reports/new', {
+		templateUrl: '/templates/administrator/report/new.html',
 		controller: 'NewReportCtrl',
 		resolve: {
 			identity : ['identityService', '$location', function(identityService, $location) {
@@ -174,7 +174,7 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 				return mindFactory.fetchByRole({role: 'meteologist'}).$promise;
 			}]
 		}
-	}).*/
+	}).
 	otherwise({
 		redirectTo: '/'
   });
