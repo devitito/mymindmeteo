@@ -1,10 +1,10 @@
-<div ng-controller="adminNavBarCtrl" ng-include src="'js/admin/partials/admin/navbar-admin.html'"></div>
+<div ng-controller="adminNavBarCtrl" ng-include src="'../templates/administrator/navbar-admin.html'"></div>
 <div class="row content">
 	<div class="col-lg-2 col-md-2 visible-desktop">
-		<ul class="nav nav-pills nav-stacked" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+		<ul class="nav nav-pills nav-stacked" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
 	</div>
 	<div class="visible-phone">
-		<ul class="nav nav-pills" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+		<ul class="nav nav-pills" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
 	</div>
 	<div class="col-lg-10 col-md-10">
 
@@ -63,7 +63,7 @@
 				</div>
 				<br>
 				<div class="form-actions">
-					<button ng-click="go('/administrator/sensors')" class="btn btn-default">Cancel</button>
+					<button ng-click="go('/sensors')" class="btn btn-default">Cancel</button>
 					<button ng-click="create()" class="btn btn-meteo">Create</button>
 				</div>
 			</form>
