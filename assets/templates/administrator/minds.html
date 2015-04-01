@@ -1,14 +1,14 @@
-<div ng-controller="adminNavBarCtrl" ng-include src="'js/admin/partials/admin/navbar-admin.html'"></div>
+<div ng-controller="adminNavBarCtrl" ng-include src="'../templates/administrator/navbar-admin.html'"></div>
 <div class="row content">
 	<div class="col-lg-2 col-md-2 visible-desktop">
-		<ul class="nav nav-pills nav-stacked" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+		<ul class="nav nav-pills nav-stacked" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
 	</div>
 	<div class="visible-phone">
-		<ul class="nav nav-pills" ng-include src="'js/admin/partials/admin/admin-menu.html'"></ul>
+		<ul class="nav nav-pills" ng-include src="'../templates/administrator/admin-menu.html'"></ul>
 	</div>
 	<div class="col-lg-10 col-md-10">
 		<br>
-		<a href="#/administrator/minds/new" type="button" class="btn btn-meteo">Create a mind</a>
+		<a href="#/minds/new" type="button" class="btn btn-meteo">Create a mind</a>
 		<hr>
 		<div ng-hide="error">
 			<table id="mindlist" class="table table-hover">
@@ -21,7 +21,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="mind in minds" ng-click="go('/administrator/minds/edit/'+ mind.id)" class="clickable">
+					<tr ng-repeat="mind in minds" ng-click="go('/minds/edit/'+ mind.id)" class="clickable">
 						<td>{{mind.name}}</td>
 						<td><span>{{mind.joindate | amDateFormat:'LL'}}</span></td>
 						<td>{{mind.role}}</td>

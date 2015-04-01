@@ -1,11 +1,21 @@
-/**
- * @project Mind meteo
- * @author devitito
- * @date
- *
- */
 
-adminServices.factory('statsFactory', ['$resource', '$q', function($resource, $q){
+
+angular.module('stats', ['ngResource', 'googlechart'])
+.controller('statsCtrl', ['$scope', 'data', 'statsFactory',
+    function ($scope, data, statsFactory) {
+		try {
+			var datas = angular.fromJson(data);
+			angular.forEach(datas, function(key, value) {
+				$scope[value] = {};
+				$scope[value].data = statsFactory.populate(value, key);
+				$scope[value].type = statsFactory.getType(value);
+				$scope[value].options = statsFactory.getOptions(value);
+			});
+		} catch (e) {
+			$scope.errors = 'error';
+		};
+}])
+.factory('statsFactory', ['$resource', '$q', function($resource, $q){
 	var factory = {};
 
 	factory.query = function (deferred) {

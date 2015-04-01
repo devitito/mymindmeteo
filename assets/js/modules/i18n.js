@@ -1,11 +1,7 @@
-/**
- * @project Mind meteo
- * @author devitito
- * @date
- *
- */
 
-adminServices.factory('lang', ['$http',
+
+angular.module('i18n', [])
+.factory('lang', ['$http',
     function($http){
 	//$scope.langs = ['fr', 'en'];
 	/*$http.get('/js/rsc/lang.json').success(function(data) {

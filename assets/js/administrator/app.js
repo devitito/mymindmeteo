@@ -1,6 +1,6 @@
 
 
-var administrator = angular.module('administrator', ['ngRoute', 'dashboard']);
+var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind']);
 
 //var guestServices = angular.module('guestServices', ['ngResource']);
 var mindServices = angular.module('mindServices', ['ngResource']);
@@ -20,44 +20,30 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
-                  console.log(reason);
-					//$location.path('/');
+                  $location.path('/');
 				});
 				return identityRequest;
 			}]
 		}
 	}).
-/*	when('/administrator/dash', {
-		templateUrl: '/js/admin/partials/admin/dashboard.html',
-		controller: 'dashboardCtrl',
-		resolve: {
-			identity : ['identityService', '$location', function(identityService, $location) {
-				var identityRequest = identityService.get();
-				identityRequest.catch(function(reason) {
-					$location.path('/');
-				});
-				return identityRequest;
-			}]
-		}
-	}).
-	when('/administrator/stats', {
-		templateUrl: '/js/admin/partials/admin/stats.html',
+	when('/stats', {
+		templateUrl: '/templates/administrator/stats.html',
 		controller: 'statsCtrl',
 		resolve : {
-			stats : ['statsFactory', '$q', function(statsFactory, $q) {
+			data : ['statsFactory', '$q', function(statsFactory, $q) {
 				var deferred = $q.defer();
 				return statsFactory.query(deferred);
 			}],
 			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
-					$location.path('/');
+                  $location.path('/');
 				});
 				return identityRequest;
 			}]
 		}
 	}).
-	when('/administrator/sensors', {
+	/*when('/administrator/sensors', {
 		templateUrl: '/js/admin/partials/admin/sensors.html',
 		controller: 'sensorsCtrl'
 	}).
@@ -92,10 +78,10 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 				return identityRequest;
 			}]
 		}
-	}).
-	when('/administrator/minds', {
-		templateUrl: '/js/admin/partials/admin/minds.html',
-		controller: 'mindsCtrl',
+	}).*/
+	when('/minds', {
+		templateUrl: '/templates/administrator/minds.html',
+		controller: 'mindListCtrl',
 		resolve: {
 			minds: ['mindFactory', '$q', function(mindFactory, $q) {
 				var deferred = $q.defer();
@@ -116,7 +102,7 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 			}]
 		}
 	}).
-	when('/administrator/minds/new', {
+	/*when('/administrator/minds/new', {
 		templateUrl: '/js/admin/partials/mind/new.html',
 		controller: 'NewMindCtrl',
 		resolve: {
@@ -178,7 +164,7 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
 		}
 	}).*/
 	otherwise({
-		redirectTo: '/administrator'
+		redirectTo: '/'
   });
 
   localStorageServiceProvider

@@ -2,7 +2,7 @@
 
 var welcome = angular.module('welcome', ['ngRoute', 'guest']);
 
-welcome.config(['$routeProvider', function($routeProvider) {
+welcome.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
   $routeProvider.
 	when('/', {
 		templateUrl: '/templates/welcome/partials/homepage.html',
@@ -19,6 +19,10 @@ welcome.config(['$routeProvider', function($routeProvider) {
 	otherwise({
 		redirectTo: '/'
 	});
+
+  localStorageServiceProvider
+	.setPrefix('mindmeteo')
+	.setNotify(true, true);
 }]);
 
 welcome.run(['$http', '$anchorScroll', function($http, $anchorScroll) {

@@ -30,6 +30,7 @@ var ResultCtrl = adminControllers.controller('ResultCtrl', ['$scope', '$location
 		}
 }]);*/
 
+/*
 var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'statsFactory',
     function ($scope, stats, statsFactory) {
 		try {
@@ -44,3 +45,4 @@ var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'st
 			$scope.errors = 'error';
 		};
 }]);
+*/
