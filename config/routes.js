@@ -57,6 +57,7 @@ module.exports.routes = {
 	'GET /admin/stats/:graph': 'AdminsController.stats',
 	'POST /session/create' : 'SessionController.create',
 	'GET /session/destroy' : 'SessionController.destroy',
+    'GET /session/fetch' : 'SessionController.fetch',
 	'GET /session/*' : {view: '404'},
 	//No need to declare those routes if there is no index action in the controller (default rest behavior apply)
 	//'GET /mind' : 'MindController.index',

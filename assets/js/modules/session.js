@@ -1,6 +1,7 @@
 
 angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
-  .factory('identityService', ['$resource', '$rootScope', '$q', 'moment', 'localStorageService', function($resource, $rootScope, $q, moment, localStorageService){
+  .factory('identityService', ['$resource', '$rootScope', '$q', 'moment', 'localStorageService', 'sessionFactory',
+  function($resource, $rootScope, $q, moment, localStorageService, sessionFactory){
 	var factory = {};
 	//var cache = $cacheFactory('identity');
 
@@ -25,7 +26,17 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
 			moment.locale(localid.locale);
 			deferred.resolve(localid);
 		}
-		else deferred.reject('An error occured while retreiving the identity');
+		else
+        {
+          sessionFactory.fetch()
+          .then(function (identity) {
+            factory.set(identity);
+            deferred.resolve(identity);
+          })
+          .catch(function (error) {
+            deferred.reject('An error occured while retreiving the identity');
+          });
+        }
 
 		return deferred.promise;
 	};
@@ -48,12 +59,13 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
 
 	return factory;
 }])
-  .factory('sessionFactory', ['$resource', '$q', '$http', 'identityService', function($resource, $q, $http, identityService){
+  .factory('sessionFactory', ['$resource', '$q', '$http', /*'identityService',*/ function($resource, $q, $http/*, identityService*/){
 	var factory = {};
 
 	var resource = $resource('/session', {}, {
 		create: {method:'POST', url:'/session/create'},
-		destroy: {method: 'GET', url:'/session/destroy'}
+		destroy: {method: 'GET', url:'/session/destroy'},
+        fetch: {method: 'GET', url:'/session/fetch'}
 	});
 
 	factory.create = function (credentials) {
@@ -61,7 +73,7 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
 
 		resource.create({}, credentials).$promise
 		.then(function(success) {
-			identityService.set(success);
+			//identityService.set(success);
 			deferred.resolve(success);
 		})
 		.catch(function (error) {
@@ -76,14 +88,13 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
 
 		resource.destroy().$promise
 		.then(function(success) {
-			identityService.remove();
-			$http.get('/csrfToken').success(function(data){
-        $http.defaults.headers.common['x-csrf-token'] = data._csrf;
-				deferred.resolve();
-    	}).error(function(data) {
-				deferred.resolve(data);
-			});
-
+          //identityService.remove();
+          $http.get('/csrfToken').success(function(data){
+            $http.defaults.headers.common['x-csrf-token'] = data._csrf;
+            deferred.resolve();
+    	 }).error(function(data) {
+            deferred.resolve(data);
+          });
 		})
 		.catch(function (error) {
 			deferred.reject(error);
@@ -91,6 +102,21 @@ angular.module('session', ['ngResource', 'angularMoment', 'LocalStorageModule'])
 
 		return deferred.promise;
 	};
+
+    factory.fetch = function () {
+      var deferred = $q.defer();
+
+      resource.fetch().$promise
+      .then(function(success) {
+        //identityService.set(success);
+        deferred.resolve(success);
+      })
+      .catch(function (error) {
+        deferred.reject(error);
+      });
+
+      return deferred.promise;
+    };
 
 	return factory;
 }]);

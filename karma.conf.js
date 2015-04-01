@@ -23,7 +23,9 @@ module.exports = function (config) {
 					'assets/bower_components/angular-snap/angular-snap.js',
 					'assets/bower_components/ng-flow/dist/ng-flow-standalone.js',
 
-					'assets/js/app.js',
+					'assets/js/welcome/app.js',
+                    'assets/js/administrator/app.js',
+                    'assets/js/modules/**/*.js',
 					'assets/js/Services/**/*.js',
 					'assets/js/Directives/**/*.js',
 					'assets/js/admin/**/*.js',

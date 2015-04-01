@@ -1,5 +1,5 @@
 
-angular.module('guest', ['session', 'flashMsg', 'mindServices', 'adminServices'])
+angular.module('guest', ['session', 'flashMsg', 'mind'])
 .controller('guestCtrl', ['$scope', '$location', '$anchorScroll', 'sessionFactory', 'flash',
    function ($scope, $location, $anchorScroll, sessionFactory, flash) {
      $scope.go = function (url) {
@@ -29,8 +29,8 @@ angular.module('guest', ['session', 'flashMsg', 'mindServices', 'adminServices']
        }
      };
 }])
-.controller('newSessionCtrl', ['$scope', '$location', 'sessionFactory',
-    function ($scope, $location, sessionFactory) {
+.controller('newSessionCtrl', ['$scope', '$location', '$window', 'sessionFactory',
+    function ($scope, $location, $window, sessionFactory) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -39,7 +39,8 @@ angular.module('guest', ['session', 'flashMsg', 'mindServices', 'adminServices']
 			sessionFactory.create({nameoremail: $scope.nameoremail, password: $scope.password})
 			.then(function(success) {
 				if (success.role == 'admin')
-						$scope.go('/administrator/');
+						//$scope.go('/administrator/');
+                   $window.location.href = '/administrator/';
 				else
 						$scope.go('/mind/dashboard/' + success.name);
 			})

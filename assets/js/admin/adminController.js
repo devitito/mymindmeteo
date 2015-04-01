@@ -12,7 +12,7 @@ var ResultCtrl = adminControllers.controller('ResultCtrl', ['$scope', '$location
 		$scope.flash = flash;
 }]);
 
-adminControllers.controller('dashboardCtrl', ['$scope', 'recovery', 'identity',
+/*adminControllers.controller('dashboardCtrl', ['$scope', 'recovery', 'identity',
     function ($scope, recovery, identity) {
 		$scope.recover = function () {
 			$scope.result = '  In progress. Wait...';
@@ -28,7 +28,7 @@ adminControllers.controller('dashboardCtrl', ['$scope', 'recovery', 'identity',
 					}
 				});
 		}
-}]);
+}]);*/
 
 var statsCtrl = adminControllers.controller('statsCtrl', ['$scope', 'stats', 'statsFactory',
     function ($scope, stats, statsFactory) {

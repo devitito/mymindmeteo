@@ -1,12 +1,8 @@
 
 
-var welcome = angular.module('welcome', ['ngRoute', 'guest'/*, 'mindServices', 'adminServices'*/]);
-
-/*var mindServices = angular.module('mindServices', ['ngResource']);
-var adminServices = angular.module('adminServices', ['ngResource']);*/
+var welcome = angular.module('welcome', ['ngRoute', 'guest']);
 
 welcome.config(['$routeProvider', function($routeProvider) {
-
   $routeProvider.
 	when('/', {
 		templateUrl: '/templates/welcome/partials/homepage.html',

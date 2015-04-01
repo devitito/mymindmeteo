@@ -1,8 +1,8 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'ngTable', 'guestControllers', 'guestServices', 'mindControllers', 'mindServices','adminControllers', 'adminServices', 'adminDirectives', 'googlechart', 'ui.bootstrap', 'angularMoment', 'LocalStorageModule',/* 'ui.router',*/ 'angularSpinner', 'snap', 'flow'/*, 'perfect_scrollbar'*/]);
+var administrator = angular.module('administrator', ['ngRoute', 'dashboard']);
 
-var guestServices = angular.module('guestServices', ['ngResource']);
+//var guestServices = angular.module('guestServices', ['ngResource']);
 var mindServices = angular.module('mindServices', ['ngResource']);
 var adminServices = angular.module('adminServices', ['ngResource']);
 var adminControllers = angular.module('adminControllers', []);
@@ -10,31 +10,24 @@ var adminControllers = angular.module('adminControllers', []);
 var mindControllers = angular.module('mindControllers', []);
 var adminDirectives = angular.module('adminDirectives', []);
 
-mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvider', function($routeProvider, $stateProvider, localStorageServiceProvider) {
+administrator.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 
   $routeProvider.
-	/*when('/', {
-		templateUrl: '/js/guest/partials/homepage.html',
-		controller: 'homepageCtrl'
-	}).
-	when('/session/new', {
-		templateUrl: '/js/guest/partials/session/new.html',
-		controller: 'newSessionCtrl'
-	}).*/
-	when('/administrator', {
-		templateUrl: '/js/admin/partials/admin/dashboard.html',
+	when('/', {
+		templateUrl: '/templates/administrator/dashboard.html',
 		controller: 'dashboardCtrl',
 		resolve: {
 			identity : ['identityService', '$location', function(identityService, $location) {
 				var identityRequest = identityService.get();
 				identityRequest.catch(function(reason) {
-					$location.path('/');
+                  console.log(reason);
+					//$location.path('/');
 				});
 				return identityRequest;
 			}]
 		}
 	}).
-	when('/administrator/dash', {
+/*	when('/administrator/dash', {
 		templateUrl: '/js/admin/partials/admin/dashboard.html',
 		controller: 'dashboardCtrl',
 		resolve: {
@@ -88,7 +81,7 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 		templateUrl: '/js/admin/partials/sensor/edit.html',
 		controller: 'EditSensorCtrl',
 		resolve: {
-			sensor: ['sensorFactory', '$route', function(sensorFactory, /*$q,*/ $route) {
+			sensor: ['sensorFactory', '$route', function(sensorFactory, $q, $route) {
 				return sensorFactory.get({id:$route.current.params.sensorId}).$promise;
 			}],
 			identity : ['identityService', '$location', function(identityService, $location) {
@@ -123,55 +116,6 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 			}]
 		}
 	}).
-	/*when('/mind/new', {
-		templateUrl: '/js/guest/partials/mind/new.html',
-		controller: 'guestRegCtrl'
-	}).*/
-	when('/mind/dashboard/:mindname', {
-		templateUrl: '/js/mind/partials/dashboard.html',
-		controller: 'mindDashboardCtrl',
-		resolve: {
-			identity : ['identityService', '$location', function(identityService, $location) {
-				var identityRequest = identityService.get();
-				identityRequest.catch(function(reason) {
-					$location.path('/');
-				});
-				return identityRequest;
-			}],
-			/*climat: ['statsFactory', '$route', function (statsFactory, $route) {
-				return statsFactory.climate($route.current.params.mindname);
-			}]*/
-		}
-	}).
-	when('/mind/profile/edit', {
-		templateUrl: '/js/mind/Profile/edit/edit.html',
-		controller: 'mindProfileEditCtrl',
-		resolve: {
-			identity : ['identityService', '$location', function(identityService, $location) {
-				var identityRequest = identityService.get();
-				identityRequest.catch(function(reason) {
-					$location.path('/');
-				});
-				return identityRequest;
-			}]
-		}
-	}).
-	when('/mind/climate/record', {
-		templateUrl: '/js/mind/Climate/record.html',
-		controller: 'mindClimateRecordCtrl',
-		resolve: {
-			identity : ['identityService', '$location', function(identityService, $location) {
-				var identityRequest = identityService.get();
-				identityRequest.catch(function(reason) {
-					$location.path('/');
-				});
-				return identityRequest;
-			}],
-			sensorList : ['sensorsFactory', function (sensorsFactory) {
-				return sensorsFactory.listBy({field: "status", value: "approved"});
-			}]
-		}
-	}).
 	when('/administrator/minds/new', {
 		templateUrl: '/js/admin/partials/mind/new.html',
 		controller: 'NewMindCtrl',
@@ -193,19 +137,6 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 	when('/administrator/result/:object/:id/:result', {
 		templateUrl: '/js/admin/partials/admin/edited.html',
 		controller: 'ResultCtrl'
-	}).
-	when('/report/new', {
-		templateUrl: '/js/mind/Report/new/new.html',
-		controller: 'mindNewReportCtrl',
-		resolve: {
-			identity : ['identityService', '$location', function(identityService, $location) {
-				var identityRequest = identityService.get();
-				identityRequest.catch(function(reason) {
-					$location.path('/');
-				});
-				return identityRequest;
-			}]
-		}
 	}).
 	when('/administrator/reports', {
 		templateUrl: '/js/admin/Reports/list/list.html',
@@ -245,19 +176,17 @@ mindmeteo.config(['$routeProvider', '$stateProvider', 'localStorageServiceProvid
 				return mindFactory.fetchByRole({role: 'meteologist'}).$promise;
 			}]
 		}
-	}).
+	}).*/
 	otherwise({
-		redirectTo: '/'
-	});
+		redirectTo: '/administrator'
+  });
 
-
-
-	localStorageServiceProvider
+  localStorageServiceProvider
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
 }]);
 
-mindmeteo.value('googleChartApiConfig', {
+administrator.value('googleChartApiConfig', {
     version: '1',
     optionalSettings: {
         packages: ['corechart'],
@@ -265,17 +194,8 @@ mindmeteo.value('googleChartApiConfig', {
     }
 });
 
-mindmeteo.run(['$http', '$anchorScroll', function($http, $anchorScroll/*, $rootScope, $location*/) {
-    $http.get('/csrfToken').success(function(data){
-        $http.defaults.headers.common['x-csrf-token'] = data._csrf;
-    });
-
-		$anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
-
-	/*$rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
-    console.log("failed to change routes");
-		console.log(	eventObj);
-		console.log(event);
-		//$location.path('/');
-  });*/
+administrator.run(['$http', '$anchorScroll', function($http) {
+  $http.get('/csrfToken').success(function(data){
+    $http.defaults.headers.common['x-csrf-token'] = data._csrf;
+  });
 }]);
