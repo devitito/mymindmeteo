@@ -1,11 +1,7 @@
-/**
- * @project Mind meteo
- * @author devitito
- * @date
- *
- */
 
-mindControllers.controller('mindProfileEditCtrl', [
+
+angular.module('profile', ['session', 'mind', 'flow'])
+.controller('mindProfileEditCtrl', [
 	'$scope',
 	'$location',
 	'$timeout',

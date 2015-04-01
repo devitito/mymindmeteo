@@ -34,12 +34,12 @@
 		</div>
 
 		<button ng-click="save()" class="btn btn-meteo pull-right spaced">Save changes</button>
-		<button ng-click="go('/mind/dashboard/'+identity.name)" class="btn btn-default pull-right spaced">Cancel</button>
+		<button ng-click="go('/dashboard/'+identity.name)" class="btn btn-default pull-right spaced">Cancel</button>
 	</div>
 
 	<div ng-if="saved" class="row">
 		<alert type="info"><h4>Change saved!</h4></alert>
-		<button ng-click="go('/mind/dashboard/'+identity.name)" class="btn btn-meteo pull-right">Thanks!</button>
+		<button ng-click="go('/dashboard/'+identity.name)" class="btn btn-meteo pull-right">Thanks!</button>
 	</div>
 
 	<div class="row">

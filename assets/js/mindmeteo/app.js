@@ -1,6 +1,6 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'session', 'dashboard', 'LocalStorageModule', 'googlechart']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'session', 'dashboard', 'profile', 'LocalStorageModule', 'googlechart']);
 
 mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 
@@ -18,8 +18,8 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
 			}],
 		}
 	}).
-	/*when('/profile/edit', {
-		templateUrl: '/js/mind/Profile/edit/edit.html',
+	when('/profile/edit', {
+		templateUrl: '/templates/mindmeteo/profile/edit.html',
 		controller: 'mindProfileEditCtrl',
 		resolve: {
 			identity : ['identityService', '$location', function(identityService, $location) {
@@ -31,7 +31,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
 			}]
 		}
 	}).
-	when('/climate/record', {
+	/*when('/climate/record', {
 		templateUrl: '/js/mind/Climate/record.html',
 		controller: 'mindClimateRecordCtrl',
 		resolve: {
@@ -77,7 +77,7 @@ mindmeteo.value('googleChartApiConfig', {
     }
 });
 
-mindmeteo.run(['$http', '$anchorScroll', function($http) {
+mindmeteo.run(['$http', function($http) {
     $http.get('/csrfToken').success(function(data){
         $http.defaults.headers.common['x-csrf-token'] = data._csrf;
     });
