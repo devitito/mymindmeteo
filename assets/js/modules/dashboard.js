@@ -18,12 +18,12 @@ angular.module('dashboard', ['ngResource', 'session'])
           });
       }
 }])
-.controller('adminNavBarCtrl', ['$scope', '$location', 'identityService', 'sessionFactory',
-  function ($scope, $location, identityService, sessionFactory) {
-		$scope.go = function (url) {
+.controller('adminNavBarCtrl', ['$scope', '$window', 'identityService', 'sessionFactory',
+  function ($scope, $window, identityService, sessionFactory) {
+		/*$scope.go = function (url) {
 			$location.path(url);
 		};
-
+*/
 		identityService.get()
 		.then(function(identity) {
 			$scope.identity = identity;
@@ -32,7 +32,7 @@ angular.module('dashboard', ['ngResource', 'session'])
 		$scope.logout = function () {
 			sessionFactory.destroy()
 			.then(function(success) {
-				$location.path('/');
+              $window.location.href = '/';
 			})
 			.catch(function(error) {
 				//todo display error
