@@ -26,24 +26,24 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-   '*': 'flash',
-    mind: {
-        create: true,
-				'validate-*': true,
-				'dashboard': ["sessionAuth", "mindCanSeeProfile"],
-				'*': ["sessionAuth"],
-        //'*': "admin"
-    },
-		sensor: {
-			//create: 'meteologist',
-			index : ['admin', 'replaceSpaceByAND'],
-			suggest : ['admin', 'replaceSpaceByAND'],
-			listBy: ["sessionAuth"],
-			'*': 'admin'
-		},
-		admin: {
-        '*': 'admin'
-    }
+  '*': 'flash',
+  mind: {
+    create: true,
+    'validate-*': true,
+    'dashboard': ["sessionAuth", "mindCanSeeProfile"],
+    '*': ["sessionAuth"],
+    //'*': "admin"
+  },
+  sensor: {
+    //create: 'meteologist',
+    index : ['admin', 'replaceSpaceByAND'],
+    suggest : ['admin', 'replaceSpaceByAND'],
+    listBy: ["sessionAuth"],
+    '*': 'admin'
+  },
+  admin: {
+    '*': 'admin'
+  }
 
 
   /***************************************************************************

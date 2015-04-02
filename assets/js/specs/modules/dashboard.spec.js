@@ -1,5 +1,91 @@
-describe("Mind Dashboard Controller", function() {
-	var DashboardController, lang, identityService, statsFactory;
+
+
+describe('The dashboard Angular module', function() {
+  beforeEach(function () {
+    angular.mock.module('dashboard');
+  });
+
+  describe("dashboardCtrl Controller", function() {
+
+    beforeEach(inject(function($controller, $rootScope, recovery) {
+		this.controller = $controller;
+		this.rootScope = $rootScope;
+        this.scope = $rootScope.$new();
+		this.recovery = {};
+        this.identity = {};
+	}));
+
+    describe("recover() method", function() {
+      it("should call recovery.query() service", function (done) {
+        this.recovery.query = function () {
+          done();
+        };
+
+        this.controller('dashboardCtrl', {
+          $scope: this.scope,
+          recovery: this.recovery,
+          identity: this.identity
+        });
+
+        this.scope.recover();
+      });
+
+      it("should feed result with a waiting message when starting recovery process", function (done) {
+        this.recovery.query = function () {
+          done();
+        };
+
+        this.controller('dashboardCtrl', {
+          $scope: this.scope,
+          recovery: this.recovery,
+          identity: this.identity
+        });
+
+        expect(this.scope.result).toBeUndefined();
+        this.scope.recover();
+        expect(this.scope.result).toBe('  In progress. Wait...');
+      });
+
+      it("should forward well formated recovery error message to result", function (done) {
+        this.recovery.query = function (success, error) {
+          error({
+            data: {
+              message: "a well formated error message"
+            }
+          });
+          done();
+        };
+
+        this.controller('dashboardCtrl', {
+          $scope: this.scope,
+          recovery: this.recovery,
+          identity: this.identity
+        });
+
+        this.scope.recover();
+        expect(this.scope.result).toBe('  a well formated error message');
+      });
+
+      it("should replace a misformated recovery error message to result", function (done) {
+        this.recovery.query = function (success, error) {
+          error("a misformated error message");
+          done();
+        };
+
+        this.controller('dashboardCtrl', {
+          $scope: this.scope,
+          recovery: this.recovery,
+          identity: this.identity
+        });
+
+        this.scope.recover();
+        expect(this.scope.result).toBe('  An error occured while re indexing the records');
+      });
+    });
+  });
+
+  describe("mindDashboardCtrl Controller", function() {
+    var DashboardController, identityService, statsFactory;
 	var $controller;
 	var $scope;
 	var $rootScope;
@@ -9,21 +95,18 @@ describe("Mind Dashboard Controller", function() {
 		module('session');
 		module('flashMsg');
 		module('stats');
-        module('i18n');
 		module('angularMoment');
 		module('LocalStorageModule');
 		module('ui.bootstrap');
 		module('ngTable');
 		module('angularSpinner');
 		module('snap');
-        module('dashboard');
 	});
 
-	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _lang_, _identityService_, _statsFactory_) {
+	beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _identityService_, _statsFactory_) {
 		$controller = _$controller_;
 		$rootScope = _$rootScope_;
 		$q = _$q_;
-		lang = _lang_;
 		identityService = _identityService_;
 		statsFactory = _statsFactory_;
 	}));
@@ -178,4 +261,20 @@ describe("Mind Dashboard Controller", function() {
 
 	xit("should display an error message if the climate promise is rejected", function () {
 	});
+  });
+
+  describe("adminNavBarCtrl controller", function () {
+    beforeEach(inject(function($controller, $rootScope, $window) {
+		this.rootScope = $rootScope;
+        this.scope = $rootScope.$new();
+		this.sessionFactory = {};
+        this.identityService = {};
+        this.controller = $controller('adminNavBarCtrl', {
+          $scope: this.scope,
+          $window: $window,
+          identityService: this.identityService,
+          sessionFactory: this.sessionFactory
+        });
+	}));
+  });
 });

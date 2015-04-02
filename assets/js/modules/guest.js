@@ -1,7 +1,7 @@
 
 angular.module('guest', ['session', 'flashMsg', 'mind'])
-.controller('guestCtrl', ['$scope', '$location', '$anchorScroll', 'sessionFactory', 'flash',
-   function ($scope, $location, $anchorScroll, sessionFactory, flash) {
+.controller('guestCtrl', ['$scope', '$location', '$window', '$anchorScroll', 'sessionFactory', 'flash',
+   function ($scope, $location, $window, $anchorScroll, sessionFactory, flash) {
      $scope.go = function (url) {
        $location.path(url);
      };
@@ -9,7 +9,8 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
      $scope.takeTourNow = function () {
        sessionFactory.create({nameoremail: 'demo', password: 'demodemo'})
          .then(function(success) {
-         $scope.go('/mind/dashboard/' + success.name);
+         $window.location.href = '/meteo/#/dashboard/' + success.name;
+         //$scope.go('/mind/dashboard/' + success.name);
        })
          .catch(function(error) {
          flash.setMessage(error.data);
@@ -42,7 +43,7 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 						//$scope.go('/administrator/');
                   $window.location.href = '/administrator/';
 				else
-                  $window.location.href = '/mind/#/dashboard/' + success.name;
+                  $window.location.href = '/meteo/#/dashboard/' + success.name;
 					//	$scope.go('/mind/dashboard/' + success.name);
 			})
 			.catch(function(error) {
@@ -51,8 +52,8 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 			});
 		};
 }])
-.controller('guestRegCtrl', ['$scope', '$location', 'mindFactory', 'sessionFactory',
-    function ($scope, $location, mindFactory, sessionFactory) {
+.controller('guestRegCtrl', ['$scope', '$location', '$window', 'mindFactory', 'sessionFactory', 'flash',
+    function ($scope, $location, $window, mindFactory, sessionFactory, flash) {
 		$scope.go = function (url) {
 			$location.path(url);
 		};
@@ -63,7 +64,8 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 			.then(function(success) {
 				sessionFactory.create({nameoremail: $scope.mind.name, password: $scope.mind.password})
 				.then(function(success) {
-					$scope.go('/mind/dashboard/' + success.name);
+                  $window.location.href = '/meteo/#/dashboard/' + success.name;
+                  //$scope.go('/mind/dashboard/' + success.name);
 				})
 				.catch(function(error) {
 					flash.setMessage(error.data);
@@ -72,11 +74,11 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 			})
 			.catch(function(error) {
 				try {
-						$scope.error.push(error.data.summary);
+                  $scope.error.push(error.data.summary);
 				} catch (e) {
-					$scope.error.push('An error occured while creating the mind.');
+                  $scope.error.push('An error occured while creating the mind.');
 				}
-				$location.path('/mind/new');
+				$location.path('/register');
 			});
 		};
 }]);
