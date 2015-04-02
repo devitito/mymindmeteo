@@ -85,3 +85,4 @@ data
 /node_modules/grunt-nodemon/
 /node_modules/connect-redis/
 /node_modules/grunt-karma/
+/node_modules/karma-environments/
