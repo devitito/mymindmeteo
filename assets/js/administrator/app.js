@@ -1,6 +1,6 @@
 
 
-var administrator = angular.module('administrator', ['ngRoute', 'dashboard' ,'stats', 'mind', 'sensor', 'report', 'helper', 'LocalStorageModule']);
+var administrator = angular.module('administrator', ['ngRoute', 'session', 'dashboard', 'stats', 'sensor', 'report', /*'helper',*/ 'mind', 'flashMsg', 'LocalStorageModule', 'googlechart']);
 
 administrator.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
 
@@ -188,7 +188,7 @@ administrator.value('googleChartApiConfig', {
     }
 });
 
-administrator.run(['$http', '$anchorScroll', function($http) {
+administrator.run(['$http', function($http) {
   $http.get('/csrfToken').success(function(data){
     $http.defaults.headers.common['x-csrf-token'] = data._csrf;
   });

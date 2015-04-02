@@ -1,6 +1,6 @@
 
 
-angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googlechart', 'helper', 'angularSpinner', 'report', 'snap', 'emocicones', 'ui.bootstrap'])
+angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googlechart', 'helper', 'angularSpinner', 'report', 'emocicones', 'ui.bootstrap', 'snap'])
   .controller('dashboardCtrl', ['$scope', 'recovery', 'identity',
     function ($scope, recovery, identity) {
       $scope.recover = function () {
