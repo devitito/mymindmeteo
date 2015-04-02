@@ -5,20 +5,20 @@
 describe('The administrator Angular module', function() {
 
   beforeEach(function () {
-    module('administrator');
+    module('administrator', function($provide) {
+      $provide.value('$window', {
+        location: {
+          href : ''
+        }
+      });
+    });
   });
 
   describe("routes", function() {
-      /*beforeEach(module('administrator', function($provide) {
-        $provide.value('$window', {
-          location: {
-            jasmine.createSpy('location')
-        });
-      }));*/
 
-      var $location, $route, $rootScope, $q, $httpBackend, $injector, $scope, flash;
+      var $location, $route, $rootScope, $q, $httpBackend, $injector, $scope, $window, flash;
 
-      beforeEach(inject(function(_$location_, _$route_, _$rootScope_, _$q_, _$httpBackend_, _$injector_, _flash_) {
+      beforeEach(inject(function(_$location_, _$route_, _$rootScope_, _$q_, _$httpBackend_, _$injector_, _flash_, _$window_) {
           $location = _$location_;
           $route = _$route_;
           $rootScope = _$rootScope_;
@@ -28,6 +28,7 @@ describe('The administrator Angular module', function() {
           $httpBackend = _$httpBackend_;
           $httpBackend.expectGET('/csrfToken').respond(200);
           flash = _flash_;
+          $window = _$window_;
       }));
 
       describe("/minds/edit", function() {
@@ -172,7 +173,7 @@ describe('The administrator Angular module', function() {
               $rootScope.$broadcast('$routeChangeSuccess', {});
           });
 
-          xit("identity Should logout", function() {
+          it("identity Should logout", function() {
               $httpBackend.expectGET('/templates/welcome/partials/homepage.html').respond(200);
               spyOn(mindFactory, 'get').and.callFake(function (id, success, error) {
                   return getMindWithSuccess(id, success, error);
@@ -185,8 +186,7 @@ describe('The administrator Angular module', function() {
               expect($location.path()).toBe( '' );
               $location.path('/minds/edit/2');
               $rootScope.$digest();
-              expect($window.location.href).toHaveBeenCalledWith('/');
-              //expect($window.location.href).toBe( '/' );
+              expect($window.location.href).toBe( '/' );
           });
       });
   });
