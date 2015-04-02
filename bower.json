@@ -14,9 +14,9 @@
     "angular-moment": "~0.8.2",
     "angular-local-storage": "~0.1.5",
     "angular-ui-router": "~0.2.13",
-    "polymer": "Polymer/polymer#~0.5.5",
-    "google-chart": "GoogleWebComponents/google-chart#~0.2.1",
-    "core-media-query": "Polymer/core-media-query#~0.5.5",
+    "polymer": "Polymer/polymer#0.5.5",
+    "google-chart": "GoogleWebComponents/google-chart#0.2.1",
+    "core-media-query": "Polymer/core-media-query#0.5.5",
     "angular-spinner": "~0.6.1",
     "angular-snap": "~1.8.1",
     "ng-flow": "~2.6.0"
