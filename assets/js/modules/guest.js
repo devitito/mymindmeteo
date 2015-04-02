@@ -9,7 +9,7 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
      $scope.takeTourNow = function () {
        sessionFactory.create({nameoremail: 'demo', password: 'demodemo'})
          .then(function(success) {
-         $window.location.href = '/mind/#/dashboard/' + success.name;
+         $window.location.href = '/meteo/#/dashboard/' + success.name;
          //$scope.go('/mind/dashboard/' + success.name);
        })
          .catch(function(error) {
@@ -43,7 +43,7 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 						//$scope.go('/administrator/');
                   $window.location.href = '/administrator/';
 				else
-                  $window.location.href = '/mind/#/dashboard/' + success.name;
+                  $window.location.href = '/meteo/#/dashboard/' + success.name;
 					//	$scope.go('/mind/dashboard/' + success.name);
 			})
 			.catch(function(error) {
@@ -64,7 +64,7 @@ angular.module('guest', ['session', 'flashMsg', 'mind'])
 			.then(function(success) {
 				sessionFactory.create({nameoremail: $scope.mind.name, password: $scope.mind.password})
 				.then(function(success) {
-                  $window.location.href = '/mind/#/dashboard/' + success.name;
+                  $window.location.href = '/meteo/#/dashboard/' + success.name;
                   //$scope.go('/mind/dashboard/' + success.name);
 				})
 				.catch(function(error) {

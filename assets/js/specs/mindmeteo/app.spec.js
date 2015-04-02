@@ -24,7 +24,7 @@ describe("The mindmeteo Angular module", function () {
           flash = _flash_;
       }));
 
-      describe("/mind/dashboard", function() {
+      describe("/dashboard", function() {
 
         it("should be tested", function () {
           expect(true).toBe(true);
@@ -57,8 +57,8 @@ describe("The mindmeteo Angular module", function () {
 
           beforeEach(inject(
               function(_statsFactory_, _identityService_) {
-                  $httpBackend.expectGET('/mind/climate/demo').respond(200);
-                  $httpBackend.expectGET('/js/mind/partials/dashboard.html').respond(200);
+                 // $httpBackend.expectGET('/climate/demo').respond(200);
+                //  $httpBackend.expectGET('/templates/mindmeteo/dashboard.html').respond(200);
 
                   statsFactory = _statsFactory_;
                   var identity = $q.defer();
@@ -70,9 +70,9 @@ describe("The mindmeteo Angular module", function () {
 
           beforeEach(function() {
               expect($location.path()).toBe( '' );
-              $httpBackend.expectGET('/js/guest/partials/homepage.html').respond(200);
+              $httpBackend.expectGET('/templates/mindmeteo/dashboard.html').respond(200);
 
-              $location.path('/mind/dashboard/demo');
+              $location.path('/dashboard/demo');
               $rootScope.$digest();
           });
 

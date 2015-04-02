@@ -39,7 +39,7 @@ module.exports.routes = {
   '/administrator': {
     view: 'administrator', locals: {layout: 'layouts/administrator'},
   },
-  '/mind': {
+  '/meteo': {
     view: 'mind', locals: {layout: 'layouts/mind'},
   },
 
