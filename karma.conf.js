@@ -1,54 +1,60 @@
 module.exports = function (config) {
-    'use strict';
-    config.set({
-        basePath: '.',
-        files: [
-					'assets/js/dependencies/sails.io.js',
-					'assets/bower_components/jquery/dist/jquery.js',
-					'assets/bower_components/bootstrap/dist/js/bootstrap.js',
-					'assets/bower_components/angular/angular.js',
-					'assets/bower_components/angular-mocks/angular-mocks.js',
-					'assets/bower_components/angular-route/angular-route.js',
-					'assets/bower_components/angular-resource/angular-resource.js',
-					'assets/bower_components/angular-bootstrap/ui-bootstrap.js',
-					'assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-					'assets/bower_components/ng-table/ng-table.js',
-					'assets/bower_components/angular-google-chart/ng-google-chart.js',
-					'assets/bower_components/moment/moment.js',
-					'assets/bower_components/angular-moment/angular-moment.js',
-					'assets/bower_components/angular-local-storage/dist/angular-local-storage.js',
-					'assets/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-					'assets/bower_components/spin.js/spin.js',
-					'assets/bower_components/angular-spinner/angular-spinner.js',
-					'assets/bower_components/angular-snap/angular-snap.js',
-					'assets/bower_components/ng-flow/dist/ng-flow-standalone.js',
-                    'assets/js/modules/**/*.js',
-					'assets/js/welcome/app.js',
-                    'assets/js/administrator/app.js',
-                    'assets/js/mindmeteo/app.js',
+  'use strict';
+  var path = require('path');
+  var basePath = path.dirname(path.dirname(__dirname));
 
-					'assets/js/specs/**/*.js',
-				],
-        reporters: ['progress', 'brackets', 'coverage'],
+  config.set({
 
-				preprocessors: {
-					// do not include tests or libraries
-					// (these files will be instrumented by Istanbul)
-					'assets/js/**/!(*.spec).js': ['coverage']
-				},
+    basePath: '',
 
-				coverageReporter: {
-					type : 'html',
-					dir : 'assets/coverage/front'
-				},
+    /* Files are now managed by environment definitions.
+     * It's recommended to leave this empty. */
+    files: [],
 
-        frameworks: ['jasmine'],
-        port: 9876,
-        runnerPort: 9100,
-        colors: true,
-        autoWatch: true,
-       // browsers: ['Chrome', 'Firefox', 'PhantomJS'],
-        captureTimeout: 60000,
-        singleRun: false
-    });
+    /* Global frameworks here.
+     * It's recommended to add further frameworks inside environments */
+    frameworks: ['environments'],
+
+    reporters: ['progress', 'brackets', 'coverage'],
+    preprocessors: {
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'assets/js/**/!(*.spec).js': ['coverage']
+    },
+    coverageReporter: {
+      type : 'html',
+      dir : 'assets/coverage/front',
+      includeAllSources: true
+    },
+
+    environments: {
+      /* Matcher for "Environment Definition Files" */
+      definitions: ['assets/js/**/.karma.env.+(js|coffee)'],
+      /* Matcher for test Files relative to definition files. */
+      tests: ['*.spec.+(coffee|js)', 'test.*.+(js|coffee)'],
+      /* Matcher for template files relative to definition files. */
+      templates: ['*Fixture.html', 'template*.html'],
+      /* Templates are wrapped with a div. Its class and id will use this prefix. */
+      templateNamespace: 'ke',
+      /* Timeout for asynchronous tasks. */
+      asyncTimeout: 5000,
+      /* Set true if environments should also be definable inside header comments of test files. */
+      headerEnvironments: false,
+      /* If you feel better with a delay between single environment runs, increase this value. */
+      pauseBetweenRuns: 0,
+      //customPaths: {
+        //admin: path.join(basePath, 'assets/js/specs/administrator'),
+       //mindmeteo: path.join(basePath, 'assets/js/specs/mindmeteo'),
+        //welcome: path.join(basePath, 'assets/js/specs/welcome'),
+        //modules: path.join(basePath, 'assets/js/specs/modules')
+      //}
+    },
+
+    port: 9876,
+    runnerPort: 9100,
+    colors: true,
+    autoWatch: true,
+    // browsers: ['Chrome', 'Firefox', 'PhantomJS'],
+    captureTimeout: 60000,
+  });
 };
