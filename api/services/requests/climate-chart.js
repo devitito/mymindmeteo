@@ -13,41 +13,42 @@ function round(value) {
 };
 
 module.exports.query = function(options) {
-	return {
-		index: 'mindmeteo',
-		type: 'records',
-		trackScores: false,
-		body: {
-			query: {
-				match: {
-					"mind.name": options.id
-				}
-			},
-			aggs: {
-				meteo_over_time: {
-					date_histogram: {
-						field: "tstamp",
-						interval: "day",
-						format: "yyyy-MM-dd"
-					},
-					aggs: {
-						meteo: {
-							terms: {
-								field: "topic"
-							},
-							aggs: {
-								avg_value: {
-									avg: {
-										field: "value"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	};
+  return {
+    index: 'mindmeteo',
+    type: 'records',
+    trackScores: false,
+    size: 30,
+    body: {
+      query: {
+        match: {
+          "mind.name": options.id
+        }
+      },
+      aggs: {
+        meteo_over_time: {
+          date_histogram: {
+            field: "tstamp",
+            interval: "day",
+            format: "yyyy-MM-dd"
+          },
+          aggs: {
+            meteo: {
+              terms: {
+                field: "topic"
+              },
+              aggs: {
+                avg_value: {
+                  avg: {
+                    field: "value"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
 };
 
 module.exports.parse = function(result) {

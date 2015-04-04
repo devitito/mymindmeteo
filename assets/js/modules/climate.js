@@ -2,14 +2,15 @@
 
 angular.module('climate', ['emocicones', 'session', 'record'])
 .controller('mindClimateRecordCtrl', [
-	'$scope',
-	'$location',
-	'$timeout',
-	'identity',
-	'sessionFactory',
-	'sensorList',
-	'recordsFactory',
-  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory) {
+  '$scope',
+  '$location',
+  '$timeout',
+  'identity',
+  'sessionFactory',
+  'sensorList',
+  'recordsFactory',
+  'moment',
+  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment) {
 		$scope.processing = false;
 
 		$scope.go = function (url) {
@@ -31,7 +32,7 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 			if ($scope.records.length) {
 				$scope.processing = true;
 
-				recordsFactory.save({id:$scope.identity.id}, $scope.records)
+				recordsFactory.save({id:$scope.identity.id}, $scope.records, $scope.scores)
 				.then(function (success) {
 					$location.path('dashboard/'+$scope.identity.name);
 				})
@@ -71,16 +72,35 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 				$scope.sensor = sensorList[sensorIndex]._source;
 		};
 
-		$scope.record = function (sensorId, sampleId) {
-			$scope.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sampleId});
-			$scope.puhlease();
-		};
+    $scope.record = function (sensorId, sample) {
+      $scope.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sample.id});
+      $scope.refreshScore($scope.sensor, sample);
+      $scope.puhlease();
+    };
 
-		var indexlist = [];
-		var sensorIndex = getNextRandomSensorIndex();
-		$scope.end = false;
-		$scope.records = [];
-		$scope.sensor = sensorList[sensorIndex]._source;
+    $scope.refreshScore = function(sensor, sample) {
+      $scope.scores[sensor.topic].score += sample.value;
+      var value0 = sensor.samples[0].value;
+      var value1 = sensor.samples[1].value;
+      $scope.scores[sensor.topic].max += (value0 >= value1) ? value0 : value1;
+      $scope.scores[sensor.topic].min += (value0 <= value1) ? value0 : value1;
+    };
+
+    var indexlist = [];
+    var sensorIndex = getNextRandomSensorIndex();
+    $scope.end = false;
+    $scope.records = [];
+    $scope.scores = {
+      //id : moment([moment.utc().year(), moment.utc().month(), moment.utc().date()]).unix(),
+      tstamp: moment([moment.utc().year(), moment.utc().month(), moment.utc().date()]).unix(),
+      date: moment.utc().format('YYYY-MM-DD'),
+      mind_id : identity.id,
+      mind_name: identity.name,
+      love: { max: 0, min: 0, score: 0},
+      money: { max: 0, min: 0, score: 0},
+      health: { max: 0, min: 0, score: 0}
+    };
+    $scope.sensor = sensorList[sensorIndex]._source;
 }])
 .factory("climateChartHelper", ['emociconeService', function(emociconeService) {
 	var factory = {};

@@ -23,7 +23,7 @@ module.exports.query = function(options) {
 		trackScores: false,
 		//searchType: "query_and_fetch",
 		size: 500,
-		_source: [ "id", "label", "samples.label", "samples.id" ],
+		_source: [ "id", "label", "topic", "samples.label", "samples.id", "samples.value" ],
 		body: {
 			query: query
 			}

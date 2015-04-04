@@ -216,10 +216,18 @@ module.exports.connect = function() {
 * Index a document with the given type
 */
 module.exports.index = function (type, document, next) {
-	client.index({index: 'mindmeteo', type: type, id: document.id, refresh: true, body: document}, function documentIndexed(err, res, status) {
-		if (err) return next(err);
-		next(err, res);
-	});
+  var deferred = promise.defer();
+  client.index({index: 'mindmeteo', type: type, id: document.id, refresh: true, body: document}, function documentIndexed(err, res, status) {
+    if (err)
+    {
+      deferred.reject(err);
+      if (next) return next(err);
+    }
+    deferred.resolve(res);
+    if (next) next(err, res);
+    //next(err, res);
+  });
+  return deferred.promise;
 };
 
 /*

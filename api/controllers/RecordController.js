@@ -10,8 +10,12 @@ module.exports = {
 		var records = req.param('records');
 		Record.create(records)
 		.then(function (recordsCreated) {
-			res.send(200);
+          var scores = req.param('scores');
+          return Scorer.score(scores);
 		})
+        .then(function (scored) {
+          res.send(200);
+        })
 		.catch(function (err) {
 			console.error(err);
 			res.send(500, "Sorry, our meteologist couldn't receive this new set of data. Please try again later...");
