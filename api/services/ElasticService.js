@@ -285,7 +285,7 @@ module.exports.index = function (type, document, next) {
  */
 module.exports.update = function (type, options, document, next) {
   var deferred = promise.defer();
-  client.update({index: 'mindmeteo', type: type, id: options.id, refresh: true, body: document}, function documentIndexed(err, res, status) {
+  client.update({index: 'mindmeteo', type: type, id: options.id, refresh: true, body: document}, function documentUpdated(err, res, status) {
     if (err)
     {
       deferred.reject(err);
