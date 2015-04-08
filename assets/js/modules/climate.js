@@ -94,8 +94,7 @@ angular.module('climate', ['emocicones', 'session', 'record'])
       //id : moment([moment.utc().year(), moment.utc().month(), moment.utc().date()]).unix(),
       tstamp: moment([moment.utc().year(), moment.utc().month(), moment.utc().date()]).unix(),
       date: moment.utc().format('YYYY-MM-DD'),
-      mind_id : identity.id,
-      mind_name: identity.name,
+      mind: {id: identity.id, name: identity.name},
       love: { max: 0, min: 0, score: 0},
       money: { max: 0, min: 0, score: 0},
       health: { max: 0, min: 0, score: 0}

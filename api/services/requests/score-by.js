@@ -39,8 +39,12 @@ module.exports.query = function(options) {
 };
 
 module.exports.parse = function(result) {
+  try {
   if (result.hits.hits.length)
     return result.hits.hits[0];
   else
     return {};
+  } catch (e) {
+    return {};
+  };
 };
