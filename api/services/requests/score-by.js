@@ -22,8 +22,6 @@ module.exports.query = function(options) {
     });
   }
 
-  console.log(musts);
-
   return {
     index: "mindmeteo",
     type: "scores",
