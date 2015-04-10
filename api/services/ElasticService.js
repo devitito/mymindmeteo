@@ -8,6 +8,8 @@
 var elasticsearch = require('elasticsearch');
 var async = require('async');
 var promise = require('bluebird');
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
 var client;
 var indexableTable = [{model: 'Record', table:'records'}, {model: 'Sensor', table:'sensors'} ];
 
@@ -36,27 +38,36 @@ var clearAll = function() {
  * Export all indexable tables into Elasticsearch
  */
 var indexAll = function() {
-	var deferred = promise.defer();
-	var domain = require('domain');
-	var d = domain.create();
-	// Domain emits 'error' when it's given an unhandled error
-	d.on('error', function(err) {
-		var error = new Error();
-		error.message = err.message;
-		deferred.reject(error);
-	});
+  var deferred = promise.defer();
+  var domain = require('domain');
+  var d = domain.create();
+  // Domain emits 'error' when it's given an unhandled error
+  d.on('error', function(err) {
+    var error = new Error();
+    error.message = err.message;
+    deferred.reject(error);
+  });
 
-	d.run(function() {
-		async.concat(indexableTable, indexTable, function(err, res) {
-			if (!_.isEmpty(err)) {
-				var error = new Error();
-				error.message = err;
-				return deferred.reject(error);
-			}
-			deferred.resolve(res);
-		});
-	});
-	return deferred.promise;
+  d.run(function() {
+    async.concat(indexableTable, indexTable, function(err, res) {
+      if (!_.isEmpty(err)) {
+        var error = new Error();
+        error.message = err;
+        return deferred.reject(error);
+      }
+      /*Scorer.export()
+      .then(function(exported) {
+        deferred.resolve(exported);
+      })
+      .catch(function(err) {
+        var error = new Error();
+        error.message = err;
+        return deferred.reject(error);
+      });*/
+      deferred.resolve(res);
+    });
+  });
+  return deferred.promise;
 };
 
 /**
@@ -84,12 +95,18 @@ var indexTable = function(indexableTable, next) {
                 return cb(err);
                 //errors.push(err.message);
               }
+              eventEmitter.emit('doc.re.indexed', indexable);
               cb();
             });
           });
       },
       function(err) {
-        next(err, errors)
+        if (err == null) {
+          console.log('table.re.indexed ' + indexableTable.table);
+          eventEmitter.emit('table.re.indexed', [indexableTable.table, next]);
+        }
+        else
+          next(err, errors)
       });
     });
   } catch (e) {
@@ -97,6 +114,33 @@ var indexTable = function(indexableTable, next) {
     next(null, errors);
   };
 };
+
+eventEmitter.on('doc.re.indexed', function(indexable) {
+  if (indexable.hasOwnProperty('scores')) {
+    if (!Scorer.isScoring())
+      Scorer.score(indexable.scores);
+    else
+      Scorer.queue(indexable.scores);
+  }
+});
+
+eventEmitter.on('table.re.indexed', function(options) {
+  if (options[0] == 'records') {
+    Scorer.unqueue()
+    .then(function(unqueued) {
+      options[1](null, unqueued);
+      console.log('done');
+    })
+    .catch(function(err) {
+      options[1](err);
+      console.log('done with error');
+    });
+  }
+  else {
+    options[1](null, []);
+    console.log('done');
+  }
+});
 
 /**
  * Reset and recreate all indices
@@ -285,7 +329,13 @@ module.exports.index = function (type, document, next) {
  */
 module.exports.update = function (type, options, document, next) {
   var deferred = promise.defer();
-  client.update({index: 'mindmeteo', type: type, id: options.id, refresh: true, body: {doc: document}}, function documentUpdated(err, res, status) {
+  client.update({index: 'mindmeteo',
+                 type: type,
+                 id: options.id,
+                 refresh: true,
+                 retryOnConflict: 5,
+                 body: {doc: document}
+                }, function documentUpdated(err, res, status) {
     if (err)
     {
       deferred.reject(err);

@@ -64,12 +64,17 @@ module.exports = {
             mind: {name: mind.name, id: mind.id, email: mind.email, joindate: moment.utc(mind.joindate).format('YYYY-MM-DD HH:mm:ss')},
             sensor: {label: sensor.label, meteologist: sensor.meteologist},
             sample: {label: sample.label, report_format: sample.report_format},
-            tstamp: moment.utc(record.date).format('YYYY-MM-DD HH:mm:ss'),
-            day: moment.utc(record.date).tz(mind.timezone).day(),
-            hour: moment.utc(record.date).tz(mind.timezone).hour(),
+            tstamp: moment(record.date).format('YYYY-MM-DD HH:mm:ss'),
+            day: moment(record.date).tz(mind.timezone).day(),
+            hour: moment(record.date).tz(mind.timezone).hour(),
             timezone: mind.timezone,
             scores: {
-              //todo
+              tstamp: moment([record.date.getFullYear(), record.date.getMonth(),record.date.getDate()]).unix(),
+              date: moment(record.date).format('YYYY-MM-DD'),
+              mind: {name: mind.name, id: mind.id},
+              love: {max: 0, min:0, score: 0},
+              health: {max: 0, min:0, score: 0},
+              money: {max: 0, min:0, score: 0},
             }
           }
           cb(null, indexable);
