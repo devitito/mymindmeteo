@@ -9,11 +9,18 @@ var Promise = require('bluebird');
 var promise;
 var queue = [];
 
+module.exports.score = function(min, max, score) {
+  var middle = (max+min)/2;
+  var delta = max - middle;
+  return (score*10/delta);
+};
+
+/*
 module.exports.score = function(scores) {
   promise = new Promise(function (resolve, reject) {
 
     //Search
-    ElasticService.request('score-by', {'mind.id':scores.mind.id, /*date: scores.date*/ tstamp: scores.tstamp})
+    ElasticService.request('score-by', {'mind.id':scores.mind.id,  tstamp: scores.tstamp})
     .then(function(previous) {
       if (!_.isEmpty(previous)) {
         scores.love.max += previous._source.love.max;
@@ -41,8 +48,9 @@ module.exports.score = function(scores) {
   return promise;
 
 };
+*/
 
-
+/*
 module.exports.isScoring = function() {
   if (promise)
     return promise.isPending();
@@ -79,4 +87,4 @@ module.exports.unqueue = function () {
   });
 
   return p;
-};
+};*/

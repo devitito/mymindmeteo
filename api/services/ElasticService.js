@@ -7,9 +7,7 @@
 
 var elasticsearch = require('elasticsearch');
 var async = require('async');
-var promise = require('bluebird');
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
+var Promise = require('bluebird');
 var client;
 var indexableTable = [{model: 'Record', table:'records'}, {model: 'Sensor', table:'sensors'} ];
 
@@ -17,57 +15,45 @@ var indexableTable = [{model: 'Record', table:'records'}, {model: 'Sensor', tabl
  * Delete mindmeteo index and recreate it with mappings
  */
 var clearAll = function() {
-	var deferred = promise.defer();
-	client.indices.delete({index: 'mindmeteo', refresh: true})
-	.then(function (res) {
-		module.exports.connect()
-		.then(function (res) {
-			deferred.resolve(res);
-		})
-		.catch(function (err) {
-			deferred.reject(err);
-		});
-	})
-	.catch(function (err) {
-		deferred.reject(err);
-	});
-	return deferred.promise;
+  return new Promise(function (resolve, reject) {
+    client.indices.delete({index: 'mindmeteo', refresh: true})
+    .then(function (res) {
+      return module.exports.connect();
+    })
+    .then(function (res) {
+      resolve(res);
+    })
+    .catch(function (err) {
+      reject(err);
+    });
+  });
 };
 
 /**
  * Export all indexable tables into Elasticsearch
  */
 var indexAll = function() {
-  var deferred = promise.defer();
-  var domain = require('domain');
-  var d = domain.create();
-  // Domain emits 'error' when it's given an unhandled error
-  d.on('error', function(err) {
-    var error = new Error();
-    error.message = err.message;
-    deferred.reject(error);
-  });
+  return new Promise(function (resolve, reject) {
+    var domain = require('domain');
+    var d = domain.create();
+    // Domain emits 'error' when it's given an unhandled error
+    d.on('error', function(err) {
+      var error = new Error();
+      error.message = err.message;
+      reject(error);
+    });
 
-  d.run(function() {
-    async.concat(indexableTable, indexTable, function(err, res) {
-      if (!_.isEmpty(err)) {
-        var error = new Error();
-        error.message = err;
-        return deferred.reject(error);
-      }
-      /*Scorer.export()
-      .then(function(exported) {
-        deferred.resolve(exported);
-      })
-      .catch(function(err) {
-        var error = new Error();
-        error.message = err;
-        return deferred.reject(error);
-      });*/
-      deferred.resolve(res);
+    d.run(function() {
+      async.concat(indexableTable, indexTable, function(err, res) {
+        if (!_.isEmpty(err)) {
+          var error = new Error();
+          error.message = err;
+          return reject(error);
+        }
+        resolve(res);
+      });
     });
   });
-  return deferred.promise;
 };
 
 /**
@@ -95,18 +81,12 @@ var indexTable = function(indexableTable, next) {
                 return cb(err);
                 //errors.push(err.message);
               }
-              eventEmitter.emit('doc.re.indexed', indexable);
               cb();
             });
           });
       },
       function(err) {
-        if (err == null) {
-          console.log('table.re.indexed ' + indexableTable.table);
-          eventEmitter.emit('table.re.indexed', [indexableTable.table, next]);
-        }
-        else
-          next(err, errors)
+          next(err, errors);
       });
     });
   } catch (e) {
@@ -114,33 +94,6 @@ var indexTable = function(indexableTable, next) {
     next(null, errors);
   };
 };
-
-eventEmitter.on('doc.re.indexed', function(indexable) {
-  if (indexable.hasOwnProperty('scores')) {
-    if (!Scorer.isScoring())
-      Scorer.score(indexable.scores);
-    else
-      Scorer.queue(indexable.scores);
-  }
-});
-
-eventEmitter.on('table.re.indexed', function(options) {
-  if (options[0] == 'records') {
-    Scorer.unqueue()
-    .then(function(unqueued) {
-      options[1](null, unqueued);
-      console.log('done');
-    })
-    .catch(function(err) {
-      options[1](err);
-      console.log('done with error');
-    });
-  }
-  else {
-    options[1](null, []);
-    console.log('done');
-  }
-});
 
 /**
  * Reset and recreate all indices
@@ -157,195 +110,144 @@ module.exports.resetIndices = function () {
  * Call during bootstrap and after all index cleared
  */
 module.exports.connect = function() {
-  var deferred = promise.defer();
-  if (client === undefined) {
-    client = elasticsearch.Client({
-      host: 'http://localhost:9200'
-    });
-  }
-
-  client.indices.exists({index: 'mindmeteo'}, function indexExists(err, res, status) {
-    if (err) return deferred.reject(err);
-
-    //index don't exist
-    if (!res) client.indices.create({index: 'mindmeteo'}, function indexCreated(err, res, status) {
-      if (err) return deferred.reject(err);
-
-      async.parallel( {
-        sensors: function (cb) {
-          client.indices.putMapping({
-            index: 'mindmeteo',
-            type: 'sensors',
-            body: {
-              properties: {
-                'id' : {type: 'integer', include_in_all: false},
-                'topic' : {type : 'string', include_in_all: true},
-                'label': {type: 'string', include_in_all: true},
-                'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
-                'meteologist' : {type : 'string', include_in_all : true},
-                'samples' : {
-                  'type' : 'nested',
-                  'properties' : {
-                    'id' : {type : 'string', include_in_all : true},
-                    'label' : {type : 'string', include_in_all : true},
-                    'value' : {type : 'integer', include_in_all : true},
-                    'report_format': {type : 'string', include_in_all : true},
-                  }
-                }
-              }
-            }
-          }).then(function (mappingRes) {
-            cb(null, mappingRes);
-          }).catch(function (err) {
-            cb(err);
-          });
-        },
-        records: function (cb) {
-          client.indices.putMapping({
-            index: 'mindmeteo',
-            type: 'records',
-            body: {
-              properties: {
-                'id' : {type: 'string', include_in_all: false},
-                'topic' : {type : 'string', include_in_all: true},
-                'sample': {
-                  'type' : 'object',
-                  'properties' : {
-                    'label' : {type : 'string', include_in_all: true},
-                    'report_format' : {type : 'string', include_in_all: true},
-                  }
-                },
-                'value': {type : 'integer', include_in_all: true},
-                'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
-                'day': {type : 'integer', include_in_all: true},
-                'hour': {type : 'integer', include_in_all: true},
-                'timezone': {type : 'string', include_in_all: true},
-                'mind': {
-                  'type' : 'object',
-                  'properties' : {
-                    'name' : {type : 'string', include_in_all : true},
-                    'id' : {type : 'string', include_in_all : true},
-                    'email' : {type : 'string', include_in_all : true},
-                    'joindate' : {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true}
-                  }
-                },
-                'sensor' : {
-                  'type' : 'object',
-                  'properties' : {
-                    'label' : {type : 'string', include_in_all : true},
-                    'meteologist' : {type : 'string', include_in_all : true},
-                  }
-                }
-              }
-            }
-          }).then(function (mappingRes) {
-            cb(null, mappingRes);
-          }).catch(function (err) {
-            cb(err);
-          });
-        },
-        scores: function (cb) {
-          client.indices.putMapping({
-            index: 'mindmeteo',
-            type: 'scores',
-            body: {
-              properties: {
-                'id' : {type: 'string', include_in_all: false},
-                'date': {type: 'date', "format" : "yyyy-MM-dd", include_in_all : true},
-                'tstamp': {type: 'integer', include_in_all : true},
-                'mind': {
-                  'type' : 'object',
-                  'properties' : {
-                    'name' : {type : 'string', include_in_all : true},
-                    'id' : {type : 'string', include_in_all : true},
-                    //'email' : {type : 'string', include_in_all : true},
-                    //'joindate' : {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true}
-                  }
-                },
-                'love' : {
-                  'type' : 'object',
-                  'properties' : {
-                    'max' : {type : 'integer', include_in_all : true},
-                    'min' : {type : 'integer', include_in_all : true},
-                    'score' : {type : 'integer', include_in_all : true},
-                  }
-                },
-                'health' : {
-                  'type' : 'object',
-                  'properties' : {
-                    'max' : {type : 'integer', include_in_all : true},
-                    'min' : {type : 'integer', include_in_all : true},
-                    'score' : {type : 'integer', include_in_all : true},
-                  }
-                },
-                'money' : {
-                  'type' : 'object',
-                  'properties' : {
-                    'max' : {type : 'integer', include_in_all : true},
-                    'min' : {type : 'integer', include_in_all : true},
-                    'score' : {type : 'integer', include_in_all : true},
-                  }
-                }
-              }
-            }
-          }).then(function (mappingRes) {
-            cb(null, mappingRes);
-          }).catch(function (err) {
-            cb(err);
-          });
-        }
-      },
-      function (err, results) {
-        if (err) return deferred.reject(err);
-        else deferred.resolve(results);
+  return new Promise(function (resolve, reject) {
+    if (client === undefined) {
+      client = elasticsearch.Client({
+        host: 'http://localhost:9200'
       });
+    }
+
+    client.indices.exists({index: 'mindmeteo'}, function indexExists(err, res, status) {
+      if (err) return reject(err);
+
+      //index don't exist
+      if (!res) client.indices.create({index: 'mindmeteo'}, function indexCreated(err, res, status) {
+        if (err) return reject(err);
+
+        async.parallel( {
+          sensors: function (cb) {
+            client.indices.putMapping({
+              index: 'mindmeteo',
+              type: 'sensors',
+              body: {
+                properties: {
+                  'id' : {type: 'integer', include_in_all: false},
+                  'topic' : {type : 'string', include_in_all: true},
+                  'label': {type: 'string', include_in_all: true},
+                  'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
+                  'meteologist' : {type : 'string', include_in_all : true},
+                  'samples' : {
+                    'type' : 'nested',
+                    'properties' : {
+                      'id' : {type : 'string', include_in_all : true},
+                      'label' : {type : 'string', include_in_all : true},
+                      'value' : {type : 'integer', include_in_all : true},
+                      'report_format': {type : 'string', include_in_all : true},
+                    }
+                  }
+                }
+              }
+            }).then(function (mappingRes) {
+              cb(null, mappingRes);
+            }).catch(function (err) {
+              cb(err);
+            });
+          },
+          records: function (cb) {
+            client.indices.putMapping({
+              index: 'mindmeteo',
+              type: 'records',
+              body: {
+                properties: {
+                  'id' : {type: 'string', include_in_all: false},
+                  'topic' : {type : 'string', include_in_all: true},
+                  'sample': {
+                    'type' : 'object',
+                    'properties' : {
+                      'label' : {type : 'string', include_in_all: true},
+                      'report_format' : {type : 'string', include_in_all: true},
+                    }
+                  },
+                  'value': {type : 'integer', include_in_all: true},
+                  'tstamp': {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true},
+                  'day': {type : 'integer', include_in_all: true},
+                  'hour': {type : 'integer', include_in_all: true},
+                  'timezone': {type : 'string', include_in_all: true},
+                  'mind': {
+                    'type' : 'object',
+                    'properties' : {
+                      'name' : {type : 'string', include_in_all : true},
+                      'id' : {type : 'string', include_in_all : true},
+                      'email' : {type : 'string', include_in_all : true},
+                      'joindate' : {type: 'date', "format" : "yyyy-MM-dd HH:mm:ss", include_in_all : true}
+                    }
+                  },
+                  'sensor' : {
+                    'type' : 'object',
+                    'properties' : {
+                      'label' : {type : 'string', include_in_all : true},
+                      'meteologist' : {type : 'string', include_in_all : true},
+                    }
+                  }
+                }
+              }
+            }).then(function (mappingRes) {
+              cb(null, mappingRes);
+            }).catch(function (err) {
+              cb(err);
+            });
+          }
+        },
+        function (err, results) {
+          if (err) return reject(err);
+          else resolve(results);
+        });
+      });
+      else
+        resolve(res);
     });
-    else
-      deferred.resolve(res);
   });
-  return deferred.promise;
 }
 
 /*
  * Index a document with the given type
  */
 module.exports.index = function (type, document, next) {
-  var deferred = promise.defer();
-  client.index({index: 'mindmeteo', type: type, id: document.id, refresh: true, body: document}, function documentIndexed(err, res, status) {
-    if (err)
-    {
-      deferred.reject(err);
-      if (next) return next(err);
-    }
-    deferred.resolve(res);
-    if (next) next(err, res);
-    //next(err, res);
+  return new Promise(function (resolve, reject) {
+    client.index({index: 'mindmeteo', type: type, id: document.id, refresh: true, body: document}, function documentIndexed(err, res, status) {
+      if (err)
+      {
+        reject(err);
+        if (next) return next(err);
+      }
+      resolve(res);
+      if (next) next(err, res);
+    });
   });
-  return deferred.promise;
 };
 
 /*
  * Update a document with the given type
  */
 module.exports.update = function (type, options, document, next) {
-  var deferred = promise.defer();
-  client.update({index: 'mindmeteo',
-                 type: type,
-                 id: options.id,
-                 refresh: true,
-                 retryOnConflict: 5,
-                 body: {doc: document}
-                }, function documentUpdated(err, res, status) {
-    if (err)
-    {
-      deferred.reject(err);
-      if (next) return next(err);
-    }
-    deferred.resolve(res);
-    if (next) next(err, res);
-    //next(err, res);
+  return new Promise(function (resolve, reject) {
+    client.update({index: 'mindmeteo',
+                   type: type,
+                   id: options.id,
+                   refresh: true,
+                   //retryOnConflict: 5,
+                   body: {doc: document}
+                  }, function documentUpdated(err, res, status) {
+      if (err)
+      {
+        reject(err);
+        if (next) return next(err);
+      }
+      resolve(res);
+      if (next) next(err, res);
+      //next(err, res);
+    });
   });
-  return deferred.promise;
 };
 
 /*
@@ -362,17 +264,17 @@ module.exports.delete = function(type, id, next) {
 * Issue a request
 */
 module.exports.request = function(request, options, next) {
-  var deferred = promise.defer();
-  var adapter = require('./requests/'+request+'.js');
+  return new Promise(function (resolve, reject) {
+    var adapter = require('./requests/'+request+'.js');
 
-  client.search(adapter.query(options), function (err, res) {
-    if (err)
-    {
-      deferred.reject(err);
-      if (next) return next(err);
-    }
-    deferred.resolve(adapter.parse(res));
-    if (next) next(null, adapter.parse(res));
+    client.search(adapter.query(options), function (err, res) {
+      if (err)
+      {
+        reject(err);
+        if (next) return next(err);
+      }
+      resolve(adapter.parse(res));
+      if (next) next(null, adapter.parse(res));
+    });
   });
-  return deferred.promise;
 };

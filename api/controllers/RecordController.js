@@ -9,10 +9,6 @@ module.exports = {
 	saveBulk: function(req, res, next) {
 		var records = req.param('records');
 		Record.create(records)
-		.then(function (recordsCreated) {
-          var scores = req.param('scores');
-          return Scorer.score(scores);
-		})
         .then(function (scored) {
           res.send(200);
         })

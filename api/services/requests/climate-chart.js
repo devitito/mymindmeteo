@@ -41,6 +41,21 @@ module.exports.query = function(options) {
                   avg: {
                     field: "value"
                   }
+                },
+                "max_value": {
+                  "sum": {
+                    "field": "max"
+                  }
+                },
+                "min_value": {
+                  "sum": {
+                    "field": "min"
+                  }
+                },
+                "score": {
+                  "sum": {
+                    "field": "value"
+                  }
                 }
               }
             }
@@ -52,35 +67,41 @@ module.exports.query = function(options) {
 };
 
 module.exports.parse = function(result) {
-	var res = {
-		info: {},
-		data: []
-	};
-	var sunny = 0
-	var rainy = 0;
+  var res = {
+    info: {},
+    data: []
+  };
+  var sunny = 0
+  var rainy = 0;
 
-	result.aggregations.meteo_over_time.buckets.forEach(function(entry) {
-		var tab = {};
-		var avg = 0;
-		entry.meteo.buckets.forEach(function (meteo) {
-			tab[meteo.key] =  meteo.avg_value.value;
-			avg += meteo.avg_value.value;
-		});
-		tab.mood = avg/entry.meteo.buckets.length;
+  result.aggregations.meteo_over_time.buckets.forEach(function(entry) {
+    var tab = {};
+    var avg = 0;
+    var min = 0;
+    var max = 0;
+    var score = 0;
+    entry.meteo.buckets.forEach(function (meteo) {
+      tab[meteo.key] =  meteo.avg_value.value;
+      avg += meteo.avg_value.value;
+      min += meteo.min_value.value;
+      max += meteo.max_value.value;
+      score += meteo.score.value;
+    });
+    tab.mood = Scorer.score(min, max, score);
+    //tab.mood = avg/entry.meteo.buckets.length;
 
-		if (tab.mood >= 0) sunny++;
-		else rainy++;
+    if (tab.mood >= 0) sunny++;
+    else rainy++;
 
-		res.data.push({
-			"date": entry.key_as_string,
-			"love": round(tab.love),
-			"money": round(tab.money),
-			"health": round(tab.health),
-			"mood": round(tab.mood)
-		});
-	});
+    res.data.push({
+      "date": entry.key_as_string,
+      "love": round(tab.love),
+      "money": round(tab.money),
+      "health": round(tab.health),
+      "mood": round(tab.mood)
+    });
+  });
 
-
-	res.info = {"total": result.hits.total, "sunny": sunny, "rainy": rainy};
-	return res;
+  res.info = {"total": result.hits.total, "sunny": sunny, "rainy": rainy};
+  return res;
 };

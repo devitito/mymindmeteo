@@ -8,9 +8,9 @@ angular.module('record', ['ngResource'])
 		saveBulk: {method: 'POST', url: '/record/saveBulk'}
 	});
 
-	factory.save = function (mindid, records, scores) {
+	factory.save = function (mindid, records) {
 		var deferred = $q.defer();
-		resource.saveBulk({}, {records: records, scores: scores}).$promise
+		resource.saveBulk({}, {records: records}).$promise
 		.then(function (success) {
 			deferred.resolve(success);
 		})
