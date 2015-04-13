@@ -12,7 +12,7 @@ var queue = [];
 module.exports.score = function(min, max, score) {
   var middle = (max+min)/2;
   var delta = max - middle;
-  return (score*10/delta);
+  return ((score-middle)*10/delta);
 };
 
 /*

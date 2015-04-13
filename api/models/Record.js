@@ -86,7 +86,7 @@ module.exports = {
 
   beforeCreate: function(values, next) {
     values.id = uuid.v4();
-    values.date = moment.utc().toDate();
+    values.date = new Date(moment.utc().format());
     next();
   },
 
