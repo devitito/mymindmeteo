@@ -2,14 +2,15 @@
 
 angular.module('climate', ['emocicones', 'session', 'record'])
 .controller('mindClimateRecordCtrl', [
-	'$scope',
-	'$location',
-	'$timeout',
-	'identity',
-	'sessionFactory',
-	'sensorList',
-	'recordsFactory',
-  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory) {
+  '$scope',
+  '$location',
+  '$timeout',
+  'identity',
+  'sessionFactory',
+  'sensorList',
+  'recordsFactory',
+  'moment',
+  function ($scope, $location, $timeout, identity, sessionFactory, sensorList, recordsFactory, moment) {
 		$scope.processing = false;
 
 		$scope.go = function (url) {
@@ -71,16 +72,16 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 				$scope.sensor = sensorList[sensorIndex]._source;
 		};
 
-		$scope.record = function (sensorId, sampleId) {
-			$scope.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sampleId});
-			$scope.puhlease();
-		};
+    $scope.record = function (sensorId, sample) {
+      $scope.records.push({mind_id: identity.id, sensor_id: sensorId, sample_id: sample.id});
+      $scope.puhlease();
+    };
 
-		var indexlist = [];
-		var sensorIndex = getNextRandomSensorIndex();
-		$scope.end = false;
-		$scope.records = [];
-		$scope.sensor = sensorList[sensorIndex]._source;
+    var indexlist = [];
+    var sensorIndex = getNextRandomSensorIndex();
+    $scope.end = false;
+    $scope.records = [];
+    $scope.sensor = sensorList[sensorIndex]._source;
 }])
 .factory("climateChartHelper", ['emociconeService', function(emociconeService) {
 	var factory = {};
