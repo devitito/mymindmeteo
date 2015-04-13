@@ -15,99 +15,99 @@ module.exports = {
   tableName: 'minds',
   attributes: {
 	  
-	  id: {
-		  type: 'string',
-		  primaryKey : true,
-		  unique: true
-	  },
-	  name: {
-		  type: 'string',
-		  size: 64,
-		  unique: true,
-		  required: true,
-		  notNull: true,
-		  maxLength: 10
-	  },
-		picture: {
-			type: 'text',
-			defaultsTo: '/images/placeholder.png'
-		},
-	  email : {
-		  type: 'string',
-		  size: 128,
+    id: {
+      type: 'string',
+      primaryKey : true,
+      unique: true
+    },
+    name: {
+      type: 'string',
+      size: 64,
+      unique: true,
+      required: true,
+      notNull: true,
+      maxLength: 10
+    },
+    picture: {
+      type: 'text',
+      defaultsTo: '/images/placeholder.png'
+    },
+    email : {
+      type: 'string',
+      size: 128,
       maxLength: 32,
-		  email: true,
-		  required: true,
-		  unique: true,
-		  notNull: true,
-	  },
-	  password: {
-		  type: 'string',
-		  size: 128,
-		  required: true,
-		  notNull: true,
-		  maxLength: 12,
-		  minLength: 8
-	  },
-	  joindate: {
-		  type: 'datetime',
-		  notNull: true,
-	  },
-	  timezone: {
-		  type: 'string',
-		  size: 64,
-		  defaultsTo: 'Europe/Paris',
-		  notNull: true,
-	  },
-	  locale: {
-		  type: 'string',
-		  size: 32,
-		  defaultsTo: 'en_EN',
-		  notNull: true,
-	  },
-	  role: {
-		  type: 'string',
-		  size: 32,
-		  defaultsTo: 'mind',
-		  notNull: true,
-	  },
-		records: {
-			collection: 'Record',
-			via: 'mind_id'
-		},
-		statements: {
-			collection: 'Statement',
-			via: 'mind'
-		},
-		reports: {
-			collection: 'Report',
-			via: 'meteologist'
-		},
-	  
-	  toJSON: function() {
-		  var obj = this.toObject();
-		  delete obj.password;
-			delete obj.records;
-			delete obj.statements;
-			delete obj.reports;
-		  return obj;
-	  }
+      email: true,
+      required: true,
+      unique: true,
+      notNull: true,
+    },
+    password: {
+      type: 'string',
+      size: 128,
+      required: true,
+      notNull: true,
+      maxLength: 12,
+      minLength: 8
+    },
+    joindate: {
+      type: 'datetime',
+      notNull: true,
+    },
+    timezone: {
+      type: 'string',
+      size: 64,
+      defaultsTo: 'Europe/Paris',
+      notNull: true,
+    },
+    locale: {
+      type: 'string',
+      size: 32,
+      defaultsTo: 'en_EN',
+      notNull: true,
+    },
+    role: {
+      type: 'string',
+      size: 32,
+      defaultsTo: 'mind',
+      notNull: true,
+    },
+    records: {
+      collection: 'Record',
+      via: 'mind_id'
+    },
+    statements: {
+      collection: 'Statement',
+      via: 'mind'
+    },
+    reports: {
+      collection: 'Report',
+      via: 'meteologist'
+    },
+
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.password;
+      delete obj.records;
+      delete obj.statements;
+      delete obj.reports;
+      return obj;
+    }
 
   },
   
   beforeCreate: function(values, next) {
-	  values.id = uuid.v4();
-	  values.joindate = new Date();
+    values.id = uuid.v4();
+    values.joindate = new Date();
 
-	  // This checks to make sure the password and password confirmation match before creating record
-	  //if (!values.password || values.password != values.confirmation) {
-	  //	  return next({err: ["Password doesn't match password confirmation."]});
-	  //}
-	  require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
-		  if (err) return next(err);
-		  values.password = encryptedPassword;
-		  // values.online= true;
-		  next();
-	  });
+    // This checks to make sure the password and password confirmation match before creating record
+    //if (!values.password || values.password != values.confirmation) {
+    //	  return next({err: ["Password doesn't match password confirmation."]});
+    //}
+    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
+      if (err) return next(err);
+      values.password = encryptedPassword;
+      // values.online= true;
+      next();
+    });
   }
 };

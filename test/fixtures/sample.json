@@ -1,0 +1,16 @@
+[
+  {
+    "label": "Yes",
+    "topic": "love",
+    "value": 0,
+    "report_format": "I like to be clean, thats why I cleaned my teeth in the morning.",
+    "sensor_id": 1
+  },
+  {
+    "label": "No",
+    "topic": "love",
+    "value": -3,
+    "report_format": "Do you think cleaning my teeth is my priority? No! I have other things to do in life!",
+    "sensor_id": 1
+  }
+]

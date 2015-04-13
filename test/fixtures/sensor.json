@@ -1,0 +1,11 @@
+[
+  {
+    "id": "1",
+    "label": "Did you wash your teeth this morning?",
+    "img": null,
+    "topic": "love",
+    "meteologist": "MindMeteo",
+    "status": "approved",
+    "samples": [1,2]
+  }
+]

@@ -1,5 +1,7 @@
 var Sails = require('sails'), sails;
 var request = require('supertest');
+var Barrels = require('barrels');
+var Promise = require('bluebird');
 
 // Global before hook
 before(function (done) {
@@ -12,33 +14,54 @@ before(function (done) {
       connection: 'mindMeteoDbTest',
       migrate: 'alter'
     },
-		csrf : false
+    csrf : false
   }, function(err, server) {
-		sails = server;
+    sails = server;
     if (err)
       return done(err);
 
-		// CSRF getter
-		if (sails.config.csrf == true)
-			getTestCsrfToken(function(err, csrf){
-				done(err, sails);
-			});
-		else done(err, sails);
+   /* dbFixture()
+    .then(function() {*/
+      // CSRF getter
+      if (sails.config.csrf == true)
+        getTestCsrfToken(function(err, csrf){
+          done(err, sails);
+        });
+      else done(null, sails);
+   /* })
+    .catch(function(err) {
+      done(err, sails);
+    });*/
+  });
+});
 
-  /*  // Load fixtures
+dbFixture = function () {
+  return new Promise(function(resolve, reject) {
+    // Load fixtures
     var barrels = new Barrels();
 
     // Save original objects in `fixtures` variable
     fixtures = barrels.data;
 
     // Populate the DB
-    barrels.populate(function(err) {
-      done(err, sails);
-    });*/
-		
-		//done(err, sails);
+    barrels.populate(['mind'], function(err) {
+      if (err) return reject(err);
+
+      barrels.populate(['sample'], function(err) {
+        if (err) return reject(err);
+
+        barrels.populate(['sensor'], function(err) {
+          console.log(err);
+          if (err) reject(err);
+          else resolve();
+        }, false);
+      }, false);
+    }, false);
+
+
   });
-});
+};
+
 
 testCsrfToken = null;
 

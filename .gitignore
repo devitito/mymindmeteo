@@ -86,3 +86,4 @@ data
 /node_modules/connect-redis/
 /node_modules/grunt-karma/
 /node_modules/karma-environments/
+/node_modules/barrels/
