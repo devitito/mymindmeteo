@@ -6,10 +6,10 @@
  */
 
 function round(value) {
-	if (value == undefined)
-		return value;
-	else
-		return value.toFixed(2);
+  if (value == undefined)
+    return value;
+  else
+    return value.toFixed(2);
 };
 
 module.exports.query = function(options) {
@@ -37,11 +37,6 @@ module.exports.query = function(options) {
                 field: "topic"
               },
               aggs: {
-                avg_value: {
-                  avg: {
-                    field: "value"
-                  }
-                },
                 "max_value": {
                   "sum": {
                     "field": "max"
@@ -76,19 +71,16 @@ module.exports.parse = function(result) {
 
   result.aggregations.meteo_over_time.buckets.forEach(function(entry) {
     var tab = {};
-    var avg = 0;
     var min = 0;
     var max = 0;
     var score = 0;
     entry.meteo.buckets.forEach(function (meteo) {
-      tab[meteo.key] =  meteo.avg_value.value;
-      avg += meteo.avg_value.value;
+      tab[meteo.key] =  Scorer.score(meteo.min_value.value, meteo.max_value.value, meteo.score.value);
       min += meteo.min_value.value;
       max += meteo.max_value.value;
       score += meteo.score.value;
     });
     tab.mood = Scorer.score(min, max, score);
-    //tab.mood = avg/entry.meteo.buckets.length;
 
     if (tab.mood >= 0) sunny++;
     else rainy++;
