@@ -5,7 +5,7 @@
  *
  */
 
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 module.exports.query = function(options) {
   return {
@@ -23,7 +23,7 @@ module.exports.query = function(options) {
           filter: {
             range: {
               tstamp: {
-                gte: moment.utc().format('YYYY-MM-DD 00:00:00')
+                gte: moment.utc().tz(options.timezone).format('YYYY-MM-DD 00:00:00')
               }
             }
           }

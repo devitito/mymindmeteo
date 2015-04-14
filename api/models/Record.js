@@ -69,10 +69,10 @@ module.exports = {
           id: record.id,
           topic: sensor.topic,
           value: sample.value,
-          mind: {name: mind.name, id: mind.id, email: mind.email, joindate: moment.utc(mind.joindate).format('YYYY-MM-DD HH:mm:ss')},
+          mind: {name: mind.name, id: mind.id, email: mind.email, joindate: moment.utc(mind.joindate).tz(mind.timezone).format('YYYY-MM-DD HH:mm:ss')},
           sensor: {label: sensor.label, meteologist: sensor.meteologist},
           sample: {label: sample.label, report_format: sample.report_format},
-          tstamp: moment.utc(record.date).format('YYYY-MM-DD HH:mm:ss'),
+          tstamp: moment.utc(record.date).tz(mind.timezone).format('YYYY-MM-DD HH:mm:ss'),
           day: moment.utc(record.date).tz(mind.timezone).day(),
           hour: moment.utc(record.date).tz(mind.timezone).hour(),
           timezone: mind.timezone,
@@ -89,7 +89,7 @@ module.exports = {
 
   beforeCreate: function(values, next) {
     values.id = uuid.v4();
-    values.date = new Date(moment.utc().format());
+    values.date = new Date().toISOString();
     next();
   },
 

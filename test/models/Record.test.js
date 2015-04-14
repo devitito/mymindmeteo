@@ -14,20 +14,20 @@ describe('Record model', function() {
       Record.toIndexable('543542433bb5d', this.cb);
     });
 
-    it ('should use UTC date for tstamp attribute', function(done) {
-      //timezone set in dbadapter
+    it ('should use mind timezone locale time tstamp attribute', function(done) {
+      //db timezone set in dbadapter
       this.cb = function(err, indexable) {
         should.not.exist(err);
         should.exist(indexable);
         indexable.should.have.property('tstamp');
-        indexable.tstamp.should.be.equal('2014-10-08 10:55:15');
+        indexable.tstamp.should.be.equal('2014-10-08 13:55:15');
         done();
       }
       Record.toIndexable('543542434bb5d', this.cb);
     });
 
     it ('should use mind timezone locale time for hour attribute', function(done) {
-      //timezone set in dbadapter
+      //db timezone set in dbadapter
       this.cb = function(err, indexable) {
         should.not.exist(err);
         should.exist(indexable);
