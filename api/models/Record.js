@@ -46,43 +46,46 @@ module.exports = {
     })(function (err, record) {
       if (err) return cb(err);
 
-        var data = [];
-        data.push(Sample.find({id: record.sample_id}));
-        data.push(Sensor.find({id: record.sensor_id}).populate('samples'));
-		data.push(Mind.find({id: record.mind_id}));
+      if (_.isUndefined(record))
+        return cb('Record not found');
 
-        promise.all(data)
-        .then(function(promises) {
-          var sample = promises[0][0];
-          var sensor = promises[1][0];
-          var mind = promises[2][0];
+      var data = [];
+      data.push(Sample.find({id: record.sample_id}));
+      data.push(Sensor.find({id: record.sensor_id}).populate('samples'));
+      data.push(Mind.find({id: record.mind_id}));
 
-          var value0 = sensor.samples[0].value;
-          var value1 = sensor.samples[1].value;
-          var max = (value0 >= value1) ? value0 : value1;
-          var min = (value0 <= value1) ? value0 : value1;
+      promise.all(data)
+      .then(function(promises) {
+        var sample = promises[0][0];
+        var sensor = promises[1][0];
+        var mind = promises[2][0];
 
-          var indexable = {
-            id: record.id,
-            topic: sensor.topic,
-            value: sample.value,
-            mind: {name: mind.name, id: mind.id, email: mind.email, joindate: moment.utc(mind.joindate).format('YYYY-MM-DD HH:mm:ss')},
-            sensor: {label: sensor.label, meteologist: sensor.meteologist},
-            sample: {label: sample.label, report_format: sample.report_format},
-            tstamp: moment.utc(record.date).format('YYYY-MM-DD HH:mm:ss'),
-            day: moment(record.date).tz(mind.timezone).day(),
-            hour: moment(record.date).tz(mind.timezone).hour(),
-            timezone: mind.timezone,
-            min: min,
-            max: max
-          }
-          cb(null, indexable);
-        })
-        .catch(function(err) {
-          cb(err);
-        });
+        var value0 = sensor.samples[0].value;
+        var value1 = sensor.samples[1].value;
+        var max = (value0 >= value1) ? value0 : value1;
+        var min = (value0 <= value1) ? value0 : value1;
+
+        var indexable = {
+          id: record.id,
+          topic: sensor.topic,
+          value: sample.value,
+          mind: {name: mind.name, id: mind.id, email: mind.email, joindate: moment.utc(mind.joindate).format('YYYY-MM-DD HH:mm:ss')},
+          sensor: {label: sensor.label, meteologist: sensor.meteologist},
+          sample: {label: sample.label, report_format: sample.report_format},
+          tstamp: moment.utc(record.date).format('YYYY-MM-DD HH:mm:ss'),
+          day: moment.utc(record.date).tz(mind.timezone).day(),
+          hour: moment.utc(record.date).tz(mind.timezone).hour(),
+          timezone: mind.timezone,
+          min: min,
+          max: max
+        }
+        cb(null, indexable);
       })
-	},
+      .catch(function(err) {
+        cb(err);
+      });
+    })
+  },
 
   beforeCreate: function(values, next) {
     values.id = uuid.v4();

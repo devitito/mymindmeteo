@@ -5,10 +5,6 @@
  *
  */
 
-var Promise = require('bluebird');
-var promise;
-var queue = [];
-
 module.exports.score = function(min, max, score) {
   var middle = (max+min)/2;
   var delta = max - middle;

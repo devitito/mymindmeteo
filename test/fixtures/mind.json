@@ -1,16 +1,26 @@
 [
   {
-    "id": "1",
     "name": "demo",
-		"email": "demo@mindmeteo.com",
-		"password": "$2a$10$TLlpkWTS.7g8drPVwJMNeeLJ.sMIGJEbobkGi7lMM018awn7N2Z7O",
-		"timezone": "Europe/Paris"
+    "email": "demo@mindmeteo.net",
+    "password": "demodemo",
+    "timezone": "Europe/Paris",
+    "locale": "fr_FR",
+    "role": "demo"
   },
   {
-    "id": "2",
     "name": "admin",
-		"email": "admin@mindmeteo.com",
-		"password": "$2a$10$OXxj/V2urwpGMr6KeeNzI..pyCKTC8MxKu/XgnB4GEA13wpN3eOva",
-		"timezone": "Europe/Paris"
+    "email": "admin@mindmeteo.net",
+    "password": "adminadmin",
+    "timezone": "Europe/Paris",
+    "locale": "fr_FR",
+    "role": "admin"
+  },
+  {
+    "name": "MindMeteo",
+    "email": "mindmeteo@mindmeteo.net",
+    "password": "11111111",
+    "timezone": "Europe/Paris",
+    "locale": "fr_FR",
+    "role": "meteologist"
   }
 ]

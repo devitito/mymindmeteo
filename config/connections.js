@@ -49,10 +49,11 @@ module.exports.connections = {
     database: 'mymeteo',
     
     charset   : 'utf8',
-    collation : 'utf8_unicode_ci'
+    collation : 'utf8_unicode_ci',
+    timezone: 'Etc/UTC'
   },
 
-	mindMeteoDbTest: {
+  mindMeteoDbTest: {
     adapter: 'sails-mysql',
     host: 'localhost',
     port     : 3306,
@@ -61,7 +62,8 @@ module.exports.connections = {
     database: 'mymeteo_test',
 
     charset   : 'utf8',
-    collation : 'utf8_unicode_ci'
+    collation : 'utf8_unicode_ci',
+    timezone: 'Etc/UTC'
   },
 
   /***************************************************************************
