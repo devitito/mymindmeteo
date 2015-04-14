@@ -87,3 +87,4 @@ data
 /node_modules/grunt-karma/
 /node_modules/karma-environments/
 /node_modules/barrels/
+/node_modules/moment/
