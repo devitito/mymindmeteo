@@ -73,8 +73,8 @@ module.exports = {
           sensor: {label: sensor.label, meteologist: sensor.meteologist},
           sample: {label: sample.label, report_format: sample.report_format},
           tstamp: moment.utc(record.date).format('YYYY-MM-DD HH:mm:ss'),
-          day: moment(record.date).tz(mind.timezone).day(),
-          hour: moment(record.date).tz(mind.timezone).hour(),
+          day: moment.utc(record.date).tz(mind.timezone).day(),
+          hour: moment.utc(record.date).tz(mind.timezone).hour(),
           timezone: mind.timezone,
           min: min,
           max: max
