@@ -116,6 +116,7 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 					slantedText: false,
 					textPosition : 'none',
 					viewWindowMode: 'maximized',
+
 				},
 				vAxis : {
 					//gridlines: { count : 2},
@@ -125,6 +126,8 @@ angular.module('climate', ['emocicones', 'session', 'record'])
 					maxValue : 10,
 					minValue : -10,
 					//textPosition : 'in',
+                  gridlines: { color : 'transparent'},
+                  //baselineColor: 'transparent'
 				},
 			};
 			climate.type = 'LineChart';

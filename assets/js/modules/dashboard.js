@@ -154,20 +154,6 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
 				});
   		});*/
 
-    $scope.generateButtonLabel = function () {
-      if ($window.innerWidth >= 570)
-        $scope.label = "Need a new weather report for your lover, family, friends, boss...?";
-      else
-        $scope.label = "New report!";
-    }
-
-    $($window).resize(function() {
-      $scope.$apply(function(){
-         $scope.generateButtonLabel();
-      });
-    });
-
-    $scope.generateButtonLabel();
 }])
 .factory('recovery', ['$resource',
   function($resource){

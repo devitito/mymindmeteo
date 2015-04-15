@@ -2,7 +2,7 @@
     <div class="profile-corner">
         <img class="img-responsive img-mind-profile" data-ng-src="{{identity.picture}}">
     </div>
-	<p class="clickable speech" ng-click="record()">Measure my climate!</p>
+	<!--<p class="clickable speech" ng-click="record()">Measure my climate!</p>-->
 	<!--<p class="clickable speech" ng-click="generate()">Quick!<br>Get me a new report!!</p>-->
 	<p class="clickable speech" ng-click="go('/profile/edit')">I want to change something on my profile...</p>
  <!--<p class="clickable speech">I have an idea!<br> I want to contribute.</p>-->
@@ -27,17 +27,29 @@
             </div>
 
             <div ng-if="spinneroff">
+
+              <div class="mind-section">
+                <span class="">Your climate
+				<span href="" ng-click="record()" class="btn btn-plus pull-right">
+					<i class="fa fa-plus animated"></i>
+				</span>
+                </h2>
+			</div>
                 <div class="row">
                   <div google-chart chart="climate" class="mood-chart"></div>
                 </div>
 
-              <div class="row text-center">
+              <!--<div class="row text-center">
                   <button ng-click="generate()" class="btn btn-lg btn-meteo btn-generate">{{label}}</button>
-                </div>
+                </div>-->
 
                 <!--<div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>-->
               <div ng-show="tableParams.data.length">
-
+                <span class="mind-section">Your weather reports
+                  <span href="" ng-click="generate()" class="btn btn-plus pull-right">
+					<i class="fa fa-plus animated"></i>
+				</span>
+                </span>
                       <table  ng-table="tableParams" class="table table-hover table-statement">
                           <tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
                               <td>
