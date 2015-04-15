@@ -118,8 +118,10 @@
 }
 
 .table-statement {
-	margin-top: 5px;
-	border-collapse: separate;
+  margin-top: 5px;
+  border-collapse: separate;
+  width: 93%;
+  margin-left: 3.5%;
 }
 
 .table-statement>thead>tr>th,
@@ -129,6 +131,7 @@
 .table-statement>tbody>tr>td,
 .table-statement>tfoot>tr>td {
 	border: 1px solid transparent;
+    padding: 0;
 }
 
 .table-statement thead {
