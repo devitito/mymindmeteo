@@ -12,19 +12,18 @@ var sinon = require('sinon'),
 describe('mind-mood ES request', function () {
 
   describe("query() method", function() {
-    var clock, zone;
 
     before(function() {
       //Set server time zone
-      //moment.tz.setDefault('America/Los_Angeles');
-      moment.tz.setDefault('Europe/Paris');
+      moment.tz.setDefault('America/Los_Angeles');
+      //moment.tz.setDefault('Europe/Paris');
       //console.log(moment().zoneName());
-      //set server's current locale time to "2011-10-02 00:55:55"
-      clock = sinon.useFakeTimers(new Date(2011,9,2,00,55,55).getTime());
+      //set server's current locale time to "2011-10-01 15:55:55"
+      this.clock = sinon.useFakeTimers(new Date("2011-10-01 15:55:55.001-07:00").getTime());
     });
 
     after(function() {
-      clock.restore();
+      this.clock.restore();
       moment.tz.setDefault(null);
       //console.log(moment().zoneName());
     });
