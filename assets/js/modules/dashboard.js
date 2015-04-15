@@ -72,7 +72,8 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
 
 			$scope.ViewStatement = function(statement) {
 				statement.notread = false;
-				$scope.editedStatement = statement;
+				//$scope.editedStatement = statement;
+              $scope.go('/statement/view/'+statement.id);
 			};
 
 			$scope.sendStatement = function() {

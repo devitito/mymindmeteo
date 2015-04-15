@@ -1,7 +1,7 @@
 body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-		min-width: 300px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  min-width: 300px;
 }
 
 .btn-meteo { 
@@ -324,9 +324,15 @@ div.container a.brand {
 }
 
 .mood-chart {
-		height:400px;
-		width:105%;
-		margin-left:-25px;
+  height:200px;
+  width:105%;
+  margin-left:-25px;
+}
+
+.spinner-wrapper {
+  height: 200px;
+  padding-top: 100px;
+  margin-bottom: 100px;
 }
 
 /* Large devices */
@@ -362,6 +368,12 @@ div.container a.brand {
 	.intro img {
 		height: 175px;
 		width: auto;
+	}
+
+  	.mood-chart {
+      height:150px;
+      width:100%;
+      margin-left: 10px;
 	}
 }
 
@@ -403,16 +415,16 @@ div.container a.brand {
 	}
 
 	.btn-circle {
-    width: 50px;
-    height: 50px;
-    margin-top: 20px;
-    font-size: 25px;
+      width: 50px;
+      height: 50px;
+      margin-top: 20px;
+      font-size: 25px;
 	}
 
 	.mood-chart {
-		height:300px;
-		width:105%;
-		margin-left:-25px;
+      height:150px;
+      width:100%;
+      margin-left: 15px;
 	}
 }
 

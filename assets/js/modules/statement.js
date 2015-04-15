@@ -101,11 +101,30 @@ angular.module('statement', ['ngResource', 'session', 'stats', 'report', 'emocic
 			});
 		};
 }])
-  .factory('statementsFactory', ['$resource', '$q', function($resource, $q){
-	var factory = $resource('/statement/:id', {id:'@id'}, {
-		bymind: {method: 'GET', url: '/statement/bymind'},
-		generate: {method: 'POST', url: '/statement/generate'}
-	});
+.controller('mindViewStatementCtrl', [
+	'$scope',
+	'$location',
+	'identity',
+	'statement',
+	'reportCategories',
+	'emociconeService',
+	'reportRanges',
+  function ($scope, $location, identity, statement, reportCategories, emociconeService, reportRanges) {
+    $scope.go = function (url) {
+      $location.path(url);
+    };
 
-	return factory;
+    $scope.close = function () {
+      $location.path('/dashboard/'+identity.name);
+    };
+
+    $scope.statement = statement;
+}])
+.factory('statementsFactory', ['$resource', '$q', function($resource, $q){
+  var factory = $resource('/statement/:id', {id:'@id'}, {
+    bymind: {method: 'GET', url: '/statement/bymind'},
+    generate: {method: 'POST', url: '/statement/generate'}
+  });
+
+  return factory;
 }]);
