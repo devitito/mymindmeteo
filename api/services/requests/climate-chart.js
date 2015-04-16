@@ -17,7 +17,6 @@ module.exports.query = function(options) {
     index: 'mindmeteo',
     type: 'records',
     trackScores: false,
-    size: 30,
     body: {
       query: {
         match: {
@@ -69,7 +68,15 @@ module.exports.parse = function(result) {
   var sunny = 0
   var rainy = 0;
 
-  result.aggregations.meteo_over_time.buckets.forEach(function(entry) {
+  //take last 30 days of record
+  var max = 30;
+  var init = result.aggregations.meteo_over_time.buckets.length < max ? 0 : (result.aggregations.meteo_over_time.buckets.length - max);
+  var length = result.aggregations.meteo_over_time.buckets.length;
+  for(var i = init; i < length; i++) {
+    console.log(i);
+
+    var entry = result.aggregations.meteo_over_time.buckets[i];
+
     var tab = {};
     var min = 0;
     var max = 0;
@@ -92,7 +99,7 @@ module.exports.parse = function(result) {
       "health": round(tab.health),
       "mood": round(tab.mood)
     });
-  });
+  };
 
   res.info = {"total": result.hits.total, "sunny": sunny, "rainy": rainy};
   return res;
