@@ -44,8 +44,9 @@
 .statement-wrapper .statement span {
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-	display: block;
+//  overflow: hidden;
+  display: block;
+  margin: 0px;
 }
 
 .statement .statement-info {
@@ -237,6 +238,21 @@
 		width:14.89361702%;
 		*width:14.89361702%;
 	}
+
+  .statement-wrapper .statement .statement-picture img {
+	height: 35px;
+	width: 35px;
+	margin-top: -15px;
+}
+
+  .statement-wrapper .statement h2 {
+    line-height: 20px;
+    margin-top: 15px;
+  }
+
+   .statement-wrapper .statement .emocicones {
+    margin-top: -13px;
+  }
 
   .panel-statement {
     border-color: #ddd;

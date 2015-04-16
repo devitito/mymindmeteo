@@ -136,14 +136,14 @@ div.container a.brand {
     opacity: 0.5;
 }
 
-@media all and (max-width: 991px) {
-	.content .visible-desktop {display:none;}
-	.content .visible-phone {display:block;}
+@media all and (max-width: 629px) {
+	 .visible-desktop {display:none;}
+	 .visible-phone {display:block;}
 }
 
-@media all and (min-width: 992px) {
-	.content .visible-desktop {display:block;}
-	.content .visible-phone {display:none;}
+@media all and (min-width: 630px) {
+	 .visible-desktop {display:block;}
+	 .visible-phone {display:none;}
 }
 
 .read {

@@ -56,7 +56,7 @@
              <div class="statement-wrapper">
                <div class="clickable statement" ng-repeat="statement in statements" ng-click="ViewStatement(statement)">
                  <div class="container">
-                   <div class="row-fluid ">
+                   <div class="row-fluid visible-desktop">
                      <div class="span2 statement-picture content-center">
                        <img ng-src='{{getImgByCategory(statement.report.category)}}'>
                      </div>
@@ -78,37 +78,26 @@
                        <h2>{{statement.report.title}}</h2>
                      </div>
                    </div>
+
+
+
+                   <div class="row-fluid visible-phone">
+                     <div>
+                       <h2>{{statement.report.title}}</h2>
+                       <div>
+                         <small>{{statement.createdAt | amDateFormat:'LL'}}</small>
+                          <span class="span2">{{statement.report.meteologist.name}}</span>
+                         <span class="span3 pull-right">
+                          <span class="span2 emocicones">{{getEmocicone(statement.report.range)}}&nbsp;</span>
+
+                          <span class="span3 statement-picture">&nbsp;<img ng-src='{{getImgByCategory(statement.report.category)}}'></span>
+                         </span>
+                       </div>
+                     </div>
+                   </div>
                  </div>
                </div>
             </div>
-
-
-<!--            <table ng-table="tableParams" class="table table-hover table-statement">
-              <tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
-                <td>
-                  <div class="statement-wrapper">
-                    <div class="row-fluid statement">
-                      <div class="span2 statement-picture content-center">
-                        <img ng-src='{{getImgByCategory(statement.report.category)}}'>
-                      </div>
-                      <div class="span2 content-center emocicones">
-                        {{getEmocicone(statement.report.range)}}
-                      </div>
-
-                      <div class="span2 statement-info">
-                        <small>{{statement.createdAt | amDateFormat:'LL'}}</small>
-                        <div>
-                          <span>{{statement.report.meteologist.name}}</span>
-                        </div>
-                      </div>
-                      <div class="span6">
-                        <h2>{{statement.report.title}}</h2>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>-->
           </div>
         </div>
       </div>
