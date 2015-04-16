@@ -2,18 +2,21 @@
 	<div class="container">
 		<div>
 			<ul class="nav navbar-nav navbar-left">
-				<!--<li><img class="img-responsive img-mind-profile" src="/images/placeholder.png"></li>-->
-				<li>
+				<li><img class="img-responsive img-logo" src="/images/logo-line.png"></li>
+				<!--<li>
 					<p class="navbar-mind-text">Hi {{identity.name}}!</p>
 					<p class="navbar-mind-text">What we can do for you?</p>
-				</li>
+				</li>-->
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
                 <li>
-                    <div class="btn-lg btn-meteo navbar-btn clickable" snap-toggle="right">
+                  <div class="profile-corner">
+                    <img class="img-responsive img-mind-profile clickable" data-ng-src="{{identity.picture}}" ng-click="go('/profile/edit')">
+                  </div>
+                   <!-- <div class="btn-lg btn-meteo navbar-btn clickable" snap-toggle="right">
                         <span>...</span>
-                    </div>
+                    </div>-->
                     <!--<div class="btn-lg btn-meteo navbar-btn clickable"
                             snap-toggle="right"
                             popover="I'll tell you what you can do!"

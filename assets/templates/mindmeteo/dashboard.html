@@ -28,28 +28,34 @@
 
             <div ng-if="spinneroff">
 
-              <div class="mind-section">
+              <div class="panel panel-statement">
+                <div class="panel-heading mind-section">
                 <span class="">Your climate
 				<span href="" ng-click="record()" class="btn btn-plus pull-right">
 					<i class="fa fa-plus animated"></i>
 				</span>
                 </h2>
-			</div>
-                <div class="row">
-                  <div google-chart chart="climate" class="mood-chart"></div>
                 </div>
 
+                <div class="row panel-body">
+                  <div google-chart chart="climate" class="mood-chart"></div>
+                </div>
+              </div>
               <!--<div class="row text-center">
                   <button ng-click="generate()" class="btn btn-lg btn-meteo btn-generate">{{label}}</button>
                 </div>-->
 
                 <!--<div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>-->
               <div ng-show="tableParams.data.length">
+                <div class="panel panel-statement">
+                  <div class="panel-heading">
                 <span class="mind-section">Your weather reports
                   <span href="" ng-click="generate()" class="btn btn-plus pull-right">
 					<i class="fa fa-plus animated"></i>
 				</span>
                 </span>
+                  </div>
+                <div class="panel-body">
                       <table  ng-table="tableParams" class="table table-hover table-statement">
                           <tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
                               <td>
@@ -83,7 +89,7 @@
                               </td>
                           </tr>
                       </table>
-
+                </div>
                   </div>
 
 

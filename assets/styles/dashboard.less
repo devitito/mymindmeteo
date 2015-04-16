@@ -8,13 +8,12 @@
 }
 
 .profile-corner {
-    background-color: lighten(#00ADEF, 51%);
-    border-bottom: 1px solid #00ADEF;
     height: 100px;
     margin-bottom: 20px;
     display: table-cell;
     vertical-align: middle;
     width: inherit;
+    padding-right: 15px;
 }
 
 .img-mind-profile {
@@ -190,10 +189,19 @@ snap-drawer,
   font-size: 30px;
 }
 
+ .img-logo {
+   margin-top: 7px;
+ }
+
 @media (max-width: 629px) {
 
   .mind-panel {
 	padding-top: 90px;
+  }
+
+  .img-logo {
+    max-height: 70px;
+    margin-top: -4px;
   }
 
 	.img-mind-profile {
@@ -205,8 +213,9 @@ snap-drawer,
     }
 
     .profile-corner {
-        padding-top: 0px;
-        height: 80px;
+      padding-top: 0px;
+      height: 70px;
+      padding-right: 0px;
     }
 
     .profile-separator {

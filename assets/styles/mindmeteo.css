@@ -325,8 +325,7 @@ div.container a.brand {
 
 .mood-chart {
   height:200px;
-  width:105%;
-  margin-left:-25px;
+  width:100%;
 }
 
 .spinner-wrapper {
@@ -373,7 +372,6 @@ div.container a.brand {
   	.mood-chart {
       height:150px;
       width:100%;
-      margin-left: 10px;
 	}
 }
 
@@ -424,7 +422,6 @@ div.container a.brand {
 	.mood-chart {
       height:150px;
       width:100%;
-      margin-left: 15px;
 	}
 }
 
