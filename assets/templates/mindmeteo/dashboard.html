@@ -24,7 +24,7 @@
     </div>
 
     <div ng-if="spinneroff">
-      <div class="panel panel-statement">
+      <div class="panel panel-section">
         <div class="panel-heading mind-section">
           <span class="">Your climate
             <span href="" ng-click="record()" class="btn btn-plus pull-right">
@@ -33,7 +33,7 @@
           </span>
         </div>
 
-        <div class="row panel-body">
+        <div class="panel-section-body">
           <div ng-hide="message">
             <div google-chart chart="climate" class="mood-chart"></div>
           </div>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <!---->
-      <div class="panel panel-statement">
+      <div class="panel panel-section">
         <div class="panel-heading">
           <span class="mind-section">Your weather reports
             <span href="" ng-click="generate()" class="btn btn-plus pull-right">
@@ -49,10 +49,41 @@
             </span>
           </span>
         </div>
-        <div class="panel-body">
-          <div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>
-          <div ng-hide="!tableParams.data.length">
-            <table ng-table="tableParams" class="table table-hover table-statement">
+        <div class="panel-section-body">
+          <div ng-show="!statements.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>
+          <div ng-hide="!statements.length">
+
+             <div class="statement-wrapper">
+               <div class="clickable statement" ng-repeat="statement in statements" ng-click="ViewStatement(statement)">
+                 <div class="container">
+                   <div class="row-fluid ">
+                     <div class="span2 statement-picture content-center">
+                       <img ng-src='{{getImgByCategory(statement.report.category)}}'>
+                     </div>
+                     <div class="span2 content-center emocicones">
+                       {{getEmocicone(statement.report.range)}}
+                     </div>
+                                          <!--<div class="span2 content-center emocicones"
+                                                   popover='{{getMoodRangeLabel(statement.report.range)}}'
+                                                   popover-trigger="mouseenter">
+                                              {{getEmocicone(statement.report.range)}}
+                                          </div>-->
+                     <div class="span2 statement-info">
+                       <small>{{statement.createdAt | amDateFormat:'LL'}}</small>
+                       <div>
+                         <span>{{statement.report.meteologist.name}}</span>
+                       </div>
+                     </div>
+                     <div class="span6">
+                       <h2>{{statement.report.title}}</h2>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+            </div>
+
+
+<!--            <table ng-table="tableParams" class="table table-hover table-statement">
               <tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
                 <td>
                   <div class="statement-wrapper">
@@ -63,11 +94,7 @@
                       <div class="span2 content-center emocicones">
                         {{getEmocicone(statement.report.range)}}
                       </div>
-                                        <!--<div class="span2 content-center emocicones"
-                                                 popover='{{getMoodRangeLabel(statement.report.range)}}'
-                                                 popover-trigger="mouseenter">
-                                            {{getEmocicone(statement.report.range)}}
-                                        </div>-->
+
                       <div class="span2 statement-info">
                         <small>{{statement.createdAt | amDateFormat:'LL'}}</small>
                         <div>
@@ -81,7 +108,7 @@
                   </div>
                 </td>
               </tr>
-            </table>
+            </table>-->
           </div>
         </div>
       </div>

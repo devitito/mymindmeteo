@@ -1,3 +1,21 @@
+.statement-wrapper .statement {
+  border: 1px solid transparent;
+  border-bottom: 1px solid lightgray;
+  box-sizing: border-box;
+}
+
+.statement-wrapper .statement:hover {
+  border: 1px solid #00ADEF;
+}
+
+.statement-wrapper .statement:last-of-type {
+  border-bottom: 1px solid transparent;
+}
+
+.statement-wrapper .statement:last-of-type:hover {
+  border-bottom: 1px solid #00ADEF;
+}
+
 .statement-wrapper .statement.row-fluid {
   height: 70px;
 }
@@ -150,7 +168,7 @@
 .statement-wrapper .statement .statement-picture img {
 	height: 50px;
 	width: 50px;
-	margin: 17px;
+	margin: 10px;
 }
 
 .emocicones {

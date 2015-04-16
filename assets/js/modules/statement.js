@@ -6,7 +6,7 @@
  */
 
 
-angular.module('statement', ['ngResource', 'session', 'stats', 'report', 'emocicones', 'snap'])
+angular.module('statement', ['ngResource', 'session', 'stats', 'report', 'emocicones'])
 .controller('mindNewStatementCtrl', [
 	'$scope',
 	'$location',
@@ -18,9 +18,8 @@ angular.module('statement', ['ngResource', 'session', 'stats', 'report', 'emocic
 	'reportCategories',
 	'emociconeService',
 	'reportRanges',
-	'snapRemote',
 	'statementsFactory',
-  function ($scope, $location, $timeout, $sce, identity, sessionFactory, statsFactory, reportCategories, emociconeService, reportRanges, snapRemote, statementsFactory) {
+  function ($scope, $location, $timeout, $sce, identity, sessionFactory, statsFactory, reportCategories, emociconeService, reportRanges, statementsFactory) {
 		$scope.processing = false;
 		$scope.redirect = false;
 

@@ -1,6 +1,6 @@
 
 
-angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googlechart', 'helper', 'angularSpinner', 'report', 'emocicones', 'ui.bootstrap', 'snap'])
+angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googlechart', 'helper', 'angularSpinner', 'report', 'emocicones', 'ui.bootstrap'])
   .controller('dashboardCtrl', ['$scope', 'recovery', 'identity',
     function ($scope, recovery, identity) {
       $scope.recover = function () {
@@ -39,8 +39,8 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
 			});
 		}
 }])
-.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', '$window', 'identity', 'sessionFactory', 'statsFactory', 'climateChartHelper', 'tableHelper', 'usSpinnerService', 'reportCategories', 'emociconeService', 'reportRanges', 'snapRemote',
-  function ($scope, $location, $timeout, $window, identity, sessionFactory, statsFactory, climateChartHelper, tableHelper, usSpinnerService, reportCategories, emociconeService, reportRanges, snapRemote) {
+.controller('mindDashboardCtrl', ['$scope', '$location', '$timeout', '$window', 'identity', 'sessionFactory', 'statsFactory', 'climateChartHelper', 'usSpinnerService', 'reportCategories', 'emociconeService', 'reportRanges', 'statementsFactory',
+  function ($scope, $location, $timeout, $window, identity, sessionFactory, statsFactory, climateChartHelper, usSpinnerService, reportCategories, emociconeService, reportRanges, statementsFactory) {
     $scope.go = function (url) {
       $location.path(url);
     };
@@ -76,13 +76,13 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
       $scope.go('/statement/view/'+statement.id);
     };
 
-    $scope.sendStatement = function() {
+/*    $scope.sendStatement = function() {
       $scope.editedStatement = undefined;
       $scope.sentConfirm = 'Message sent successfully!';
       $timeout(function () {
         $scope.sentConfirm = undefined;
       }, 3000);
-    };
+    };*/
 
     $scope.showError = function (error) {
       $scope.processing = false;
@@ -93,13 +93,11 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
     };
 
     $scope.record = function () {
-      snapRemote.close();
       $location.path('climate/record');
       //recordsFactory.launch($scope);
     };
 
     $scope.generate = function () {
-      snapRemote.close();
       $location.path('statement/new');
     };
 
@@ -112,7 +110,13 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
 				$scope.show = 'climate';
 			};*/
 
-    $scope.tableParams = tableHelper.new('statements-list', {id:$scope.identity.id});
+    $scope.statements = [];
+   // $scope.tableParams = tableHelper.new('statements-list', {id:$scope.identity.id});
+    statementsFactory.bymind({id:identity.id, page: 1, count: 3}).$promise
+    .then(function(statements) {
+      $scope.statements = statements.data;
+    });
+
 
     //$scope.show = 'climate';
     $scope.processing = false;
@@ -142,18 +146,6 @@ angular.module('dashboard', ['ngResource', 'session', 'stats', 'climate', 'googl
       console.log(label);
       return 'Mood: ' + label;
     };
-
-			//snapRemote.enable();
-			/*snapRemote.getSnapper().then(function(snapper) {
-				snapper.on('open', function() {
-					log('Drawer opened!');
-				});
-
-				snapper.on('close', function() {
-					log('Drawer closed!');
-				});
-  		});*/
-
 }])
 .factory('recovery', ['$resource',
   function($resource){

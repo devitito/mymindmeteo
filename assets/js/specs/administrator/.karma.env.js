@@ -17,7 +17,7 @@ module.exports = function(environment) {
       'angular-local-storage/dist/angular-local-storage.js',
       'spin.js/spin.js',
       'angular-spinner/angular-spinner.js',
-      'angular-snap/angular-snap.js',
+   //   'angular-snap/angular-snap.js',
       'ng-flow/dist/ng-flow-standalone.js'
     ], '../../../bower_components/')
     .add([
