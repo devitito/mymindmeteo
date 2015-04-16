@@ -97,7 +97,7 @@ module.exports = {
   
   beforeCreate: function(values, next) {
     values.id = uuid.v4();
-    values.date = new Date().toISOString();
+    values.joindate = new Date().toISOString();
 
     // This checks to make sure the password and password confirmation match before creating record
     //if (!values.password || values.password != values.confirmation) {
