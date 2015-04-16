@@ -165,6 +165,7 @@
 	margin-right: 15px;
 	margin-left: 15px;
 }
+
 .panel-statement > .panel-heading {
   color: #333;
   background-color: #f5f5f5;
@@ -218,4 +219,11 @@
 		width:14.89361702%;
 		*width:14.89361702%;
 	}
+
+  .panel-statement {
+    border-color: #ddd;
+	margin-top: 5px;
+	margin-right: 2px;
+	margin-left: 2px;
+  }
 }

@@ -11,100 +11,81 @@
 
 <!--<perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="10" min-scrollbar-length="20">-->
 <!--<snap-content id="content" snap-opt-disable="'left'">-->
-	<div ng-include src="'../templates/mindmeteo/navbar-mind.html'"></div>
-	<div class="container mind-panel">
-		<div class="row">
-			<!--<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>-->
-			<alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
-		</div>
+<div ng-include src="'../templates/mindmeteo/navbar-mind.html'"></div>
+<div class="container mind-panel">
+  <div class="row">
+    <!--<alert ng-show="processing" type="info"><h4>Our meteologists are analysing this new set of data. Their reports will be ready in a minute...</h4></alert>-->
+    <alert ng-show="error" type="danger"><h4>{{error}}</h4></alert>
+  </div>
 
-		<div class="row">
+  <div class="row">
+    <div ng-if="!spinneroff" class="row spinner-wrapper">
+      <span class="spinner" us-spinner="{radius:20, width:5, length: 10, color: '#00ADEF'}" spinner-key="spinner" spinner-start-active="true"></span>
+    </div>
 
-          <div ng-hide="message">
-
-            <div ng-if="!spinneroff" class="row spinner-wrapper">
-                <span class="spinner" us-spinner="{radius:20, width:5, length: 10, color: '#00ADEF'}" spinner-key="spinner" spinner-start-active="true"></span>
-            </div>
-
-            <div ng-if="spinneroff">
-
-              <div class="panel panel-statement">
-                <div class="panel-heading mind-section">
-                <span class="">Your climate
-				<span href="" ng-click="record()" class="btn btn-plus pull-right">
-					<i class="fa fa-plus animated"></i>
-				</span>
-                </h2>
-                </div>
-
-                <div class="row panel-body">
-                  <div google-chart chart="climate" class="mood-chart"></div>
-                </div>
-              </div>
-              <!--<div class="row text-center">
-                  <button ng-click="generate()" class="btn btn-lg btn-meteo btn-generate">{{label}}</button>
-                </div>-->
-
-                <!--<div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>-->
-              <div ng-show="tableParams.data.length">
-                <div class="panel panel-statement">
-                  <div class="panel-heading">
-                <span class="mind-section">Your weather reports
-                  <span href="" ng-click="generate()" class="btn btn-plus pull-right">
-					<i class="fa fa-plus animated"></i>
-				</span>
-                </span>
-                  </div>
-                <div class="panel-body">
-                      <table  ng-table="tableParams" class="table table-hover table-statement">
-                          <tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
-                              <td>
-                                  <div class="statement-wrapper">
-                                  <div class="row-fluid statement">
-                                      <div class="span2 statement-picture content-center">
-                                          <img ng-src='{{getImgByCategory(statement.report.category)}}'>
-                                          <!--<img ng-src='{{getImgByCategory(statement.report.category)}}'
-                                                   popover='{{getCategoryLabel(statement.report.category)}}'
-                                                   popover-trigger="mouseenter">-->
-                                      </div>
-                                      <div class="span2 content-center emocicones">
-                                          {{getEmocicone(statement.report.range)}}
-                                      </div>
-                                      <!--<div class="span2 content-center emocicones"
-                                               popover='{{getMoodRangeLabel(statement.report.range)}}'
-                                               popover-trigger="mouseenter">
-                                          {{getEmocicone(statement.report.range)}}
-                                      </div>-->
-                                      <div class="span2 statement-info">
-                                          <small>{{statement.createdAt | amDateFormat:'LL'}}</small>
-                                          <div>
-                                              <span>{{statement.report.meteologist.name}}</span>
-                                          </div>
-                                      </div>
-                                      <div class="span6">
-                                          <h2>{{statement.report.title}}</h2>
-                                      </div>
-                                  </div>
-                                  </div>
-                              </td>
-                          </tr>
-                      </table>
-                </div>
-                  </div>
-
-
-
-            </div>
+    <div ng-if="spinneroff">
+      <div class="panel panel-statement">
+        <div class="panel-heading mind-section">
+          <span class="">Your climate
+            <span href="" ng-click="record()" class="btn btn-plus pull-right">
+              <i class="fa fa-plus animated"></i>
+            </span>
+          </span>
         </div>
-        <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>
 
-
-
-
-
-
-
-
+        <div class="row panel-body">
+          <div ng-hide="message">
+            <div google-chart chart="climate" class="mood-chart"></div>
+          </div>
+          <div ng-show="message" class="text-center" ><h4>{{message}}</h4></div>
+        </div>
+      </div>
+      <!---->
+      <div class="panel panel-statement">
+        <div class="panel-heading">
+          <span class="mind-section">Your weather reports
+            <span href="" ng-click="generate()" class="btn btn-plus pull-right">
+              <i class="fa fa-plus animated"></i>
+            </span>
+          </span>
+        </div>
+        <div class="panel-body">
+          <div ng-show="!tableParams.data.length" class="text-center"><h4>No Reports generated yet. Capture some meteo data first.</h4></div>
+          <div ng-hide="!tableParams.data.length">
+            <table ng-table="tableParams" class="table table-hover table-statement">
+              <tr class="clickable" ng-repeat="statement in tableParams.data" ng-click="ViewStatement(statement)">
+                <td>
+                  <div class="statement-wrapper">
+                    <div class="row-fluid statement">
+                      <div class="span2 statement-picture content-center">
+                        <img ng-src='{{getImgByCategory(statement.report.category)}}'>
+                      </div>
+                      <div class="span2 content-center emocicones">
+                        {{getEmocicone(statement.report.range)}}
+                      </div>
+                                        <!--<div class="span2 content-center emocicones"
+                                                 popover='{{getMoodRangeLabel(statement.report.range)}}'
+                                                 popover-trigger="mouseenter">
+                                            {{getEmocicone(statement.report.range)}}
+                                        </div>-->
+                      <div class="span2 statement-info">
+                        <small>{{statement.createdAt | amDateFormat:'LL'}}</small>
+                        <div>
+                          <span>{{statement.report.meteologist.name}}</span>
+                        </div>
+                      </div>
+                      <div class="span6">
+                        <h2>{{statement.report.title}}</h2>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
 			<!--<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 				<tabset vertical="true" type="pills">
@@ -121,14 +102,14 @@
 					<div ng-show="show == 'reports'" ng-include="'../templates/mindmeteo/reports-list.html'"></div>
 			</div>-->
 
-		</div>
+  </div>
 
-		<div class="row">
-			<hr>
-			<footer>
-				<p>&copy; developped by devitito</p>
-			</footer>
-		</div>
-	</div>
+  <div class="row">
+    <hr>
+    <footer>
+      <p>&copy; developped by devitito</p>
+    </footer>
+  </div>
+</div>
 <!--</snap-content>-->
 <!--</perfect-scrollbar>-->
