@@ -1,15 +1,7 @@
-<div ng-include src="'templates/welcome/partials/navbar-logged-out.html'"></div>
+<div ng-include src="'assets/templates/welcome/partials/navbar-logged-out.html'"></div>
 <br>
 
 <div class="container">
-
-    <!--% if(flash && flash.err) { %>
-		<% Object.keys(flash.err).forEach(function(error) { %>
-			<div class="alert alert-danger" role="alert">
-				<%- JSON.stringify(flash.err[error]) %>
-			</div>
-		<% }) %>
-	<% } %-->
 
 	<div ng-show="error" class="alert alert-danger" role="alert">
 		{{error}}

@@ -1,19 +1,19 @@
 
 
-var welcome = angular.module('welcome', ['ngRoute', 'guest', 'LocalStorageModule']);
+var welcome = angular.module('welcome', ['ngRoute', 'guest', 'LocalStorageModule', 'underscore']);
 
-welcome.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
+welcome.config(['$routeProvider', 'localStorageServiceProvider', '$provide', function($routeProvider, localStorageServiceProvider, $provide) {
   $routeProvider.
 	when('/', {
-		templateUrl: '/templates/welcome/partials/homepage.html',
+		template: JST['assets/templates/welcome/partials/homepage.html'],
 		controller: 'guestCtrl'
 	}).
 	when('/session/new', {
-		templateUrl: '/templates/welcome/partials/signup.html',
+		template: JST['assets/templates/welcome/partials/signup.html'],
 		controller: 'newSessionCtrl'
 	}).
 	when('/register', {
-		templateUrl: '/templates/welcome/partials/register.html',
+		template: JST['assets/templates/welcome/partials/register.html'],
 		controller: 'guestRegCtrl'
 	}).
 	otherwise({
@@ -23,12 +23,32 @@ welcome.config(['$routeProvider', 'localStorageServiceProvider', function($route
   localStorageServiceProvider
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
+
+  $provide.decorator('$templateCache', function($delegate, $sniffer) {
+    var originalGet = $delegate.get;
+
+    $delegate.get = function(key) {
+      var value;
+      value = originalGet(key);
+      if (!value) {
+        // JST is where my partials and other templates are stored
+        // If not already found in the cache, look there...
+        value = JST[key]();
+        if (value) {
+          $delegate.put(key, value);
+        }
+      }
+      return value;
+    };
+
+    return $delegate;
+  });
 }]);
 
 welcome.run(['$http', '$anchorScroll', function($http, $anchorScroll) {
-    $http.get('/csrfToken').success(function(data){
-        $http.defaults.headers.common['x-csrf-token'] = data._csrf;
-    });
+  $http.get('/csrfToken').success(function(data){
+    $http.defaults.headers.common['x-csrf-token'] = data._csrf;
+  });
 
-    $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
+  $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
 }]);

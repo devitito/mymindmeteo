@@ -13,7 +13,8 @@ module.exports = function(environment) {
       'moment/moment.js',
      // 'moment/moment-with-locales.js',
       'angular-moment/angular-moment.js',
-      'angular-local-storage/dist/angular-local-storage.js'
+      'angular-local-storage/dist/angular-local-storage.js',
+      'underscore/underscore.js',
     ], '../../../bower_components/')
     .add([
       'session.js',
@@ -21,7 +22,9 @@ module.exports = function(environment) {
       'mind.js',
       'i18n.js',
       'timezone.js',
-      'guest.js'
+      'guest.js',
+      'underscore.js'
     ], '../../modules/')
+    .add(['jst.js'], '../../../../.tmp/public/')
     .add(['app.js'], '../../welcome/');;
 };
