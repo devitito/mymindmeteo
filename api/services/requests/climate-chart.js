@@ -73,8 +73,6 @@ module.exports.parse = function(result) {
   var init = result.aggregations.meteo_over_time.buckets.length < max ? 0 : (result.aggregations.meteo_over_time.buckets.length - max);
   var length = result.aggregations.meteo_over_time.buckets.length;
   for(var i = init; i < length; i++) {
-    console.log(i);
-
     var entry = result.aggregations.meteo_over_time.buckets[i];
 
     var tab = {};

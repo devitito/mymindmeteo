@@ -29,7 +29,7 @@
 
 module.exports = {
 
-  crsf: false,
+  //crsf: false,
 
   /***************************************************************************
    * Your SSL certificate and key, if you want to be able to serve HTTP      *

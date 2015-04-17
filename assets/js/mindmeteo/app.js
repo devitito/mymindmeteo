@@ -1,12 +1,12 @@
 
 
-var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'session', 'dashboard', 'profile', 'statement', 'LocalStorageModule', 'googlechart']);
+var mindmeteo = angular.module('mindmeteo', ['ngRoute', 'session', 'dashboard', 'profile', 'statement', 'LocalStorageModule', 'googlechart', 'underscore']);
 
-mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($routeProvider, localStorageServiceProvider) {
+mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', '$provide', function($routeProvider, localStorageServiceProvider, $provide) {
 
   $routeProvider.
   when('/dashboard/:mindname', {
-    templateUrl: '/templates/mindmeteo/dashboard.html',
+    template: JST['assets/templates/mindmeteo/dashboard.html'],
     controller: 'mindDashboardCtrl',
     resolve: {
       identity : ['identityService', '$location', function(identityService, $location) {
@@ -19,7 +19,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
     }
   }).
   when('/profile/edit', {
-    templateUrl: '/templates/mindmeteo/profile/edit.html',
+    template: JST['assets/templates/mindmeteo/profile/edit.html'],
     controller: 'mindProfileEditCtrl',
     resolve: {
       identity : ['identityService', '$location', function(identityService, $location) {
@@ -32,7 +32,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
     }
   }).
   when('/climate/record', {
-    templateUrl: '/templates/mindmeteo/climate/record.html',
+    template: JST['assets/templates/mindmeteo/climate/record.html'],
     controller: 'mindClimateRecordCtrl',
     resolve: {
       identity : ['identityService', '$location', function(identityService, $location) {
@@ -48,7 +48,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
     }
   }).
   when('/statement/new', {
-    templateUrl: '/templates/mindmeteo/statement/new.html',
+    template: JST['assets/templates/mindmeteo/statement/new.html'],
     controller: 'mindNewStatementCtrl',
     resolve: {
       identity : ['identityService', '$location', function(identityService, $location) {
@@ -61,7 +61,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
     }
   }).
   when('/statement/view/:id', {
-    templateUrl: '/templates/mindmeteo/statement/view.html',
+    template: JST['assets/templates/mindmeteo/statement/view.html'],
     controller: 'mindViewStatementCtrl',
     resolve: {
       identity : ['identityService', '$location', function(identityService, $location) {
@@ -87,6 +87,26 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', function($rou
   localStorageServiceProvider
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
+
+  $provide.decorator('$templateCache', function($delegate, $sniffer) {
+    var originalGet = $delegate.get;
+
+    $delegate.get = function(key) {
+      var value;
+      value = originalGet(key);
+      if (!value) {
+        // JST is where my partials and other templates are stored
+        // If not already found in the cache, look there...
+        value = JST[key]();
+        if (value) {
+          $delegate.put(key, value);
+        }
+      }
+      return value;
+    };
+
+    return $delegate;
+  });
 }]);
 
 mindmeteo.value('googleChartApiConfig', {

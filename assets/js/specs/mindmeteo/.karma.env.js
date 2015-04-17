@@ -17,6 +17,7 @@ module.exports = function(environment) {
       'angular-local-storage/dist/angular-local-storage.js',
       'spin.js/spin.js',
       'angular-spinner/angular-spinner.js',
+      'underscore/underscore.js',
       //'angular-snap/angular-snap.js',
       'ng-flow/dist/ng-flow-standalone.js'
     ], '../../../bower_components/')
@@ -36,7 +37,9 @@ module.exports = function(environment) {
       'emocicones.js',
       'climate.js',
       'helper.js',
-      'profile.js'
+      'profile.js',
+      'underscore.js'
     ], '../../modules/')
+    .add(['jst.js'], '../../../../.tmp/public/')
     .add(['app.js'], '../../mindmeteo/');
 };
