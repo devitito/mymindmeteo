@@ -24,7 +24,7 @@ welcome.config(['$routeProvider', 'localStorageServiceProvider', '$provide', fun
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
 
-  $provide.decorator('$templateCache', function($delegate, $sniffer) {
+  $provide.decorator('$templateCache', ['$delegate', '$sniffer', function($delegate, $sniffer) {
     var originalGet = $delegate.get;
 
     $delegate.get = function(key) {
@@ -42,7 +42,7 @@ welcome.config(['$routeProvider', 'localStorageServiceProvider', '$provide', fun
     };
 
     return $delegate;
-  });
+  }]);
 }]);
 
 welcome.run(['$http', '$anchorScroll', function($http, $anchorScroll) {

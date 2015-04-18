@@ -24,38 +24,40 @@ var cssFilesToInject = [
 
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
-var jsFilesToInject = [
-  
+var jsFilesToInjectInWelcome = [
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
+  'js/dependencies/**/*.js',
 
-	//'bower_components/webcomponentsjs/webcomponents.min.js',
-
-  // Dependencies like jQuery, or Angular are brought in here
   'bower_components/jquery/dist/jquery.min.js',
   'bower_components/bootstrap/dist/js/bootstrap.min.js',
   'bower_components/angular/angular.min.js',
-	'bower_components/angular-route/angular-route.min.js',
-	'bower_components/angular-resource/angular-resource.min.js',
-	'bower_components/angular-bootstrap/ui-bootstrap.min.js',
-	'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-	'bower_components/ng-table/ng-table.min.js',
-	'bower_components/angular-google-chart/ng-google-chart.js',
+  'bower_components/angular-route/angular-route.min.js',
+  'bower_components/angular-resource/angular-resource.min.js',
+  'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+  'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+  'bower_components/moment/min/moment-with-locales.min.js',
+  'bower_components/angular-moment/angular-moment.min.js',
+  'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
+  'bower_components/underscore/underscore.js',
+  'js/welcome/app.js',
+  'js/modules/guest.js',
+  'js/modules/mind.js',
+  'js/modules/i18n.js',
+  'js/modules/timezone.js',
+  'js/modules/session.js',
+  'js/modules/flashMsg.js',
+  'js/modules/underscore.js',
 
-	'bower_components/moment/min/moment-with-locales.min.js',
-	'bower_components/angular-moment/angular-moment.min.js',
-	//'bower_components/moment/locale/fr.js',
-	//'bower_components/moment/locale/es.js',
-	'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-	'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-	'bower_components/spin.js/spin.js',
-	'bower_components/angular-spinner/angular-spinner.js',
-	'bower_components/snapjs/snap.js',
-	'bower_components/angular-snap/angular-snap.js',
-/*	'bower_components/perfect-scrollbar/js/min/perfect-scrollbar.js',
-	'bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js',*/
-	'bower_components/ng-flow/dist/ng-flow-standalone.js',
+  // All of the rest of your client-side js files
+  // will be injected here in no particular order.
+  //'js/**/!(*.spec).js'
+];
 
+var jsFilesToInjectInMeteo = [
+
+  // Load sails.io before everything else
+  'js/dependencies/sails.io.js',
 
 	//'js/app.js',
   'js/dependencies/**/*.js',
@@ -65,6 +67,18 @@ var jsFilesToInject = [
   'js/**/!(*.spec).js'
 ];
 
+var jsFilesToInjectInAdministrator = [
+
+  // Load sails.io before everything else
+  'js/dependencies/sails.io.js',
+
+	//'js/app.js',
+  'js/dependencies/**/*.js',
+
+  // All of the rest of your client-side js files
+  // will be injected here in no particular order.
+  'js/**/!(*.spec).js'
+];
 
 // Client-side HTML templates are injected using the sources below
 // The ordering of these templates shouldn't matter.
@@ -95,7 +109,13 @@ var templateFilesToInjectInAdministrator = [
 module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
-module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
+module.exports.jsFilesToInjectInWelcome = jsFilesToInjectInWelcome.map(function(path) {
+  return '.tmp/public/' + path;
+});
+module.exports.jsFilesToInjectInMeteo = jsFilesToInjectInMeteo.map(function(path) {
+  return '.tmp/public/' + path;
+});
+module.exports.jsFilesToInjectInAdministrator= jsFilesToInjectInAdministrator.map(function(path) {
   return '.tmp/public/' + path;
 });
 module.exports.templateFilesToInjectInWelcome = templateFilesToInjectInWelcome.map(function(path) {
