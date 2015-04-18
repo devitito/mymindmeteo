@@ -18,8 +18,7 @@ var cssFilesToInject = [
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'bower_components/perfect-scrollbar/css/perfect-scrollbar.css',
     'styles/**/*.css',
-	'js/**/*.css',
-    'assets/styles/importer.less'
+    'styles/importer.less'
 ];
 
 
@@ -58,7 +57,7 @@ var jsFilesToInject = [
 	'bower_components/ng-flow/dist/ng-flow-standalone.js',
 
 
-	'js/app.js',
+	//'js/app.js',
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files

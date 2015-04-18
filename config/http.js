@@ -30,7 +30,7 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-    /* order: [
+     /*order: [
        'startRequestTimer',
        'cookieParser',
        'session',
@@ -41,6 +41,7 @@ module.exports.http = {
        'methodOverride',
        'poweredBy',
        '$custom',
+       'nocache',
        'router',
        'www',
        'favicon',
@@ -54,11 +55,17 @@ module.exports.http = {
   *                                                                           *
   ****************************************************************************/
 
-     /*myRequestLogger: function (req, res, next) {
-         console.log("Requested :: ", req.method, req.url);
-         return next();
-     }
-*/
+  /*myRequestLogger: function (req, res, next) {
+    console.log("Requested :: ", req.method, req.url);
+    return next();
+  },
+
+  nocache: function (req, res, next) {
+    if (req.path.indexOf("/api") == 0) {
+      res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+    }
+    return next();
+  },*/
 
   /***************************************************************************
   *                                                                          *
@@ -84,5 +91,4 @@ module.exports.http = {
   ***************************************************************************/
 
   // cache: 31557600000
-	cache: 3600
 };
