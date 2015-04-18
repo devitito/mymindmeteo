@@ -40,6 +40,6 @@ module.exports = function(environment) {
       'profile.js',
       'underscore.js'
     ], '../../modules/')
-    .add(['jst.js'], '../../../../.tmp/public/')
+    .add(['jst-meteo.js'], '../../../../.tmp/public/')
     .add(['app.js'], '../../mindmeteo/');
 };
