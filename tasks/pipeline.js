@@ -55,7 +55,6 @@ var jsFilesToInjectInWelcome = [
 ];
 
 var jsFilesToInjectInMeteo = [
-
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
   'js/dependencies/**/*.js',
@@ -100,16 +99,45 @@ var jsFilesToInjectInMeteo = [
 ];
 
 var jsFilesToInjectInAdministrator = [
-
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
-
-	//'js/app.js',
   'js/dependencies/**/*.js',
+
+  'bower_components/jquery/dist/jquery.min.js',
+  'bower_components/bootstrap/dist/js/bootstrap.min.js',
+  'bower_components/angular/angular.min.js',
+  'bower_components/angular-route/angular-route.min.js',
+  'bower_components/angular-resource/angular-resource.min.js',
+  'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+  'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+  'bower_components/moment/min/moment-with-locales.min.js',
+  'bower_components/angular-moment/angular-moment.min.js',
+  'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
+  'bower_components/ng-table/ng-table.min.js',
+  'bower_components/angular-google-chart/ng-google-chart.js',
+  'bower_components/spin.js/spin.js',
+  'bower_components/angular-spinner/angular-spinner.js',
+  'bower_components/snapjs/snap.js',
+  'bower_components/angular-snap/angular-snap.js',
+  'js/administrator/app.js',
+  'js/modules/session.js',
+  'js/modules/dashboard.js',
+  'js/modules/flashMsg.js',
+  'js/modules/mind.js',
+  'js/modules/sensor.js',
+  'js/modules/report.js',
+  'js/modules/stats.js',
+  'js/modules/i18n.js',
+  'js/modules/timezone.js',
+  'js/modules/helper.js',
+  'js/modules/statement.js',
+  'js/modules/record.js',
+  'js/modules/emocicones.js',
+  'js/modules/climate.js'
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/**/!(*.spec).js'
+  //'js/**/!(*.spec).js'
 ];
 
 // Client-side HTML templates are injected using the sources below
