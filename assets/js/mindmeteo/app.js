@@ -88,7 +88,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', '$provide', f
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
 
-  $provide.decorator('$templateCache', function($delegate, $sniffer) {
+  $provide.decorator('$templateCache', ['$delegate', '$sniffer', function($delegate, $sniffer) {
     var originalGet = $delegate.get;
 
     $delegate.get = function(key) {
@@ -106,7 +106,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', '$provide', f
     };
 
     return $delegate;
-  });
+  }]);
 }]);
 
 mindmeteo.value('googleChartApiConfig', {
