@@ -16,11 +16,9 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    'bower_components/perfect-scrollbar/css/perfect-scrollbar.css',
     'styles/**/*.css',
     'styles/importer.less'
 ];
-
 
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
