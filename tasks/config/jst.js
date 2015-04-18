@@ -36,7 +36,9 @@ module.exports = function(grunt) {
 			files: {
 				// e.g.
 				// 'relative/path/from/gruntfile/to/compiled/template/destination'  : ['relative/path/to/sourcefiles/**/*.html']
-				'.tmp/public/jst.js': require('../pipeline').templateFilesToInject
+				'.tmp/public/jst-welcome.js': require('../pipeline').templateFilesToInjectInWelcome,
+                '.tmp/public/jst-meteo.js': require('../pipeline').templateFilesToInjectInMeteo,
+                '.tmp/public/jst-administrator.js': require('../pipeline').templateFilesToInjectInAdministrator,
 			}
 		}
 	});

@@ -143,7 +143,10 @@ module.exports = function(grunt) {
 			files: {
 				'.tmp/public/index.html': ['.tmp/public/jst.js'],
 				'views/**/*.html': ['.tmp/public/jst.js'],
-				'views/**/*.ejs': ['.tmp/public/jst.js']
+                'views/layouts/welcome.ejs': ['.tmp/public/jst-welcome.js'],
+                'views/layouts/mind.ejs': ['.tmp/public/jst-meteo.js'],
+                'views/layouts/administrator.ejs': ['.tmp/public/jst-administrator.js']
+				//'views/**/*.ejs': ['.tmp/public/jst.js']
 			}
 		},
 
@@ -258,7 +261,10 @@ module.exports = function(grunt) {
 				appRoot: '.tmp/public'
 			},
 			files: {
-				'views/**/*.jade': ['.tmp/public/jst.js']
+              'views/layouts/welcome.jade': ['.tmp/public/jst-welcome.js'],
+              'views/layouts/mind.jade': ['.tmp/public/jst-meteo.js'],
+              'views/layouts/administrator.jade': ['.tmp/public/jst-administrator.js']
+			 //'views/**/*.jade': ['.tmp/public/jst.js']
 			}
 		}
 	});

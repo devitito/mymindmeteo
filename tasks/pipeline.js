@@ -75,8 +75,16 @@ var jsFilesToInject = [
 // with the linker, no problem-- you'll just want to make sure the precompiled
 // templates get spit out to the same file.  Be sure and check out `tasks/README.md`
 // for information on customizing and installing new tasks.
-var templateFilesToInject = [
-  'templates/**/*.html'
+var templateFilesToInjectInWelcome = [
+  'templates/welcome/**/*.html'
+];
+
+var templateFilesToInjectInMeteo = [
+  'templates/mindmeteo/**/*.html'
+];
+
+var templateFilesToInjectInAdministrator = [
+  'templates/administrator/**/*.html'
 ];
 
 
@@ -90,6 +98,12 @@ module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
 module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
-module.exports.templateFilesToInject = templateFilesToInject.map(function(path) {
+module.exports.templateFilesToInjectInWelcome = templateFilesToInjectInWelcome.map(function(path) {
+  return 'assets/' + path;
+});
+module.exports.templateFilesToInjectInMeteo = templateFilesToInjectInMeteo.map(function(path) {
+  return 'assets/' + path;
+});
+module.exports.templateFilesToInjectInAdministrator = templateFilesToInjectInAdministrator.map(function(path) {
   return 'assets/' + path;
 });
