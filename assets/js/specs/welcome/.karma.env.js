@@ -25,6 +25,6 @@ module.exports = function(environment) {
       'guest.js',
       'underscore.js'
     ], '../../modules/')
-    .add(['jst-welcome.js'], '../../../../.tmp/public/')
+    .add(['jst-welcome-test.js'], '.')
     .add(['app.js'], '../../welcome/');;
 };
