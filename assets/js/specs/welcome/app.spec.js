@@ -21,7 +21,6 @@ describe('The welcome Angular module', function() {
     }));
 
     describe("/", function() {
-      //We use a fake JST file; cf jst-welcome-test.js
       it('should be defined', function() {
         expect(this.location.path()).toBe( '' );
         //this.httpBackend.expectGET('/templates/welcome/partials/homepage.html').respond(200);
@@ -29,7 +28,8 @@ describe('The welcome Angular module', function() {
         this.rootScope.$digest();
         expect(this.location.path()).toBe( '/' );
         expect(this.route.current.controller).toBe('guestCtrl');
-        expect('homepage').toEqual(this.route.current.template());
+        //expect('homepage').toEqual(this.route.current.template());
+        expect(JST["assets/templates/welcome/partials/homepage.html"]()).toEqual(this.route.current.template());
       });
     });
 
@@ -41,7 +41,7 @@ describe('The welcome Angular module', function() {
         this.rootScope.$digest();
         expect(this.location.path()).toBe( '/register' );
         expect(this.route.current.controller).toBe('guestRegCtrl');
-        expect('register').toEqual(this.route.current.template());
+        expect(JST["assets/templates/welcome/partials/register.html"]()).toEqual(this.route.current.template());
       });
     });
 
@@ -53,7 +53,7 @@ describe('The welcome Angular module', function() {
         this.rootScope.$digest();
         expect(this.location.path()).toBe( '/session/new' );
         expect(this.route.current.controller).toBe('newSessionCtrl');
-        expect('signup').toEqual(this.route.current.template());
+        expect(JST["assets/templates/welcome/partials/signup.html"]()).toEqual(this.route.current.template());
       });
     });
   });
