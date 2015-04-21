@@ -7,5 +7,5 @@ Contact: the.devitito@gmail.com
 
 ![dashboard](https://devitito.github.com/mymindmeteo/images/mm-dashboard.png)
 * * *
-![questions](devitito.github.com/mymindmeteo/images/mm-questions.png)
+![questions](https://devitito.github.com/mymindmeteo/images/mm-questions.png)
 
