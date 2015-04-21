@@ -1,7 +1,7 @@
 Mind Meteo
 ===========
 
-Discover the meteo of your mind.
+Keep in touch with your friends without efforts thanks to the meteo of your mind.
 
 Contact: the.devitito@gmail.com
 
