@@ -1,7 +1,9 @@
 Mind Meteo
 ===========
 
-Keep in touch with your friends without efforts thanks to the meteo of your mind.
+What have you been doing lately?
+MindMeteo is a service that answer this important question for you and it saves you time when you want to write to the important persons of your life.
+Thanks to MindMeteo, even after a long day you'll write to your old friend living abroad, your mama, your colleagues will be in the loop too. And you'll show your love to your lover!
 
 Contact: the.devitito@gmail.com
 
