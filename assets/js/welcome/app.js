@@ -21,6 +21,7 @@ welcome.config(['$routeProvider', 'localStorageServiceProvider', '$provide', fun
 	});
 
   localStorageServiceProvider
+    .setStorageType('sessionStorage')
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
 

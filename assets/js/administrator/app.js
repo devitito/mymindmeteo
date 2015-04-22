@@ -176,6 +176,7 @@ administrator.config(['$routeProvider', 'localStorageServiceProvider', function(
   });
 
   localStorageServiceProvider
+    .setStorageType('sessionStorage')
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
 }]);

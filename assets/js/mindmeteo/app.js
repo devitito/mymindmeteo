@@ -85,6 +85,7 @@ mindmeteo.config(['$routeProvider', 'localStorageServiceProvider', '$provide', f
   });
 
   localStorageServiceProvider
+    .setStorageType('sessionStorage')
 	.setPrefix('mindmeteo')
 	.setNotify(true, true);
 
