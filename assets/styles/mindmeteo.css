@@ -265,10 +265,10 @@ div.container a.brand {
 }
 
 .intro {
-		display: table;
-    height: 100vh;
-    padding: 0 0 0 0;
-	}
+  display: table;
+  height: 100vh;
+  padding: 0 0 0 0;
+}
 
 .intro .intro-body {
     display: table-cell;
