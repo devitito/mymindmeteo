@@ -11,8 +11,14 @@
 
 module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+  //Redirect all http toward https
+  var express = require("express"),
+      app = express();
+
+  app.get('*', function(req,res) {
+    res.redirect('https://' + req.headers.host + req.url)
+  }).listen(80);
+
   ElasticService.connect().then(function() {
       cb()
   });
