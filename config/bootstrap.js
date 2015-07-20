@@ -11,13 +11,6 @@
 
 module.exports.bootstrap = function(cb) {
 
-  if (process.env.NODE_ENV !== 'development') {
-    //Redirect all http toward https
-    sails.hooks.http.app.get('*', function(req,res) {
-      res.redirect('https://' + req.headers.host + req.url)
-    }).listen(80);
-  }
-
   ElasticService.connect().then(function() {
       cb()
   });
