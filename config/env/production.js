@@ -29,7 +29,7 @@ module.exports = {
 
    ssl: {
      key: require('fs').readFileSync('/home/ubuntu/.ssl/mindmeteo.net.key'),
-     cert: require('fs').readFileSync('/home/ubuntu/.ssl/www.mindmeteo.net.crt'),
+     cert: require('fs').readFileSync('/home/ubuntu/.ssl/www.mindmeteo.net-unified.crt'),
      passphrase: require('fs').readFileSync('/home/ubuntu/.ssl/mindmeteo.net.passphrase').toString().trim()
    },
 
