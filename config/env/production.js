@@ -28,9 +28,9 @@ module.exports = {
    port: 443,
 
    ssl: {
-     key: require('fs').readFileSync('/home/ubuntu/.ssl/www.mindmeteo.net.key'),
+     key: require('fs').readFileSync('/home/ubuntu/.ssl/mindmeteo.net.key'),
      cert: require('fs').readFileSync('/home/ubuntu/.ssl/www.mindmeteo.net.crt'),
-     passphrase: require('fs').readFileSync('/home/ubuntu/.ssl/www.mindmeteo.net.passphrase').toString().trim()
+     passphrase: require('fs').readFileSync('/home/ubuntu/.ssl/mindmeteo.net.passphrase').toString().trim()
    },
 
   /***************************************************************************
