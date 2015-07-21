@@ -22,10 +22,16 @@ module.exports = {
    },
 
   /***************************************************************************
-   * Set the port in the production environment to 80                        *
+   * Set the port in the production environment to 443                        *
    ***************************************************************************/
 
-   port: 80,
+   port: 443,
+
+   ssl: {
+     key: require('fs').readFileSync('/home/ubuntu/.ssl/mindmeteo.net.key'),
+     cert: require('fs').readFileSync('/home/ubuntu/.ssl/www.mindmeteo.net.crt'),
+     passphrase: require('fs').readFileSync('/home/ubuntu/.ssl/mindmeteo.net.passphrase').toString().trim()
+   },
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
