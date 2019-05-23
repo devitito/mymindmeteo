@@ -1,0 +1,3 @@
+files:
+  - source: /config/locales/*.json
+    translation: '%original_path%'
